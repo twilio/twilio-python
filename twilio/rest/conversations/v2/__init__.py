@@ -34,7 +34,7 @@ class V2(Version):
         self._configurations: Optional[ConfigurationList] = None
         self._conversations: Optional[ConversationList] = None
         self._participants: Optional[ParticipantList] = None
-        
+
     @property
     def communications(self) -> CommunicationList:
         if self._communications is None:

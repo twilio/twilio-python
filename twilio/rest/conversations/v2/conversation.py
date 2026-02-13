@@ -12,8 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator, Protocol
 from twilio.base import deserialize, serialize, values
 from twilio.base.api_response import ApiResponse
@@ -24,247 +23,279 @@ from twilio.base.version import Version
 from twilio.base.token_pagination import TokenPagination
 
 
-
 class ResponseResource(Protocol):
-  pass
+    pass
 
-'''
+
+"""
 Nested response model for ConversationsV2CaptureRule
-'''
+"""
+
+
 class ConversationsV2CaptureRule:
-  def __init__(self,_from: str, to: str, metadata: Dict[str, str]):
-    self._from = _from
-    self.to = to
-    self.metadata = metadata
-    
+    def __init__(self, _from: str, to: str, metadata: Dict[str, str]):
+        self._from = _from
+        self.to = to
+        self.metadata = metadata
 
 
-'''
+"""
 Nested response model for ConversationsV2ChannelSetting
-'''
+"""
+
+
 class ConversationsV2ChannelSetting:
-  def __init__(self,status_timeouts: ConversationsV2StatusTimeouts, capture_rules: List[ConversationsV2CaptureRule]):
-    self.status_timeouts = status_timeouts
-    self.capture_rules = capture_rules
-    
+    def __init__(
+        self,
+        status_timeouts: ConversationsV2StatusTimeouts,
+        capture_rules: List[ConversationsV2CaptureRule],
+    ):
+        self.status_timeouts = status_timeouts
+        self.capture_rules = capture_rules
 
 
-'''
+"""
 Nested response model for ConversationsV2StatusCallbackConfig
-'''
+"""
+
+
 class ConversationsV2StatusCallbackConfig:
-  def __init__(self,url: str, method: str):
-    self.url = url
-    self.method = method
-    
+    def __init__(self, url: str, method: str):
+        self.url = url
+        self.method = method
 
 
-'''
+"""
 Nested response model for ConversationsV2StatusTimeouts
-'''
+"""
+
+
 class ConversationsV2StatusTimeouts:
-  def __init__(self,inactive: int, closed: int):
-    self.inactive = inactive
-    self.closed = closed
-    
+    def __init__(self, inactive: int, closed: int):
+        self.inactive = inactive
+        self.closed = closed
 
 
-'''
+"""
 Nested response model for CreateConversationWithConfigRequest
-'''
+"""
+
+
 class CreateConversationWithConfigRequest:
-  def __init__(self,configuration_id: str, name: str):
-    self.configuration_id = configuration_id
-    self.name = name
-    
+    def __init__(self, configuration_id: str, name: str):
+        self.configuration_id = configuration_id
+        self.name = name
 
 
-'''
+"""
 Nested response model for ListConversationByAccount200ResponseConversationsConfiguration
-'''
+"""
+
+
 class ListConversationByAccount200ResponseConversationsConfiguration:
-  def __init__(self,display_name: str, description: str, conversation_grouping_type: str, memory_store_id: str, channel_settings: Dict[str, ConversationsV2ChannelSetting], status_callbacks: List[ConversationsV2StatusCallbackConfig], intelligence_configuration_ids: List[str]):
-    self.display_name = display_name
-    self.description = description
-    self.conversation_grouping_type = conversation_grouping_type
-    self.memory_store_id = memory_store_id
-    self.channel_settings = channel_settings
-    self.status_callbacks = status_callbacks
-    self.intelligence_configuration_ids = intelligence_configuration_ids
-    
+    def __init__(
+        self,
+        display_name: str,
+        description: str,
+        conversation_grouping_type: str,
+        memory_store_id: str,
+        channel_settings: Dict[str, ConversationsV2ChannelSetting],
+        status_callbacks: List[ConversationsV2StatusCallbackConfig],
+        intelligence_configuration_ids: List[str],
+    ):
+        self.display_name = display_name
+        self.description = description
+        self.conversation_grouping_type = conversation_grouping_type
+        self.memory_store_id = memory_store_id
+        self.channel_settings = channel_settings
+        self.status_callbacks = status_callbacks
+        self.intelligence_configuration_ids = intelligence_configuration_ids
 
 
-'''
+"""
 Nested response model for UpdateConversationByIdRequest
-'''
+"""
+
+
 class UpdateConversationByIdRequest:
-  def __init__(self,name: str, status: "ConversationInstance.str", configuration: ConversationList.UpdateConversationByIdRequestConfiguration):
-    self.name = name
-    self.status = status
-    self.configuration = configuration
-    
+    def __init__(
+        self,
+        name: str,
+        status: "ConversationInstance.str",
+        configuration: ConversationList.UpdateConversationByIdRequestConfiguration,
+    ):
+        self.name = name
+        self.status = status
+        self.configuration = configuration
 
 
-'''
+"""
 Nested response model for UpdateConversationByIdRequestConfiguration
-'''
+"""
+
+
 class UpdateConversationByIdRequestConfiguration:
-  def __init__(self,intelligence_configuration_ids: List[str]):
-    self.intelligence_configuration_ids = intelligence_configuration_ids
-    
-
-
+    def __init__(self, intelligence_configuration_ids: List[str]):
+        self.intelligence_configuration_ids = intelligence_configuration_ids
 
 
 """
 Response model for ListConversationByAccount_200_response_conversations operations
 """
+
+
 class ListConversationByAccount_200_response_conversationsResource:
-  def __init__(self,id: str, accountId: str, configurationId: str, status: "ConversationInstance.str", name: str, createdAt: datetime, updatedAt: datetime, configuration: str):
-    """
-    Initialize the ListConversationByAccount_200_response_conversationsResource
-    :param id: Conversation ID.
-    :param accountId: Account ID.
-    :param configurationId: Configuration ID.
-    :param status: Conversation status.
-    :param name: Conversation name.
-    :param createdAt: Timestamp when this Conversation was created.
-    :param updatedAt: Timestamp when this Conversation was last updated.
-    :param configuration: 
-    
-    """
-    self.id = id
-    self.accountId = accountId
-    self.configurationId = configurationId
-    self.status = status
-    self.name = name
-    self.createdAt = createdAt
-    self.updatedAt = updatedAt
-    self.configuration = configuration
-    
+    def __init__(
+        self,
+        id: str,
+        accountId: str,
+        configurationId: str,
+        status: "ConversationInstance.str",
+        name: str,
+        createdAt: datetime,
+        updatedAt: datetime,
+        configuration: str,
+    ):
+        """
+        Initialize the ListConversationByAccount_200_response_conversationsResource
+        :param id: Conversation ID.
+        :param accountId: Account ID.
+        :param configurationId: Configuration ID.
+        :param status: Conversation status.
+        :param name: Conversation name.
+        :param createdAt: Timestamp when this Conversation was created.
+        :param updatedAt: Timestamp when this Conversation was last updated.
+        :param configuration:
+
+        """
+        self.id = id
+        self.accountId = accountId
+        self.configurationId = configurationId
+        self.status = status
+        self.name = name
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.configuration = configuration
+
 
 """
 Response model for ListConfiguration_400_response operations
 """
-class ListConfiguration_400_responseResource:
-  def __init__(self,code: int, message: str, more_info: str, status: int):
-    """
-    Initialize the ListConfiguration_400_responseResource
-    :param code: Twilio-specific error code
-    :param message: Error message
-    :param more_info: Link to Error Code References
-    :param status: HTTP response status code
-    
-    """
-    self.code = code
-    self.message = message
-    self.more_info = more_info
-    self.status = status
-    
 
+
+class ListConfiguration_400_responseResource:
+    def __init__(self, code: int, message: str, more_info: str, status: int):
+        """
+        Initialize the ListConfiguration_400_responseResource
+        :param code: Twilio-specific error code
+        :param message: Error message
+        :param more_info: Link to Error Code References
+        :param status: HTTP response status code
+
+        """
+        self.code = code
+        self.message = message
+        self.more_info = more_info
+        self.status = status
 
 
 class ConversationInstance(InstanceResource):
 
     class ConversationsV2CaptureRule(object):
         """
-            :ivar _from: The from address. Use `*` for wildcard to match any from address.
-            :ivar to: The to address. Use `*` for wildcard to match any to address.
-            :ivar metadata: Additional matching criteria for the capture rule. For voice calls, can include `callType` (`PSTN`, `SIP`, and similar).
+        :ivar _from: The from address. Use `*` for wildcard to match any from address.
+        :ivar to: The to address. Use `*` for wildcard to match any to address.
+        :ivar metadata: Additional matching criteria for the capture rule. For voice calls, can include `callType` (`PSTN`, `SIP`, and similar).
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self._from: Optional[str] = payload.get("from")
             self.to: Optional[str] = payload.get("to")
             self.metadata: Optional[Dict[str, str]] = payload.get("metadata")
 
         def to_dict(self):
             return {
-                
-                    "from": self._from,
-                    "to": self.to,
-                    "metadata": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class ConversationsV2StatusTimeouts(object):
         """
-            :ivar inactive: Inactivity timeout in minutes.
-            :ivar closed: Close timeout in minutes.
+        :ivar inactive: Inactivity timeout in minutes.
+        :ivar closed: Close timeout in minutes.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.inactive: Optional[int] = deserialize.integer(payload.get("inactive"))
             self.closed: Optional[int] = deserialize.integer(payload.get("closed"))
 
         def to_dict(self):
             return {
-                
-                    "inactive": self.inactive,
-                    "closed": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConversationWithConfigRequest(object):
         """
-            :ivar configuration_id: The ID of an existing configuration.
-            :ivar name: The name of the conversation.
+        :ivar configuration_id: The ID of an existing configuration.
+        :ivar name: The name of the conversation.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.configuration_id: Optional[str] = payload.get("configurationId")
             self.name: Optional[str] = payload.get("name")
 
         def to_dict(self):
             return {
-                
-                    "configurationId": self.configuration_id,
-                    "name": self.name,
+                "configurationId": self.configuration_id,
+                "name": self.name,
             }
 
     class UpdateConversationByIdRequest(object):
         """
-            :ivar name: The name of the Conversation.
-            :ivar status: The state of the Conversation.
-            :ivar configuration: 
+        :ivar name: The name of the Conversation.
+        :ivar status: The state of the Conversation.
+        :ivar configuration:
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.name: Optional[str] = payload.get("name")
             self.status: Optional["ConversationInstance.str"] = payload.get("status")
-            self.configuration: Optional[ConversationList.UpdateConversationByIdRequestConfiguration] = payload.get("configuration")
+            self.configuration: Optional[
+                ConversationList.UpdateConversationByIdRequestConfiguration
+            ] = payload.get("configuration")
 
         def to_dict(self):
             return {
-                
-                    "name": self.name,
-                    "status": self.status,
-                    "configuration": self.configuration.to_dict() if self.configuration is not None else None ,
+                "name": self.name,
+                "status": self.status,
+                "configuration": (
+                    self.configuration.to_dict()
+                    if self.configuration is not None
+                    else None
+                ),
             }
 
     class UpdateConversationByIdRequestConfiguration(object):
         """
-            :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
+        :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
-            self.intelligence_configuration_ids: Optional[List[str]] = payload.get("intelligenceConfigurationIds")
+            self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
+                "intelligenceConfigurationIds"
+            )
 
         def to_dict(self):
             return {
-                
-                    "intelligenceConfigurationIds": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
-
-
 
     """
     :ivar id: Conversation ID.
@@ -277,21 +308,25 @@ class ConversationInstance(InstanceResource):
     :ivar configuration: 
     """
 
-    def __init__(self, version: Version, payload:ResponseResource, sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: ResponseResource, sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.id: Optional[str] = payload.get("id")
         self.account_id: Optional[str] = payload.get("accountId")
         self.configuration_id: Optional[str] = payload.get("configurationId")
         self.status: Optional["ConversationInstance.str"] = payload.get("status")
         self.name: Optional[str] = payload.get("name")
-        self.created_at: Optional[datetime] = deserialize.iso8601_datetime(payload.get("createdAt"))
-        self.updated_at: Optional[datetime] = deserialize.iso8601_datetime(payload.get("updatedAt"))
+        self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("createdAt")
+        )
+        self.updated_at: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("updatedAt")
+        )
         self.configuration: Optional[str] = payload.get("configuration")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[ConversationContext] = None
@@ -305,22 +340,25 @@ class ConversationInstance(InstanceResource):
         :returns: ConversationContext for this ConversationInstance
         """
         if self._context is None:
-            self._context = ConversationContext(self._version, sid=self._solution['sid'],)
+            self._context = ConversationContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ConversationInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ConversationInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -329,7 +367,7 @@ class ConversationInstance(InstanceResource):
     def delete_with_http_info(self) -> ApiResponse:
         """
         Deletes the ConversationInstance with HTTP info
-        
+
 
         :returns: ApiResponse with success boolean, status code, and headers
         """
@@ -338,17 +376,16 @@ class ConversationInstance(InstanceResource):
     async def delete_with_http_info_async(self) -> ApiResponse:
         """
         Asynchronous coroutine that deletes the ConversationInstance with HTTP info
-        
+
 
         :returns: ApiResponse with success boolean, status code, and headers
         """
         return await self._proxy.delete_with_http_info_async()
-    
-    
+
     def fetch(self) -> "ConversationInstance":
         """
         Fetch the ConversationInstance
-        
+
 
         :returns: The fetched ConversationInstance
         """
@@ -357,7 +394,7 @@ class ConversationInstance(InstanceResource):
     async def fetch_async(self) -> "ConversationInstance":
         """
         Asynchronous coroutine to fetch the ConversationInstance
-        
+
 
         :returns: The fetched ConversationInstance
         """
@@ -366,7 +403,7 @@ class ConversationInstance(InstanceResource):
     def fetch_with_http_info(self) -> ApiResponse:
         """
         Fetch the ConversationInstance with HTTP info
-        
+
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -375,181 +412,203 @@ class ConversationInstance(InstanceResource):
     async def fetch_with_http_info_async(self) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the ConversationInstance with HTTP info
-        
+
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return await self._proxy.fetch_with_http_info_async()
-    
-    
-    def update(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> "ConversationInstance":
+
+    def update(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> "ConversationInstance":
         """
         Update the ConversationInstance
-        
+
         :param update_conversation_by_id_request: The conversation to update
 
         :returns: The updated ConversationInstance
         """
-        return self._proxy.update(update_conversation_by_id_request=update_conversation_by_id_request, )
+        return self._proxy.update(
+            update_conversation_by_id_request=update_conversation_by_id_request,
+        )
 
-    async def update_async(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> "ConversationInstance":
+    async def update_async(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> "ConversationInstance":
         """
         Asynchronous coroutine to update the ConversationInstance
-        
+
         :param update_conversation_by_id_request: The conversation to update
 
         :returns: The updated ConversationInstance
         """
-        return await self._proxy.update_async(update_conversation_by_id_request=update_conversation_by_id_request, )
+        return await self._proxy.update_async(
+            update_conversation_by_id_request=update_conversation_by_id_request,
+        )
 
-    def update_with_http_info(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> ApiResponse:
+    def update_with_http_info(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
         """
         Update the ConversationInstance with HTTP info
-        
+
         :param update_conversation_by_id_request: The conversation to update
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return self._proxy.update_with_http_info(update_conversation_by_id_request=update_conversation_by_id_request, )
+        return self._proxy.update_with_http_info(
+            update_conversation_by_id_request=update_conversation_by_id_request,
+        )
 
-    async def update_with_http_info_async(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> ApiResponse:
+    async def update_with_http_info_async(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to update the ConversationInstance with HTTP info
-        
+
         :param update_conversation_by_id_request: The conversation to update
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return await self._proxy.update_with_http_info_async(update_conversation_by_id_request=update_conversation_by_id_request, )
-    
+        return await self._proxy.update_with_http_info_async(
+            update_conversation_by_id_request=update_conversation_by_id_request,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V2.ConversationInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V2.ConversationInstance {}>".format(context)
+
 
 class ConversationContext(InstanceContext):
 
     class ConversationsV2CaptureRule(object):
         """
-            :ivar _from: The from address. Use `*` for wildcard to match any from address.
-            :ivar to: The to address. Use `*` for wildcard to match any to address.
-            :ivar metadata: Additional matching criteria for the capture rule. For voice calls, can include `callType` (`PSTN`, `SIP`, and similar).
+        :ivar _from: The from address. Use `*` for wildcard to match any from address.
+        :ivar to: The to address. Use `*` for wildcard to match any to address.
+        :ivar metadata: Additional matching criteria for the capture rule. For voice calls, can include `callType` (`PSTN`, `SIP`, and similar).
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self._from: Optional[str] = payload.get("from")
             self.to: Optional[str] = payload.get("to")
             self.metadata: Optional[Dict[str, str]] = payload.get("metadata")
 
         def to_dict(self):
             return {
-                
-                    "from": self._from,
-                    "to": self.to,
-                    "metadata": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class ConversationsV2StatusTimeouts(object):
         """
-            :ivar inactive: Inactivity timeout in minutes.
-            :ivar closed: Close timeout in minutes.
+        :ivar inactive: Inactivity timeout in minutes.
+        :ivar closed: Close timeout in minutes.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.inactive: Optional[int] = deserialize.integer(payload.get("inactive"))
             self.closed: Optional[int] = deserialize.integer(payload.get("closed"))
 
         def to_dict(self):
             return {
-                
-                    "inactive": self.inactive,
-                    "closed": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConversationWithConfigRequest(object):
         """
-            :ivar configuration_id: The ID of an existing configuration.
-            :ivar name: The name of the conversation.
+        :ivar configuration_id: The ID of an existing configuration.
+        :ivar name: The name of the conversation.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.configuration_id: Optional[str] = payload.get("configurationId")
             self.name: Optional[str] = payload.get("name")
 
         def to_dict(self):
             return {
-                
-                    "configurationId": self.configuration_id,
-                    "name": self.name,
+                "configurationId": self.configuration_id,
+                "name": self.name,
             }
 
     class UpdateConversationByIdRequest(object):
         """
-            :ivar name: The name of the Conversation.
-            :ivar status: The state of the Conversation.
-            :ivar configuration: 
+        :ivar name: The name of the Conversation.
+        :ivar status: The state of the Conversation.
+        :ivar configuration:
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.name: Optional[str] = payload.get("name")
             self.status: Optional["ConversationInstance.str"] = payload.get("status")
-            self.configuration: Optional[ConversationList.UpdateConversationByIdRequestConfiguration] = payload.get("configuration")
+            self.configuration: Optional[
+                ConversationList.UpdateConversationByIdRequestConfiguration
+            ] = payload.get("configuration")
 
         def to_dict(self):
             return {
-                
-                    "name": self.name,
-                    "status": self.status,
-                    "configuration": self.configuration.to_dict() if self.configuration is not None else None ,
+                "name": self.name,
+                "status": self.status,
+                "configuration": (
+                    self.configuration.to_dict()
+                    if self.configuration is not None
+                    else None
+                ),
             }
 
     class UpdateConversationByIdRequestConfiguration(object):
         """
-            :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
+        :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
-            self.intelligence_configuration_ids: Optional[List[str]] = payload.get("intelligenceConfigurationIds")
+            self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
+                "intelligenceConfigurationIds"
+            )
 
         def to_dict(self):
             return {
-                
-                    "intelligenceConfigurationIds": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
-
 
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ConversationContext
 
         :param version: Version that contains the resource
-        :param sid: 
+        :param sid:
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Conversations/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Conversations/{sid}".format(**self._solution)
+
     def _delete(self) -> tuple:
         """
         Internal helper for delete operation
@@ -558,20 +617,19 @@ class ConversationContext(InstanceContext):
             tuple: (success_boolean, status_code, headers)
         """
 
-        
         headers = values.of({})
-        
-        
-        
+
         headers["Accept"] = "application/json"
-        
-        return self._version.delete_with_response_info(method='DELETE', uri=self._uri, headers=headers)
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     def delete(self) -> bool:
         """
         Deletes the ConversationInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
         success, _, _ = self._delete()
@@ -581,7 +639,7 @@ class ConversationContext(InstanceContext):
         """
         Deletes the ConversationInstance and return response metadata
 
-        
+
         :returns: ApiResponse with success boolean, status code, and headers
         """
         success, status_code, headers = self._delete()
@@ -594,20 +652,20 @@ class ConversationContext(InstanceContext):
         Returns:
             tuple: (success_boolean, status_code, headers)
         """
-        
+
         headers = values.of({})
-        
-        
-        
+
         headers["Accept"] = "application/json"
-        
-        return await self._version.delete_with_response_info_async(method='DELETE', uri=self._uri, headers=headers)
+
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ConversationInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
         success, _, _ = await self._delete_async()
@@ -617,13 +675,12 @@ class ConversationContext(InstanceContext):
         """
         Asynchronous coroutine that deletes the ConversationInstance and return response metadata
 
-        
+
         :returns: ApiResponse with success boolean, status code, and headers
         """
         success, status_code, headers = await self._delete_async()
         return ApiResponse(data=success, status_code=status_code, headers=headers)
-    
-    
+
     def _fetch(self) -> tuple:
         """
         Internal helper for fetch operation
@@ -631,20 +688,19 @@ class ConversationContext(InstanceContext):
         Returns:
             tuple: (payload, status_code, headers)
         """
-        
 
         headers = values.of({})
-        
-        
-        
+
         headers["Accept"] = "application/json"
-        
-        return self._version.fetch_with_response_info(method='GET', uri=self._uri, headers=headers)
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
 
     def fetch(self) -> ConversationInstance:
         """
         Fetch the ConversationInstance
-        
+
 
         :returns: The fetched ConversationInstance
         """
@@ -652,14 +708,13 @@ class ConversationContext(InstanceContext):
         return ConversationInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     def fetch_with_http_info(self) -> ApiResponse:
         """
         Fetch the ConversationInstance and return response metadata
-        
+
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -667,8 +722,7 @@ class ConversationContext(InstanceContext):
         instance = ConversationInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -679,20 +733,19 @@ class ConversationContext(InstanceContext):
         Returns:
             tuple: (payload, status_code, headers)
         """
-        
 
         headers = values.of({})
-        
-        
-        
+
         headers["Accept"] = "application/json"
-        
-        return await self._version.fetch_with_response_info_async(method='GET', uri=self._uri, headers=headers)
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
     async def fetch_async(self) -> ConversationInstance:
         """
         Asynchronous coroutine to fetch the ConversationInstance
-        
+
 
         :returns: The fetched ConversationInstance
         """
@@ -700,14 +753,13 @@ class ConversationContext(InstanceContext):
         return ConversationInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the ConversationInstance and return response metadata
-        
+
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -715,13 +767,16 @@ class ConversationContext(InstanceContext):
         instance = ConversationInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
-    
-    
-    def _update(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> tuple:
+
+    def _update(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> tuple:
         """
         Internal helper for update operation
 
@@ -729,50 +784,62 @@ class ConversationContext(InstanceContext):
             tuple: (payload, status_code, headers)
         """
         data = update_conversation_by_id_request.to_dict()
-        
+
         headers = values.of({})
-        
-        
+
         headers["Content-Type"] = "application/json"
-        
-        
+
         headers["Accept"] = "application/json"
-        
 
-        return self._version.update_with_response_info(method='PUT', uri=self._uri, data=data, headers=headers)
+        return self._version.update_with_response_info(
+            method="PUT", uri=self._uri, data=data, headers=headers
+        )
 
-    def update(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> ConversationInstance:
+    def update(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> ConversationInstance:
         """
         Update the ConversationInstance
-        
+
         :param update_conversation_by_id_request: The conversation to update
 
         :returns: The updated ConversationInstance
         """
-        payload, _, _ = self._update(update_conversation_by_id_request=update_conversation_by_id_request)
-        return ConversationInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        payload, _, _ = self._update(
+            update_conversation_by_id_request=update_conversation_by_id_request
         )
+        return ConversationInstance(self._version, payload, sid=self._solution["sid"])
 
-    def update_with_http_info(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> ApiResponse:
+    def update_with_http_info(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
         """
         Update the ConversationInstance and return response metadata
-        
+
         :param update_conversation_by_id_request: The conversation to update
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._update(update_conversation_by_id_request=update_conversation_by_id_request)
+        payload, status_code, headers = self._update(
+            update_conversation_by_id_request=update_conversation_by_id_request
+        )
         instance = ConversationInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+            self._version, payload, sid=self._solution["sid"]
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _update_async(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> tuple:
+    async def _update_async(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> tuple:
         """
         Internal async helper for update operation
 
@@ -780,67 +847,64 @@ class ConversationContext(InstanceContext):
             tuple: (payload, status_code, headers)
         """
         data = update_conversation_by_id_request.to_dict()
-        
+
         headers = values.of({})
-        
-        
+
         headers["Content-Type"] = "application/json"
-        
-        
+
         headers["Accept"] = "application/json"
-        
 
-        return await self._version.update_with_response_info_async(method='PUT', uri=self._uri, data=data, headers=headers)
+        return await self._version.update_with_response_info_async(
+            method="PUT", uri=self._uri, data=data, headers=headers
+        )
 
-    async def update_async(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> ConversationInstance:
+    async def update_async(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> ConversationInstance:
         """
         Asynchronous coroutine to update the ConversationInstance
-        
+
         :param update_conversation_by_id_request: The conversation to update
 
         :returns: The updated ConversationInstance
         """
-        payload, _, _ = await self._update_async(update_conversation_by_id_request=update_conversation_by_id_request)
-        return ConversationInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        payload, _, _ = await self._update_async(
+            update_conversation_by_id_request=update_conversation_by_id_request
         )
+        return ConversationInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_with_http_info_async(self, update_conversation_by_id_request: Union[UpdateConversationByIdRequest, object]=values.unset) -> ApiResponse:
+    async def update_with_http_info_async(
+        self,
+        update_conversation_by_id_request: Union[
+            UpdateConversationByIdRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to update the ConversationInstance and return response metadata
-        
+
         :param update_conversation_by_id_request: The conversation to update
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._update_async(update_conversation_by_id_request=update_conversation_by_id_request)
+        payload, status_code, headers = await self._update_async(
+            update_conversation_by_id_request=update_conversation_by_id_request
+        )
         instance = ConversationInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+            self._version, payload, sid=self._solution["sid"]
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V2.ConversationContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V2.ConversationContext {}>".format(context)
 
 
 class ConversationPage(TokenPagination):
@@ -862,128 +926,121 @@ class ConversationPage(TokenPagination):
         return "<Twilio.Conversations.V2.ConversationPage>"
 
 
-
-
-
 class ConversationList(ListResource):
-    
+
     class ConversationsV2CaptureRule(object):
         """
-            :ivar _from: The from address. Use `*` for wildcard to match any from address.
-            :ivar to: The to address. Use `*` for wildcard to match any to address.
-            :ivar metadata: Additional matching criteria for the capture rule. For voice calls, can include `callType` (`PSTN`, `SIP`, and similar).
+        :ivar _from: The from address. Use `*` for wildcard to match any from address.
+        :ivar to: The to address. Use `*` for wildcard to match any to address.
+        :ivar metadata: Additional matching criteria for the capture rule. For voice calls, can include `callType` (`PSTN`, `SIP`, and similar).
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self._from: Optional[str] = payload.get("from")
             self.to: Optional[str] = payload.get("to")
             self.metadata: Optional[Dict[str, str]] = payload.get("metadata")
 
         def to_dict(self):
             return {
-                
-                    "from": self._from,
-                    "to": self.to,
-                    "metadata": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class ConversationsV2StatusTimeouts(object):
         """
-            :ivar inactive: Inactivity timeout in minutes.
-            :ivar closed: Close timeout in minutes.
+        :ivar inactive: Inactivity timeout in minutes.
+        :ivar closed: Close timeout in minutes.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.inactive: Optional[int] = deserialize.integer(payload.get("inactive"))
             self.closed: Optional[int] = deserialize.integer(payload.get("closed"))
 
         def to_dict(self):
             return {
-                
-                    "inactive": self.inactive,
-                    "closed": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConversationWithConfigRequest(object):
         """
-            :ivar configuration_id: The ID of an existing configuration.
-            :ivar name: The name of the conversation.
+        :ivar configuration_id: The ID of an existing configuration.
+        :ivar name: The name of the conversation.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.configuration_id: Optional[str] = payload.get("configurationId")
             self.name: Optional[str] = payload.get("name")
 
         def to_dict(self):
             return {
-                
-                    "configurationId": self.configuration_id,
-                    "name": self.name,
+                "configurationId": self.configuration_id,
+                "name": self.name,
             }
 
     class UpdateConversationByIdRequest(object):
         """
-            :ivar name: The name of the Conversation.
-            :ivar status: The state of the Conversation.
-            :ivar configuration: 
+        :ivar name: The name of the Conversation.
+        :ivar status: The state of the Conversation.
+        :ivar configuration:
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.name: Optional[str] = payload.get("name")
             self.status: Optional["ConversationInstance.str"] = payload.get("status")
-            self.configuration: Optional[ConversationList.UpdateConversationByIdRequestConfiguration] = payload.get("configuration")
+            self.configuration: Optional[
+                ConversationList.UpdateConversationByIdRequestConfiguration
+            ] = payload.get("configuration")
 
         def to_dict(self):
             return {
-                
-                    "name": self.name,
-                    "status": self.status,
-                    "configuration": self.configuration.to_dict() if self.configuration is not None else None ,
+                "name": self.name,
+                "status": self.status,
+                "configuration": (
+                    self.configuration.to_dict()
+                    if self.configuration is not None
+                    else None
+                ),
             }
 
     class UpdateConversationByIdRequestConfiguration(object):
         """
-            :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
+        :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
-            self.intelligence_configuration_ids: Optional[List[str]] = payload.get("intelligenceConfigurationIds")
+            self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
+                "intelligenceConfigurationIds"
+            )
 
         def to_dict(self):
             return {
-                
-                    "intelligenceConfigurationIds": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
-
 
     def __init__(self, version: Version):
         """
         Initialize the ConversationList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Conversations'
-        
-        
-    
-    
-    
-    
-    def _create(self, create_conversation_with_config_request: Union[CreateConversationWithConfigRequest, object]=values.unset) -> tuple:
+        self._uri = "/Conversations"
+
+    def _create(
+        self,
+        create_conversation_with_config_request: Union[
+            CreateConversationWithConfigRequest, object
+        ] = values.unset,
+    ) -> tuple:
         """
         Internal helper for create operation
 
@@ -991,43 +1048,60 @@ class ConversationList(ListResource):
             tuple: (payload, status_code, headers)
         """
         data = create_conversation_with_config_request.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        headers["Content-Type"] = "application/json"
-        
-        
-        headers["Accept"] = "application/json"
-        
-        
-        return self._version.create_with_response_info(method='POST', uri=self._uri, data=data, headers=headers)
 
-    def create(self, create_conversation_with_config_request: Union[CreateConversationWithConfigRequest, object]=values.unset) -> ConversationInstance:
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+    def create(
+        self,
+        create_conversation_with_config_request: Union[
+            CreateConversationWithConfigRequest, object
+        ] = values.unset,
+    ) -> ConversationInstance:
         """
         Create the ConversationInstance
 
-        :param create_conversation_with_config_request: 
-        
+        :param create_conversation_with_config_request:
+
         :returns: The created ConversationInstance
         """
-        payload, _, _ = self._create(create_conversation_with_config_request=create_conversation_with_config_request)
+        payload, _, _ = self._create(
+            create_conversation_with_config_request=create_conversation_with_config_request
+        )
         return ConversationInstance(self._version, payload)
 
-    def create_with_http_info(self, create_conversation_with_config_request: Union[CreateConversationWithConfigRequest, object]=values.unset) -> ApiResponse:
+    def create_with_http_info(
+        self,
+        create_conversation_with_config_request: Union[
+            CreateConversationWithConfigRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
         """
         Create the ConversationInstance and return response metadata
 
-        :param create_conversation_with_config_request: 
-        
+        :param create_conversation_with_config_request:
+
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._create(create_conversation_with_config_request=create_conversation_with_config_request)
+        payload, status_code, headers = self._create(
+            create_conversation_with_config_request=create_conversation_with_config_request
+        )
         instance = ConversationInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _create_async(self, create_conversation_with_config_request: Union[CreateConversationWithConfigRequest, object]=values.unset) -> tuple:
+    async def _create_async(
+        self,
+        create_conversation_with_config_request: Union[
+            CreateConversationWithConfigRequest, object
+        ] = values.unset,
+    ) -> tuple:
         """
         Internal async helper for create operation
 
@@ -1035,48 +1109,59 @@ class ConversationList(ListResource):
             tuple: (payload, status_code, headers)
         """
         data = create_conversation_with_config_request.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        headers["Content-Type"] = "application/json"
-        
-        
-        headers["Accept"] = "application/json"
-        
-        
-        return await self._version.create_with_response_info_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-    async def create_async(self, create_conversation_with_config_request: Union[CreateConversationWithConfigRequest, object]=values.unset) -> ConversationInstance:
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+    async def create_async(
+        self,
+        create_conversation_with_config_request: Union[
+            CreateConversationWithConfigRequest, object
+        ] = values.unset,
+    ) -> ConversationInstance:
         """
         Asynchronously create the ConversationInstance
 
-        :param create_conversation_with_config_request: 
-        
+        :param create_conversation_with_config_request:
+
         :returns: The created ConversationInstance
         """
-        payload, _, _ = await self._create_async(create_conversation_with_config_request=create_conversation_with_config_request)
+        payload, _, _ = await self._create_async(
+            create_conversation_with_config_request=create_conversation_with_config_request
+        )
         return ConversationInstance(self._version, payload)
 
-    async def create_with_http_info_async(self, create_conversation_with_config_request: Union[CreateConversationWithConfigRequest, object]=values.unset) -> ApiResponse:
+    async def create_with_http_info_async(
+        self,
+        create_conversation_with_config_request: Union[
+            CreateConversationWithConfigRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
         """
         Asynchronously create the ConversationInstance and return response metadata
 
-        :param create_conversation_with_config_request: 
-        
+        :param create_conversation_with_config_request:
+
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._create_async(create_conversation_with_config_request=create_conversation_with_config_request)
+        payload, status_code, headers = await self._create_async(
+            create_conversation_with_config_request=create_conversation_with_config_request
+        )
         instance = ConversationInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
-    
-    
-    def stream(self, 
+
+    def stream(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1086,10 +1171,10 @@ class ConversationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param List[str] status: Filters for specific statuses
         :param str channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param str page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -1106,16 +1191,16 @@ class ConversationList(ListResource):
             channel_id=channel_id,
             addresses=addresses,
             page_token=page_token,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1125,10 +1210,10 @@ class ConversationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param List[str] status: Filters for specific statuses
         :param str channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param str page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -1145,16 +1230,16 @@ class ConversationList(ListResource):
             channel_id=channel_id,
             addresses=addresses,
             page_token=page_token,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def stream_with_http_info(self, 
+    def stream_with_http_info(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1162,10 +1247,10 @@ class ConversationList(ListResource):
         """
         Streams ConversationInstance and returns headers from first page
 
-        
+
         :param List[str] status: Filters for specific statuses
         :param str channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param str page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -1182,17 +1267,17 @@ class ConversationList(ListResource):
             channel_id=channel_id,
             addresses=addresses,
             page_token=page_token,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        generator = self._version.stream(page_response.data, limits['limit'])
+        generator = self._version.stream(page_response.data, limits["limit"])
         return (generator, page_response.status_code, page_response.headers)
 
-    async def stream_with_http_info_async(self, 
+    async def stream_with_http_info_async(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1200,10 +1285,10 @@ class ConversationList(ListResource):
         """
         Asynchronously streams ConversationInstance and returns headers from first page
 
-        
+
         :param List[str] status: Filters for specific statuses
         :param str channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param str page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -1220,17 +1305,17 @@ class ConversationList(ListResource):
             channel_id=channel_id,
             addresses=addresses,
             page_token=page_token,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        generator = self._version.stream_async(page_response.data, limits['limit'])
+        generator = self._version.stream_async(page_response.data, limits["limit"])
         return (generator, page_response.status_code, page_response.headers)
 
-    def list(self, 
+    def list(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1239,10 +1324,10 @@ class ConversationList(ListResource):
         Lists ConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param List[str] status: Filters for specific statuses
         :param str channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param str page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -1253,20 +1338,22 @@ class ConversationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            status=status,
-            channel_id=channel_id,
-            addresses=addresses,
-            page_token=page_token,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                status=status,
+                channel_id=channel_id,
+                addresses=addresses,
+                page_token=page_token,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1275,10 +1362,10 @@ class ConversationList(ListResource):
         Asynchronously lists ConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param List[str] status: Filters for specific statuses
         :param str channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param str page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -1289,20 +1376,23 @@ class ConversationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            status=status,
-            channel_id=channel_id,
-            addresses=addresses,
-            page_token=page_token,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                status=status,
+                channel_id=channel_id,
+                addresses=addresses,
+                page_token=page_token,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def list_with_http_info(self, 
+    def list_with_http_info(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1310,10 +1400,10 @@ class ConversationList(ListResource):
         """
         Lists ConversationInstance and returns headers from first page
 
-        
+
         :param List[str] status: Filters for specific statuses
         :param str channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param str page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -1335,11 +1425,11 @@ class ConversationList(ListResource):
         items = list(generator)
         return ApiResponse(data=items, status_code=status_code, headers=headers)
 
-    async def list_with_http_info_async(self, 
+    async def list_with_http_info_async(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1347,10 +1437,10 @@ class ConversationList(ListResource):
         """
         Asynchronously lists ConversationInstance and returns headers from first page
 
-        
+
         :param List[str] status: Filters for specific statuses
         :param str channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param List[str] addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param str page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -1372,86 +1462,87 @@ class ConversationList(ListResource):
         items = [record async for record in generator]
         return ApiResponse(data=items, status_code=status_code, headers=headers)
 
-    def page(self, 
-      status: Union[List[str], object] = values.unset,
-      channel_id: Union[str, object] = values.unset,
-      addresses: Union[List[str], object] = values.unset,
-      page_size: Union[int, object] = values.unset,
-      page_token: Union[str, object] = values.unset,
+    def page(
+        self,
+        status: Union[List[str], object] = values.unset,
+        channel_id: Union[str, object] = values.unset,
+        addresses: Union[List[str], object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
     ) -> ConversationPage:
         """
         Retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
-        
+
         :param status: Filters for specific statuses
         :param channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param page_size: Maximum number of items to return in a single response
         :param page_token: A URL-safe, base64-encoded token representing the page of results to return
         :returns: Page of ConversationInstance
         """
-        data = values.of({ 
-            'status': serialize.map(status, lambda e: e),
-            'channelId': channel_id,
-            'addresses': serialize.map(addresses, lambda e: e),
-            'pageSize': page_size,
-            'pageToken': page_token,
-        })
+        data = values.of(
+            {
+                "status": serialize.map(status, lambda e: e),
+                "channelId": channel_id,
+                "addresses": serialize.map(addresses, lambda e: e),
+                "pageSize": page_size,
+                "pageToken": page_token,
+            }
+        )
 
-        headers = values.of({
-        'Content-Type': 'application/x-www-form-urlencoded'
-        })
-        
-        
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Accept"] = "application/json"
-        
 
-        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers)
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ConversationPage(self._version, response, uri=self._uri, params=data)
 
-    async def page_async(self, 
-      status: Union[List[str], object] = values.unset,
-      channel_id: Union[str, object] = values.unset,
-      addresses: Union[List[str], object] = values.unset,
-      page_size: Union[int, object] = values.unset,
-      page_token: Union[str, object] = values.unset,
+    async def page_async(
+        self,
+        status: Union[List[str], object] = values.unset,
+        channel_id: Union[str, object] = values.unset,
+        addresses: Union[List[str], object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
     ) -> ConversationPage:
         """
         Asynchronously retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
-        
+
         :param status: Filters for specific statuses
         :param channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param page_size: Maximum number of items to return in a single response
         :param page_token: A URL-safe, base64-encoded token representing the page of results to return
         :returns: Page of ConversationInstance
         """
-        data = values.of({ 
-            'status': serialize.map(status, lambda e: e),
-            'channelId': channel_id,
-            'addresses': serialize.map(addresses, lambda e: e),
-            'pageSize': page_size,
-            'pageToken': page_token,
-        })
+        data = values.of(
+            {
+                "status": serialize.map(status, lambda e: e),
+                "channelId": channel_id,
+                "addresses": serialize.map(addresses, lambda e: e),
+                "pageSize": page_size,
+                "pageToken": page_token,
+            }
+        )
 
-        headers = values.of({
-        'Content-Type': 'application/x-www-form-urlencoded'
-        })
-        
-        
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Accept"] = "application/json"
-        
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data, headers=headers)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ConversationPage(self._version, response, uri=self._uri, params=data)
 
-    def page_with_http_info(self, 
+    def page_with_http_info(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1459,10 +1550,10 @@ class ConversationList(ListResource):
         """
         Retrieve a single page with response metadata
 
-        
+
         :param status: Filters for specific statuses
         :param channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -1470,33 +1561,33 @@ class ConversationList(ListResource):
 
         :returns: ApiResponse with ConversationPage, status code, and headers
         """
-        data = values.of({ 
-            'status': serialize.map(status, lambda e: e),
-            'channelId': channel_id,
-            'addresses': serialize.map(addresses, lambda e: e),
-            'pageToken': page_token,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "status": serialize.map(status, lambda e: e),
+                "channelId": channel_id,
+                "addresses": serialize.map(addresses, lambda e: e),
+                "pageToken": page_token,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        headers = values.of({
-        'Content-Type': 'application/x-www-form-urlencoded'
-        })
-        
-        
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Accept"] = "application/json"
-        
 
-        response, status_code, response_headers = self._version.page_with_response_info(method='GET', uri=self._uri, params=data, headers=headers)
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         page = ConversationPage(self._version, response, uri=self._uri)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
-    async def page_with_http_info_async(self, 
+    async def page_with_http_info_async(
+        self,
         status: Union[List[str], object] = values.unset,
         channel_id: Union[str, object] = values.unset,
         addresses: Union[List[str], object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -1505,10 +1596,10 @@ class ConversationList(ListResource):
         """
         Asynchronously retrieve a single page with response metadata
 
-        
+
         :param status: Filters for specific statuses
         :param channel_id: The resource identifier (such as callSid or messageSid) to filter conversations.
-        :param addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40'). 
+        :param addresses: Filter Conversations by Participant addresses. Requires at least 2 addresses. Returns Conversations across all channels for the specified address pair. Must be URL-encoded ('+' becomes '%2B', '@' becomes '%40').
         :param page_token: A URL-safe, base64-encoded token representing the page of results to return
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -1516,25 +1607,27 @@ class ConversationList(ListResource):
 
         :returns: ApiResponse with ConversationPage, status code, and headers
         """
-        data = values.of({ 
-            'status': serialize.map(status, lambda e: e),
-            'channelId': channel_id,
-            'addresses': serialize.map(addresses, lambda e: e),
-            'pageToken': page_token,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "status": serialize.map(status, lambda e: e),
+                "channelId": channel_id,
+                "addresses": serialize.map(addresses, lambda e: e),
+                "pageToken": page_token,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        headers = values.of({
-        'Content-Type': 'application/x-www-form-urlencoded'
-        })
-        
-        
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Accept"] = "application/json"
-        
 
-        response, status_code, response_headers = await self._version.page_with_response_info_async(method='GET', uri=self._uri, params=data, headers=headers)
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
         page = ConversationPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -1547,10 +1640,7 @@ class ConversationList(ListResource):
 
         :returns: Page of ConversationInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ConversationPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> ConversationPage:
@@ -1562,27 +1652,22 @@ class ConversationList(ListResource):
 
         :returns: Page of ConversationInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConversationPage(self._version, response)
-
-
 
     def get(self, sid: str) -> ConversationContext:
         """
         Constructs a ConversationContext
-        
-        :param sid: 
+
+        :param sid:
         """
         return ConversationContext(self._version, sid=sid)
 
     def __call__(self, sid: str) -> ConversationContext:
         """
         Constructs a ConversationContext
-        
-        :param sid: 
+
+        :param sid:
         """
         return ConversationContext(self._version, sid=sid)
 
@@ -1592,5 +1677,4 @@ class ConversationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Conversations.V2.ConversationList>'
-
+        return "<Twilio.Conversations.V2.ConversationList>"
