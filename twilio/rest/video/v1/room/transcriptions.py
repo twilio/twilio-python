@@ -134,59 +134,75 @@ class TranscriptionsInstance(InstanceResource):
         return await self._proxy.fetch_with_http_info_async()
 
     def update(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> "TranscriptionsInstance":
         """
         Update the TranscriptionsInstance
 
         :param status:
+        :param configuration: A collection of properties that describe transcription behaviour.
 
         :returns: The updated TranscriptionsInstance
         """
         return self._proxy.update(
             status=status,
+            configuration=configuration,
         )
 
     async def update_async(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> "TranscriptionsInstance":
         """
         Asynchronous coroutine to update the TranscriptionsInstance
 
         :param status:
+        :param configuration: A collection of properties that describe transcription behaviour.
 
         :returns: The updated TranscriptionsInstance
         """
         return await self._proxy.update_async(
             status=status,
+            configuration=configuration,
         )
 
     def update_with_http_info(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the TranscriptionsInstance with HTTP info
 
         :param status:
+        :param configuration: A collection of properties that describe transcription behaviour.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return self._proxy.update_with_http_info(
             status=status,
+            configuration=configuration,
         )
 
     async def update_with_http_info_async(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the TranscriptionsInstance with HTTP info
 
         :param status:
+        :param configuration: A collection of properties that describe transcription behaviour.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return await self._proxy.update_with_http_info_async(
             status=status,
+            configuration=configuration,
         )
 
     def __repr__(self) -> str:
@@ -313,7 +329,9 @@ class TranscriptionsContext(InstanceContext):
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def _update(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for update operation
@@ -325,6 +343,7 @@ class TranscriptionsContext(InstanceContext):
         data = values.of(
             {
                 "Status": status,
+                "Configuration": serialize.object(configuration),
             }
         )
         headers = values.of({})
@@ -338,16 +357,19 @@ class TranscriptionsContext(InstanceContext):
         )
 
     def update(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> TranscriptionsInstance:
         """
         Update the TranscriptionsInstance
 
         :param status:
+        :param configuration: A collection of properties that describe transcription behaviour.
 
         :returns: The updated TranscriptionsInstance
         """
-        payload, _, _ = self._update(status=status)
+        payload, _, _ = self._update(status=status, configuration=configuration)
         return TranscriptionsInstance(
             self._version,
             payload,
@@ -356,16 +378,21 @@ class TranscriptionsContext(InstanceContext):
         )
 
     def update_with_http_info(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the TranscriptionsInstance and return response metadata
 
         :param status:
+        :param configuration: A collection of properties that describe transcription behaviour.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._update(status=status)
+        payload, status_code, headers = self._update(
+            status=status, configuration=configuration
+        )
         instance = TranscriptionsInstance(
             self._version,
             payload,
@@ -375,7 +402,9 @@ class TranscriptionsContext(InstanceContext):
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     async def _update_async(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -387,6 +416,7 @@ class TranscriptionsContext(InstanceContext):
         data = values.of(
             {
                 "Status": status,
+                "Configuration": serialize.object(configuration),
             }
         )
         headers = values.of({})
@@ -400,16 +430,21 @@ class TranscriptionsContext(InstanceContext):
         )
 
     async def update_async(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> TranscriptionsInstance:
         """
         Asynchronous coroutine to update the TranscriptionsInstance
 
         :param status:
+        :param configuration: A collection of properties that describe transcription behaviour.
 
         :returns: The updated TranscriptionsInstance
         """
-        payload, _, _ = await self._update_async(status=status)
+        payload, _, _ = await self._update_async(
+            status=status, configuration=configuration
+        )
         return TranscriptionsInstance(
             self._version,
             payload,
@@ -418,16 +453,21 @@ class TranscriptionsContext(InstanceContext):
         )
 
     async def update_with_http_info_async(
-        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+        self,
+        status: Union["TranscriptionsInstance.Status", object] = values.unset,
+        configuration: Union[object, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the TranscriptionsInstance and return response metadata
 
         :param status:
+        :param configuration: A collection of properties that describe transcription behaviour.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._update_async(status=status)
+        payload, status_code, headers = await self._update_async(
+            status=status, configuration=configuration
+        )
         instance = TranscriptionsInstance(
             self._version,
             payload,

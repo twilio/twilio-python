@@ -217,7 +217,7 @@ class CreateFlexInstanceContext(InstanceContext):
         """
         super().__init__(version)
 
-        self._uri = "/instances"
+        self._uri = "/Instances"
 
     def _create(
         self,

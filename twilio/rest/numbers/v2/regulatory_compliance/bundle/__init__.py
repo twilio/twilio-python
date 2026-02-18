@@ -991,10 +991,12 @@ class BundleList(ListResource):
     def stream(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1011,10 +1013,12 @@ class BundleList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param str end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1033,10 +1037,12 @@ class BundleList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
             status=status,
+            bundle_sids=bundle_sids,
             friendly_name=friendly_name,
             regulation_sid=regulation_sid,
             iso_country=iso_country,
             number_type=number_type,
+            end_user_type=end_user_type,
             has_valid_until_date=has_valid_until_date,
             sort_by=sort_by,
             sort_direction=sort_direction,
@@ -1051,10 +1057,12 @@ class BundleList(ListResource):
     async def stream_async(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1071,10 +1079,12 @@ class BundleList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param str end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1093,10 +1103,12 @@ class BundleList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
             status=status,
+            bundle_sids=bundle_sids,
             friendly_name=friendly_name,
             regulation_sid=regulation_sid,
             iso_country=iso_country,
             number_type=number_type,
+            end_user_type=end_user_type,
             has_valid_until_date=has_valid_until_date,
             sort_by=sort_by,
             sort_direction=sort_direction,
@@ -1111,10 +1123,12 @@ class BundleList(ListResource):
     def stream_with_http_info(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1129,10 +1143,12 @@ class BundleList(ListResource):
 
 
         :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param str end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1151,10 +1167,12 @@ class BundleList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         page_response = self.page_with_http_info(
             status=status,
+            bundle_sids=bundle_sids,
             friendly_name=friendly_name,
             regulation_sid=regulation_sid,
             iso_country=iso_country,
             number_type=number_type,
+            end_user_type=end_user_type,
             has_valid_until_date=has_valid_until_date,
             sort_by=sort_by,
             sort_direction=sort_direction,
@@ -1170,10 +1188,12 @@ class BundleList(ListResource):
     async def stream_with_http_info_async(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1188,10 +1208,12 @@ class BundleList(ListResource):
 
 
         :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param str end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1210,10 +1232,12 @@ class BundleList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         page_response = await self.page_with_http_info_async(
             status=status,
+            bundle_sids=bundle_sids,
             friendly_name=friendly_name,
             regulation_sid=regulation_sid,
             iso_country=iso_country,
             number_type=number_type,
+            end_user_type=end_user_type,
             has_valid_until_date=has_valid_until_date,
             sort_by=sort_by,
             sort_direction=sort_direction,
@@ -1229,10 +1253,12 @@ class BundleList(ListResource):
     def list(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1248,10 +1274,12 @@ class BundleList(ListResource):
         memory before returning.
 
         :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param str end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1270,10 +1298,12 @@ class BundleList(ListResource):
         return list(
             self.stream(
                 status=status,
+                bundle_sids=bundle_sids,
                 friendly_name=friendly_name,
                 regulation_sid=regulation_sid,
                 iso_country=iso_country,
                 number_type=number_type,
+                end_user_type=end_user_type,
                 has_valid_until_date=has_valid_until_date,
                 sort_by=sort_by,
                 sort_direction=sort_direction,
@@ -1288,10 +1318,12 @@ class BundleList(ListResource):
     async def list_async(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1307,10 +1339,12 @@ class BundleList(ListResource):
         memory before returning.
 
         :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param str end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1330,10 +1364,12 @@ class BundleList(ListResource):
             record
             async for record in await self.stream_async(
                 status=status,
+                bundle_sids=bundle_sids,
                 friendly_name=friendly_name,
                 regulation_sid=regulation_sid,
                 iso_country=iso_country,
                 number_type=number_type,
+                end_user_type=end_user_type,
                 has_valid_until_date=has_valid_until_date,
                 sort_by=sort_by,
                 sort_direction=sort_direction,
@@ -1348,10 +1384,12 @@ class BundleList(ListResource):
     def list_with_http_info(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1366,10 +1404,12 @@ class BundleList(ListResource):
 
 
         :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param str end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1387,10 +1427,12 @@ class BundleList(ListResource):
         """
         generator, status_code, headers = self.stream_with_http_info(
             status=status,
+            bundle_sids=bundle_sids,
             friendly_name=friendly_name,
             regulation_sid=regulation_sid,
             iso_country=iso_country,
             number_type=number_type,
+            end_user_type=end_user_type,
             has_valid_until_date=has_valid_until_date,
             sort_by=sort_by,
             sort_direction=sort_direction,
@@ -1406,10 +1448,12 @@ class BundleList(ListResource):
     async def list_with_http_info_async(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1424,10 +1468,12 @@ class BundleList(ListResource):
 
 
         :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param str end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1445,10 +1491,12 @@ class BundleList(ListResource):
         """
         generator, status_code, headers = await self.stream_with_http_info_async(
             status=status,
+            bundle_sids=bundle_sids,
             friendly_name=friendly_name,
             regulation_sid=regulation_sid,
             iso_country=iso_country,
             number_type=number_type,
+            end_user_type=end_user_type,
             has_valid_until_date=has_valid_until_date,
             sort_by=sort_by,
             sort_direction=sort_direction,
@@ -1464,10 +1512,12 @@ class BundleList(ListResource):
     def page(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1483,10 +1533,12 @@ class BundleList(ListResource):
         Request is executed immediately
 
         :param status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1502,10 +1554,12 @@ class BundleList(ListResource):
         data = values.of(
             {
                 "Status": status,
+                "BundleSids": bundle_sids,
                 "FriendlyName": friendly_name,
                 "RegulationSid": regulation_sid,
                 "IsoCountry": iso_country,
                 "NumberType": number_type,
+                "EndUserType": end_user_type,
                 "HasValidUntilDate": serialize.boolean_to_string(has_valid_until_date),
                 "SortBy": sort_by,
                 "SortDirection": sort_direction,
@@ -1530,10 +1584,12 @@ class BundleList(ListResource):
     async def page_async(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1549,10 +1605,12 @@ class BundleList(ListResource):
         Request is executed immediately
 
         :param status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1568,10 +1626,12 @@ class BundleList(ListResource):
         data = values.of(
             {
                 "Status": status,
+                "BundleSids": bundle_sids,
                 "FriendlyName": friendly_name,
                 "RegulationSid": regulation_sid,
                 "IsoCountry": iso_country,
                 "NumberType": number_type,
+                "EndUserType": end_user_type,
                 "HasValidUntilDate": serialize.boolean_to_string(has_valid_until_date),
                 "SortBy": sort_by,
                 "SortDirection": sort_direction,
@@ -1596,10 +1656,12 @@ class BundleList(ListResource):
     def page_with_http_info(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1615,10 +1677,12 @@ class BundleList(ListResource):
 
 
         :param status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1634,10 +1698,12 @@ class BundleList(ListResource):
         data = values.of(
             {
                 "Status": status,
+                "BundleSids": bundle_sids,
                 "FriendlyName": friendly_name,
                 "RegulationSid": regulation_sid,
                 "IsoCountry": iso_country,
                 "NumberType": number_type,
+                "EndUserType": end_user_type,
                 "HasValidUntilDate": serialize.boolean_to_string(has_valid_until_date),
                 "SortBy": sort_by,
                 "SortDirection": sort_direction,
@@ -1663,10 +1729,12 @@ class BundleList(ListResource):
     async def page_with_http_info_async(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
+        bundle_sids: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         regulation_sid: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        end_user_type: Union[str, object] = values.unset,
         has_valid_until_date: Union[bool, object] = values.unset,
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
@@ -1682,10 +1750,12 @@ class BundleList(ListResource):
 
 
         :param status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param bundle_sids: A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
         :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param end_user_type: The end user type of the regulation of the Bundle. Can be `business` or `individual`.
         :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -1701,10 +1771,12 @@ class BundleList(ListResource):
         data = values.of(
             {
                 "Status": status,
+                "BundleSids": bundle_sids,
                 "FriendlyName": friendly_name,
                 "RegulationSid": regulation_sid,
                 "IsoCountry": iso_country,
                 "NumberType": number_type,
+                "EndUserType": end_user_type,
                 "HasValidUntilDate": serialize.boolean_to_string(has_valid_until_date),
                 "SortBy": sort_by,
                 "SortDirection": sort_direction,

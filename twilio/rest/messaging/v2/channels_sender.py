@@ -62,7 +62,7 @@ class ChannelsSenderInstance(InstanceResource):
         :ivar privacy_url: The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
         :ivar terms_of_service_url: The terms of service URL of the sender.
         :ivar accent_color: The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
-        :ivar vertical: The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+        :ivar vertical: The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
         :ivar websites: The websites of the sender.
         :ivar emails: The emails of the sender.
         :ivar phone_numbers: The phone numbers of the sender.
@@ -564,7 +564,7 @@ class ChannelsSenderContext(InstanceContext):
         :ivar privacy_url: The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
         :ivar terms_of_service_url: The terms of service URL of the sender.
         :ivar accent_color: The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
-        :ivar vertical: The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+        :ivar vertical: The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
         :ivar websites: The websites of the sender.
         :ivar emails: The emails of the sender.
         :ivar phone_numbers: The phone numbers of the sender.
@@ -1170,7 +1170,7 @@ class ChannelsSenderList(ListResource):
         :ivar privacy_url: The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
         :ivar terms_of_service_url: The terms of service URL of the sender.
         :ivar accent_color: The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
-        :ivar vertical: The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+        :ivar vertical: The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
         :ivar websites: The websites of the sender.
         :ivar emails: The emails of the sender.
         :ivar phone_numbers: The phone numbers of the sender.
