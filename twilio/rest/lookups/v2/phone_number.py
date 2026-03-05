@@ -68,7 +68,7 @@ class PhoneNumberInstance(InstanceResource):
         self.caller_name: Optional[str] = payload.get("caller_name")
         self.sim_swap: Optional[str] = payload.get("sim_swap")
         self.call_forwarding: Optional[str] = payload.get("call_forwarding")
-        self.line_type_intelligence: Optional[str] = payload.get(
+        self.line_type_intelligence: Optional[Dict[str,object]] = payload.get(
             "line_type_intelligence"
         )
         self.line_status: Optional[str] = payload.get("line_status")
