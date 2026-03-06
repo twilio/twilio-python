@@ -33,6 +33,7 @@ if TYPE_CHECKING:
     from twilio.rest.knowledge import Knowledge
     from twilio.rest.lookups import Lookups
     from twilio.rest.marketplace import Marketplace
+    from twilio.rest.memory import Memory
     from twilio.rest.messaging import Messaging
     from twilio.rest.monitor import Monitor
     from twilio.rest.notify import Notify
@@ -147,6 +148,7 @@ class Client(ClientBase):
         self._knowledge: Optional["Knowledge"] = None
         self._lookups: Optional["Lookups"] = None
         self._marketplace: Optional["Marketplace"] = None
+        self._memory: Optional["Memory"] = None
         self._messaging: Optional["Messaging"] = None
         self._monitor: Optional["Monitor"] = None
         self._notify: Optional["Notify"] = None
