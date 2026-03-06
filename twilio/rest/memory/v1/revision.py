@@ -56,7 +56,7 @@ class RevisionContext(InstanceContext):
 
 
 class RevisionPage(TokenPagination):
-    def get_instance(self, payload: Dict[str, Any]) -> RevisionInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> "RevisionInstance":
         """
         Build an instance of RevisionInstance
 

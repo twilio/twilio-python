@@ -50,7 +50,7 @@ class CreateProfilesImportRequest:
         self,
         filename: str,
         fileSize: int,
-        columnMappings: List[ImportList.ColumnMappingItem],
+        columnMappings: List["ImportList.ColumnMappingItem"],
     ):
         self.filename = filename
         self.fileSize = fileSize
@@ -152,7 +152,7 @@ class ProfileImportInstance(InstanceResource):
             self.filename: Optional[str] = payload.get("filename")
             self.file_size: Optional[int] = payload.get("file_size")
             self.column_mappings: Optional[
-                List[ImportList.ColumnMappingItem]
+                List["ImportList.ColumnMappingItem"]
             ] = payload.get("column_mappings")
 
         def to_dict(self):
@@ -352,7 +352,7 @@ class ProfileImportContext(InstanceContext):
             self.filename: Optional[str] = payload.get("filename")
             self.file_size: Optional[int] = payload.get("file_size")
             self.column_mappings: Optional[
-                List[ImportList.ColumnMappingItem]
+                List["ImportList.ColumnMappingItem"]
             ] = payload.get("column_mappings")
 
         def to_dict(self):

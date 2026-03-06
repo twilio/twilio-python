@@ -431,6 +431,19 @@ class Client(ClientBase):
         return self._messaging
 
     @property
+    def memory(self) -> "Memory":
+        """
+        Access the Messaging Twilio Domain
+
+        :returns: Messaging Twilio Domain
+        """
+        if self._memory is None:
+            from twilio.rest.memory import Memory
+
+            self._memory = Memory(self)
+        return self._memory
+
+    @property
     def monitor(self) -> "Monitor":
         """
         Access the Monitor Twilio Domain

@@ -34,7 +34,7 @@ Nested response model for CreateObservationsRequest
 
 
 class CreateObservationsRequest:
-    def __init__(self, observations: List[ObservationList.ObservationCore]):
+    def __init__(self, observations: List["ObservationList.ObservationCore"]):
         self.observations = observations
 
 

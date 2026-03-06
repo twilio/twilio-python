@@ -1037,7 +1037,7 @@ class StoreList(ListResource):
         self,
         page_token: Union[str, object] = values.unset,
         order_by: Union[str, object] = values.unset,
-        page_token: Union[str, object] = values.unset,
+        # page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
     ) -> ApiResponse:

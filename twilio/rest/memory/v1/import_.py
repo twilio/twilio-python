@@ -50,7 +50,7 @@ class CreateProfilesImportRequest:
         self,
         filename: str,
         fileSize: int,
-        columnMappings: List[ImportList.ColumnMappingItem],
+        columnMappings: List["ImportList.ColumnMappingItem"],
     ):
         self.filename = filename
         self.fileSize = fileSize

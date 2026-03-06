@@ -88,7 +88,7 @@ class RecallInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
-            self.type: Optional[ParticipantType] = payload.get("type")
+            self.type: Optional["ParticipantType"] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profile_id")
             self.address: Optional[str] = payload.get("address")
             self.channel: Optional[str] = payload.get("channel")
@@ -312,7 +312,7 @@ class RecallContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
-            self.type: Optional[ParticipantType] = payload.get("type")
+            self.type: Optional["ParticipantType"] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profile_id")
             self.address: Optional[str] = payload.get("address")
             self.channel: Optional[str] = payload.get("channel")
@@ -601,7 +601,7 @@ class RecallList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
-            self.type: Optional[ParticipantType] = payload.get("type")
+            self.type: Optional["ParticipantType"] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profile_id")
             self.address: Optional[str] = payload.get("address")
             self.channel: Optional[str] = payload.get("channel")

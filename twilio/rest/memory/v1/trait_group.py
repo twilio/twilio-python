@@ -65,7 +65,7 @@ class TraitGroup:
         self,
         displayName: str,
         description: str,
-        traits: Dict[str, TraitGroupCoreTraitsValue],
+        traits: Dict[str, "TraitGroupCoreTraitsValue"],
         version: int,
     ):
         self.displayName = displayName
@@ -85,7 +85,7 @@ class TraitGroupCoreTraitsValue:
         displayName: str,
         dataType: str,
         description: str,
-        validationRule: ValidationRule,
+        validationRule: "ValidationRule",
         idTypePromotion: str,
     ):
         self.displayName = displayName

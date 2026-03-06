@@ -34,7 +34,7 @@ Nested response model for CreateSummariesRequest
 
 
 class CreateSummariesRequest:
-    def __init__(self, summaries: List[ConversationSummaryList.SummaryCore]):
+    def __init__(self, summaries: List["ConversationSummaryList.SummaryCore"]):
         self.summaries = summaries
 
 
