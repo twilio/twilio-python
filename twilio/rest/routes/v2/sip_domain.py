@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class SipDomainInstance(InstanceResource):
+
     """
     :ivar sip_domain:
     :ivar url:
@@ -194,7 +196,6 @@ class SipDomainInstance(InstanceResource):
 
 
 class SipDomainContext(InstanceContext):
-
     def __init__(self, version: Version, sip_domain: str):
         """
         Initialize the SipDomainContext
@@ -449,7 +450,6 @@ class SipDomainContext(InstanceContext):
 
 
 class SipDomainList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the SipDomainList

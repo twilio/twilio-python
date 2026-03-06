@@ -17,7 +17,6 @@ from twilio.rest.voice.v1 import V1
 
 
 class VoiceBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Voice Domain

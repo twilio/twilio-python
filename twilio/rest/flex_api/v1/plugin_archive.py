@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class PluginArchiveInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Flex Plugin resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Plugin resource and owns this resource.
@@ -141,7 +143,6 @@ class PluginArchiveInstance(InstanceResource):
 
 
 class PluginArchiveContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PluginArchiveContext
@@ -276,7 +277,6 @@ class PluginArchiveContext(InstanceContext):
 
 
 class PluginArchiveList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PluginArchiveList

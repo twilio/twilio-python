@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class DomainConfigMessagingServiceInstance(InstanceResource):
+
     """
     :ivar domain_sid: The unique string that we created to identify the Domain resource.
     :ivar config_sid: The unique string that we created to identify the Domain config (prefix ZK).
@@ -127,7 +129,6 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
 
 
 class DomainConfigMessagingServiceContext(InstanceContext):
-
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the DomainConfigMessagingServiceContext
@@ -248,7 +249,6 @@ class DomainConfigMessagingServiceContext(InstanceContext):
 
 
 class DomainConfigMessagingServiceList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the DomainConfigMessagingServiceList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Optional
 from twilio.base.instance_context import InstanceContext
 
@@ -26,7 +27,6 @@ from twilio.rest.preview_iam.versionless.organization.user import UserList
 
 
 class OrganizationContext(InstanceContext):
-
     def __init__(self, version: Version, organization_sid: str):
         """
         Initialize the OrganizationContext
@@ -93,7 +93,6 @@ class OrganizationContext(InstanceContext):
 
 
 class OrganizationList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the OrganizationList

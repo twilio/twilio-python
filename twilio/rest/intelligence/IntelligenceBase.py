@@ -17,7 +17,6 @@ from twilio.rest.intelligence.v2 import V2
 
 
 class IntelligenceBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Intelligence Domain

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class WebChannelsInstance(InstanceResource):
+
     """
     :ivar conversation_sid: The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.
     :ivar identity: The unique string representing the User created and should be authorized to participate in the Conversation. For more details, see [User Identity & Access Tokens](https://www.twilio.com/docs/conversations/identity).
@@ -44,7 +46,6 @@ class WebChannelsInstance(InstanceResource):
 
 
 class WebChannelsList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the WebChannelsList

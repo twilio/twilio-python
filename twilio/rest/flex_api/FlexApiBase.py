@@ -18,7 +18,6 @@ from twilio.rest.flex_api.v2 import V2
 
 
 class FlexApiBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the FlexApi Domain

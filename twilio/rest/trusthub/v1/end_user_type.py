@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class EndUserTypeInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that identifies the End-User Type resource.
     :ivar friendly_name: A human-readable description that is assigned to describe the End-User Type resource. Examples can include first name, last name, email, business name, etc
@@ -109,7 +111,6 @@ class EndUserTypeInstance(InstanceResource):
 
 
 class EndUserTypeContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the EndUserTypeContext
@@ -226,7 +227,6 @@ class EndUserTypeContext(InstanceContext):
 
 
 class EndUserTypePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> EndUserTypeInstance:
         """
         Build an instance of EndUserTypeInstance
@@ -245,7 +245,6 @@ class EndUserTypePage(Page):
 
 
 class EndUserTypeList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the EndUserTypeList
@@ -588,10 +587,12 @@ class EndUserTypeList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = EndUserTypePage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class EncryptedOperatorResultsInstance(InstanceResource):
+
     """
     :ivar locations: The locations of the encrypted operator results.
     :ivar transcript_sid:
@@ -124,7 +126,6 @@ class EncryptedOperatorResultsInstance(InstanceResource):
 
 
 class EncryptedOperatorResultsContext(InstanceContext):
-
     def __init__(self, version: Version, transcript_sid: str):
         """
         Initialize the EncryptedOperatorResultsContext
@@ -269,7 +270,6 @@ class EncryptedOperatorResultsContext(InstanceContext):
 
 
 class EncryptedOperatorResultsList(ListResource):
-
     def __init__(self, version: Version, transcript_sid: str):
         """
         Initialize the EncryptedOperatorResultsList

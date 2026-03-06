@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class NewVerifyFactorInstance(InstanceResource):
-
     class VerifyPasskeysFactorRequest(object):
         """
         :ivar id: A [base64url](https://base64.guru/standards/base64url) encoded representation of `rawId`.
@@ -34,12 +34,11 @@ class NewVerifyFactorInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.raw_id: Optional[str] = payload.get("raw_id")
-            self.authenticator_attachment: Optional["NewVerifyFactorInstance.str"] = (
-                payload.get("authenticator_attachment")
-            )
+            self.authenticator_attachment: Optional[
+                "NewVerifyFactorInstance.str"
+            ] = payload.get("authenticator_attachment")
             self.type: Optional["NewVerifyFactorInstance.str"] = payload.get("type")
             self.response: Optional[
                 NewVerifyFactorList.VerifyPasskeysFactorRequestResponse
@@ -51,9 +50,9 @@ class NewVerifyFactorInstance(InstanceResource):
                 "raw_id": self.raw_id,
                 "authenticator_attachment": self.authenticator_attachment,
                 "type": self.type,
-                "response": (
-                    self.response.to_dict() if self.response is not None else None
-                ),
+                "response": self.response.to_dict()
+                if self.response is not None
+                else None,
             }
 
     class VerifyPasskeysFactorRequestResponse(object):
@@ -64,7 +63,6 @@ class NewVerifyFactorInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.attestation_object: Optional[str] = payload.get("attestation_object")
             self.client_data_json: Optional[str] = payload.get("client_data_json")
             self.transports: Optional[List[Enumstr]] = payload.get("transports")
@@ -128,7 +126,6 @@ class NewVerifyFactorInstance(InstanceResource):
 
 
 class NewVerifyFactorList(ListResource):
-
     class VerifyPasskeysFactorRequest(object):
         """
         :ivar id: A [base64url](https://base64.guru/standards/base64url) encoded representation of `rawId`.
@@ -139,12 +136,11 @@ class NewVerifyFactorList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.raw_id: Optional[str] = payload.get("raw_id")
-            self.authenticator_attachment: Optional["NewVerifyFactorInstance.str"] = (
-                payload.get("authenticator_attachment")
-            )
+            self.authenticator_attachment: Optional[
+                "NewVerifyFactorInstance.str"
+            ] = payload.get("authenticator_attachment")
             self.type: Optional["NewVerifyFactorInstance.str"] = payload.get("type")
             self.response: Optional[
                 NewVerifyFactorList.VerifyPasskeysFactorRequestResponse
@@ -156,9 +152,9 @@ class NewVerifyFactorList(ListResource):
                 "raw_id": self.raw_id,
                 "authenticator_attachment": self.authenticator_attachment,
                 "type": self.type,
-                "response": (
-                    self.response.to_dict() if self.response is not None else None
-                ),
+                "response": self.response.to_dict()
+                if self.response is not None
+                else None,
             }
 
     class VerifyPasskeysFactorRequestResponse(object):
@@ -169,7 +165,6 @@ class NewVerifyFactorList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.attestation_object: Optional[str] = payload.get("attestation_object")
             self.client_data_json: Optional[str] = payload.get("client_data_json")
             self.transports: Optional[List[Enumstr]] = payload.get("transports")

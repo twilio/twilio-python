@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class KnowledgeStatusInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Knowledge resource.
     :ivar status: The status of processing the knowledge source ('QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED')
@@ -107,7 +109,6 @@ class KnowledgeStatusInstance(InstanceResource):
 
 
 class KnowledgeStatusContext(InstanceContext):
-
     def __init__(self, version: Version, id: str):
         """
         Initialize the KnowledgeStatusContext
@@ -224,7 +225,6 @@ class KnowledgeStatusContext(InstanceContext):
 
 
 class KnowledgeStatusList(ListResource):
-
     def __init__(self, version: Version, id: str):
         """
         Initialize the KnowledgeStatusList

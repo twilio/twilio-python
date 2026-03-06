@@ -17,7 +17,6 @@ from twilio.rest.video.v1 import V1
 
 
 class VideoBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Video Domain

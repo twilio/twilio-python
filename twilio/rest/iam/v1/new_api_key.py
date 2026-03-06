@@ -23,7 +23,6 @@ from twilio.base.version import Version
 
 
 class NewApiKeyInstance(InstanceResource):
-
     class Keytype(object):
         RESTRICTED = "restricted"
 
@@ -61,7 +60,6 @@ class NewApiKeyInstance(InstanceResource):
 
 
 class NewApiKeyList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the NewApiKeyList

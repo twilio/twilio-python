@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class QueryInstance(InstanceResource):
-
     class IdentityMatchParameters(object):
         """
         :ivar first_name:
@@ -39,7 +39,6 @@ class QueryInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.first_name: Optional[str] = payload.get("first_name")
             self.last_name: Optional[str] = payload.get("last_name")
             self.address_line1: Optional[str] = payload.get("address_line1")
@@ -75,7 +74,6 @@ class QueryInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.last_sim_swap_date: Optional[datetime] = payload.get(
                 "last_sim_swap_date"
             )
@@ -101,17 +99,16 @@ class QueryInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.correlation_id: Optional[str] = payload.get("correlation_id")
             self.phone_number: Optional[str] = payload.get("phone_number")
             self.fields: Optional[List[Enumstr]] = payload.get("fields")
             self.country_code: Optional[str] = payload.get("country_code")
-            self.identity_match: Optional[QueryList.IdentityMatchParameters] = (
-                payload.get("identity_match")
-            )
-            self.reassigned_number: Optional[QueryList.ReassignedNumberParameters] = (
-                payload.get("reassigned_number")
-            )
+            self.identity_match: Optional[
+                QueryList.IdentityMatchParameters
+            ] = payload.get("identity_match")
+            self.reassigned_number: Optional[
+                QueryList.ReassignedNumberParameters
+            ] = payload.get("reassigned_number")
             self.sms_pumping_risk: Optional[QueryList.RiskParameters] = payload.get(
                 "sms_pumping_risk"
             )
@@ -122,21 +119,15 @@ class QueryInstance(InstanceResource):
                 "phone_number": self.phone_number,
                 "fields": self.fields,
                 "country_code": self.country_code,
-                "identity_match": (
-                    self.identity_match.to_dict()
-                    if self.identity_match is not None
-                    else None
-                ),
-                "reassigned_number": (
-                    self.reassigned_number.to_dict()
-                    if self.reassigned_number is not None
-                    else None
-                ),
-                "sms_pumping_risk": (
-                    self.sms_pumping_risk.to_dict()
-                    if self.sms_pumping_risk is not None
-                    else None
-                ),
+                "identity_match": self.identity_match.to_dict()
+                if self.identity_match is not None
+                else None,
+                "reassigned_number": self.reassigned_number.to_dict()
+                if self.reassigned_number is not None
+                else None,
+                "sms_pumping_risk": self.sms_pumping_risk.to_dict()
+                if self.sms_pumping_risk is not None
+                else None,
             }
 
     class LookupRequest(object):
@@ -145,18 +136,17 @@ class QueryInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.phone_numbers: Optional[List[QueryList.LookupBatchRequest]] = (
-                payload.get("phone_numbers")
-            )
+            self.phone_numbers: Optional[
+                List[QueryList.LookupBatchRequest]
+            ] = payload.get("phone_numbers")
 
         def to_dict(self):
             return {
-                "phone_numbers": (
-                    [phone_numbers.to_dict() for phone_numbers in self.phone_numbers]
-                    if self.phone_numbers is not None
-                    else None
-                ),
+                "phone_numbers": [
+                    phone_numbers.to_dict() for phone_numbers in self.phone_numbers
+                ]
+                if self.phone_numbers is not None
+                else None,
             }
 
     class ReassignedNumberParameters(object):
@@ -165,7 +155,6 @@ class QueryInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.last_verified_date: Optional[str] = payload.get("last_verified_date")
 
         def to_dict(self):
@@ -179,7 +168,6 @@ class QueryInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.partner_sub_id: Optional[str] = payload.get("partner_sub_id")
 
         def to_dict(self):
@@ -207,7 +195,6 @@ class QueryInstance(InstanceResource):
 
 
 class QueryList(ListResource):
-
     class IdentityMatchParameters(object):
         """
         :ivar first_name:
@@ -223,7 +210,6 @@ class QueryList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.first_name: Optional[str] = payload.get("first_name")
             self.last_name: Optional[str] = payload.get("last_name")
             self.address_line1: Optional[str] = payload.get("address_line1")
@@ -259,7 +245,6 @@ class QueryList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.last_sim_swap_date: Optional[datetime] = payload.get(
                 "last_sim_swap_date"
             )
@@ -285,17 +270,16 @@ class QueryList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.correlation_id: Optional[str] = payload.get("correlation_id")
             self.phone_number: Optional[str] = payload.get("phone_number")
             self.fields: Optional[List[Enumstr]] = payload.get("fields")
             self.country_code: Optional[str] = payload.get("country_code")
-            self.identity_match: Optional[QueryList.IdentityMatchParameters] = (
-                payload.get("identity_match")
-            )
-            self.reassigned_number: Optional[QueryList.ReassignedNumberParameters] = (
-                payload.get("reassigned_number")
-            )
+            self.identity_match: Optional[
+                QueryList.IdentityMatchParameters
+            ] = payload.get("identity_match")
+            self.reassigned_number: Optional[
+                QueryList.ReassignedNumberParameters
+            ] = payload.get("reassigned_number")
             self.sms_pumping_risk: Optional[QueryList.RiskParameters] = payload.get(
                 "sms_pumping_risk"
             )
@@ -306,21 +290,15 @@ class QueryList(ListResource):
                 "phone_number": self.phone_number,
                 "fields": self.fields,
                 "country_code": self.country_code,
-                "identity_match": (
-                    self.identity_match.to_dict()
-                    if self.identity_match is not None
-                    else None
-                ),
-                "reassigned_number": (
-                    self.reassigned_number.to_dict()
-                    if self.reassigned_number is not None
-                    else None
-                ),
-                "sms_pumping_risk": (
-                    self.sms_pumping_risk.to_dict()
-                    if self.sms_pumping_risk is not None
-                    else None
-                ),
+                "identity_match": self.identity_match.to_dict()
+                if self.identity_match is not None
+                else None,
+                "reassigned_number": self.reassigned_number.to_dict()
+                if self.reassigned_number is not None
+                else None,
+                "sms_pumping_risk": self.sms_pumping_risk.to_dict()
+                if self.sms_pumping_risk is not None
+                else None,
             }
 
     class LookupRequest(object):
@@ -329,18 +307,17 @@ class QueryList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.phone_numbers: Optional[List[QueryList.LookupBatchRequest]] = (
-                payload.get("phone_numbers")
-            )
+            self.phone_numbers: Optional[
+                List[QueryList.LookupBatchRequest]
+            ] = payload.get("phone_numbers")
 
         def to_dict(self):
             return {
-                "phone_numbers": (
-                    [phone_numbers.to_dict() for phone_numbers in self.phone_numbers]
-                    if self.phone_numbers is not None
-                    else None
-                ),
+                "phone_numbers": [
+                    phone_numbers.to_dict() for phone_numbers in self.phone_numbers
+                ]
+                if self.phone_numbers is not None
+                else None,
             }
 
     class ReassignedNumberParameters(object):
@@ -349,7 +326,6 @@ class QueryList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.last_verified_date: Optional[str] = payload.get("last_verified_date")
 
         def to_dict(self):
@@ -363,7 +339,6 @@ class QueryList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.partner_sub_id: Optional[str] = payload.get("partner_sub_id")
 
         def to_dict(self):

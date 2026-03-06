@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -28,6 +29,7 @@ from twilio.rest.chat.v2.service.user import UserList
 
 
 class ServiceInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Service resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
@@ -660,7 +662,6 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -1536,7 +1537,6 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -1555,7 +1555,6 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
@@ -1992,10 +1991,12 @@ class ServiceList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ServicePage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

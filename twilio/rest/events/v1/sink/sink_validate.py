@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class SinkValidateInstance(InstanceResource):
+
     """
     :ivar result: Feedback indicating whether the given Sink was validated.
     """
@@ -46,7 +48,6 @@ class SinkValidateInstance(InstanceResource):
 
 
 class SinkValidateList(ListResource):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SinkValidateList

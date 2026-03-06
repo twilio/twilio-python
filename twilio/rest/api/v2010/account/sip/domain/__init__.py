@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -31,6 +32,7 @@ from twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping imp
 
 
 class DomainInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource.
     :ivar api_version: The API version used to process the call.
@@ -428,7 +430,6 @@ class DomainInstance(InstanceResource):
 
 
 class DomainContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the DomainContext
@@ -1000,7 +1001,6 @@ class DomainContext(InstanceContext):
 
 
 class DomainPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> DomainInstance:
         """
         Build an instance of DomainInstance
@@ -1021,7 +1021,6 @@ class DomainPage(Page):
 
 
 class DomainList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the DomainList
@@ -1691,10 +1690,12 @@ class DomainList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = DomainPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

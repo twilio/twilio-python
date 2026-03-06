@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class HostedNumberOrderInstance(InstanceResource):
-
     class Status(object):
         TWILIO_PROCESSING = "twilio-processing"
         RECEIVED = "received"
@@ -120,7 +120,6 @@ class HostedNumberOrderInstance(InstanceResource):
 
 
 class HostedNumberOrderList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the HostedNumberOrderList

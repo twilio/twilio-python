@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class SigningKeyInstance(InstanceResource):
+
     """
     :ivar sid:
     :ivar friendly_name:
@@ -210,7 +212,6 @@ class SigningKeyInstance(InstanceResource):
 
 
 class SigningKeyContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the SigningKeyContext
@@ -527,7 +528,6 @@ class SigningKeyContext(InstanceContext):
 
 
 class SigningKeyPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> SigningKeyInstance:
         """
         Build an instance of SigningKeyInstance
@@ -548,7 +548,6 @@ class SigningKeyPage(Page):
 
 
 class SigningKeyList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the SigningKeyList
@@ -896,10 +895,12 @@ class SigningKeyList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = SigningKeyPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

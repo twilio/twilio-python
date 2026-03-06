@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,25 +24,21 @@ from twilio.base.version import Version
 
 
 class CreateFlexInstanceInstance(InstanceResource):
-
     class CreateInstanceRequestBody(object):
         """
         :ivar conversation:
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.conversation: Optional[
                 CreateFlexInstanceList.CreateInstanceRequestBodyConversation
             ] = payload.get("conversation")
 
         def to_dict(self):
             return {
-                "conversation": (
-                    self.conversation.to_dict()
-                    if self.conversation is not None
-                    else None
-                ),
+                "conversation": self.conversation.to_dict()
+                if self.conversation is not None
+                else None,
             }
 
     class CreateInstanceRequestBodyConversation(object):
@@ -50,7 +47,6 @@ class CreateFlexInstanceInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.default: Optional[bool] = payload.get("default")
 
         def to_dict(self):
@@ -174,25 +170,21 @@ class CreateFlexInstanceInstance(InstanceResource):
 
 
 class CreateFlexInstanceContext(InstanceContext):
-
     class CreateInstanceRequestBody(object):
         """
         :ivar conversation:
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.conversation: Optional[
                 CreateFlexInstanceList.CreateInstanceRequestBodyConversation
             ] = payload.get("conversation")
 
         def to_dict(self):
             return {
-                "conversation": (
-                    self.conversation.to_dict()
-                    if self.conversation is not None
-                    else None
-                ),
+                "conversation": self.conversation.to_dict()
+                if self.conversation is not None
+                else None,
             }
 
     class CreateInstanceRequestBodyConversation(object):
@@ -201,7 +193,6 @@ class CreateFlexInstanceContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.default: Optional[bool] = payload.get("default")
 
         def to_dict(self):
@@ -352,25 +343,21 @@ class CreateFlexInstanceContext(InstanceContext):
 
 
 class CreateFlexInstanceList(ListResource):
-
     class CreateInstanceRequestBody(object):
         """
         :ivar conversation:
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.conversation: Optional[
                 CreateFlexInstanceList.CreateInstanceRequestBodyConversation
             ] = payload.get("conversation")
 
         def to_dict(self):
             return {
-                "conversation": (
-                    self.conversation.to_dict()
-                    if self.conversation is not None
-                    else None
-                ),
+                "conversation": self.conversation.to_dict()
+                if self.conversation is not None
+                else None,
             }
 
     class CreateInstanceRequestBodyConversation(object):
@@ -379,7 +366,6 @@ class CreateFlexInstanceList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.default: Optional[bool] = payload.get("default")
 
         def to_dict(self):

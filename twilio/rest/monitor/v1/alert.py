@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class AlertInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Alert resource.
     :ivar alert_text: The text of the alert.
@@ -144,7 +146,6 @@ class AlertInstance(InstanceResource):
 
 
 class AlertContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AlertContext
@@ -261,7 +262,6 @@ class AlertContext(InstanceContext):
 
 
 class AlertPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AlertInstance:
         """
         Build an instance of AlertInstance
@@ -280,7 +280,6 @@ class AlertPage(Page):
 
 
 class AlertList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the AlertList
@@ -737,10 +736,12 @@ class AlertList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AlertPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

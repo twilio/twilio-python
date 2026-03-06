@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -23,7 +24,6 @@ from twilio.base.page import Page
 
 
 class RegulationInstance(InstanceResource):
-
     class EndUserType(object):
         INDIVIDUAL = "individual"
         BUSINESS = "business"
@@ -140,7 +140,6 @@ class RegulationInstance(InstanceResource):
 
 
 class RegulationContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the RegulationContext
@@ -287,7 +286,6 @@ class RegulationContext(InstanceContext):
 
 
 class RegulationPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> RegulationInstance:
         """
         Build an instance of RegulationInstance
@@ -306,7 +304,6 @@ class RegulationPage(Page):
 
 
 class RegulationList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the RegulationList
@@ -799,10 +796,12 @@ class RegulationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = RegulationPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

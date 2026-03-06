@@ -23,7 +23,6 @@ from twilio.base.version import Version
 
 
 class OAuthAppInstance(InstanceResource):
-
     class IamV1AccountVendorOauthAppCreateRequest(object):
         """
         :ivar type:
@@ -36,7 +35,6 @@ class OAuthAppInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional[str] = payload.get("type")
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.owner_sid: Optional[str] = payload.get("owner_sid")
@@ -68,7 +66,6 @@ class OAuthAppInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional[str] = payload.get("type")
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.description: Optional[str] = payload.get("description")
@@ -93,7 +90,6 @@ class OAuthAppInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.allow: Optional[List[str]] = payload.get("allow")
             self.deny: Optional[List[str]] = payload.get("deny")
 
@@ -110,7 +106,6 @@ class OAuthAppInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.allow: Optional[List[str]] = payload.get("allow")
             self.deny: Optional[List[str]] = payload.get("deny")
 
@@ -286,7 +281,6 @@ class OAuthAppInstance(InstanceResource):
 
 
 class OAuthAppContext(InstanceContext):
-
     class IamV1AccountVendorOauthAppCreateRequest(object):
         """
         :ivar type:
@@ -299,7 +293,6 @@ class OAuthAppContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional[str] = payload.get("type")
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.owner_sid: Optional[str] = payload.get("owner_sid")
@@ -331,7 +324,6 @@ class OAuthAppContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional[str] = payload.get("type")
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.description: Optional[str] = payload.get("description")
@@ -356,7 +348,6 @@ class OAuthAppContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.allow: Optional[List[str]] = payload.get("allow")
             self.deny: Optional[List[str]] = payload.get("deny")
 
@@ -373,7 +364,6 @@ class OAuthAppContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.allow: Optional[List[str]] = payload.get("allow")
             self.deny: Optional[List[str]] = payload.get("deny")
 
@@ -591,7 +581,6 @@ class OAuthAppContext(InstanceContext):
 
 
 class OAuthAppList(ListResource):
-
     class IamV1AccountVendorOauthAppCreateRequest(object):
         """
         :ivar type:
@@ -604,7 +593,6 @@ class OAuthAppList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional[str] = payload.get("type")
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.owner_sid: Optional[str] = payload.get("owner_sid")
@@ -636,7 +624,6 @@ class OAuthAppList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional[str] = payload.get("type")
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.description: Optional[str] = payload.get("description")
@@ -661,7 +648,6 @@ class OAuthAppList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.allow: Optional[List[str]] = payload.get("allow")
             self.deny: Optional[List[str]] = payload.get("deny")
 
@@ -678,7 +664,6 @@ class OAuthAppList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.allow: Optional[List[str]] = payload.get("allow")
             self.deny: Optional[List[str]] = payload.get("deny")
 

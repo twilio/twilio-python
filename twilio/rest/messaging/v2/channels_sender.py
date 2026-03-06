@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,7 +24,6 @@ from twilio.base.page import Page
 
 
 class ChannelsSenderInstance(InstanceResource):
-
     class MessagingV2ChannelsSenderConfiguration(object):
         """
         :ivar waba_id: The ID of the WhatsApp Business Account (WABA) to use for this sender.
@@ -33,11 +33,10 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.waba_id: Optional[str] = payload.get("waba_id")
-            self.verification_method: Optional["ChannelsSenderInstance.str"] = (
-                payload.get("verification_method")
-            )
+            self.verification_method: Optional[
+                "ChannelsSenderInstance.str"
+            ] = payload.get("verification_method")
             self.verification_code: Optional[str] = payload.get("verification_code")
             self.voice_application_sid: Optional[str] = payload.get(
                 "voice_application_sid"
@@ -69,7 +68,6 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.name: Optional[str] = payload.get("name")
             self.about: Optional[str] = payload.get("about")
             self.address: Optional[str] = payload.get("address")
@@ -112,7 +110,6 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.email: Optional[str] = payload.get("email")
             self.label: Optional[str] = payload.get("label")
 
@@ -129,7 +126,6 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.phone_number: Optional[str] = payload.get("phone_number")
             self.label: Optional[str] = payload.get("label")
 
@@ -146,7 +142,6 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.website: Optional[str] = payload.get("website")
             self.label: Optional[str] = payload.get("label")
 
@@ -165,7 +160,6 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.sender_id: Optional[str] = payload.get("sender_id")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
@@ -180,11 +174,9 @@ class ChannelsSenderInstance(InstanceResource):
         def to_dict(self):
             return {
                 "sender_id": self.sender_id,
-                "configuration": (
-                    self.configuration.to_dict()
-                    if self.configuration is not None
-                    else None
-                ),
+                "configuration": self.configuration.to_dict()
+                if self.configuration is not None
+                else None,
                 "webhook": self.webhook.to_dict() if self.webhook is not None else None,
                 "profile": self.profile.to_dict() if self.profile is not None else None,
             }
@@ -197,7 +189,6 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
             ] = payload.get("configuration")
@@ -210,11 +201,9 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "configuration": (
-                    self.configuration.to_dict()
-                    if self.configuration is not None
-                    else None
-                ),
+                "configuration": self.configuration.to_dict()
+                if self.configuration is not None
+                else None,
                 "webhook": self.webhook.to_dict() if self.webhook is not None else None,
                 "profile": self.profile.to_dict() if self.profile is not None else None,
             }
@@ -230,7 +219,6 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.callback_url: Optional[str] = payload.get("callback_url")
             self.callback_method: Optional["ChannelsSenderInstance.str"] = payload.get(
                 "callback_method"
@@ -261,7 +249,6 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[MessagingV2RcsCarrierStatus] = payload.get("status")
 
@@ -280,7 +267,6 @@ class ChannelsSenderInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.country: Optional[str] = payload.get("country")
             self.registration_sid: Optional[str] = payload.get("registration_sid")
             self.status: Optional[MessagingV2RcsCountryStatus] = payload.get("status")
@@ -293,11 +279,9 @@ class ChannelsSenderInstance(InstanceResource):
                 "": self.country,
                 "": self.registration_sid,
                 "": self.status.to_dict() if self.status is not None else None,
-                "": (
-                    [carriers.to_dict() for carriers in self.carriers]
-                    if self.carriers is not None
-                    else None
-                ),
+                "": [carriers.to_dict() for carriers in self.carriers]
+                if self.carriers is not None
+                else None,
             }
 
     class Status(object):
@@ -525,7 +509,6 @@ class ChannelsSenderInstance(InstanceResource):
 
 
 class ChannelsSenderContext(InstanceContext):
-
     class MessagingV2ChannelsSenderConfiguration(object):
         """
         :ivar waba_id: The ID of the WhatsApp Business Account (WABA) to use for this sender.
@@ -535,11 +518,10 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.waba_id: Optional[str] = payload.get("waba_id")
-            self.verification_method: Optional["ChannelsSenderInstance.str"] = (
-                payload.get("verification_method")
-            )
+            self.verification_method: Optional[
+                "ChannelsSenderInstance.str"
+            ] = payload.get("verification_method")
             self.verification_code: Optional[str] = payload.get("verification_code")
             self.voice_application_sid: Optional[str] = payload.get(
                 "voice_application_sid"
@@ -571,7 +553,6 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.name: Optional[str] = payload.get("name")
             self.about: Optional[str] = payload.get("about")
             self.address: Optional[str] = payload.get("address")
@@ -614,7 +595,6 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.email: Optional[str] = payload.get("email")
             self.label: Optional[str] = payload.get("label")
 
@@ -631,7 +611,6 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.phone_number: Optional[str] = payload.get("phone_number")
             self.label: Optional[str] = payload.get("label")
 
@@ -648,7 +627,6 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.website: Optional[str] = payload.get("website")
             self.label: Optional[str] = payload.get("label")
 
@@ -667,7 +645,6 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.sender_id: Optional[str] = payload.get("sender_id")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
@@ -682,11 +659,9 @@ class ChannelsSenderContext(InstanceContext):
         def to_dict(self):
             return {
                 "sender_id": self.sender_id,
-                "configuration": (
-                    self.configuration.to_dict()
-                    if self.configuration is not None
-                    else None
-                ),
+                "configuration": self.configuration.to_dict()
+                if self.configuration is not None
+                else None,
                 "webhook": self.webhook.to_dict() if self.webhook is not None else None,
                 "profile": self.profile.to_dict() if self.profile is not None else None,
             }
@@ -699,7 +674,6 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
             ] = payload.get("configuration")
@@ -712,11 +686,9 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "configuration": (
-                    self.configuration.to_dict()
-                    if self.configuration is not None
-                    else None
-                ),
+                "configuration": self.configuration.to_dict()
+                if self.configuration is not None
+                else None,
                 "webhook": self.webhook.to_dict() if self.webhook is not None else None,
                 "profile": self.profile.to_dict() if self.profile is not None else None,
             }
@@ -732,7 +704,6 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.callback_url: Optional[str] = payload.get("callback_url")
             self.callback_method: Optional["ChannelsSenderInstance.str"] = payload.get(
                 "callback_method"
@@ -763,7 +734,6 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[MessagingV2RcsCarrierStatus] = payload.get("status")
 
@@ -782,7 +752,6 @@ class ChannelsSenderContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.country: Optional[str] = payload.get("country")
             self.registration_sid: Optional[str] = payload.get("registration_sid")
             self.status: Optional[MessagingV2RcsCountryStatus] = payload.get("status")
@@ -795,11 +764,9 @@ class ChannelsSenderContext(InstanceContext):
                 "": self.country,
                 "": self.registration_sid,
                 "": self.status.to_dict() if self.status is not None else None,
-                "": (
-                    [carriers.to_dict() for carriers in self.carriers]
-                    if self.carriers is not None
-                    else None
-                ),
+                "": [carriers.to_dict() for carriers in self.carriers]
+                if self.carriers is not None
+                else None,
             }
 
     def __init__(self, version: Version, sid: str):
@@ -1112,7 +1079,6 @@ class ChannelsSenderContext(InstanceContext):
 
 
 class ChannelsSenderPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ChannelsSenderInstance:
         """
         Build an instance of ChannelsSenderInstance
@@ -1131,7 +1097,6 @@ class ChannelsSenderPage(Page):
 
 
 class ChannelsSenderList(ListResource):
-
     class MessagingV2ChannelsSenderConfiguration(object):
         """
         :ivar waba_id: The ID of the WhatsApp Business Account (WABA) to use for this sender.
@@ -1141,11 +1106,10 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.waba_id: Optional[str] = payload.get("waba_id")
-            self.verification_method: Optional["ChannelsSenderInstance.str"] = (
-                payload.get("verification_method")
-            )
+            self.verification_method: Optional[
+                "ChannelsSenderInstance.str"
+            ] = payload.get("verification_method")
             self.verification_code: Optional[str] = payload.get("verification_code")
             self.voice_application_sid: Optional[str] = payload.get(
                 "voice_application_sid"
@@ -1177,7 +1141,6 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.name: Optional[str] = payload.get("name")
             self.about: Optional[str] = payload.get("about")
             self.address: Optional[str] = payload.get("address")
@@ -1220,7 +1183,6 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.email: Optional[str] = payload.get("email")
             self.label: Optional[str] = payload.get("label")
 
@@ -1237,7 +1199,6 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.phone_number: Optional[str] = payload.get("phone_number")
             self.label: Optional[str] = payload.get("label")
 
@@ -1254,7 +1215,6 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.website: Optional[str] = payload.get("website")
             self.label: Optional[str] = payload.get("label")
 
@@ -1273,7 +1233,6 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.sender_id: Optional[str] = payload.get("sender_id")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
@@ -1288,11 +1247,9 @@ class ChannelsSenderList(ListResource):
         def to_dict(self):
             return {
                 "sender_id": self.sender_id,
-                "configuration": (
-                    self.configuration.to_dict()
-                    if self.configuration is not None
-                    else None
-                ),
+                "configuration": self.configuration.to_dict()
+                if self.configuration is not None
+                else None,
                 "webhook": self.webhook.to_dict() if self.webhook is not None else None,
                 "profile": self.profile.to_dict() if self.profile is not None else None,
             }
@@ -1305,7 +1262,6 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
             ] = payload.get("configuration")
@@ -1318,11 +1274,9 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "configuration": (
-                    self.configuration.to_dict()
-                    if self.configuration is not None
-                    else None
-                ),
+                "configuration": self.configuration.to_dict()
+                if self.configuration is not None
+                else None,
                 "webhook": self.webhook.to_dict() if self.webhook is not None else None,
                 "profile": self.profile.to_dict() if self.profile is not None else None,
             }
@@ -1338,7 +1292,6 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.callback_url: Optional[str] = payload.get("callback_url")
             self.callback_method: Optional["ChannelsSenderInstance.str"] = payload.get(
                 "callback_method"
@@ -1369,7 +1322,6 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[MessagingV2RcsCarrierStatus] = payload.get("status")
 
@@ -1388,7 +1340,6 @@ class ChannelsSenderList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.country: Optional[str] = payload.get("country")
             self.registration_sid: Optional[str] = payload.get("registration_sid")
             self.status: Optional[MessagingV2RcsCountryStatus] = payload.get("status")
@@ -1401,11 +1352,9 @@ class ChannelsSenderList(ListResource):
                 "": self.country,
                 "": self.registration_sid,
                 "": self.status.to_dict() if self.status is not None else None,
-                "": (
-                    [carriers.to_dict() for carriers in self.carriers]
-                    if self.carriers is not None
-                    else None
-                ),
+                "": [carriers.to_dict() for carriers in self.carriers]
+                if self.carriers is not None
+                else None,
             }
 
     def __init__(self, version: Version):
@@ -1894,10 +1843,12 @@ class ChannelsSenderList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ChannelsSenderPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

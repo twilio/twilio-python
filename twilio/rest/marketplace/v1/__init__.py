@@ -23,7 +23,6 @@ from twilio.rest.marketplace.v1.referral_conversion import ReferralConversionLis
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Marketplace

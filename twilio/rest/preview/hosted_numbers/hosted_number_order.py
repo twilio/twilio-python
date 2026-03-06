@@ -24,7 +24,6 @@ from twilio.base.page import Page
 
 
 class HostedNumberOrderInstance(InstanceResource):
-
     class Status(object):
         TWILIO_PROCESSING = "twilio-processing"
         RECEIVED = "received"
@@ -393,7 +392,6 @@ class HostedNumberOrderInstance(InstanceResource):
 
 
 class HostedNumberOrderContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the HostedNumberOrderContext
@@ -862,7 +860,6 @@ class HostedNumberOrderContext(InstanceContext):
 
 
 class HostedNumberOrderPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> HostedNumberOrderInstance:
         """
         Build an instance of HostedNumberOrderInstance
@@ -881,7 +878,6 @@ class HostedNumberOrderPage(Page):
 
 
 class HostedNumberOrderList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the HostedNumberOrderList
@@ -1796,10 +1792,12 @@ class HostedNumberOrderList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = HostedNumberOrderPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

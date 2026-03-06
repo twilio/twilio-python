@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -26,7 +27,6 @@ from twilio.rest.knowledge.v1.knowledge.knowledge_status import KnowledgeStatusL
 
 
 class KnowledgeInstance(InstanceResource):
-
     class KnowledgeV1ServiceCreateKnowledgeRequest(object):
         """
         :ivar description: The description of the knowledge source.
@@ -38,7 +38,6 @@ class KnowledgeInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
                 "knowledge_source_details"
@@ -70,7 +69,6 @@ class KnowledgeInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
@@ -99,7 +97,6 @@ class KnowledgeInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
                 "knowledge_source_details"
@@ -343,7 +340,6 @@ class KnowledgeInstance(InstanceResource):
 
 
 class KnowledgeContext(InstanceContext):
-
     class KnowledgeV1ServiceCreateKnowledgeRequest(object):
         """
         :ivar description: The description of the knowledge source.
@@ -355,7 +351,6 @@ class KnowledgeContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
                 "knowledge_source_details"
@@ -387,7 +382,6 @@ class KnowledgeContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
@@ -416,7 +410,6 @@ class KnowledgeContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
                 "knowledge_source_details"
@@ -771,7 +764,6 @@ class KnowledgeContext(InstanceContext):
 
 
 class KnowledgePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> KnowledgeInstance:
         """
         Build an instance of KnowledgeInstance
@@ -790,7 +782,6 @@ class KnowledgePage(Page):
 
 
 class KnowledgeList(ListResource):
-
     class KnowledgeV1ServiceCreateKnowledgeRequest(object):
         """
         :ivar description: The description of the knowledge source.
@@ -802,7 +793,6 @@ class KnowledgeList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
                 "knowledge_source_details"
@@ -834,7 +824,6 @@ class KnowledgeList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
@@ -863,7 +852,6 @@ class KnowledgeList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
                 "knowledge_source_details"
@@ -1371,10 +1359,12 @@ class KnowledgeList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = KnowledgePage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

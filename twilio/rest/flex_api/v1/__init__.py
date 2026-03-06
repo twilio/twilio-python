@@ -20,6 +20,7 @@ from twilio.rest.flex_api.v1.channel import ChannelList
 from twilio.rest.flex_api.v1.configuration import ConfigurationList
 from twilio.rest.flex_api.v1.create_flex_instance import CreateFlexInstanceList
 from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
+from twilio.rest.flex_api.v1.flex_user import FlexUserList
 from twilio.rest.flex_api.v1.insights_assessments_comment import (
     InsightsAssessmentsCommentList,
 )
@@ -54,7 +55,6 @@ from twilio.rest.flex_api.v1.web_channel import WebChannelList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of FlexApi
@@ -67,9 +67,10 @@ class V1(Version):
         self._configuration: Optional[ConfigurationList] = None
         self._create_flex_instance: Optional[CreateFlexInstanceList] = None
         self._flex_flow: Optional[FlexFlowList] = None
-        self._insights_assessments_comment: Optional[InsightsAssessmentsCommentList] = (
-            None
-        )
+        self._flex_user: Optional[FlexUserList] = None
+        self._insights_assessments_comment: Optional[
+            InsightsAssessmentsCommentList
+        ] = None
         self._insights_conversations: Optional[InsightsConversationsList] = None
         self._insights_questionnaires: Optional[InsightsQuestionnairesList] = None
         self._insights_questionnaires_category: Optional[
@@ -89,9 +90,9 @@ class V1(Version):
         self._plugins: Optional[PluginList] = None
         self._plugin_archive: Optional[PluginArchiveList] = None
         self._plugin_configurations: Optional[PluginConfigurationList] = None
-        self._plugin_configuration_archive: Optional[PluginConfigurationArchiveList] = (
-            None
-        )
+        self._plugin_configuration_archive: Optional[
+            PluginConfigurationArchiveList
+        ] = None
         self._plugin_releases: Optional[PluginReleaseList] = None
         self._plugin_version_archive: Optional[PluginVersionArchiveList] = None
         self._provisioning_status: Optional[ProvisioningStatusList] = None
@@ -126,6 +127,12 @@ class V1(Version):
         if self._flex_flow is None:
             self._flex_flow = FlexFlowList(self)
         return self._flex_flow
+
+    @property
+    def flex_user(self) -> FlexUserList:
+        if self._flex_user is None:
+            self._flex_user = FlexUserList(self)
+        return self._flex_user
 
     @property
     def insights_assessments_comment(self) -> InsightsAssessmentsCommentList:

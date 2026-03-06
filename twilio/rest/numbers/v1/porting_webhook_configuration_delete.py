@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
@@ -21,7 +22,6 @@ from twilio.base.version import Version
 
 
 class PortingWebhookConfigurationDeleteContext(InstanceContext):
-
     def __init__(
         self,
         version: Version,
@@ -124,7 +124,6 @@ class PortingWebhookConfigurationDeleteContext(InstanceContext):
 
 
 class PortingWebhookConfigurationDeleteList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PortingWebhookConfigurationDeleteList

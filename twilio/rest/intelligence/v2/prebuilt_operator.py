@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class PrebuiltOperatorInstance(InstanceResource):
-
     class Availability(object):
         INTERNAL = "internal"
         BETA = "beta"
@@ -59,9 +59,9 @@ class PrebuiltOperatorInstance(InstanceResource):
         self.author: Optional[str] = payload.get("author")
         self.operator_type: Optional[str] = payload.get("operator_type")
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
-        self.availability: Optional["PrebuiltOperatorInstance.Availability"] = (
-            payload.get("availability")
-        )
+        self.availability: Optional[
+            "PrebuiltOperatorInstance.Availability"
+        ] = payload.get("availability")
         self.config: Optional[Dict[str, object]] = payload.get("config")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
@@ -138,7 +138,6 @@ class PrebuiltOperatorInstance(InstanceResource):
 
 
 class PrebuiltOperatorContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PrebuiltOperatorContext
@@ -255,7 +254,6 @@ class PrebuiltOperatorContext(InstanceContext):
 
 
 class PrebuiltOperatorPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> PrebuiltOperatorInstance:
         """
         Build an instance of PrebuiltOperatorInstance
@@ -274,7 +272,6 @@ class PrebuiltOperatorPage(Page):
 
 
 class PrebuiltOperatorList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PrebuiltOperatorList
@@ -719,10 +716,12 @@ class PrebuiltOperatorList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = PrebuiltOperatorPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

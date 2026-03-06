@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,6 +26,7 @@ from twilio.rest.serverless.v1.service.asset.asset_version import AssetVersionLi
 
 
 class AssetInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Asset resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Asset resource.
@@ -218,7 +220,6 @@ class AssetInstance(InstanceResource):
 
 
 class AssetContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the AssetContext
@@ -538,7 +539,6 @@ class AssetContext(InstanceContext):
 
 
 class AssetPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AssetInstance:
         """
         Build an instance of AssetInstance
@@ -559,7 +559,6 @@ class AssetPage(Page):
 
 
 class AssetList(ListResource):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the AssetList
@@ -1009,10 +1008,12 @@ class AssetList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AssetPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,14 +23,12 @@ from twilio.base.version import Version
 
 
 class ReferralConversionInstance(InstanceResource):
-
     class CreateReferralConversionRequest(object):
         """
         :ivar referral_account_sid:
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.referral_account_sid: Optional[str] = payload.get(
                 "referral_account_sid"
             )
@@ -59,14 +58,12 @@ class ReferralConversionInstance(InstanceResource):
 
 
 class ReferralConversionList(ListResource):
-
     class CreateReferralConversionRequest(object):
         """
         :ivar referral_account_sid:
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.referral_account_sid: Optional[str] = payload.get(
                 "referral_account_sid"
             )

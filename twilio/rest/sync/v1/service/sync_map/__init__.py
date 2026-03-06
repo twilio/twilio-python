@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -28,6 +29,7 @@ from twilio.rest.sync.v1.service.sync_map.sync_map_permission import (
 
 
 class SyncMapInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Sync Map resource.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
@@ -260,7 +262,6 @@ class SyncMapInstance(InstanceResource):
 
 
 class SyncMapContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the SyncMapContext
@@ -626,7 +627,6 @@ class SyncMapContext(InstanceContext):
 
 
 class SyncMapPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> SyncMapInstance:
         """
         Build an instance of SyncMapInstance
@@ -647,7 +647,6 @@ class SyncMapPage(Page):
 
 
 class SyncMapList(ListResource):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SyncMapList
@@ -1145,10 +1144,12 @@ class SyncMapList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = SyncMapPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

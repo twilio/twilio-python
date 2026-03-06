@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class FlowTestUserInstance(InstanceResource):
+
     """
     :ivar sid: Unique identifier of the flow.
     :ivar test_users: List of test user identities that can test draft versions of the flow.
@@ -150,7 +152,6 @@ class FlowTestUserInstance(InstanceResource):
 
 
 class FlowTestUserContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowTestUserContext
@@ -363,7 +364,6 @@ class FlowTestUserContext(InstanceContext):
 
 
 class FlowTestUserList(ListResource):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowTestUserList

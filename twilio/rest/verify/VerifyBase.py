@@ -17,7 +17,6 @@ from twilio.rest.verify.v2 import V2
 
 
 class VerifyBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Verify Domain

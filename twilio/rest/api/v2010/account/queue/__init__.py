@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,6 +26,7 @@ from twilio.rest.api.v2010.account.queue.member import MemberList
 
 
 class QueueInstance(InstanceResource):
+
     """
     :ivar date_updated: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar current_size: The number of calls currently in the queue.
@@ -35,6 +37,7 @@ class QueueInstance(InstanceResource):
     :ivar sid: The unique string that that we created to identify this Queue resource.
     :ivar date_created: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar max_size:  The maximum number of calls that can be in the queue. The default is 1000 and the maximum is 5000.
+    :ivar subresource_uris:
     """
 
     def __init__(
@@ -63,6 +66,9 @@ class QueueInstance(InstanceResource):
             payload.get("date_created")
         )
         self.max_size: Optional[int] = deserialize.integer(payload.get("max_size"))
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
 
         self._solution = {
             "account_sid": account_sid,
@@ -248,7 +254,6 @@ class QueueInstance(InstanceResource):
 
 
 class QueueContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the QueueContext
@@ -602,7 +607,6 @@ class QueueContext(InstanceContext):
 
 
 class QueuePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> QueueInstance:
         """
         Build an instance of QueueInstance
@@ -623,7 +627,6 @@ class QueuePage(Page):
 
 
 class QueueList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the QueueList
@@ -1095,10 +1098,12 @@ class QueueList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = QueuePage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

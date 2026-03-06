@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class UsageRecordInstance(InstanceResource):
-
     class Granularity(object):
         HOURLY = "hourly"
         DAILY = "daily"
@@ -62,7 +62,6 @@ class UsageRecordInstance(InstanceResource):
 
 
 class UsageRecordPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> UsageRecordInstance:
         """
         Build an instance of UsageRecordInstance
@@ -83,7 +82,6 @@ class UsageRecordPage(Page):
 
 
 class UsageRecordList(ListResource):
-
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the UsageRecordList
@@ -533,10 +531,12 @@ class UsageRecordList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = UsageRecordPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

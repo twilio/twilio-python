@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class AuthCallsCredentialListMappingInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource.
     :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -161,7 +163,6 @@ class AuthCallsCredentialListMappingInstance(InstanceResource):
 
 
 class AuthCallsCredentialListMappingContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
         """
         Initialize the AuthCallsCredentialListMappingContext
@@ -362,7 +363,6 @@ class AuthCallsCredentialListMappingContext(InstanceContext):
 
 
 class AuthCallsCredentialListMappingPage(Page):
-
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> AuthCallsCredentialListMappingInstance:
@@ -388,7 +388,6 @@ class AuthCallsCredentialListMappingPage(Page):
 
 
 class AuthCallsCredentialListMappingList(ListResource):
-
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthCallsCredentialListMappingList
@@ -870,10 +869,12 @@ class AuthCallsCredentialListMappingList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AuthCallsCredentialListMappingPage(
             self._version, response, self._solution

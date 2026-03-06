@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -26,7 +27,6 @@ from twilio.rest.content.v1.content.approval_fetch import ApprovalFetchList
 
 
 class ContentInstance(InstanceResource):
-
     class AuthenticationAction(object):
         """
         :ivar type:
@@ -34,10 +34,9 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.type: Optional["ContentInstance.AuthenticationActionType"] = (
-                payload.get("type")
-            )
+            self.type: Optional[
+                "ContentInstance.AuthenticationActionType"
+            ] = payload.get("type")
             self.copy_code_text: Optional[str] = payload.get("copy_code_text")
 
         def to_dict(self):
@@ -57,7 +56,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.CallToActionActionType"] = payload.get(
                 "type"
             )
@@ -89,16 +87,15 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.CardActionType"] = payload.get("type")
             self.title: Optional[str] = payload.get("title")
             self.url: Optional[str] = payload.get("url")
             self.phone: Optional[str] = payload.get("phone")
             self.id: Optional[str] = payload.get("id")
             self.code: Optional[str] = payload.get("code")
-            self.webview_size: Optional["ContentInstance.WebviewSizeType"] = (
-                payload.get("webview_size")
-            )
+            self.webview_size: Optional[
+                "ContentInstance.WebviewSizeType"
+            ] = payload.get("webview_size")
 
         def to_dict(self):
             return {
@@ -121,7 +118,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.CarouselActionType"] = payload.get(
                 "type"
             )
@@ -148,7 +144,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[str] = payload.get("media")
@@ -161,11 +156,9 @@ class ContentInstance(InstanceResource):
                 "title": self.title,
                 "body": self.body,
                 "media": self.media,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class CatalogItem(object):
@@ -179,7 +172,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.section_title: Optional[str] = payload.get("section_title")
             self.name: Optional[str] = payload.get("name")
@@ -206,7 +198,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
@@ -229,7 +220,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
@@ -253,7 +243,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.next_page_id: Optional[str] = payload.get("next_page_id")
             self.title: Optional[str] = payload.get("title")
@@ -268,11 +257,9 @@ class ContentInstance(InstanceResource):
                 "next_page_id": self.next_page_id,
                 "title": self.title,
                 "subtitle": self.subtitle,
-                "layout": (
-                    [layout.to_dict() for layout in self.layout]
-                    if self.layout is not None
-                    else None
-                ),
+                "layout": [layout.to_dict() for layout in self.layout]
+                if self.layout is not None
+                else None,
             }
 
     class FlowsPageComponent(object):
@@ -282,7 +269,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.label: Optional[str] = payload.get("label")
             self.type: Optional[str] = payload.get("type")
 
@@ -300,7 +286,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.item: Optional[str] = payload.get("item")
             self.description: Optional[str] = payload.get("description")
@@ -320,7 +305,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.QuickReplyActionType"] = payload.get(
                 "type"
             )
@@ -341,7 +325,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.actions: Optional[List[ContentList.CallToActionAction]] = payload.get(
                 "actions"
@@ -350,11 +333,9 @@ class ContentInstance(InstanceResource):
         def to_dict(self):
             return {
                 "body": self.body,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class TwilioCard(object):
@@ -366,7 +347,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.media: Optional[List[str]] = payload.get("media")
@@ -379,11 +359,9 @@ class ContentInstance(InstanceResource):
                 "title": self.title,
                 "subtitle": self.subtitle,
                 "media": self.media,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class TwilioCarousel(object):
@@ -393,18 +371,15 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.cards: Optional[List[ContentList.CarouselCard]] = payload.get("cards")
 
         def to_dict(self):
             return {
                 "body": self.body,
-                "cards": (
-                    [cards.to_dict() for cards in self.cards]
-                    if self.cards is not None
-                    else None
-                ),
+                "cards": [cards.to_dict() for cards in self.cards]
+                if self.cards is not None
+                else None,
             }
 
     class TwilioCatalog(object):
@@ -418,7 +393,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -432,11 +406,9 @@ class ContentInstance(InstanceResource):
                 "body": self.body,
                 "subtitle": self.subtitle,
                 "id": self.id,
-                "items": (
-                    [items.to_dict() for items in self.items]
-                    if self.items is not None
-                    else None
-                ),
+                "items": [items.to_dict() for items in self.items]
+                if self.items is not None
+                else None,
                 "dynamic_items": self.dynamic_items,
             }
 
@@ -451,7 +423,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.button_text: Optional[str] = payload.get("button_text")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -465,11 +436,9 @@ class ContentInstance(InstanceResource):
                 "button_text": self.button_text,
                 "subtitle": self.subtitle,
                 "media_url": self.media_url,
-                "pages": (
-                    [pages.to_dict() for pages in self.pages]
-                    if self.pages is not None
-                    else None
-                ),
+                "pages": [pages.to_dict() for pages in self.pages]
+                if self.pages is not None
+                else None,
                 "type": self.type,
             }
 
@@ -481,7 +450,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.button: Optional[str] = payload.get("button")
             self.items: Optional[List[ContentList.ListItem]] = payload.get("items")
@@ -490,11 +458,9 @@ class ContentInstance(InstanceResource):
             return {
                 "body": self.body,
                 "button": self.button,
-                "items": (
-                    [items.to_dict() for items in self.items]
-                    if self.items is not None
-                    else None
-                ),
+                "items": [items.to_dict() for items in self.items]
+                if self.items is not None
+                else None,
             }
 
     class TwilioLocation(object):
@@ -507,7 +473,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.latitude: Optional[float] = payload.get("latitude")
             self.longitude: Optional[float] = payload.get("longitude")
             self.label: Optional[str] = payload.get("label")
@@ -530,7 +495,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[List[str]] = payload.get("media")
 
@@ -547,7 +511,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.actions: Optional[List[ContentList.QuickReplyAction]] = payload.get(
                 "actions"
@@ -556,11 +519,9 @@ class ContentInstance(InstanceResource):
         def to_dict(self):
             return {
                 "body": self.body,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class TwilioSchedule(object):
@@ -571,7 +532,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.title: Optional[str] = payload.get("title")
             self.time_slots: Optional[str] = payload.get("time_slots")
@@ -589,7 +549,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
 
         def to_dict(self):
@@ -616,7 +575,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.twilio_text: Optional[ContentList.TwilioText] = payload.get(
                 "twilio_text"
             )
@@ -626,15 +584,15 @@ class ContentInstance(InstanceResource):
             self.twilio_location: Optional[ContentList.TwilioLocation] = payload.get(
                 "twilio_location"
             )
-            self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
-                payload.get("twilio_list_picker")
-            )
-            self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
-                payload.get("twilio_call_to_action")
-            )
-            self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
-                payload.get("twilio_quick_reply")
-            )
+            self.twilio_list_picker: Optional[
+                ContentList.TwilioListPicker
+            ] = payload.get("twilio_list_picker")
+            self.twilio_call_to_action: Optional[
+                ContentList.TwilioCallToAction
+            ] = payload.get("twilio_call_to_action")
+            self.twilio_quick_reply: Optional[
+                ContentList.TwilioQuickReply
+            ] = payload.get("twilio_quick_reply")
             self.twilio_card: Optional[ContentList.TwilioCard] = payload.get(
                 "twilio_card"
             )
@@ -662,72 +620,48 @@ class ContentInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "twilio_text": (
-                    self.twilio_text.to_dict() if self.twilio_text is not None else None
-                ),
-                "twilio_media": (
-                    self.twilio_media.to_dict()
-                    if self.twilio_media is not None
-                    else None
-                ),
-                "twilio_location": (
-                    self.twilio_location.to_dict()
-                    if self.twilio_location is not None
-                    else None
-                ),
-                "twilio_list_picker": (
-                    self.twilio_list_picker.to_dict()
-                    if self.twilio_list_picker is not None
-                    else None
-                ),
-                "twilio_call_to_action": (
-                    self.twilio_call_to_action.to_dict()
-                    if self.twilio_call_to_action is not None
-                    else None
-                ),
-                "twilio_quick_reply": (
-                    self.twilio_quick_reply.to_dict()
-                    if self.twilio_quick_reply is not None
-                    else None
-                ),
-                "twilio_card": (
-                    self.twilio_card.to_dict() if self.twilio_card is not None else None
-                ),
-                "twilio_catalog": (
-                    self.twilio_catalog.to_dict()
-                    if self.twilio_catalog is not None
-                    else None
-                ),
-                "twilio_carousel": (
-                    self.twilio_carousel.to_dict()
-                    if self.twilio_carousel is not None
-                    else None
-                ),
-                "twilio_flows": (
-                    self.twilio_flows.to_dict()
-                    if self.twilio_flows is not None
-                    else None
-                ),
-                "twilio_schedule": (
-                    self.twilio_schedule.to_dict()
-                    if self.twilio_schedule is not None
-                    else None
-                ),
-                "whatsapp_card": (
-                    self.whatsapp_card.to_dict()
-                    if self.whatsapp_card is not None
-                    else None
-                ),
-                "whatsapp_authentication": (
-                    self.whatsapp_authentication.to_dict()
-                    if self.whatsapp_authentication is not None
-                    else None
-                ),
-                "whatsapp_flows": (
-                    self.whatsapp_flows.to_dict()
-                    if self.whatsapp_flows is not None
-                    else None
-                ),
+                "twilio_text": self.twilio_text.to_dict()
+                if self.twilio_text is not None
+                else None,
+                "twilio_media": self.twilio_media.to_dict()
+                if self.twilio_media is not None
+                else None,
+                "twilio_location": self.twilio_location.to_dict()
+                if self.twilio_location is not None
+                else None,
+                "twilio_list_picker": self.twilio_list_picker.to_dict()
+                if self.twilio_list_picker is not None
+                else None,
+                "twilio_call_to_action": self.twilio_call_to_action.to_dict()
+                if self.twilio_call_to_action is not None
+                else None,
+                "twilio_quick_reply": self.twilio_quick_reply.to_dict()
+                if self.twilio_quick_reply is not None
+                else None,
+                "twilio_card": self.twilio_card.to_dict()
+                if self.twilio_card is not None
+                else None,
+                "twilio_catalog": self.twilio_catalog.to_dict()
+                if self.twilio_catalog is not None
+                else None,
+                "twilio_carousel": self.twilio_carousel.to_dict()
+                if self.twilio_carousel is not None
+                else None,
+                "twilio_flows": self.twilio_flows.to_dict()
+                if self.twilio_flows is not None
+                else None,
+                "twilio_schedule": self.twilio_schedule.to_dict()
+                if self.twilio_schedule is not None
+                else None,
+                "whatsapp_card": self.whatsapp_card.to_dict()
+                if self.whatsapp_card is not None
+                else None,
+                "whatsapp_authentication": self.whatsapp_authentication.to_dict()
+                if self.whatsapp_authentication is not None
+                else None,
+                "whatsapp_flows": self.whatsapp_flows.to_dict()
+                if self.whatsapp_flows is not None
+                else None,
             }
 
     class WhatsappAuthentication(object):
@@ -738,26 +672,23 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.add_security_recommendation: Optional[bool] = payload.get(
                 "add_security_recommendation"
             )
             self.code_expiration_minutes: Optional[float] = payload.get(
                 "code_expiration_minutes"
             )
-            self.actions: Optional[List[ContentList.AuthenticationAction]] = (
-                payload.get("actions")
-            )
+            self.actions: Optional[
+                List[ContentList.AuthenticationAction]
+            ] = payload.get("actions")
 
         def to_dict(self):
             return {
                 "add_security_recommendation": self.add_security_recommendation,
                 "code_expiration_minutes": self.code_expiration_minutes,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class WhatsappCard(object):
@@ -770,7 +701,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.footer: Optional[str] = payload.get("footer")
             self.media: Optional[List[str]] = payload.get("media")
@@ -785,11 +715,9 @@ class ContentInstance(InstanceResource):
                 "footer": self.footer,
                 "media": self.media,
                 "header_text": self.header_text,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class WhatsappFlows(object):
@@ -805,7 +733,6 @@ class ContentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.button_text: Optional[str] = payload.get("button_text")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -1064,7 +991,6 @@ class ContentInstance(InstanceResource):
 
 
 class ContentContext(InstanceContext):
-
     class AuthenticationAction(object):
         """
         :ivar type:
@@ -1072,10 +998,9 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.type: Optional["ContentInstance.AuthenticationActionType"] = (
-                payload.get("type")
-            )
+            self.type: Optional[
+                "ContentInstance.AuthenticationActionType"
+            ] = payload.get("type")
             self.copy_code_text: Optional[str] = payload.get("copy_code_text")
 
         def to_dict(self):
@@ -1095,7 +1020,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.CallToActionActionType"] = payload.get(
                 "type"
             )
@@ -1127,16 +1051,15 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.CardActionType"] = payload.get("type")
             self.title: Optional[str] = payload.get("title")
             self.url: Optional[str] = payload.get("url")
             self.phone: Optional[str] = payload.get("phone")
             self.id: Optional[str] = payload.get("id")
             self.code: Optional[str] = payload.get("code")
-            self.webview_size: Optional["ContentInstance.WebviewSizeType"] = (
-                payload.get("webview_size")
-            )
+            self.webview_size: Optional[
+                "ContentInstance.WebviewSizeType"
+            ] = payload.get("webview_size")
 
         def to_dict(self):
             return {
@@ -1159,7 +1082,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.CarouselActionType"] = payload.get(
                 "type"
             )
@@ -1186,7 +1108,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[str] = payload.get("media")
@@ -1199,11 +1120,9 @@ class ContentContext(InstanceContext):
                 "title": self.title,
                 "body": self.body,
                 "media": self.media,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class CatalogItem(object):
@@ -1217,7 +1136,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.section_title: Optional[str] = payload.get("section_title")
             self.name: Optional[str] = payload.get("name")
@@ -1244,7 +1162,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
@@ -1267,7 +1184,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
@@ -1291,7 +1207,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.next_page_id: Optional[str] = payload.get("next_page_id")
             self.title: Optional[str] = payload.get("title")
@@ -1306,11 +1221,9 @@ class ContentContext(InstanceContext):
                 "next_page_id": self.next_page_id,
                 "title": self.title,
                 "subtitle": self.subtitle,
-                "layout": (
-                    [layout.to_dict() for layout in self.layout]
-                    if self.layout is not None
-                    else None
-                ),
+                "layout": [layout.to_dict() for layout in self.layout]
+                if self.layout is not None
+                else None,
             }
 
     class FlowsPageComponent(object):
@@ -1320,7 +1233,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.label: Optional[str] = payload.get("label")
             self.type: Optional[str] = payload.get("type")
 
@@ -1338,7 +1250,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.item: Optional[str] = payload.get("item")
             self.description: Optional[str] = payload.get("description")
@@ -1358,7 +1269,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.QuickReplyActionType"] = payload.get(
                 "type"
             )
@@ -1379,7 +1289,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.actions: Optional[List[ContentList.CallToActionAction]] = payload.get(
                 "actions"
@@ -1388,11 +1297,9 @@ class ContentContext(InstanceContext):
         def to_dict(self):
             return {
                 "body": self.body,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class TwilioCard(object):
@@ -1404,7 +1311,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.media: Optional[List[str]] = payload.get("media")
@@ -1417,11 +1323,9 @@ class ContentContext(InstanceContext):
                 "title": self.title,
                 "subtitle": self.subtitle,
                 "media": self.media,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class TwilioCarousel(object):
@@ -1431,18 +1335,15 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.cards: Optional[List[ContentList.CarouselCard]] = payload.get("cards")
 
         def to_dict(self):
             return {
                 "body": self.body,
-                "cards": (
-                    [cards.to_dict() for cards in self.cards]
-                    if self.cards is not None
-                    else None
-                ),
+                "cards": [cards.to_dict() for cards in self.cards]
+                if self.cards is not None
+                else None,
             }
 
     class TwilioCatalog(object):
@@ -1456,7 +1357,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -1470,11 +1370,9 @@ class ContentContext(InstanceContext):
                 "body": self.body,
                 "subtitle": self.subtitle,
                 "id": self.id,
-                "items": (
-                    [items.to_dict() for items in self.items]
-                    if self.items is not None
-                    else None
-                ),
+                "items": [items.to_dict() for items in self.items]
+                if self.items is not None
+                else None,
                 "dynamic_items": self.dynamic_items,
             }
 
@@ -1489,7 +1387,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.button_text: Optional[str] = payload.get("button_text")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -1503,11 +1400,9 @@ class ContentContext(InstanceContext):
                 "button_text": self.button_text,
                 "subtitle": self.subtitle,
                 "media_url": self.media_url,
-                "pages": (
-                    [pages.to_dict() for pages in self.pages]
-                    if self.pages is not None
-                    else None
-                ),
+                "pages": [pages.to_dict() for pages in self.pages]
+                if self.pages is not None
+                else None,
                 "type": self.type,
             }
 
@@ -1519,7 +1414,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.button: Optional[str] = payload.get("button")
             self.items: Optional[List[ContentList.ListItem]] = payload.get("items")
@@ -1528,11 +1422,9 @@ class ContentContext(InstanceContext):
             return {
                 "body": self.body,
                 "button": self.button,
-                "items": (
-                    [items.to_dict() for items in self.items]
-                    if self.items is not None
-                    else None
-                ),
+                "items": [items.to_dict() for items in self.items]
+                if self.items is not None
+                else None,
             }
 
     class TwilioLocation(object):
@@ -1545,7 +1437,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.latitude: Optional[float] = payload.get("latitude")
             self.longitude: Optional[float] = payload.get("longitude")
             self.label: Optional[str] = payload.get("label")
@@ -1568,7 +1459,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[List[str]] = payload.get("media")
 
@@ -1585,7 +1475,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.actions: Optional[List[ContentList.QuickReplyAction]] = payload.get(
                 "actions"
@@ -1594,11 +1483,9 @@ class ContentContext(InstanceContext):
         def to_dict(self):
             return {
                 "body": self.body,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class TwilioSchedule(object):
@@ -1609,7 +1496,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.title: Optional[str] = payload.get("title")
             self.time_slots: Optional[str] = payload.get("time_slots")
@@ -1627,7 +1513,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
 
         def to_dict(self):
@@ -1654,7 +1539,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.twilio_text: Optional[ContentList.TwilioText] = payload.get(
                 "twilio_text"
             )
@@ -1664,15 +1548,15 @@ class ContentContext(InstanceContext):
             self.twilio_location: Optional[ContentList.TwilioLocation] = payload.get(
                 "twilio_location"
             )
-            self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
-                payload.get("twilio_list_picker")
-            )
-            self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
-                payload.get("twilio_call_to_action")
-            )
-            self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
-                payload.get("twilio_quick_reply")
-            )
+            self.twilio_list_picker: Optional[
+                ContentList.TwilioListPicker
+            ] = payload.get("twilio_list_picker")
+            self.twilio_call_to_action: Optional[
+                ContentList.TwilioCallToAction
+            ] = payload.get("twilio_call_to_action")
+            self.twilio_quick_reply: Optional[
+                ContentList.TwilioQuickReply
+            ] = payload.get("twilio_quick_reply")
             self.twilio_card: Optional[ContentList.TwilioCard] = payload.get(
                 "twilio_card"
             )
@@ -1700,72 +1584,48 @@ class ContentContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "twilio_text": (
-                    self.twilio_text.to_dict() if self.twilio_text is not None else None
-                ),
-                "twilio_media": (
-                    self.twilio_media.to_dict()
-                    if self.twilio_media is not None
-                    else None
-                ),
-                "twilio_location": (
-                    self.twilio_location.to_dict()
-                    if self.twilio_location is not None
-                    else None
-                ),
-                "twilio_list_picker": (
-                    self.twilio_list_picker.to_dict()
-                    if self.twilio_list_picker is not None
-                    else None
-                ),
-                "twilio_call_to_action": (
-                    self.twilio_call_to_action.to_dict()
-                    if self.twilio_call_to_action is not None
-                    else None
-                ),
-                "twilio_quick_reply": (
-                    self.twilio_quick_reply.to_dict()
-                    if self.twilio_quick_reply is not None
-                    else None
-                ),
-                "twilio_card": (
-                    self.twilio_card.to_dict() if self.twilio_card is not None else None
-                ),
-                "twilio_catalog": (
-                    self.twilio_catalog.to_dict()
-                    if self.twilio_catalog is not None
-                    else None
-                ),
-                "twilio_carousel": (
-                    self.twilio_carousel.to_dict()
-                    if self.twilio_carousel is not None
-                    else None
-                ),
-                "twilio_flows": (
-                    self.twilio_flows.to_dict()
-                    if self.twilio_flows is not None
-                    else None
-                ),
-                "twilio_schedule": (
-                    self.twilio_schedule.to_dict()
-                    if self.twilio_schedule is not None
-                    else None
-                ),
-                "whatsapp_card": (
-                    self.whatsapp_card.to_dict()
-                    if self.whatsapp_card is not None
-                    else None
-                ),
-                "whatsapp_authentication": (
-                    self.whatsapp_authentication.to_dict()
-                    if self.whatsapp_authentication is not None
-                    else None
-                ),
-                "whatsapp_flows": (
-                    self.whatsapp_flows.to_dict()
-                    if self.whatsapp_flows is not None
-                    else None
-                ),
+                "twilio_text": self.twilio_text.to_dict()
+                if self.twilio_text is not None
+                else None,
+                "twilio_media": self.twilio_media.to_dict()
+                if self.twilio_media is not None
+                else None,
+                "twilio_location": self.twilio_location.to_dict()
+                if self.twilio_location is not None
+                else None,
+                "twilio_list_picker": self.twilio_list_picker.to_dict()
+                if self.twilio_list_picker is not None
+                else None,
+                "twilio_call_to_action": self.twilio_call_to_action.to_dict()
+                if self.twilio_call_to_action is not None
+                else None,
+                "twilio_quick_reply": self.twilio_quick_reply.to_dict()
+                if self.twilio_quick_reply is not None
+                else None,
+                "twilio_card": self.twilio_card.to_dict()
+                if self.twilio_card is not None
+                else None,
+                "twilio_catalog": self.twilio_catalog.to_dict()
+                if self.twilio_catalog is not None
+                else None,
+                "twilio_carousel": self.twilio_carousel.to_dict()
+                if self.twilio_carousel is not None
+                else None,
+                "twilio_flows": self.twilio_flows.to_dict()
+                if self.twilio_flows is not None
+                else None,
+                "twilio_schedule": self.twilio_schedule.to_dict()
+                if self.twilio_schedule is not None
+                else None,
+                "whatsapp_card": self.whatsapp_card.to_dict()
+                if self.whatsapp_card is not None
+                else None,
+                "whatsapp_authentication": self.whatsapp_authentication.to_dict()
+                if self.whatsapp_authentication is not None
+                else None,
+                "whatsapp_flows": self.whatsapp_flows.to_dict()
+                if self.whatsapp_flows is not None
+                else None,
             }
 
     class WhatsappAuthentication(object):
@@ -1776,26 +1636,23 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.add_security_recommendation: Optional[bool] = payload.get(
                 "add_security_recommendation"
             )
             self.code_expiration_minutes: Optional[float] = payload.get(
                 "code_expiration_minutes"
             )
-            self.actions: Optional[List[ContentList.AuthenticationAction]] = (
-                payload.get("actions")
-            )
+            self.actions: Optional[
+                List[ContentList.AuthenticationAction]
+            ] = payload.get("actions")
 
         def to_dict(self):
             return {
                 "add_security_recommendation": self.add_security_recommendation,
                 "code_expiration_minutes": self.code_expiration_minutes,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class WhatsappCard(object):
@@ -1808,7 +1665,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.footer: Optional[str] = payload.get("footer")
             self.media: Optional[List[str]] = payload.get("media")
@@ -1823,11 +1679,9 @@ class ContentContext(InstanceContext):
                 "footer": self.footer,
                 "media": self.media,
                 "header_text": self.header_text,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class WhatsappFlows(object):
@@ -1843,7 +1697,6 @@ class ContentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.button_text: Optional[str] = payload.get("button_text")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -2176,7 +2029,6 @@ class ContentContext(InstanceContext):
 
 
 class ContentPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ContentInstance:
         """
         Build an instance of ContentInstance
@@ -2195,7 +2047,6 @@ class ContentPage(Page):
 
 
 class ContentList(ListResource):
-
     class AuthenticationAction(object):
         """
         :ivar type:
@@ -2203,10 +2054,9 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.type: Optional["ContentInstance.AuthenticationActionType"] = (
-                payload.get("type")
-            )
+            self.type: Optional[
+                "ContentInstance.AuthenticationActionType"
+            ] = payload.get("type")
             self.copy_code_text: Optional[str] = payload.get("copy_code_text")
 
         def to_dict(self):
@@ -2226,7 +2076,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.CallToActionActionType"] = payload.get(
                 "type"
             )
@@ -2258,16 +2107,15 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.CardActionType"] = payload.get("type")
             self.title: Optional[str] = payload.get("title")
             self.url: Optional[str] = payload.get("url")
             self.phone: Optional[str] = payload.get("phone")
             self.id: Optional[str] = payload.get("id")
             self.code: Optional[str] = payload.get("code")
-            self.webview_size: Optional["ContentInstance.WebviewSizeType"] = (
-                payload.get("webview_size")
-            )
+            self.webview_size: Optional[
+                "ContentInstance.WebviewSizeType"
+            ] = payload.get("webview_size")
 
         def to_dict(self):
             return {
@@ -2290,7 +2138,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.CarouselActionType"] = payload.get(
                 "type"
             )
@@ -2317,7 +2164,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[str] = payload.get("media")
@@ -2330,11 +2176,9 @@ class ContentList(ListResource):
                 "title": self.title,
                 "body": self.body,
                 "media": self.media,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class CatalogItem(object):
@@ -2348,7 +2192,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.section_title: Optional[str] = payload.get("section_title")
             self.name: Optional[str] = payload.get("name")
@@ -2375,7 +2218,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
@@ -2398,7 +2240,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
@@ -2422,7 +2263,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.next_page_id: Optional[str] = payload.get("next_page_id")
             self.title: Optional[str] = payload.get("title")
@@ -2437,11 +2277,9 @@ class ContentList(ListResource):
                 "next_page_id": self.next_page_id,
                 "title": self.title,
                 "subtitle": self.subtitle,
-                "layout": (
-                    [layout.to_dict() for layout in self.layout]
-                    if self.layout is not None
-                    else None
-                ),
+                "layout": [layout.to_dict() for layout in self.layout]
+                if self.layout is not None
+                else None,
             }
 
     class FlowsPageComponent(object):
@@ -2451,7 +2289,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.label: Optional[str] = payload.get("label")
             self.type: Optional[str] = payload.get("type")
 
@@ -2469,7 +2306,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.item: Optional[str] = payload.get("item")
             self.description: Optional[str] = payload.get("description")
@@ -2489,7 +2325,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.type: Optional["ContentInstance.QuickReplyActionType"] = payload.get(
                 "type"
             )
@@ -2510,7 +2345,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.actions: Optional[List[ContentList.CallToActionAction]] = payload.get(
                 "actions"
@@ -2519,11 +2353,9 @@ class ContentList(ListResource):
         def to_dict(self):
             return {
                 "body": self.body,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class TwilioCard(object):
@@ -2535,7 +2367,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.media: Optional[List[str]] = payload.get("media")
@@ -2548,11 +2379,9 @@ class ContentList(ListResource):
                 "title": self.title,
                 "subtitle": self.subtitle,
                 "media": self.media,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class TwilioCarousel(object):
@@ -2562,18 +2391,15 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.cards: Optional[List[ContentList.CarouselCard]] = payload.get("cards")
 
         def to_dict(self):
             return {
                 "body": self.body,
-                "cards": (
-                    [cards.to_dict() for cards in self.cards]
-                    if self.cards is not None
-                    else None
-                ),
+                "cards": [cards.to_dict() for cards in self.cards]
+                if self.cards is not None
+                else None,
             }
 
     class TwilioCatalog(object):
@@ -2587,7 +2413,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -2601,11 +2426,9 @@ class ContentList(ListResource):
                 "body": self.body,
                 "subtitle": self.subtitle,
                 "id": self.id,
-                "items": (
-                    [items.to_dict() for items in self.items]
-                    if self.items is not None
-                    else None
-                ),
+                "items": [items.to_dict() for items in self.items]
+                if self.items is not None
+                else None,
                 "dynamic_items": self.dynamic_items,
             }
 
@@ -2620,7 +2443,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.button_text: Optional[str] = payload.get("button_text")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -2634,11 +2456,9 @@ class ContentList(ListResource):
                 "button_text": self.button_text,
                 "subtitle": self.subtitle,
                 "media_url": self.media_url,
-                "pages": (
-                    [pages.to_dict() for pages in self.pages]
-                    if self.pages is not None
-                    else None
-                ),
+                "pages": [pages.to_dict() for pages in self.pages]
+                if self.pages is not None
+                else None,
                 "type": self.type,
             }
 
@@ -2650,7 +2470,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.button: Optional[str] = payload.get("button")
             self.items: Optional[List[ContentList.ListItem]] = payload.get("items")
@@ -2659,11 +2478,9 @@ class ContentList(ListResource):
             return {
                 "body": self.body,
                 "button": self.button,
-                "items": (
-                    [items.to_dict() for items in self.items]
-                    if self.items is not None
-                    else None
-                ),
+                "items": [items.to_dict() for items in self.items]
+                if self.items is not None
+                else None,
             }
 
     class TwilioLocation(object):
@@ -2676,7 +2493,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.latitude: Optional[float] = payload.get("latitude")
             self.longitude: Optional[float] = payload.get("longitude")
             self.label: Optional[str] = payload.get("label")
@@ -2699,7 +2515,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[List[str]] = payload.get("media")
 
@@ -2716,7 +2531,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.actions: Optional[List[ContentList.QuickReplyAction]] = payload.get(
                 "actions"
@@ -2725,11 +2539,9 @@ class ContentList(ListResource):
         def to_dict(self):
             return {
                 "body": self.body,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class TwilioSchedule(object):
@@ -2740,7 +2552,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.title: Optional[str] = payload.get("title")
             self.time_slots: Optional[str] = payload.get("time_slots")
@@ -2758,7 +2569,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
 
         def to_dict(self):
@@ -2785,7 +2595,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.twilio_text: Optional[ContentList.TwilioText] = payload.get(
                 "twilio_text"
             )
@@ -2795,15 +2604,15 @@ class ContentList(ListResource):
             self.twilio_location: Optional[ContentList.TwilioLocation] = payload.get(
                 "twilio_location"
             )
-            self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
-                payload.get("twilio_list_picker")
-            )
-            self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
-                payload.get("twilio_call_to_action")
-            )
-            self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
-                payload.get("twilio_quick_reply")
-            )
+            self.twilio_list_picker: Optional[
+                ContentList.TwilioListPicker
+            ] = payload.get("twilio_list_picker")
+            self.twilio_call_to_action: Optional[
+                ContentList.TwilioCallToAction
+            ] = payload.get("twilio_call_to_action")
+            self.twilio_quick_reply: Optional[
+                ContentList.TwilioQuickReply
+            ] = payload.get("twilio_quick_reply")
             self.twilio_card: Optional[ContentList.TwilioCard] = payload.get(
                 "twilio_card"
             )
@@ -2831,72 +2640,48 @@ class ContentList(ListResource):
 
         def to_dict(self):
             return {
-                "twilio_text": (
-                    self.twilio_text.to_dict() if self.twilio_text is not None else None
-                ),
-                "twilio_media": (
-                    self.twilio_media.to_dict()
-                    if self.twilio_media is not None
-                    else None
-                ),
-                "twilio_location": (
-                    self.twilio_location.to_dict()
-                    if self.twilio_location is not None
-                    else None
-                ),
-                "twilio_list_picker": (
-                    self.twilio_list_picker.to_dict()
-                    if self.twilio_list_picker is not None
-                    else None
-                ),
-                "twilio_call_to_action": (
-                    self.twilio_call_to_action.to_dict()
-                    if self.twilio_call_to_action is not None
-                    else None
-                ),
-                "twilio_quick_reply": (
-                    self.twilio_quick_reply.to_dict()
-                    if self.twilio_quick_reply is not None
-                    else None
-                ),
-                "twilio_card": (
-                    self.twilio_card.to_dict() if self.twilio_card is not None else None
-                ),
-                "twilio_catalog": (
-                    self.twilio_catalog.to_dict()
-                    if self.twilio_catalog is not None
-                    else None
-                ),
-                "twilio_carousel": (
-                    self.twilio_carousel.to_dict()
-                    if self.twilio_carousel is not None
-                    else None
-                ),
-                "twilio_flows": (
-                    self.twilio_flows.to_dict()
-                    if self.twilio_flows is not None
-                    else None
-                ),
-                "twilio_schedule": (
-                    self.twilio_schedule.to_dict()
-                    if self.twilio_schedule is not None
-                    else None
-                ),
-                "whatsapp_card": (
-                    self.whatsapp_card.to_dict()
-                    if self.whatsapp_card is not None
-                    else None
-                ),
-                "whatsapp_authentication": (
-                    self.whatsapp_authentication.to_dict()
-                    if self.whatsapp_authentication is not None
-                    else None
-                ),
-                "whatsapp_flows": (
-                    self.whatsapp_flows.to_dict()
-                    if self.whatsapp_flows is not None
-                    else None
-                ),
+                "twilio_text": self.twilio_text.to_dict()
+                if self.twilio_text is not None
+                else None,
+                "twilio_media": self.twilio_media.to_dict()
+                if self.twilio_media is not None
+                else None,
+                "twilio_location": self.twilio_location.to_dict()
+                if self.twilio_location is not None
+                else None,
+                "twilio_list_picker": self.twilio_list_picker.to_dict()
+                if self.twilio_list_picker is not None
+                else None,
+                "twilio_call_to_action": self.twilio_call_to_action.to_dict()
+                if self.twilio_call_to_action is not None
+                else None,
+                "twilio_quick_reply": self.twilio_quick_reply.to_dict()
+                if self.twilio_quick_reply is not None
+                else None,
+                "twilio_card": self.twilio_card.to_dict()
+                if self.twilio_card is not None
+                else None,
+                "twilio_catalog": self.twilio_catalog.to_dict()
+                if self.twilio_catalog is not None
+                else None,
+                "twilio_carousel": self.twilio_carousel.to_dict()
+                if self.twilio_carousel is not None
+                else None,
+                "twilio_flows": self.twilio_flows.to_dict()
+                if self.twilio_flows is not None
+                else None,
+                "twilio_schedule": self.twilio_schedule.to_dict()
+                if self.twilio_schedule is not None
+                else None,
+                "whatsapp_card": self.whatsapp_card.to_dict()
+                if self.whatsapp_card is not None
+                else None,
+                "whatsapp_authentication": self.whatsapp_authentication.to_dict()
+                if self.whatsapp_authentication is not None
+                else None,
+                "whatsapp_flows": self.whatsapp_flows.to_dict()
+                if self.whatsapp_flows is not None
+                else None,
             }
 
     class WhatsappAuthentication(object):
@@ -2907,26 +2692,23 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.add_security_recommendation: Optional[bool] = payload.get(
                 "add_security_recommendation"
             )
             self.code_expiration_minutes: Optional[float] = payload.get(
                 "code_expiration_minutes"
             )
-            self.actions: Optional[List[ContentList.AuthenticationAction]] = (
-                payload.get("actions")
-            )
+            self.actions: Optional[
+                List[ContentList.AuthenticationAction]
+            ] = payload.get("actions")
 
         def to_dict(self):
             return {
                 "add_security_recommendation": self.add_security_recommendation,
                 "code_expiration_minutes": self.code_expiration_minutes,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class WhatsappCard(object):
@@ -2939,7 +2721,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.footer: Optional[str] = payload.get("footer")
             self.media: Optional[List[str]] = payload.get("media")
@@ -2954,11 +2735,9 @@ class ContentList(ListResource):
                 "footer": self.footer,
                 "media": self.media,
                 "header_text": self.header_text,
-                "actions": (
-                    [actions.to_dict() for actions in self.actions]
-                    if self.actions is not None
-                    else None
-                ),
+                "actions": [actions.to_dict() for actions in self.actions]
+                if self.actions is not None
+                else None,
             }
 
     class WhatsappFlows(object):
@@ -2974,7 +2753,6 @@ class ContentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.body: Optional[str] = payload.get("body")
             self.button_text: Optional[str] = payload.get("button_text")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -3438,10 +3216,12 @@ class ContentList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ContentPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

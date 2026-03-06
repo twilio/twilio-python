@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class ExternalCampaignInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
@@ -53,7 +55,6 @@ class ExternalCampaignInstance(InstanceResource):
 
 
 class ExternalCampaignList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ExternalCampaignList

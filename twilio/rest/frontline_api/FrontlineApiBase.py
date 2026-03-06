@@ -17,7 +17,6 @@ from twilio.rest.frontline_api.v1 import V1
 
 
 class FrontlineApiBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the FrontlineApi Domain

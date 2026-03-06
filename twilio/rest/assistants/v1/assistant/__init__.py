@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -30,7 +31,6 @@ from twilio.rest.assistants.v1.assistant.message import MessageList
 
 
 class AssistantInstance(InstanceResource):
-
     class AssistantsV1ServiceCreateAssistantRequest(object):
         """
         :ivar customer_ai:
@@ -41,10 +41,9 @@ class AssistantInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
-                payload.get("customer_ai")
-            )
+            self.customer_ai: Optional[
+                AssistantList.AssistantsV1ServiceCustomerAi
+            ] = payload.get("customer_ai")
             self.name: Optional[str] = payload.get("name")
             self.owner: Optional[str] = payload.get("owner")
             self.personality_prompt: Optional[str] = payload.get("personality_prompt")
@@ -54,17 +53,15 @@ class AssistantInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "customer_ai": (
-                    self.customer_ai.to_dict() if self.customer_ai is not None else None
-                ),
+                "customer_ai": self.customer_ai.to_dict()
+                if self.customer_ai is not None
+                else None,
                 "name": self.name,
                 "owner": self.owner,
                 "personality_prompt": self.personality_prompt,
-                "segment_credential": (
-                    self.segment_credential.to_dict()
-                    if self.segment_credential is not None
-                    else None
-                ),
+                "segment_credential": self.segment_credential.to_dict()
+                if self.segment_credential is not None
+                else None,
             }
 
     class AssistantsV1ServiceCustomerAi(object):
@@ -74,7 +71,6 @@ class AssistantInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.perception_engine_enabled: Optional[bool] = payload.get(
                 "perception_engine_enabled"
             )
@@ -96,7 +92,6 @@ class AssistantInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.profile_api_key: Optional[str] = payload.get("profile_api_key")
             self.space_id: Optional[str] = payload.get("space_id")
             self.write_key: Optional[str] = payload.get("write_key")
@@ -118,10 +113,9 @@ class AssistantInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
-                payload.get("customer_ai")
-            )
+            self.customer_ai: Optional[
+                AssistantList.AssistantsV1ServiceCustomerAi
+            ] = payload.get("customer_ai")
             self.name: Optional[str] = payload.get("name")
             self.owner: Optional[str] = payload.get("owner")
             self.personality_prompt: Optional[str] = payload.get("personality_prompt")
@@ -131,17 +125,15 @@ class AssistantInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "customer_ai": (
-                    self.customer_ai.to_dict() if self.customer_ai is not None else None
-                ),
+                "customer_ai": self.customer_ai.to_dict()
+                if self.customer_ai is not None
+                else None,
                 "name": self.name,
                 "owner": self.owner,
                 "personality_prompt": self.personality_prompt,
-                "segment_credential": (
-                    self.segment_credential.to_dict()
-                    if self.segment_credential is not None
-                    else None
-                ),
+                "segment_credential": self.segment_credential.to_dict()
+                if self.segment_credential is not None
+                else None,
             }
 
     """
@@ -380,7 +372,6 @@ class AssistantInstance(InstanceResource):
 
 
 class AssistantContext(InstanceContext):
-
     class AssistantsV1ServiceCreateAssistantRequest(object):
         """
         :ivar customer_ai:
@@ -391,10 +382,9 @@ class AssistantContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
-                payload.get("customer_ai")
-            )
+            self.customer_ai: Optional[
+                AssistantList.AssistantsV1ServiceCustomerAi
+            ] = payload.get("customer_ai")
             self.name: Optional[str] = payload.get("name")
             self.owner: Optional[str] = payload.get("owner")
             self.personality_prompt: Optional[str] = payload.get("personality_prompt")
@@ -404,17 +394,15 @@ class AssistantContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "customer_ai": (
-                    self.customer_ai.to_dict() if self.customer_ai is not None else None
-                ),
+                "customer_ai": self.customer_ai.to_dict()
+                if self.customer_ai is not None
+                else None,
                 "name": self.name,
                 "owner": self.owner,
                 "personality_prompt": self.personality_prompt,
-                "segment_credential": (
-                    self.segment_credential.to_dict()
-                    if self.segment_credential is not None
-                    else None
-                ),
+                "segment_credential": self.segment_credential.to_dict()
+                if self.segment_credential is not None
+                else None,
             }
 
     class AssistantsV1ServiceCustomerAi(object):
@@ -424,7 +412,6 @@ class AssistantContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.perception_engine_enabled: Optional[bool] = payload.get(
                 "perception_engine_enabled"
             )
@@ -446,7 +433,6 @@ class AssistantContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.profile_api_key: Optional[str] = payload.get("profile_api_key")
             self.space_id: Optional[str] = payload.get("space_id")
             self.write_key: Optional[str] = payload.get("write_key")
@@ -468,10 +454,9 @@ class AssistantContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
-                payload.get("customer_ai")
-            )
+            self.customer_ai: Optional[
+                AssistantList.AssistantsV1ServiceCustomerAi
+            ] = payload.get("customer_ai")
             self.name: Optional[str] = payload.get("name")
             self.owner: Optional[str] = payload.get("owner")
             self.personality_prompt: Optional[str] = payload.get("personality_prompt")
@@ -481,17 +466,15 @@ class AssistantContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "customer_ai": (
-                    self.customer_ai.to_dict() if self.customer_ai is not None else None
-                ),
+                "customer_ai": self.customer_ai.to_dict()
+                if self.customer_ai is not None
+                else None,
                 "name": self.name,
                 "owner": self.owner,
                 "personality_prompt": self.personality_prompt,
-                "segment_credential": (
-                    self.segment_credential.to_dict()
-                    if self.segment_credential is not None
-                    else None
-                ),
+                "segment_credential": self.segment_credential.to_dict()
+                if self.segment_credential is not None
+                else None,
             }
 
     def __init__(self, version: Version, id: str):
@@ -853,7 +836,6 @@ class AssistantContext(InstanceContext):
 
 
 class AssistantPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AssistantInstance:
         """
         Build an instance of AssistantInstance
@@ -872,7 +854,6 @@ class AssistantPage(Page):
 
 
 class AssistantList(ListResource):
-
     class AssistantsV1ServiceCreateAssistantRequest(object):
         """
         :ivar customer_ai:
@@ -883,10 +864,9 @@ class AssistantList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
-                payload.get("customer_ai")
-            )
+            self.customer_ai: Optional[
+                AssistantList.AssistantsV1ServiceCustomerAi
+            ] = payload.get("customer_ai")
             self.name: Optional[str] = payload.get("name")
             self.owner: Optional[str] = payload.get("owner")
             self.personality_prompt: Optional[str] = payload.get("personality_prompt")
@@ -896,17 +876,15 @@ class AssistantList(ListResource):
 
         def to_dict(self):
             return {
-                "customer_ai": (
-                    self.customer_ai.to_dict() if self.customer_ai is not None else None
-                ),
+                "customer_ai": self.customer_ai.to_dict()
+                if self.customer_ai is not None
+                else None,
                 "name": self.name,
                 "owner": self.owner,
                 "personality_prompt": self.personality_prompt,
-                "segment_credential": (
-                    self.segment_credential.to_dict()
-                    if self.segment_credential is not None
-                    else None
-                ),
+                "segment_credential": self.segment_credential.to_dict()
+                if self.segment_credential is not None
+                else None,
             }
 
     class AssistantsV1ServiceCustomerAi(object):
@@ -916,7 +894,6 @@ class AssistantList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.perception_engine_enabled: Optional[bool] = payload.get(
                 "perception_engine_enabled"
             )
@@ -938,7 +915,6 @@ class AssistantList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.profile_api_key: Optional[str] = payload.get("profile_api_key")
             self.space_id: Optional[str] = payload.get("space_id")
             self.write_key: Optional[str] = payload.get("write_key")
@@ -960,10 +936,9 @@ class AssistantList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
-            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
-                payload.get("customer_ai")
-            )
+            self.customer_ai: Optional[
+                AssistantList.AssistantsV1ServiceCustomerAi
+            ] = payload.get("customer_ai")
             self.name: Optional[str] = payload.get("name")
             self.owner: Optional[str] = payload.get("owner")
             self.personality_prompt: Optional[str] = payload.get("personality_prompt")
@@ -973,17 +948,15 @@ class AssistantList(ListResource):
 
         def to_dict(self):
             return {
-                "customer_ai": (
-                    self.customer_ai.to_dict() if self.customer_ai is not None else None
-                ),
+                "customer_ai": self.customer_ai.to_dict()
+                if self.customer_ai is not None
+                else None,
                 "name": self.name,
                 "owner": self.owner,
                 "personality_prompt": self.personality_prompt,
-                "segment_credential": (
-                    self.segment_credential.to_dict()
-                    if self.segment_credential is not None
-                    else None
-                ),
+                "segment_credential": self.segment_credential.to_dict()
+                if self.segment_credential is not None
+                else None,
             }
 
     def __init__(self, version: Version):
@@ -1438,10 +1411,12 @@ class AssistantList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AssistantPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -21,7 +21,6 @@ from twilio.rest.pricing.v2.voice import VoiceList
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Pricing

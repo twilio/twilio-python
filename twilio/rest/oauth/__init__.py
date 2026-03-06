@@ -5,7 +5,6 @@ from twilio.rest.oauth.v1.token import TokenList
 
 
 class Oauth(OauthBase):
-
     @property
     def token(self) -> TokenList:
         warn(

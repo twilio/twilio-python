@@ -20,7 +20,6 @@ from twilio.rest.notify.v1.service import ServiceList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Notify

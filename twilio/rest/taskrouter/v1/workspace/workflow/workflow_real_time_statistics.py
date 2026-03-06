@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class WorkflowRealTimeStatisticsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
     :ivar longest_task_waiting_age: The age of the longest waiting Task.
@@ -154,7 +156,6 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
 
 
 class WorkflowRealTimeStatisticsContext(InstanceContext):
-
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowRealTimeStatisticsContext
@@ -309,7 +310,6 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
 
 
 class WorkflowRealTimeStatisticsList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowRealTimeStatisticsList

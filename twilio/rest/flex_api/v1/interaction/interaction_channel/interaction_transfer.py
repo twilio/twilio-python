@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class InteractionTransferInstance(InstanceResource):
-
     class TransferStatus(object):
         ACTIVE = "active"
         FAILED = "failed"
@@ -71,9 +71,9 @@ class InteractionTransferInstance(InstanceResource):
         self.type: Optional["InteractionTransferInstance.TransferType"] = payload.get(
             "type"
         )
-        self.status: Optional["InteractionTransferInstance.TransferStatus"] = (
-            payload.get("status")
-        )
+        self.status: Optional[
+            "InteractionTransferInstance.TransferStatus"
+        ] = payload.get("status")
         self._from: Optional[str] = payload.get("from")
         self.to: Optional[str] = payload.get("to")
         self.note_sid: Optional[str] = payload.get("note_sid")
@@ -213,7 +213,6 @@ class InteractionTransferInstance(InstanceResource):
 
 
 class InteractionTransferContext(InstanceContext):
-
     def __init__(
         self, version: Version, interaction_sid: str, channel_sid: str, sid: str
     ):
@@ -462,7 +461,6 @@ class InteractionTransferContext(InstanceContext):
 
 
 class InteractionTransferList(ListResource):
-
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionTransferList

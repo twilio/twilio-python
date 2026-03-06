@@ -17,7 +17,6 @@ from twilio.rest.bulkexports.v1 import V1
 
 
 class BulkexportsBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Bulkexports Domain

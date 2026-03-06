@@ -17,7 +17,6 @@ from twilio.rest.taskrouter.v1 import V1
 
 
 class TaskrouterBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Taskrouter Domain

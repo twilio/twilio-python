@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,6 +28,7 @@ from twilio.rest.proxy.v1.service.session.participant.message_interaction import
 
 
 class ParticipantInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Participant resource.
     :ivar session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
@@ -187,7 +189,6 @@ class ParticipantInstance(InstanceResource):
 
 
 class ParticipantContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
         """
         Initialize the ParticipantContext
@@ -404,7 +405,6 @@ class ParticipantContext(InstanceContext):
 
 
 class ParticipantPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
@@ -428,7 +428,6 @@ class ParticipantPage(Page):
 
 
 class ParticipantList(ListResource):
-
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
         Initialize the ParticipantList
@@ -968,10 +967,12 @@ class ParticipantList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ParticipantPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

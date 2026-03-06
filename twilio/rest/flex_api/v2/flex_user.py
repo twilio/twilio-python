@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class FlexUserInstance(InstanceResource):
+
     """
     :ivar account_sid: The unique SID of the account that created the resource.
     :ivar instance_sid: The unique ID created by Twilio to identify a Flex instance.
@@ -223,7 +225,6 @@ class FlexUserInstance(InstanceResource):
 
 
 class FlexUserContext(InstanceContext):
-
     def __init__(self, version: Version, instance_sid: str, flex_user_sid: str):
         """
         Initialize the FlexUserContext
@@ -508,7 +509,6 @@ class FlexUserContext(InstanceContext):
 
 
 class FlexUserList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the FlexUserList

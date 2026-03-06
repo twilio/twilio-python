@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class UserConversationInstance(InstanceResource):
-
     class NotificationLevel(object):
         DEFAULT = "default"
         MUTED = "muted"
@@ -76,9 +76,9 @@ class UserConversationInstance(InstanceResource):
         self.participant_sid: Optional[str] = payload.get("participant_sid")
         self.user_sid: Optional[str] = payload.get("user_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.conversation_state: Optional["UserConversationInstance.State"] = (
-            payload.get("conversation_state")
-        )
+        self.conversation_state: Optional[
+            "UserConversationInstance.State"
+        ] = payload.get("conversation_state")
         self.timers: Optional[Dict[str, object]] = payload.get("timers")
         self.attributes: Optional[str] = payload.get("attributes")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -292,7 +292,6 @@ class UserConversationInstance(InstanceResource):
 
 
 class UserConversationContext(InstanceContext):
-
     def __init__(self, version: Version, user_sid: str, conversation_sid: str):
         """
         Initialize the UserConversationContext
@@ -667,7 +666,6 @@ class UserConversationContext(InstanceContext):
 
 
 class UserConversationPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> UserConversationInstance:
         """
         Build an instance of UserConversationInstance
@@ -688,7 +686,6 @@ class UserConversationPage(Page):
 
 
 class UserConversationList(ListResource):
-
     def __init__(self, version: Version, user_sid: str):
         """
         Initialize the UserConversationList
@@ -1036,10 +1033,12 @@ class UserConversationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = UserConversationPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

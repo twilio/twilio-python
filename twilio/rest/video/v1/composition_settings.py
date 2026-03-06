@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class CompositionSettingsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CompositionSettings resource.
     :ivar friendly_name: The string that you assigned to describe the resource and that will be shown in the console
@@ -228,7 +230,6 @@ class CompositionSettingsInstance(InstanceResource):
 
 
 class CompositionSettingsContext(InstanceContext):
-
     def __init__(self, version: Version):
         """
         Initialize the CompositionSettingsContext
@@ -534,7 +535,6 @@ class CompositionSettingsContext(InstanceContext):
 
 
 class CompositionSettingsList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the CompositionSettingsList

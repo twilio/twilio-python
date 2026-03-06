@@ -296,7 +296,6 @@ class TestHttpClientSession(unittest.TestCase):
 
 class TestTwilioRequest(unittest.TestCase):
     def test_str(self):
-
         req = Request(
             method="POST",
             url="https://api.twilio.com/2010-04-01/Accounts.json",

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class AlphaSenderInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the AlphaSender resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AlphaSender resource.
@@ -162,7 +164,6 @@ class AlphaSenderInstance(InstanceResource):
 
 
 class AlphaSenderContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the AlphaSenderContext
@@ -355,7 +356,6 @@ class AlphaSenderContext(InstanceContext):
 
 
 class AlphaSenderPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AlphaSenderInstance:
         """
         Build an instance of AlphaSenderInstance
@@ -376,7 +376,6 @@ class AlphaSenderPage(Page):
 
 
 class AlphaSenderList(ListResource):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the AlphaSenderList
@@ -826,10 +825,12 @@ class AlphaSenderList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AlphaSenderPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -25,7 +26,6 @@ from twilio.rest.taskrouter.v1.workspace.task.reservation import ReservationList
 
 
 class TaskInstance(InstanceResource):
-
     class Status(object):
         PENDING = "pending"
         RESERVED = "reserved"
@@ -59,6 +59,7 @@ class TaskInstance(InstanceResource):
     :ivar virtual_start_time: The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar ignore_capacity: A boolean that indicates if the Task should respect a Worker's capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker's capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID. 
     :ivar routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
+    :ivar required_attention: The amount of Attention this task will require on the Worker.
     """
 
     def __init__(
@@ -110,6 +111,9 @@ class TaskInstance(InstanceResource):
         )
         self.ignore_capacity: Optional[bool] = payload.get("ignore_capacity")
         self.routing_target: Optional[str] = payload.get("routing_target")
+        self.required_attention: Optional[int] = deserialize.integer(
+            payload.get("required_attention")
+        )
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -230,6 +234,7 @@ class TaskInstance(InstanceResource):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> "TaskInstance":
         """
         Update the TaskInstance
@@ -241,6 +246,7 @@ class TaskInstance(InstanceResource):
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: The updated TaskInstance
         """
@@ -252,6 +258,7 @@ class TaskInstance(InstanceResource):
             priority=priority,
             task_channel=task_channel,
             virtual_start_time=virtual_start_time,
+            required_attention=required_attention,
         )
 
     async def update_async(
@@ -263,6 +270,7 @@ class TaskInstance(InstanceResource):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> "TaskInstance":
         """
         Asynchronous coroutine to update the TaskInstance
@@ -274,6 +282,7 @@ class TaskInstance(InstanceResource):
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: The updated TaskInstance
         """
@@ -285,6 +294,7 @@ class TaskInstance(InstanceResource):
             priority=priority,
             task_channel=task_channel,
             virtual_start_time=virtual_start_time,
+            required_attention=required_attention,
         )
 
     def update_with_http_info(
@@ -296,6 +306,7 @@ class TaskInstance(InstanceResource):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the TaskInstance with HTTP info
@@ -307,6 +318,7 @@ class TaskInstance(InstanceResource):
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -318,6 +330,7 @@ class TaskInstance(InstanceResource):
             priority=priority,
             task_channel=task_channel,
             virtual_start_time=virtual_start_time,
+            required_attention=required_attention,
         )
 
     async def update_with_http_info_async(
@@ -329,6 +342,7 @@ class TaskInstance(InstanceResource):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the TaskInstance with HTTP info
@@ -340,6 +354,7 @@ class TaskInstance(InstanceResource):
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -351,6 +366,7 @@ class TaskInstance(InstanceResource):
             priority=priority,
             task_channel=task_channel,
             virtual_start_time=virtual_start_time,
+            required_attention=required_attention,
         )
 
     @property
@@ -371,7 +387,6 @@ class TaskInstance(InstanceResource):
 
 
 class TaskContext(InstanceContext):
-
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the TaskContext
@@ -580,6 +595,7 @@ class TaskContext(InstanceContext):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for update operation
@@ -596,6 +612,7 @@ class TaskContext(InstanceContext):
                 "Priority": priority,
                 "TaskChannel": task_channel,
                 "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
+                "RequiredAttention": required_attention,
             }
         )
         headers = values.of({})
@@ -622,6 +639,7 @@ class TaskContext(InstanceContext):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> TaskInstance:
         """
         Update the TaskInstance
@@ -633,6 +651,7 @@ class TaskContext(InstanceContext):
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: The updated TaskInstance
         """
@@ -644,6 +663,7 @@ class TaskContext(InstanceContext):
             priority=priority,
             task_channel=task_channel,
             virtual_start_time=virtual_start_time,
+            required_attention=required_attention,
         )
         return TaskInstance(
             self._version,
@@ -661,6 +681,7 @@ class TaskContext(InstanceContext):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the TaskInstance and return response metadata
@@ -672,6 +693,7 @@ class TaskContext(InstanceContext):
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -683,6 +705,7 @@ class TaskContext(InstanceContext):
             priority=priority,
             task_channel=task_channel,
             virtual_start_time=virtual_start_time,
+            required_attention=required_attention,
         )
         instance = TaskInstance(
             self._version,
@@ -701,6 +724,7 @@ class TaskContext(InstanceContext):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -717,6 +741,7 @@ class TaskContext(InstanceContext):
                 "Priority": priority,
                 "TaskChannel": task_channel,
                 "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
+                "RequiredAttention": required_attention,
             }
         )
         headers = values.of({})
@@ -743,6 +768,7 @@ class TaskContext(InstanceContext):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> TaskInstance:
         """
         Asynchronous coroutine to update the TaskInstance
@@ -754,6 +780,7 @@ class TaskContext(InstanceContext):
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: The updated TaskInstance
         """
@@ -765,6 +792,7 @@ class TaskContext(InstanceContext):
             priority=priority,
             task_channel=task_channel,
             virtual_start_time=virtual_start_time,
+            required_attention=required_attention,
         )
         return TaskInstance(
             self._version,
@@ -782,6 +810,7 @@ class TaskContext(InstanceContext):
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the TaskInstance and return response metadata
@@ -793,6 +822,7 @@ class TaskContext(InstanceContext):
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -804,6 +834,7 @@ class TaskContext(InstanceContext):
             priority=priority,
             task_channel=task_channel,
             virtual_start_time=virtual_start_time,
+            required_attention=required_attention,
         )
         instance = TaskInstance(
             self._version,
@@ -837,7 +868,6 @@ class TaskContext(InstanceContext):
 
 
 class TaskPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> TaskInstance:
         """
         Build an instance of TaskInstance
@@ -858,7 +888,6 @@ class TaskPage(Page):
 
 
 class TaskList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskList
@@ -886,6 +915,7 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ignore_capacity: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -905,6 +935,7 @@ class TaskList(ListResource):
                 "RoutingTarget": routing_target,
                 "IgnoreCapacity": ignore_capacity,
                 "TaskQueueSid": task_queue_sid,
+                "RequiredAttention": required_attention,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -928,6 +959,7 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ignore_capacity: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> TaskInstance:
         """
         Create the TaskInstance
@@ -941,6 +973,7 @@ class TaskList(ListResource):
         :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param ignore_capacity: A boolean that indicates if the Task should respect a Worker's capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker's capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID.
         :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: The created TaskInstance
         """
@@ -954,6 +987,7 @@ class TaskList(ListResource):
             routing_target=routing_target,
             ignore_capacity=ignore_capacity,
             task_queue_sid=task_queue_sid,
+            required_attention=required_attention,
         )
         return TaskInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -970,6 +1004,7 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ignore_capacity: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the TaskInstance and return response metadata
@@ -983,6 +1018,7 @@ class TaskList(ListResource):
         :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param ignore_capacity: A boolean that indicates if the Task should respect a Worker's capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker's capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID.
         :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -996,6 +1032,7 @@ class TaskList(ListResource):
             routing_target=routing_target,
             ignore_capacity=ignore_capacity,
             task_queue_sid=task_queue_sid,
+            required_attention=required_attention,
         )
         instance = TaskInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -1013,6 +1050,7 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ignore_capacity: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -1032,6 +1070,7 @@ class TaskList(ListResource):
                 "RoutingTarget": routing_target,
                 "IgnoreCapacity": ignore_capacity,
                 "TaskQueueSid": task_queue_sid,
+                "RequiredAttention": required_attention,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -1055,6 +1094,7 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ignore_capacity: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> TaskInstance:
         """
         Asynchronously create the TaskInstance
@@ -1068,6 +1108,7 @@ class TaskList(ListResource):
         :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param ignore_capacity: A boolean that indicates if the Task should respect a Worker's capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker's capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID.
         :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: The created TaskInstance
         """
@@ -1081,6 +1122,7 @@ class TaskList(ListResource):
             routing_target=routing_target,
             ignore_capacity=ignore_capacity,
             task_queue_sid=task_queue_sid,
+            required_attention=required_attention,
         )
         return TaskInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -1097,6 +1139,7 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ignore_capacity: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
+        required_attention: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the TaskInstance and return response metadata
@@ -1110,6 +1153,7 @@ class TaskList(ListResource):
         :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param ignore_capacity: A boolean that indicates if the Task should respect a Worker's capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker's capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID.
         :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
+        :param required_attention: The amount of Attention this task will require on the Worker.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -1123,6 +1167,7 @@ class TaskList(ListResource):
             routing_target=routing_target,
             ignore_capacity=ignore_capacity,
             task_queue_sid=task_queue_sid,
+            required_attention=required_attention,
         )
         instance = TaskInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -1826,10 +1871,12 @@ class TaskList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = TaskPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

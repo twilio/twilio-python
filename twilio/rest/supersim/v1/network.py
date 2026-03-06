@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class NetworkInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Network resource.
     :ivar friendly_name: A human readable identifier of this resource.
@@ -109,7 +111,6 @@ class NetworkInstance(InstanceResource):
 
 
 class NetworkContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the NetworkContext
@@ -226,7 +227,6 @@ class NetworkContext(InstanceContext):
 
 
 class NetworkPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> NetworkInstance:
         """
         Build an instance of NetworkInstance
@@ -245,7 +245,6 @@ class NetworkPage(Page):
 
 
 class NetworkList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the NetworkList
@@ -690,10 +689,12 @@ class NetworkList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = NetworkPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

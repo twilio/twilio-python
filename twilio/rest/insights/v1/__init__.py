@@ -23,7 +23,6 @@ from twilio.rest.insights.v1.setting import SettingList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Insights

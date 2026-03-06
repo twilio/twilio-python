@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class MobileInstance(InstanceResource):
-
     class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
@@ -89,9 +89,9 @@ class MobileInstance(InstanceResource):
 
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.address_sid: Optional[str] = payload.get("address_sid")
-        self.address_requirements: Optional["MobileInstance.AddressRequirement"] = (
-            payload.get("address_requirements")
-        )
+        self.address_requirements: Optional[
+            "MobileInstance.AddressRequirement"
+        ] = payload.get("address_requirements")
         self.api_version: Optional[str] = payload.get("api_version")
         self.beta: Optional[bool] = payload.get("beta")
         self.capabilities: Optional[str] = payload.get("capabilities")
@@ -117,9 +117,9 @@ class MobileInstance(InstanceResource):
         )
         self.trunk_sid: Optional[str] = payload.get("trunk_sid")
         self.uri: Optional[str] = payload.get("uri")
-        self.voice_receive_mode: Optional["MobileInstance.VoiceReceiveMode"] = (
-            payload.get("voice_receive_mode")
-        )
+        self.voice_receive_mode: Optional[
+            "MobileInstance.VoiceReceiveMode"
+        ] = payload.get("voice_receive_mode")
         self.voice_application_sid: Optional[str] = payload.get("voice_application_sid")
         self.voice_caller_id_lookup: Optional[bool] = payload.get(
             "voice_caller_id_lookup"
@@ -153,7 +153,6 @@ class MobileInstance(InstanceResource):
 
 
 class MobilePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> MobileInstance:
         """
         Build an instance of MobileInstance
@@ -174,7 +173,6 @@ class MobilePage(Page):
 
 
 class MobileList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the MobileList
@@ -1180,10 +1178,12 @@ class MobileList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = MobilePage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

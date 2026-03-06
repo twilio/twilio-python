@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.api_response import ApiResponse
@@ -23,7 +24,6 @@ from twilio.base.page import Page
 
 
 class OperatorResultInstance(InstanceResource):
-
     class OperatorType(object):
         CONVERSATION_CLASSIFY = "conversation-classify"
         UTTERANCE_CLASSIFY = "utterance-classify"
@@ -61,9 +61,9 @@ class OperatorResultInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.operator_type: Optional["OperatorResultInstance.OperatorType"] = (
-            payload.get("operator_type")
-        )
+        self.operator_type: Optional[
+            "OperatorResultInstance.OperatorType"
+        ] = payload.get("operator_type")
         self.name: Optional[str] = payload.get("name")
         self.operator_sid: Optional[str] = payload.get("operator_sid")
         self.extract_match: Optional[bool] = payload.get("extract_match")
@@ -181,7 +181,6 @@ class OperatorResultInstance(InstanceResource):
 
 
 class OperatorResultContext(InstanceContext):
-
     def __init__(self, version: Version, transcript_sid: str, operator_sid: str):
         """
         Initialize the OperatorResultContext
@@ -332,7 +331,6 @@ class OperatorResultContext(InstanceContext):
 
 
 class OperatorResultPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> OperatorResultInstance:
         """
         Build an instance of OperatorResultInstance
@@ -353,7 +351,6 @@ class OperatorResultPage(Page):
 
 
 class OperatorResultList(ListResource):
-
     def __init__(self, version: Version, transcript_sid: str):
         """
         Initialize the OperatorResultList
@@ -737,10 +734,12 @@ class OperatorResultList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = OperatorResultPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

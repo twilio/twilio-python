@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class PoliciesInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that identifies the Policy resource.
     :ivar friendly_name: A human-readable description that is assigned to describe the Policy resource. Examples can include Primary Customer profile policy
@@ -107,7 +109,6 @@ class PoliciesInstance(InstanceResource):
 
 
 class PoliciesContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PoliciesContext
@@ -224,7 +225,6 @@ class PoliciesContext(InstanceContext):
 
 
 class PoliciesPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> PoliciesInstance:
         """
         Build an instance of PoliciesInstance
@@ -243,7 +243,6 @@ class PoliciesPage(Page):
 
 
 class PoliciesList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PoliciesList
@@ -586,10 +585,12 @@ class PoliciesList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = PoliciesPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

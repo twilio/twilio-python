@@ -119,7 +119,6 @@ class AvailableAddOnExtensionInstance(InstanceResource):
 
 
 class AvailableAddOnExtensionContext(InstanceContext):
-
     def __init__(self, version: Version, available_add_on_sid: str, sid: str):
         """
         Initialize the AvailableAddOnExtensionContext
@@ -246,7 +245,6 @@ class AvailableAddOnExtensionContext(InstanceContext):
 
 
 class AvailableAddOnExtensionPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AvailableAddOnExtensionInstance:
         """
         Build an instance of AvailableAddOnExtensionInstance
@@ -269,7 +267,6 @@ class AvailableAddOnExtensionPage(Page):
 
 
 class AvailableAddOnExtensionList(ListResource):
-
     def __init__(self, version: Version, available_add_on_sid: str):
         """
         Initialize the AvailableAddOnExtensionList
@@ -619,10 +616,12 @@ class AvailableAddOnExtensionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AvailableAddOnExtensionPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

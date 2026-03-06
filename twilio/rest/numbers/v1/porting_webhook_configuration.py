@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class PortingWebhookConfigurationInstance(InstanceResource):
+
     """
     :ivar url: The URL of the webhook configuration request
     :ivar port_in_target_url: The complete webhook url that will be called when a notification event for port in request or port in phone number happens
@@ -48,7 +50,6 @@ class PortingWebhookConfigurationInstance(InstanceResource):
 
 
 class PortingWebhookConfigurationList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PortingWebhookConfigurationList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class RateLimitInstance(InstanceResource):
+
     """
     :ivar rate_limits:
     """
@@ -42,7 +44,6 @@ class RateLimitInstance(InstanceResource):
 
 
 class RateLimitList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the RateLimitList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class ConversationWithParticipantsInstance(InstanceResource):
-
     class State(object):
         INITIALIZING = "initializing"
         INACTIVE = "inactive"
@@ -61,9 +61,9 @@ class ConversationWithParticipantsInstance(InstanceResource):
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.unique_name: Optional[str] = payload.get("unique_name")
         self.attributes: Optional[str] = payload.get("attributes")
-        self.state: Optional["ConversationWithParticipantsInstance.State"] = (
-            payload.get("state")
-        )
+        self.state: Optional[
+            "ConversationWithParticipantsInstance.State"
+        ] = payload.get("state")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -86,7 +86,6 @@ class ConversationWithParticipantsInstance(InstanceResource):
 
 
 class ConversationWithParticipantsList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ConversationWithParticipantsList

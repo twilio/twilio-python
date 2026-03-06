@@ -19,7 +19,6 @@ from twilio.rest.preview_iam.versionless.organization import OrganizationList
 
 
 class Versionless(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the Versionless version of PreviewIam

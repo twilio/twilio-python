@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class PortingAllPortInInstance(InstanceResource):
+
     """
     :ivar port_in_request_sid: The SID of the Port-in request
     :ivar port_in_request_status: Status of the Port In Request
@@ -61,7 +63,6 @@ class PortingAllPortInInstance(InstanceResource):
 
 
 class PortingAllPortInPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> PortingAllPortInInstance:
         """
         Build an instance of PortingAllPortInInstance
@@ -80,7 +81,6 @@ class PortingAllPortInPage(Page):
 
 
 class PortingAllPortInList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PortingAllPortInList
@@ -645,10 +645,12 @@ class PortingAllPortInList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = PortingAllPortInPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

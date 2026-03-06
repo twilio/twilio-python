@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class WebhookInstance(InstanceResource):
+
     """
     :ivar url: The URL of the webhook configuration request
     :ivar port_in_target_url: The complete webhook url that will be called when a notification event for port in request or port in phone number happens
@@ -39,12 +41,12 @@ class WebhookInstance(InstanceResource):
         self.port_in_target_url: Optional[str] = payload.get("port_in_target_url")
         self.port_out_target_url: Optional[str] = payload.get("port_out_target_url")
         self.notifications_of: Optional[List[str]] = payload.get("notifications_of")
-        self.port_in_target_date_created: Optional[datetime] = (
-            deserialize.iso8601_datetime(payload.get("port_in_target_date_created"))
-        )
-        self.port_out_target_date_created: Optional[datetime] = (
-            deserialize.iso8601_datetime(payload.get("port_out_target_date_created"))
-        )
+        self.port_in_target_date_created: Optional[
+            datetime
+        ] = deserialize.iso8601_datetime(payload.get("port_in_target_date_created"))
+        self.port_out_target_date_created: Optional[
+            datetime
+        ] = deserialize.iso8601_datetime(payload.get("port_out_target_date_created"))
 
     def __repr__(self) -> str:
         """
@@ -57,7 +59,6 @@ class WebhookInstance(InstanceResource):
 
 
 class WebhookList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the WebhookList

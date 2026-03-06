@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class NewFactorInstance(InstanceResource):
-
     class CreateNewPasskeysFactorRequest(object):
         """
         :ivar friendly_name:
@@ -32,7 +32,6 @@ class NewFactorInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.identity: Optional[str] = payload.get("identity")
             self.config: Optional[
@@ -55,27 +54,24 @@ class NewFactorInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.relying_party: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty
             ] = payload.get("relying_party")
-            self.authenticator_attachment: Optional["NewFactorInstance.str"] = (
-                payload.get("authenticator_attachment")
-            )
-            self.discoverable_credentials: Optional["NewFactorInstance.str"] = (
-                payload.get("discoverable_credentials")
-            )
+            self.authenticator_attachment: Optional[
+                "NewFactorInstance.str"
+            ] = payload.get("authenticator_attachment")
+            self.discoverable_credentials: Optional[
+                "NewFactorInstance.str"
+            ] = payload.get("discoverable_credentials")
             self.user_verification: Optional["NewFactorInstance.str"] = payload.get(
                 "user_verification"
             )
 
         def to_dict(self):
             return {
-                "relying_party": (
-                    self.relying_party.to_dict()
-                    if self.relying_party is not None
-                    else None
-                ),
+                "relying_party": self.relying_party.to_dict()
+                if self.relying_party is not None
+                else None,
                 "authenticator_attachment": self.authenticator_attachment,
                 "discoverable_credentials": self.discoverable_credentials,
                 "user_verification": self.user_verification,
@@ -89,7 +85,6 @@ class NewFactorInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
             self.origins: Optional[List[str]] = payload.get("origins")
@@ -157,7 +152,6 @@ class NewFactorInstance(InstanceResource):
 
 
 class NewFactorList(ListResource):
-
     class CreateNewPasskeysFactorRequest(object):
         """
         :ivar friendly_name:
@@ -166,7 +160,6 @@ class NewFactorList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.identity: Optional[str] = payload.get("identity")
             self.config: Optional[
@@ -189,27 +182,24 @@ class NewFactorList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.relying_party: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty
             ] = payload.get("relying_party")
-            self.authenticator_attachment: Optional["NewFactorInstance.str"] = (
-                payload.get("authenticator_attachment")
-            )
-            self.discoverable_credentials: Optional["NewFactorInstance.str"] = (
-                payload.get("discoverable_credentials")
-            )
+            self.authenticator_attachment: Optional[
+                "NewFactorInstance.str"
+            ] = payload.get("authenticator_attachment")
+            self.discoverable_credentials: Optional[
+                "NewFactorInstance.str"
+            ] = payload.get("discoverable_credentials")
             self.user_verification: Optional["NewFactorInstance.str"] = payload.get(
                 "user_verification"
             )
 
         def to_dict(self):
             return {
-                "relying_party": (
-                    self.relying_party.to_dict()
-                    if self.relying_party is not None
-                    else None
-                ),
+                "relying_party": self.relying_party.to_dict()
+                if self.relying_party is not None
+                else None,
                 "authenticator_attachment": self.authenticator_attachment,
                 "discoverable_credentials": self.discoverable_credentials,
                 "user_verification": self.user_verification,
@@ -223,7 +213,6 @@ class NewFactorList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
             self.origins: Optional[List[str]] = payload.get("origins")

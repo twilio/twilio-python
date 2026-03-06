@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class ReplaceItemsInstance(InstanceResource):
-
     class Status(object):
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
@@ -80,7 +80,6 @@ class ReplaceItemsInstance(InstanceResource):
 
 
 class ReplaceItemsList(ListResource):
-
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the ReplaceItemsList

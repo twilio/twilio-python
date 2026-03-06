@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -26,6 +27,7 @@ from twilio.rest.bulkexports.v1.export.job import JobList
 
 
 class ExportInstance(InstanceResource):
+
     """
     :ivar resource_type: The type of communication – Messages, Calls, Conferences, and Participants
     :ivar url: The URL of this resource.
@@ -125,7 +127,6 @@ class ExportInstance(InstanceResource):
 
 
 class ExportContext(InstanceContext):
-
     def __init__(self, version: Version, resource_type: str):
         """
         Initialize the ExportContext
@@ -269,7 +270,6 @@ class ExportContext(InstanceContext):
 
 
 class ExportList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ExportList

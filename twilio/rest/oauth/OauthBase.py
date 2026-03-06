@@ -18,7 +18,6 @@ from twilio.rest.oauth.v2 import V2
 
 
 class OauthBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Oauth Domain

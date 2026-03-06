@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -30,7 +31,6 @@ from twilio.rest.api.v2010.account.incoming_phone_number.toll_free import TollFr
 
 
 class IncomingPhoneNumberInstance(InstanceResource):
-
     class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
@@ -89,6 +89,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     :ivar bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
     :ivar status: 
     :ivar type: The phone number type.
+    :ivar subresource_uris: 
     """
 
     def __init__(
@@ -151,6 +152,9 @@ class IncomingPhoneNumberInstance(InstanceResource):
         self.bundle_sid: Optional[str] = payload.get("bundle_sid")
         self.status: Optional[str] = payload.get("status")
         self.type: Optional[str] = payload.get("type")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
 
         self._solution = {
             "account_sid": account_sid,
@@ -604,7 +608,6 @@ class IncomingPhoneNumberInstance(InstanceResource):
 
 
 class IncomingPhoneNumberContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the IncomingPhoneNumberContext
@@ -1330,7 +1333,6 @@ class IncomingPhoneNumberContext(InstanceContext):
 
 
 class IncomingPhoneNumberPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> IncomingPhoneNumberInstance:
         """
         Build an instance of IncomingPhoneNumberInstance
@@ -1351,7 +1353,6 @@ class IncomingPhoneNumberPage(Page):
 
 
 class IncomingPhoneNumberList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the IncomingPhoneNumberList
@@ -2377,10 +2378,12 @@ class IncomingPhoneNumberList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = IncomingPhoneNumberPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

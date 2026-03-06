@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class RecordingSettingsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource.
     :ivar friendly_name: The string that you assigned to describe the resource and show the user in the console
@@ -228,7 +230,6 @@ class RecordingSettingsInstance(InstanceResource):
 
 
 class RecordingSettingsContext(InstanceContext):
-
     def __init__(self, version: Version):
         """
         Initialize the RecordingSettingsContext
@@ -534,7 +535,6 @@ class RecordingSettingsContext(InstanceContext):
 
 
 class RecordingSettingsList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the RecordingSettingsList

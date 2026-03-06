@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class DomainValidateDnInstance(InstanceResource):
+
     """
     :ivar domain_sid: The unique string that we created to identify the Domain resource.
     :ivar is_valid:
@@ -109,7 +111,6 @@ class DomainValidateDnInstance(InstanceResource):
 
 
 class DomainValidateDnContext(InstanceContext):
-
     def __init__(self, version: Version, domain_sid: str):
         """
         Initialize the DomainValidateDnContext
@@ -228,7 +229,6 @@ class DomainValidateDnContext(InstanceContext):
 
 
 class DomainValidateDnList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the DomainValidateDnList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,7 +23,6 @@ from twilio.base.version import Version
 
 
 class RecordingInstance(InstanceResource):
-
     class RecordingMode(object):
         DO_NOT_RECORD = "do-not-record"
         RECORD_FROM_RINGING = "record-from-ringing"
@@ -184,7 +184,6 @@ class RecordingInstance(InstanceResource):
 
 
 class RecordingContext(InstanceContext):
-
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the RecordingContext
@@ -431,7 +430,6 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingList(ListResource):
-
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the RecordingList

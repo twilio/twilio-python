@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class ExecutionStepContextInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionStepContext resource.
     :ivar context: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
@@ -119,7 +121,6 @@ class ExecutionStepContextInstance(InstanceResource):
 
 
 class ExecutionStepContextContext(InstanceContext):
-
     def __init__(
         self, version: Version, flow_sid: str, execution_sid: str, step_sid: str
     ):
@@ -252,7 +253,6 @@ class ExecutionStepContextContext(InstanceContext):
 
 
 class ExecutionStepContextList(ListResource):
-
     def __init__(
         self, version: Version, flow_sid: str, execution_sid: str, step_sid: str
     ):

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class DataInstance(InstanceResource):
+
     """
     :ivar redirect_to: The URL to redirect to to get the data returned by the AddOn that was previously stored.
     """
@@ -112,7 +114,6 @@ class DataInstance(InstanceResource):
 
 
 class DataContext(InstanceContext):
-
     def __init__(
         self,
         version: Version,
@@ -256,7 +257,6 @@ class DataContext(InstanceContext):
 
 
 class DataList(ListResource):
-
     def __init__(
         self,
         version: Version,

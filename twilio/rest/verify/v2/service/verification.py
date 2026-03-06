@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class VerificationInstance(InstanceResource):
-
     class Channel(object):
         SMS = "sms"
         CALL = "call"
@@ -211,7 +211,6 @@ class VerificationInstance(InstanceResource):
 
 
 class VerificationContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the VerificationContext
@@ -454,7 +453,6 @@ class VerificationContext(InstanceContext):
 
 
 class VerificationList(ListResource):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the VerificationList

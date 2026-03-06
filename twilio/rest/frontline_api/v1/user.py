@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,7 +23,6 @@ from twilio.base.version import Version
 
 
 class UserInstance(InstanceResource):
-
     class StateType(object):
         ACTIVE = "active"
         DEACTIVATED = "deactivated"
@@ -213,7 +213,6 @@ class UserInstance(InstanceResource):
 
 
 class UserContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the UserContext
@@ -496,7 +495,6 @@ class UserContext(InstanceContext):
 
 
 class UserList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the UserList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class KeyInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that that we created to identify the Key resource.
     :ivar friendly_name: The string that you assigned to describe the resource.
@@ -208,7 +210,6 @@ class KeyInstance(InstanceResource):
 
 
 class KeyContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the KeyContext
@@ -521,7 +522,6 @@ class KeyContext(InstanceContext):
 
 
 class KeyPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> KeyInstance:
         """
         Build an instance of KeyInstance
@@ -542,7 +542,6 @@ class KeyPage(Page):
 
 
 class KeyList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the KeyList
@@ -890,10 +889,12 @@ class KeyList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = KeyPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

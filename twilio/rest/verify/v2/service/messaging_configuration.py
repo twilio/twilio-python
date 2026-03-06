@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class MessagingConfigurationInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
     :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
@@ -212,7 +214,6 @@ class MessagingConfigurationInstance(InstanceResource):
 
 
 class MessagingConfigurationContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, country: str):
         """
         Initialize the MessagingConfigurationContext
@@ -527,7 +528,6 @@ class MessagingConfigurationContext(InstanceContext):
 
 
 class MessagingConfigurationPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> MessagingConfigurationInstance:
         """
         Build an instance of MessagingConfigurationInstance
@@ -548,7 +548,6 @@ class MessagingConfigurationPage(Page):
 
 
 class MessagingConfigurationList(ListResource):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the MessagingConfigurationList
@@ -1020,10 +1019,12 @@ class MessagingConfigurationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = MessagingConfigurationPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

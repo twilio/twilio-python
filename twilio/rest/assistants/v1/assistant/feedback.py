@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class FeedbackInstance(InstanceResource):
-
     class AssistantsV1ServiceCreateFeedbackRequest(object):
         """
         :ivar message_id: The message ID.
@@ -34,7 +34,6 @@ class FeedbackInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.message_id: Optional[str] = payload.get("message_id")
             self.score: Optional[float] = payload.get("score")
             self.session_id: Optional[str] = payload.get("session_id")
@@ -94,7 +93,6 @@ class FeedbackInstance(InstanceResource):
 
 
 class FeedbackPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> FeedbackInstance:
         """
         Build an instance of FeedbackInstance
@@ -113,7 +111,6 @@ class FeedbackPage(Page):
 
 
 class FeedbackList(ListResource):
-
     class AssistantsV1ServiceCreateFeedbackRequest(object):
         """
         :ivar message_id: The message ID.
@@ -123,7 +120,6 @@ class FeedbackList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.message_id: Optional[str] = payload.get("message_id")
             self.score: Optional[float] = payload.get("score")
             self.session_id: Optional[str] = payload.get("session_id")
@@ -594,10 +590,12 @@ class FeedbackList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = FeedbackPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

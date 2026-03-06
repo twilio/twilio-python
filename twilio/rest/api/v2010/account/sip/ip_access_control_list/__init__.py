@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,6 +28,7 @@ from twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address import 
 
 
 class IpAccessControlListInstance(InstanceResource):
+
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.
     :ivar account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.
@@ -220,7 +222,6 @@ class IpAccessControlListInstance(InstanceResource):
 
 
 class IpAccessControlListContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the IpAccessControlListContext
@@ -544,7 +545,6 @@ class IpAccessControlListContext(InstanceContext):
 
 
 class IpAccessControlListPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> IpAccessControlListInstance:
         """
         Build an instance of IpAccessControlListInstance
@@ -565,7 +565,6 @@ class IpAccessControlListPage(Page):
 
 
 class IpAccessControlListList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the IpAccessControlListList
@@ -1017,10 +1016,12 @@ class IpAccessControlListList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = IpAccessControlListPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

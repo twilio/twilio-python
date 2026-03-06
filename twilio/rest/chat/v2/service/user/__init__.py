@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -26,7 +27,6 @@ from twilio.rest.chat.v2.service.user.user_channel import UserChannelList
 
 
 class UserInstance(InstanceResource):
-
     class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
@@ -301,7 +301,6 @@ class UserInstance(InstanceResource):
 
 
 class UserContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the UserContext
@@ -735,7 +734,6 @@ class UserContext(InstanceContext):
 
 
 class UserPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> UserInstance:
         """
         Build an instance of UserInstance
@@ -756,7 +754,6 @@ class UserPage(Page):
 
 
 class UserList(ListResource):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the UserList
@@ -1314,10 +1311,12 @@ class UserList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = UserPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

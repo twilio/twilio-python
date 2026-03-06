@@ -24,7 +24,6 @@ from twilio.rest.video.v1.room import RoomList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Video

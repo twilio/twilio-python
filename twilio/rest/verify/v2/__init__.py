@@ -26,7 +26,6 @@ from twilio.rest.verify.v2.verification_attempts_summary import (
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Verify

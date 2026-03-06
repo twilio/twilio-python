@@ -17,7 +17,6 @@ from twilio.rest.assistants.v1 import V1
 
 
 class AssistantsBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Assistants Domain

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class ComplianceInquiriesInstance(InstanceResource):
+
     """
     :ivar inquiry_id: The unique ID used to start an embedded compliance registration session.
     :ivar inquiry_session_token: The session token used to start an embedded compliance registration session.
@@ -137,7 +139,6 @@ class ComplianceInquiriesInstance(InstanceResource):
 
 
 class ComplianceInquiriesContext(InstanceContext):
-
     def __init__(self, version: Version, customer_id: str):
         """
         Initialize the ComplianceInquiriesContext
@@ -292,7 +293,6 @@ class ComplianceInquiriesContext(InstanceContext):
 
 
 class ComplianceInquiriesList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ComplianceInquiriesList

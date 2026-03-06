@@ -811,10 +811,12 @@ class AsyncVersionTestCase(aiounittest.AsyncTestCase):
             ),
             Request(url="https://api.twilio.com/2010-04-01/Accounts/AC123.json"),
         )
-        payload, status_code, headers = (
-            await self.client.api.v2010.fetch_with_response_info_async(
-                method="GET", uri="/Accounts/AC123.json"
-            )
+        (
+            payload,
+            status_code,
+            headers,
+        ) = await self.client.api.v2010.fetch_with_response_info_async(
+            method="GET", uri="/Accounts/AC123.json"
         )
 
         self.assertEqual(payload["sid"], "AC123")
@@ -836,12 +838,14 @@ class AsyncVersionTestCase(aiounittest.AsyncTestCase):
                 url="https://api.twilio.com/2010-04-01/Accounts/AC123.json",
             ),
         )
-        payload, status_code, headers = (
-            await self.client.api.v2010.update_with_response_info_async(
-                method="POST",
-                uri="/Accounts/AC123.json",
-                data={"name": "Updated Account"},
-            )
+        (
+            payload,
+            status_code,
+            headers,
+        ) = await self.client.api.v2010.update_with_response_info_async(
+            method="POST",
+            uri="/Accounts/AC123.json",
+            data={"name": "Updated Account"},
         )
 
         self.assertEqual(payload["sid"], "AC123")
@@ -858,10 +862,12 @@ class AsyncVersionTestCase(aiounittest.AsyncTestCase):
                 url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages/MM123.json",
             ),
         )
-        success, status_code, headers = (
-            await self.client.api.v2010.delete_with_response_info_async(
-                method="DELETE", uri="/Accounts/AC123/Messages/MM123.json"
-            )
+        (
+            success,
+            status_code,
+            headers,
+        ) = await self.client.api.v2010.delete_with_response_info_async(
+            method="DELETE", uri="/Accounts/AC123/Messages/MM123.json"
         )
 
         self.assertTrue(success)
@@ -881,12 +887,14 @@ class AsyncVersionTestCase(aiounittest.AsyncTestCase):
                 url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages.json",
             ),
         )
-        payload, status_code, headers = (
-            await self.client.api.v2010.create_with_response_info_async(
-                method="POST",
-                uri="/Accounts/AC123/Messages.json",
-                data={"body": "Hello World"},
-            )
+        (
+            payload,
+            status_code,
+            headers,
+        ) = await self.client.api.v2010.create_with_response_info_async(
+            method="POST",
+            uri="/Accounts/AC123/Messages.json",
+            data={"body": "Hello World"},
         )
 
         self.assertEqual(payload["sid"], "MM123")
@@ -906,10 +914,12 @@ class AsyncVersionTestCase(aiounittest.AsyncTestCase):
                 url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages.json"
             ),
         )
-        response, status_code, headers = (
-            await self.client.api.v2010.page_with_response_info_async(
-                method="GET", uri="/Accounts/AC123/Messages.json"
-            )
+        (
+            response,
+            status_code,
+            headers,
+        ) = await self.client.api.v2010.page_with_response_info_async(
+            method="GET", uri="/Accounts/AC123/Messages.json"
         )
 
         self.assertIsNotNone(response)
@@ -989,10 +999,12 @@ class AsyncVersionTestCase(aiounittest.AsyncTestCase):
             Response(200, '{"sid": "AC123", "name": "Test Account"}', None),
             Request(url="https://api.twilio.com/2010-04-01/Accounts/AC123.json"),
         )
-        payload, status_code, headers = (
-            await self.client.api.v2010.fetch_with_response_info_async(
-                method="GET", uri="/Accounts/AC123.json"
-            )
+        (
+            payload,
+            status_code,
+            headers,
+        ) = await self.client.api.v2010.fetch_with_response_info_async(
+            method="GET", uri="/Accounts/AC123.json"
         )
 
         self.assertEqual(payload["sid"], "AC123")
@@ -1014,10 +1026,12 @@ class AsyncVersionTestCase(aiounittest.AsyncTestCase):
             ),
             Request(url="https://api.twilio.com/2010-04-01/Accounts/AC123.json"),
         )
-        payload, status_code, headers = (
-            await self.client.api.v2010.fetch_with_response_info_async(
-                method="GET", uri="/Accounts/AC123.json"
-            )
+        (
+            payload,
+            status_code,
+            headers,
+        ) = await self.client.api.v2010.fetch_with_response_info_async(
+            method="GET", uri="/Accounts/AC123.json"
         )
 
         self.assertEqual(status_code, 200)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Optional
 
 
@@ -26,7 +27,6 @@ from twilio.rest.api.v2010.account.sip.ip_access_control_list import (
 
 
 class SipList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the SipList

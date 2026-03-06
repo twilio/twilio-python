@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,7 +24,6 @@ from twilio.base.page import Page
 
 
 class AuthorizedConnectAppInstance(InstanceResource):
-
     class Permission(object):
         GET_ALL = "get-all"
         POST_ALL = "post-all"
@@ -62,9 +62,9 @@ class AuthorizedConnectAppInstance(InstanceResource):
             "connect_app_homepage_url"
         )
         self.connect_app_sid: Optional[str] = payload.get("connect_app_sid")
-        self.permissions: Optional[List["AuthorizedConnectAppInstance.Permission"]] = (
-            payload.get("permissions")
-        )
+        self.permissions: Optional[
+            List["AuthorizedConnectAppInstance.Permission"]
+        ] = payload.get("permissions")
         self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
@@ -136,7 +136,6 @@ class AuthorizedConnectAppInstance(InstanceResource):
 
 
 class AuthorizedConnectAppContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, connect_app_sid: str):
         """
         Initialize the AuthorizedConnectAppContext
@@ -261,7 +260,6 @@ class AuthorizedConnectAppContext(InstanceContext):
 
 
 class AuthorizedConnectAppPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AuthorizedConnectAppInstance:
         """
         Build an instance of AuthorizedConnectAppInstance
@@ -282,7 +280,6 @@ class AuthorizedConnectAppPage(Page):
 
 
 class AuthorizedConnectAppList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AuthorizedConnectAppList
@@ -632,10 +629,12 @@ class AuthorizedConnectAppList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AuthorizedConnectAppPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -17,7 +17,6 @@ from twilio.rest.events.v1 import V1
 
 
 class EventsBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Events Domain

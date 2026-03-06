@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class IpCommandInstance(InstanceResource):
-
     class Direction(object):
         TO_SIM = "to_sim"
         FROM_SIM = "from_sim"
@@ -151,7 +151,6 @@ class IpCommandInstance(InstanceResource):
 
 
 class IpCommandContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the IpCommandContext
@@ -268,7 +267,6 @@ class IpCommandContext(InstanceContext):
 
 
 class IpCommandPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> IpCommandInstance:
         """
         Build an instance of IpCommandInstance
@@ -287,7 +285,6 @@ class IpCommandPage(Page):
 
 
 class IpCommandList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the IpCommandList
@@ -978,10 +975,12 @@ class IpCommandList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = IpCommandPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

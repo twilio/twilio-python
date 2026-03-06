@@ -17,7 +17,6 @@ from twilio.rest.api.v2010 import V2010
 
 
 class ApiBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Api Domain

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,7 +23,6 @@ from twilio.base.version import Version
 
 
 class ComplianceTollfreeInquiriesInstance(InstanceResource):
-
     class BusinessType(object):
         PRIVATE_PROFIT = "PRIVATE_PROFIT"
         PUBLIC_PROFIT = "PUBLIC_PROFIT"
@@ -63,7 +63,6 @@ class ComplianceTollfreeInquiriesInstance(InstanceResource):
 
 
 class ComplianceTollfreeInquiriesList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ComplianceTollfreeInquiriesList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -25,6 +26,7 @@ from twilio.rest.events.v1.subscription.subscribed_event import SubscribedEventL
 
 
 class SubscriptionInstance(InstanceResource):
+
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar sid: A 34 character string that uniquely identifies this Subscription.
@@ -34,6 +36,8 @@ class SubscriptionInstance(InstanceResource):
     :ivar sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
     :ivar url: The URL of this resource.
     :ivar links: Contains a dictionary of URL links to nested resources of this Subscription.
+    :ivar receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+    :ivar filter: Filter out events that don't satisfy this expression.
     """
 
     def __init__(
@@ -53,6 +57,10 @@ class SubscriptionInstance(InstanceResource):
         self.sink_sid: Optional[str] = payload.get("sink_sid")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.receive_events_from_subaccounts: Optional[bool] = payload.get(
+            "receive_events_from_subaccounts"
+        )
+        self.filter: Optional[str] = payload.get("filter")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -147,59 +155,87 @@ class SubscriptionInstance(InstanceResource):
         return await self._proxy.fetch_with_http_info_async()
 
     def update(
-        self, description: Union[str, object] = values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> "SubscriptionInstance":
         """
         Update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: The updated SubscriptionInstance
         """
         return self._proxy.update(
             description=description,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
         )
 
     async def update_async(
-        self, description: Union[str, object] = values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> "SubscriptionInstance":
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: The updated SubscriptionInstance
         """
         return await self._proxy.update_async(
             description=description,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
         )
 
     def update_with_http_info(
-        self, description: Union[str, object] = values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the SubscriptionInstance with HTTP info
 
         :param description: A human readable description for the Subscription.
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return self._proxy.update_with_http_info(
             description=description,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
         )
 
     async def update_with_http_info_async(
-        self, description: Union[str, object] = values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the SubscriptionInstance with HTTP info
 
         :param description: A human readable description for the Subscription.
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return await self._proxy.update_with_http_info_async(
             description=description,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
         )
 
     @property
@@ -220,7 +256,6 @@ class SubscriptionInstance(InstanceResource):
 
 
 class SubscriptionContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SubscriptionContext
@@ -396,7 +431,12 @@ class SubscriptionContext(InstanceContext):
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    def _update(self, description: Union[str, object] = values.unset) -> tuple:
+    def _update(
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
+    ) -> tuple:
         """
         Internal helper for update operation
 
@@ -407,6 +447,10 @@ class SubscriptionContext(InstanceContext):
         data = values.of(
             {
                 "Description": description,
+                "ReceiveEventsFromSubaccounts": serialize.boolean_to_string(
+                    receive_events_from_subaccounts
+                ),
+                "Filter": filter,
             }
         )
         headers = values.of({})
@@ -420,36 +464,57 @@ class SubscriptionContext(InstanceContext):
         )
 
     def update(
-        self, description: Union[str, object] = values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> SubscriptionInstance:
         """
         Update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: The updated SubscriptionInstance
         """
-        payload, _, _ = self._update(description=description)
+        payload, _, _ = self._update(
+            description=description,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
+        )
         return SubscriptionInstance(self._version, payload, sid=self._solution["sid"])
 
     def update_with_http_info(
-        self, description: Union[str, object] = values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the SubscriptionInstance and return response metadata
 
         :param description: A human readable description for the Subscription.
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._update(description=description)
+        payload, status_code, headers = self._update(
+            description=description,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
+        )
         instance = SubscriptionInstance(
             self._version, payload, sid=self._solution["sid"]
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     async def _update_async(
-        self, description: Union[str, object] = values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -461,6 +526,10 @@ class SubscriptionContext(InstanceContext):
         data = values.of(
             {
                 "Description": description,
+                "ReceiveEventsFromSubaccounts": serialize.boolean_to_string(
+                    receive_events_from_subaccounts
+                ),
+                "Filter": filter,
             }
         )
         headers = values.of({})
@@ -474,30 +543,46 @@ class SubscriptionContext(InstanceContext):
         )
 
     async def update_async(
-        self, description: Union[str, object] = values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> SubscriptionInstance:
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: The updated SubscriptionInstance
         """
-        payload, _, _ = await self._update_async(description=description)
+        payload, _, _ = await self._update_async(
+            description=description,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
+        )
         return SubscriptionInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_with_http_info_async(
-        self, description: Union[str, object] = values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the SubscriptionInstance and return response metadata
 
         :param description: A human readable description for the Subscription.
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._update_async(
-            description=description
+            description=description,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
         )
         instance = SubscriptionInstance(
             self._version, payload, sid=self._solution["sid"]
@@ -527,7 +612,6 @@ class SubscriptionContext(InstanceContext):
 
 
 class SubscriptionPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> SubscriptionInstance:
         """
         Build an instance of SubscriptionInstance
@@ -546,7 +630,6 @@ class SubscriptionPage(Page):
 
 
 class SubscriptionList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the SubscriptionList
@@ -558,7 +641,15 @@ class SubscriptionList(ListResource):
 
         self._uri = "/Subscriptions"
 
-    def _create(self, description: str, sink_sid: str, types: List[object]) -> tuple:
+    def _create(
+        self,
+        description: str,
+        sink_sid: str,
+        types: List[object],
+        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
+    ) -> tuple:
         """
         Internal helper for create operation
 
@@ -571,9 +662,18 @@ class SubscriptionList(ListResource):
                 "Description": description,
                 "SinkSid": sink_sid,
                 "Types": serialize.map(types, lambda e: serialize.object(e)),
+                "ReceiveEventsFromSubaccounts": serialize.boolean_to_string(
+                    receive_events_from_subaccounts
+                ),
+                "Filter": filter,
             }
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Subscriptions-Waiver": x_twilio_subscriptions_waiver,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
@@ -584,7 +684,13 @@ class SubscriptionList(ListResource):
         )
 
     def create(
-        self, description: str, sink_sid: str, types: List[object]
+        self,
+        description: str,
+        sink_sid: str,
+        types: List[object],
+        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> SubscriptionInstance:
         """
         Create the SubscriptionInstance
@@ -592,16 +698,30 @@ class SubscriptionList(ListResource):
         :param description: A human readable description for the Subscription **This value should not contain PII.**
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
         :param types: An array of objects containing the subscribed Event Types
+        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: The created SubscriptionInstance
         """
         payload, _, _ = self._create(
-            description=description, sink_sid=sink_sid, types=types
+            description=description,
+            sink_sid=sink_sid,
+            types=types,
+            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
         )
         return SubscriptionInstance(self._version, payload)
 
     def create_with_http_info(
-        self, description: str, sink_sid: str, types: List[object]
+        self,
+        description: str,
+        sink_sid: str,
+        types: List[object],
+        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the SubscriptionInstance and return response metadata
@@ -609,17 +729,31 @@ class SubscriptionList(ListResource):
         :param description: A human readable description for the Subscription **This value should not contain PII.**
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
         :param types: An array of objects containing the subscribed Event Types
+        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._create(
-            description=description, sink_sid=sink_sid, types=types
+            description=description,
+            sink_sid=sink_sid,
+            types=types,
+            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
         )
         instance = SubscriptionInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     async def _create_async(
-        self, description: str, sink_sid: str, types: List[object]
+        self,
+        description: str,
+        sink_sid: str,
+        types: List[object],
+        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -633,9 +767,18 @@ class SubscriptionList(ListResource):
                 "Description": description,
                 "SinkSid": sink_sid,
                 "Types": serialize.map(types, lambda e: serialize.object(e)),
+                "ReceiveEventsFromSubaccounts": serialize.boolean_to_string(
+                    receive_events_from_subaccounts
+                ),
+                "Filter": filter,
             }
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Subscriptions-Waiver": x_twilio_subscriptions_waiver,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
@@ -646,7 +789,13 @@ class SubscriptionList(ListResource):
         )
 
     async def create_async(
-        self, description: str, sink_sid: str, types: List[object]
+        self,
+        description: str,
+        sink_sid: str,
+        types: List[object],
+        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> SubscriptionInstance:
         """
         Asynchronously create the SubscriptionInstance
@@ -654,16 +803,30 @@ class SubscriptionList(ListResource):
         :param description: A human readable description for the Subscription **This value should not contain PII.**
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
         :param types: An array of objects containing the subscribed Event Types
+        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: The created SubscriptionInstance
         """
         payload, _, _ = await self._create_async(
-            description=description, sink_sid=sink_sid, types=types
+            description=description,
+            sink_sid=sink_sid,
+            types=types,
+            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
         )
         return SubscriptionInstance(self._version, payload)
 
     async def create_with_http_info_async(
-        self, description: str, sink_sid: str, types: List[object]
+        self,
+        description: str,
+        sink_sid: str,
+        types: List[object],
+        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
+        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        filter: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the SubscriptionInstance and return response metadata
@@ -671,11 +834,19 @@ class SubscriptionList(ListResource):
         :param description: A human readable description for the Subscription **This value should not contain PII.**
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
         :param types: An array of objects containing the subscribed Event Types
+        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
+        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
+        :param filter: Filter out events that don't satisfy this expression.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._create_async(
-            description=description, sink_sid=sink_sid, types=types
+            description=description,
+            sink_sid=sink_sid,
+            types=types,
+            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
+            receive_events_from_subaccounts=receive_events_from_subaccounts,
+            filter=filter,
         )
         instance = SubscriptionInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -1045,10 +1216,12 @@ class SubscriptionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = SubscriptionPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

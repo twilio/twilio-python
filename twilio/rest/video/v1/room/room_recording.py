@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class RoomRecordingInstance(InstanceResource):
-
     class Codec(object):
         VP8 = "VP8"
         H264 = "H264"
@@ -50,6 +50,8 @@ class RoomRecordingInstance(InstanceResource):
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomRecording resource.
     :ivar status: 
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_deleted: 
+    :ivar date_updated: 
     :ivar sid: The unique string that we created to identify the RoomRecording resource.
     :ivar source_sid: The SID of the recording source. For a Room Recording, this value is a `track_sid`.
     :ivar size: The size of the recorded track in bytes.
@@ -62,6 +64,7 @@ class RoomRecordingInstance(InstanceResource):
     :ivar track_name: The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
     :ivar offset: The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room.
     :ivar media_external_location: The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
+    :ivar encryption_key: 
     :ivar room_sid: The SID of the Room resource the recording is associated with.
     :ivar links: The URLs of related resources.
     """
@@ -80,6 +83,12 @@ class RoomRecordingInstance(InstanceResource):
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
+        self.date_deleted: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_deleted")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.sid: Optional[str] = payload.get("sid")
         self.source_sid: Optional[str] = payload.get("source_sid")
         self.size: Optional[int] = payload.get("size")
@@ -96,6 +105,7 @@ class RoomRecordingInstance(InstanceResource):
         self.media_external_location: Optional[str] = payload.get(
             "media_external_location"
         )
+        self.encryption_key: Optional[str] = payload.get("encryption_key")
         self.room_sid: Optional[str] = payload.get("room_sid")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
@@ -204,7 +214,6 @@ class RoomRecordingInstance(InstanceResource):
 
 
 class RoomRecordingContext(InstanceContext):
-
     def __init__(self, version: Version, room_sid: str, sid: str):
         """
         Initialize the RoomRecordingContext
@@ -395,7 +404,6 @@ class RoomRecordingContext(InstanceContext):
 
 
 class RoomRecordingPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> RoomRecordingInstance:
         """
         Build an instance of RoomRecordingInstance
@@ -416,7 +424,6 @@ class RoomRecordingPage(Page):
 
 
 class RoomRecordingList(ListResource):
-
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the RoomRecordingList
@@ -914,10 +921,12 @@ class RoomRecordingList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = RoomRecordingPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

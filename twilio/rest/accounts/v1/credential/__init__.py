@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Optional
 
 
@@ -23,7 +24,6 @@ from twilio.rest.accounts.v1.credential.public_key import PublicKeyList
 
 
 class CredentialList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the CredentialList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,6 +28,7 @@ from twilio.rest.serverless.v1.service.function.function_version import (
 
 
 class FunctionInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Function resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function resource.
@@ -220,7 +222,6 @@ class FunctionInstance(InstanceResource):
 
 
 class FunctionContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the FunctionContext
@@ -540,7 +541,6 @@ class FunctionContext(InstanceContext):
 
 
 class FunctionPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> FunctionInstance:
         """
         Build an instance of FunctionInstance
@@ -561,7 +561,6 @@ class FunctionPage(Page):
 
 
 class FunctionList(ListResource):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the FunctionList
@@ -1011,10 +1010,12 @@ class FunctionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = FunctionPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

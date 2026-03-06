@@ -19,7 +19,6 @@ from twilio.rest.numbers.v3 import V3
 
 
 class NumbersBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Numbers Domain

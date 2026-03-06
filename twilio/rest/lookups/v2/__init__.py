@@ -23,7 +23,6 @@ from twilio.rest.lookups.v2.rate_limit import RateLimitList
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Lookups

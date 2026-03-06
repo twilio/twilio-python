@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class MemberInstance(InstanceResource):
+
     """
     :ivar sid:
     :ivar account_sid:
@@ -63,9 +65,9 @@ class MemberInstance(InstanceResource):
         self.last_consumed_message_index: Optional[int] = deserialize.integer(
             payload.get("last_consumed_message_index")
         )
-        self.last_consumption_timestamp: Optional[datetime] = (
-            deserialize.iso8601_datetime(payload.get("last_consumption_timestamp"))
-        )
+        self.last_consumption_timestamp: Optional[
+            datetime
+        ] = deserialize.iso8601_datetime(payload.get("last_consumption_timestamp"))
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -247,7 +249,6 @@ class MemberInstance(InstanceResource):
 
 
 class MemberContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
         """
         Initialize the MemberContext
@@ -602,7 +603,6 @@ class MemberContext(InstanceContext):
 
 
 class MemberPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> MemberInstance:
         """
         Build an instance of MemberInstance
@@ -626,7 +626,6 @@ class MemberPage(Page):
 
 
 class MemberList(ListResource):
-
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MemberList
@@ -1146,10 +1145,12 @@ class MemberList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = MemberPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

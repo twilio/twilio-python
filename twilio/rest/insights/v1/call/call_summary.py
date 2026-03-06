@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class CallSummaryInstance(InstanceResource):
-
     class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
@@ -94,9 +94,9 @@ class CallSummaryInstance(InstanceResource):
         self.answered_by: Optional["CallSummaryInstance.AnsweredBy"] = payload.get(
             "answered_by"
         )
-        self.processing_state: Optional["CallSummaryInstance.ProcessingState"] = (
-            payload.get("processing_state")
-        )
+        self.processing_state: Optional[
+            "CallSummaryInstance.ProcessingState"
+        ] = payload.get("processing_state")
         self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("created_time")
         )
@@ -222,7 +222,6 @@ class CallSummaryInstance(InstanceResource):
 
 
 class CallSummaryContext(InstanceContext):
-
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the CallSummaryContext
@@ -387,7 +386,6 @@ class CallSummaryContext(InstanceContext):
 
 
 class CallSummaryList(ListResource):
-
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the CallSummaryList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,6 +28,7 @@ from twilio.rest.sync.v1.service.document.document_permission import (
 
 
 class DocumentInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Document resource.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource and can be up to 320 characters long.
@@ -266,7 +268,6 @@ class DocumentInstance(InstanceResource):
 
 
 class DocumentContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the DocumentContext
@@ -638,7 +639,6 @@ class DocumentContext(InstanceContext):
 
 
 class DocumentPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> DocumentInstance:
         """
         Build an instance of DocumentInstance
@@ -659,7 +659,6 @@ class DocumentPage(Page):
 
 
 class DocumentList(ListResource):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the DocumentList
@@ -1155,10 +1154,12 @@ class DocumentList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = DocumentPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class CredentialInstance(InstanceResource):
-
     class PushService(object):
         GCM = "gcm"
         APN = "apn"
@@ -282,7 +282,6 @@ class CredentialInstance(InstanceResource):
 
 
 class CredentialContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CredentialContext
@@ -665,7 +664,6 @@ class CredentialContext(InstanceContext):
 
 
 class CredentialPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> CredentialInstance:
         """
         Build an instance of CredentialInstance
@@ -684,7 +682,6 @@ class CredentialPage(Page):
 
 
 class CredentialList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the CredentialList
@@ -1241,10 +1238,12 @@ class CredentialList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = CredentialPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

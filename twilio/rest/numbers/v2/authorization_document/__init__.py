@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,7 +28,6 @@ from twilio.rest.numbers.v2.authorization_document.dependent_hosted_number_order
 
 
 class AuthorizationDocumentInstance(InstanceResource):
-
     class Status(object):
         OPENED = "opened"
         SIGNING = "signing"
@@ -178,7 +178,6 @@ class AuthorizationDocumentInstance(InstanceResource):
 
 
 class AuthorizationDocumentContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AuthorizationDocumentContext
@@ -381,7 +380,6 @@ class AuthorizationDocumentContext(InstanceContext):
 
 
 class AuthorizationDocumentPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AuthorizationDocumentInstance:
         """
         Build an instance of AuthorizationDocumentInstance
@@ -400,7 +398,6 @@ class AuthorizationDocumentPage(Page):
 
 
 class AuthorizationDocumentList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the AuthorizationDocumentList
@@ -1013,10 +1010,12 @@ class AuthorizationDocumentList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AuthorizationDocumentPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

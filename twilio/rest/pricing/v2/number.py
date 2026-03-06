@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class NumberInstance(InstanceResource):
+
     """
     :ivar destination_number: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
     :ivar origination_number: The origination phone number in [[E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
@@ -141,7 +143,6 @@ class NumberInstance(InstanceResource):
 
 
 class NumberContext(InstanceContext):
-
     def __init__(self, version: Version, destination_number: str):
         """
         Initialize the NumberContext
@@ -288,7 +289,6 @@ class NumberContext(InstanceContext):
 
 
 class NumberList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the NumberList

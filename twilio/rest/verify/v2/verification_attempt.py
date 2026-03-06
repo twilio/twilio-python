@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class VerificationAttemptInstance(InstanceResource):
-
     class Channels(object):
         SMS = "sms"
         CALL = "call"
@@ -142,7 +142,6 @@ class VerificationAttemptInstance(InstanceResource):
 
 
 class VerificationAttemptContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the VerificationAttemptContext
@@ -259,7 +258,6 @@ class VerificationAttemptContext(InstanceContext):
 
 
 class VerificationAttemptPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> VerificationAttemptInstance:
         """
         Build an instance of VerificationAttemptInstance
@@ -278,7 +276,6 @@ class VerificationAttemptPage(Page):
 
 
 class VerificationAttemptList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the VerificationAttemptList
@@ -939,10 +936,12 @@ class VerificationAttemptList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = VerificationAttemptPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

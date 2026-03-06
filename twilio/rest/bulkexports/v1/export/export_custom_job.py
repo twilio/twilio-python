@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class ExportCustomJobInstance(InstanceResource):
+
     """
     :ivar friendly_name: The friendly name specified when creating the job
     :ivar resource_type: The type of communication – Messages, Calls, Conferences, and Participants
@@ -69,7 +71,6 @@ class ExportCustomJobInstance(InstanceResource):
 
 
 class ExportCustomJobPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ExportCustomJobInstance:
         """
         Build an instance of ExportCustomJobInstance
@@ -90,7 +91,6 @@ class ExportCustomJobPage(Page):
 
 
 class ExportCustomJobList(ListResource):
-
     def __init__(self, version: Version, resource_type: str):
         """
         Initialize the ExportCustomJobList
@@ -644,10 +644,12 @@ class ExportCustomJobList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ExportCustomJobPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

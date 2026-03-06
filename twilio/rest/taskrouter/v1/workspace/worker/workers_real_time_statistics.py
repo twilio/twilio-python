@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class WorkersRealTimeStatisticsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
     :ivar activity_statistics: The number of current Workers by Activity.
@@ -132,7 +134,6 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
 
 
 class WorkersRealTimeStatisticsContext(InstanceContext):
-
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkersRealTimeStatisticsContext
@@ -281,7 +282,6 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
 
 
 class WorkersRealTimeStatisticsList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkersRealTimeStatisticsList

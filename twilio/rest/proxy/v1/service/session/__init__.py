@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -26,7 +27,6 @@ from twilio.rest.proxy.v1.service.session.participant import ParticipantList
 
 
 class SessionInstance(InstanceResource):
-
     class Mode(object):
         MESSAGE_ONLY = "message-only"
         VOICE_ONLY = "voice-only"
@@ -299,7 +299,6 @@ class SessionInstance(InstanceResource):
 
 
 class SessionContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the SessionContext
@@ -679,7 +678,6 @@ class SessionContext(InstanceContext):
 
 
 class SessionPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> SessionInstance:
         """
         Build an instance of SessionInstance
@@ -700,7 +698,6 @@ class SessionPage(Page):
 
 
 class SessionList(ListResource):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SessionList
@@ -1258,10 +1255,12 @@ class SessionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = SessionPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

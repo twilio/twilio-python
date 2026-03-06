@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
+
     """
     :ivar request: Contains a dictionary representing the request of the call.
     :ivar response: Contains a dictionary representing the call response, including a list of the call events.
@@ -52,7 +54,6 @@ class EventInstance(InstanceResource):
 
 
 class EventPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
@@ -76,7 +77,6 @@ class EventPage(Page):
 
 
 class EventList(ListResource):
-
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the EventList
@@ -428,10 +428,12 @@ class EventList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = EventPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class CustomerProfilesEvaluationsInstance(InstanceResource):
-
     class Status(object):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
@@ -53,9 +53,9 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.policy_sid: Optional[str] = payload.get("policy_sid")
         self.customer_profile_sid: Optional[str] = payload.get("customer_profile_sid")
-        self.status: Optional["CustomerProfilesEvaluationsInstance.Status"] = (
-            payload.get("status")
-        )
+        self.status: Optional[
+            "CustomerProfilesEvaluationsInstance.Status"
+        ] = payload.get("status")
         self.results: Optional[List[Dict[str, object]]] = payload.get("results")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
@@ -133,7 +133,6 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
 
 
 class CustomerProfilesEvaluationsContext(InstanceContext):
-
     def __init__(self, version: Version, customer_profile_sid: str, sid: str):
         """
         Initialize the CustomerProfilesEvaluationsContext
@@ -260,7 +259,6 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
 
 
 class CustomerProfilesEvaluationsPage(Page):
-
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> CustomerProfilesEvaluationsInstance:
@@ -285,7 +283,6 @@ class CustomerProfilesEvaluationsPage(Page):
 
 
 class CustomerProfilesEvaluationsList(ListResource):
-
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesEvaluationsList
@@ -745,10 +742,12 @@ class CustomerProfilesEvaluationsList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = CustomerProfilesEvaluationsPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

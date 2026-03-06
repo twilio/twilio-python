@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,7 +23,6 @@ from twilio.base.version import Version
 
 
 class ComplianceRegistrationInquiriesInstance(InstanceResource):
-
     class BusinessIdentityType(object):
         DIRECT_CUSTOMER = "direct_customer"
         ISV_RESELLER_OR_PARTNER = "isv_reseller_or_partner"
@@ -170,7 +170,6 @@ class ComplianceRegistrationInquiriesInstance(InstanceResource):
 
 
 class ComplianceRegistrationInquiriesContext(InstanceContext):
-
     def __init__(self, version: Version, registration_id: str):
         """
         Initialize the ComplianceRegistrationInquiriesContext
@@ -339,7 +338,6 @@ class ComplianceRegistrationInquiriesContext(InstanceContext):
 
 
 class ComplianceRegistrationInquiriesList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ComplianceRegistrationInquiriesList

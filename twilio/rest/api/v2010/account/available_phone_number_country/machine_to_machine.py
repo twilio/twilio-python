@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class MachineToMachineInstance(InstanceResource):
+
     """
     :ivar friendly_name: A formatted version of the phone number.
     :ivar phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
@@ -78,7 +80,6 @@ class MachineToMachineInstance(InstanceResource):
 
 
 class MachineToMachinePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> MachineToMachineInstance:
         """
         Build an instance of MachineToMachineInstance
@@ -102,7 +103,6 @@ class MachineToMachinePage(Page):
 
 
 class MachineToMachineList(ListResource):
-
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the MachineToMachineList
@@ -1132,10 +1132,12 @@ class MachineToMachineList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = MachineToMachinePage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

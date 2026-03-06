@@ -17,7 +17,6 @@ from twilio.rest.preview_iam.v1 import V1
 
 
 class PreviewIamBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the PreviewIam Domain

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class FlowRevisionInstance(InstanceResource):
-
     class Status(object):
         DRAFT = "draft"
         PUBLISHED = "published"
@@ -139,7 +139,6 @@ class FlowRevisionInstance(InstanceResource):
 
 
 class FlowRevisionContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str, revision: str):
         """
         Initialize the FlowRevisionContext
@@ -262,7 +261,6 @@ class FlowRevisionContext(InstanceContext):
 
 
 class FlowRevisionPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> FlowRevisionInstance:
         """
         Build an instance of FlowRevisionInstance
@@ -281,7 +279,6 @@ class FlowRevisionPage(Page):
 
 
 class FlowRevisionList(ListResource):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowRevisionList
@@ -629,10 +626,12 @@ class FlowRevisionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = FlowRevisionPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

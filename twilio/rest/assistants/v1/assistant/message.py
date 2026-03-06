@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,7 +23,6 @@ from twilio.base.version import Version
 
 
 class MessageInstance(InstanceResource):
-
     class AssistantsV1ServiceAssistantSendMessageRequest(object):
         """
         :ivar identity: The unique identity of user for the session.
@@ -33,7 +33,6 @@ class MessageInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.identity: Optional[str] = payload.get("identity")
             self.session_id: Optional[str] = payload.get("session_id")
             self.body: Optional[str] = payload.get("body")
@@ -85,7 +84,6 @@ class MessageInstance(InstanceResource):
 
 
 class MessageList(ListResource):
-
     class AssistantsV1ServiceAssistantSendMessageRequest(object):
         """
         :ivar identity: The unique identity of user for the session.
@@ -96,7 +94,6 @@ class MessageList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.identity: Optional[str] = payload.get("identity")
             self.session_id: Optional[str] = payload.get("session_id")
             self.body: Optional[str] = payload.get("body")

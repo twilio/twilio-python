@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class DayInstance(InstanceResource):
+
     """
     :ivar redirect_to:
     :ivar day: The ISO 8601 format date of the resources in the file, for a UTC day
@@ -117,7 +119,6 @@ class DayInstance(InstanceResource):
 
 
 class DayContext(InstanceContext):
-
     def __init__(self, version: Version, resource_type: str, day: str):
         """
         Initialize the DayContext
@@ -240,7 +241,6 @@ class DayContext(InstanceContext):
 
 
 class DayPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> DayInstance:
         """
         Build an instance of DayInstance
@@ -261,7 +261,6 @@ class DayPage(Page):
 
 
 class DayList(ListResource):
-
     def __init__(self, version: Version, resource_type: str):
         """
         Initialize the DayList
@@ -609,10 +608,12 @@ class DayList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = DayPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

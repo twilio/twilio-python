@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class BillingPeriodInstance(InstanceResource):
-
     class BpType(object):
         READY = "ready"
         ACTIVE = "active"
@@ -77,7 +77,6 @@ class BillingPeriodInstance(InstanceResource):
 
 
 class BillingPeriodPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> BillingPeriodInstance:
         """
         Build an instance of BillingPeriodInstance
@@ -98,7 +97,6 @@ class BillingPeriodPage(Page):
 
 
 class BillingPeriodList(ListResource):
-
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the BillingPeriodList
@@ -446,10 +444,12 @@ class BillingPeriodList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = BillingPeriodPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class SubscribeRulesInstance(InstanceResource):
+
     """
     :ivar participant_sid: The SID of the Participant resource for the Subscribe Rules.
     :ivar room_sid: The SID of the Room resource for the Subscribe Rules
@@ -66,7 +68,6 @@ class SubscribeRulesInstance(InstanceResource):
 
 
 class SubscribeRulesList(ListResource):
-
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the SubscribeRulesList

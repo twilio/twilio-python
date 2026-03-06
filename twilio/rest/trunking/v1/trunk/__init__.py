@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -29,7 +30,6 @@ from twilio.rest.trunking.v1.trunk.recording import RecordingList
 
 
 class TrunkInstance(InstanceResource):
-
     class TransferCallerId(object):
         FROM_TRANSFEREE = "from-transferee"
         FROM_TRANSFEROR = "from-transferor"
@@ -77,9 +77,9 @@ class TrunkInstance(InstanceResource):
         self.transfer_mode: Optional["TrunkInstance.TransferSetting"] = payload.get(
             "transfer_mode"
         )
-        self.transfer_caller_id: Optional["TrunkInstance.TransferCallerId"] = (
-            payload.get("transfer_caller_id")
-        )
+        self.transfer_caller_id: Optional[
+            "TrunkInstance.TransferCallerId"
+        ] = payload.get("transfer_caller_id")
         self.cnam_lookup_enabled: Optional[bool] = payload.get("cnam_lookup_enabled")
         self.auth_type: Optional[str] = payload.get("auth_type")
         self.symmetric_rtp_enabled: Optional[bool] = payload.get(
@@ -386,7 +386,6 @@ class TrunkInstance(InstanceResource):
 
 
 class TrunkContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the TrunkContext
@@ -879,7 +878,6 @@ class TrunkContext(InstanceContext):
 
 
 class TrunkPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> TrunkInstance:
         """
         Build an instance of TrunkInstance
@@ -898,7 +896,6 @@ class TrunkPage(Page):
 
 
 class TrunkList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the TrunkList
@@ -1483,10 +1480,12 @@ class TrunkList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = TrunkPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

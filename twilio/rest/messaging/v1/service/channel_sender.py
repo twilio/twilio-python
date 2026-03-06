@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class ChannelSenderInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ChannelSender resource.
     :ivar messaging_service_sid: The SID of the [Service](https://www.twilio.com/docs/messaging/services) the resource is associated with.
@@ -164,7 +166,6 @@ class ChannelSenderInstance(InstanceResource):
 
 
 class ChannelSenderContext(InstanceContext):
-
     def __init__(self, version: Version, messaging_service_sid: str, sid: str):
         """
         Initialize the ChannelSenderContext
@@ -357,7 +358,6 @@ class ChannelSenderContext(InstanceContext):
 
 
 class ChannelSenderPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ChannelSenderInstance:
         """
         Build an instance of ChannelSenderInstance
@@ -380,7 +380,6 @@ class ChannelSenderPage(Page):
 
 
 class ChannelSenderList(ListResource):
-
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the ChannelSenderList
@@ -838,10 +837,12 @@ class ChannelSenderList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ChannelSenderPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

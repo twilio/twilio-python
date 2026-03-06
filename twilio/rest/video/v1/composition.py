@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class CompositionInstance(InstanceResource):
-
     class Format(object):
         MP4 = "mp4"
         WEBM = "webm"
@@ -56,6 +56,7 @@ class CompositionInstance(InstanceResource):
     :ivar media_external_location: The URL of the media file associated with the composition when stored externally. See [External S3 Compositions](/docs/video/api/external-s3-compositions) for more details.
     :ivar status_callback: The URL called using the `status_callback_method` to send status information on every composition event.
     :ivar status_callback_method: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
+    :ivar encryption_key: 
     :ivar url: The absolute URL of the resource.
     :ivar links: The URL of the media file associated with the composition.
     """
@@ -96,6 +97,7 @@ class CompositionInstance(InstanceResource):
         self.status_callback_method: Optional[str] = payload.get(
             "status_callback_method"
         )
+        self.encryption_key: Optional[str] = payload.get("encryption_key")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
@@ -202,7 +204,6 @@ class CompositionInstance(InstanceResource):
 
 
 class CompositionContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CompositionContext
@@ -387,7 +388,6 @@ class CompositionContext(InstanceContext):
 
 
 class CompositionPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> CompositionInstance:
         """
         Build an instance of CompositionInstance
@@ -406,7 +406,6 @@ class CompositionPage(Page):
 
 
 class CompositionList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the CompositionList
@@ -1149,10 +1148,12 @@ class CompositionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = CompositionPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

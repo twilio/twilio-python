@@ -19,7 +19,6 @@ from twilio.rest.preview.wireless import Wireless
 
 
 class PreviewBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Preview Domain

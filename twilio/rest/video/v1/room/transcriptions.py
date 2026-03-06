@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class TranscriptionsInstance(InstanceResource):
-
     class Status(object):
         STARTED = "started"
         STOPPED = "stopped"
@@ -216,7 +216,6 @@ class TranscriptionsInstance(InstanceResource):
 
 
 class TranscriptionsContext(InstanceContext):
-
     def __init__(self, version: Version, room_sid: str, ttid: str):
         """
         Initialize the TranscriptionsContext
@@ -487,7 +486,6 @@ class TranscriptionsContext(InstanceContext):
 
 
 class TranscriptionsPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> TranscriptionsInstance:
         """
         Build an instance of TranscriptionsInstance
@@ -508,7 +506,6 @@ class TranscriptionsPage(Page):
 
 
 class TranscriptionsList(ListResource):
-
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the TranscriptionsList
@@ -968,10 +965,12 @@ class TranscriptionsList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = TranscriptionsPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

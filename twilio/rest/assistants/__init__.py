@@ -9,7 +9,6 @@ from twilio.rest.assistants.v1.tool import ToolList
 
 
 class Assistants(AssistantsBase):
-
     @property
     def assistants(self) -> AssistantList:
         warn(

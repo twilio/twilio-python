@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class UserInstance(InstanceResource):
-
     class ScimEmailAddress(object):
         """
         :ivar primary: Indicates if this email address is the primary one
@@ -33,7 +33,6 @@ class UserInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.primary: Optional[bool] = payload.get("primary")
             self.value: Optional[str] = payload.get("value")
             self.type: Optional[str] = payload.get("type")
@@ -54,7 +53,6 @@ class UserInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.resource_type: Optional[str] = payload.get("resource_type")
             self.created: Optional[datetime] = payload.get("created")
             self.last_modified: Optional[datetime] = payload.get("last_modified")
@@ -75,7 +73,6 @@ class UserInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.given_name: Optional[str] = payload.get("given_name")
             self.family_name: Optional[str] = payload.get("family_name")
 
@@ -106,7 +103,6 @@ class UserInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.external_id: Optional[str] = payload.get("external_id")
             self.user_name: Optional[str] = payload.get("user_name")
@@ -133,11 +129,9 @@ class UserInstance(InstanceResource):
                 "userName": self.user_name,
                 "displayName": self.display_name,
                 "name": self.name.to_dict() if self.name is not None else None,
-                "emails": (
-                    [emails.to_dict() for emails in self.emails]
-                    if self.emails is not None
-                    else None
-                ),
+                "emails": [emails.to_dict() for emails in self.emails]
+                if self.emails is not None
+                else None,
                 "active": self.active,
                 "locale": self.locale,
                 "timezone": self.timezone,
@@ -364,7 +358,6 @@ class UserInstance(InstanceResource):
 
 
 class UserContext(InstanceContext):
-
     class ScimEmailAddress(object):
         """
         :ivar primary: Indicates if this email address is the primary one
@@ -373,7 +366,6 @@ class UserContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.primary: Optional[bool] = payload.get("primary")
             self.value: Optional[str] = payload.get("value")
             self.type: Optional[str] = payload.get("type")
@@ -394,7 +386,6 @@ class UserContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.resource_type: Optional[str] = payload.get("resource_type")
             self.created: Optional[datetime] = payload.get("created")
             self.last_modified: Optional[datetime] = payload.get("last_modified")
@@ -415,7 +406,6 @@ class UserContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.given_name: Optional[str] = payload.get("given_name")
             self.family_name: Optional[str] = payload.get("family_name")
 
@@ -446,7 +436,6 @@ class UserContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.external_id: Optional[str] = payload.get("external_id")
             self.user_name: Optional[str] = payload.get("user_name")
@@ -473,11 +462,9 @@ class UserContext(InstanceContext):
                 "userName": self.user_name,
                 "displayName": self.display_name,
                 "name": self.name.to_dict() if self.name is not None else None,
-                "emails": (
-                    [emails.to_dict() for emails in self.emails]
-                    if self.emails is not None
-                    else None
-                ),
+                "emails": [emails.to_dict() for emails in self.emails]
+                if self.emails is not None
+                else None,
                 "active": self.active,
                 "locale": self.locale,
                 "timezone": self.timezone,
@@ -822,7 +809,6 @@ class UserContext(InstanceContext):
 
 
 class UserPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> UserInstance:
         """
         Build an instance of UserInstance
@@ -843,7 +829,6 @@ class UserPage(Page):
 
 
 class UserList(ListResource):
-
     class ScimEmailAddress(object):
         """
         :ivar primary: Indicates if this email address is the primary one
@@ -852,7 +837,6 @@ class UserList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.primary: Optional[bool] = payload.get("primary")
             self.value: Optional[str] = payload.get("value")
             self.type: Optional[str] = payload.get("type")
@@ -873,7 +857,6 @@ class UserList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.resource_type: Optional[str] = payload.get("resource_type")
             self.created: Optional[datetime] = payload.get("created")
             self.last_modified: Optional[datetime] = payload.get("last_modified")
@@ -894,7 +877,6 @@ class UserList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.given_name: Optional[str] = payload.get("given_name")
             self.family_name: Optional[str] = payload.get("family_name")
 
@@ -925,7 +907,6 @@ class UserList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.external_id: Optional[str] = payload.get("external_id")
             self.user_name: Optional[str] = payload.get("user_name")
@@ -952,11 +933,9 @@ class UserList(ListResource):
                 "userName": self.user_name,
                 "displayName": self.display_name,
                 "name": self.name.to_dict() if self.name is not None else None,
-                "emails": (
-                    [emails.to_dict() for emails in self.emails]
-                    if self.emails is not None
-                    else None
-                ),
+                "emails": [emails.to_dict() for emails in self.emails]
+                if self.emails is not None
+                else None,
                 "active": self.active,
                 "locale": self.locale,
                 "timezone": self.timezone,
@@ -1446,10 +1425,12 @@ class UserList(ListResource):
 
         headers["Accept"] = "application/scim+json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = UserPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

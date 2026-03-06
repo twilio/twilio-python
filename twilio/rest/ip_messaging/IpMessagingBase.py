@@ -18,7 +18,6 @@ from twilio.rest.ip_messaging.v2 import V2
 
 
 class IpMessagingBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the IpMessaging Domain

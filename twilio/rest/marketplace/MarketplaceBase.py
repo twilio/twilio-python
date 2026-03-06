@@ -17,7 +17,6 @@ from twilio.rest.marketplace.v1 import V1
 
 
 class MarketplaceBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Marketplace Domain

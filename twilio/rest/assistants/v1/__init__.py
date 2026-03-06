@@ -23,7 +23,6 @@ from twilio.rest.assistants.v1.tool import ToolList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Assistants

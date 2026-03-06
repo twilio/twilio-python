@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -38,6 +39,7 @@ from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import (
 
 
 class WorkerInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
     :ivar activity_name: The `friendly_name` of the Worker's current Activity.
@@ -52,6 +54,10 @@ class WorkerInstance(InstanceResource):
     :ivar workspace_sid: The SID of the Workspace that contains the Worker.
     :ivar url: The absolute URL of the Worker resource.
     :ivar links: The URLs of related resources.
+    :ivar operating_unit_sid: The SID of the Operating Unit that contains the Worker.
+    :ivar consumed_concurrency: The number of concurrent tasks that the Worker is currently handling.
+    :ivar consumed_attention: The amount of attention that the Worker has consumed.
+    :ivar configured_concurrency: The current configured concurrency for the Worker. TaskRouter will not create any reservations with Attention Routing after the consumed concurrency for the Worker reaches the value.
     """
 
     def __init__(
@@ -82,6 +88,16 @@ class WorkerInstance(InstanceResource):
         self.workspace_sid: Optional[str] = payload.get("workspace_sid")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.operating_unit_sid: Optional[str] = payload.get("operating_unit_sid")
+        self.consumed_concurrency: Optional[int] = deserialize.integer(
+            payload.get("consumed_concurrency")
+        )
+        self.consumed_attention: Optional[int] = deserialize.integer(
+            payload.get("consumed_attention")
+        )
+        self.configured_concurrency: Optional[int] = deserialize.integer(
+            payload.get("configured_concurrency")
+        )
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -200,6 +216,8 @@ class WorkerInstance(InstanceResource):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> "WorkerInstance":
         """
         Update the WorkerInstance
@@ -209,6 +227,8 @@ class WorkerInstance(InstanceResource):
         :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
         :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
         :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param operating_unit_sid: The SID of the Operating Unit with the Worker to update.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: The updated WorkerInstance
         """
@@ -218,6 +238,8 @@ class WorkerInstance(InstanceResource):
             attributes=attributes,
             friendly_name=friendly_name,
             reject_pending_reservations=reject_pending_reservations,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
 
     async def update_async(
@@ -227,6 +249,8 @@ class WorkerInstance(InstanceResource):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> "WorkerInstance":
         """
         Asynchronous coroutine to update the WorkerInstance
@@ -236,6 +260,8 @@ class WorkerInstance(InstanceResource):
         :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
         :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
         :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param operating_unit_sid: The SID of the Operating Unit with the Worker to update.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: The updated WorkerInstance
         """
@@ -245,6 +271,8 @@ class WorkerInstance(InstanceResource):
             attributes=attributes,
             friendly_name=friendly_name,
             reject_pending_reservations=reject_pending_reservations,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
 
     def update_with_http_info(
@@ -254,6 +282,8 @@ class WorkerInstance(InstanceResource):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the WorkerInstance with HTTP info
@@ -263,6 +293,8 @@ class WorkerInstance(InstanceResource):
         :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
         :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
         :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param operating_unit_sid: The SID of the Operating Unit with the Worker to update.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -272,6 +304,8 @@ class WorkerInstance(InstanceResource):
             attributes=attributes,
             friendly_name=friendly_name,
             reject_pending_reservations=reject_pending_reservations,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
 
     async def update_with_http_info_async(
@@ -281,6 +315,8 @@ class WorkerInstance(InstanceResource):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the WorkerInstance with HTTP info
@@ -290,6 +326,8 @@ class WorkerInstance(InstanceResource):
         :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
         :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
         :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param operating_unit_sid: The SID of the Operating Unit with the Worker to update.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -299,6 +337,8 @@ class WorkerInstance(InstanceResource):
             attributes=attributes,
             friendly_name=friendly_name,
             reject_pending_reservations=reject_pending_reservations,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
 
     @property
@@ -333,7 +373,6 @@ class WorkerInstance(InstanceResource):
 
 
 class WorkerContext(InstanceContext):
-
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the WorkerContext
@@ -542,6 +581,8 @@ class WorkerContext(InstanceContext):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for update operation
@@ -558,6 +599,8 @@ class WorkerContext(InstanceContext):
                 "RejectPendingReservations": serialize.boolean_to_string(
                     reject_pending_reservations
                 ),
+                "OperatingUnitSid": operating_unit_sid,
+                "Concurrency": concurrency,
             }
         )
         headers = values.of({})
@@ -582,6 +625,8 @@ class WorkerContext(InstanceContext):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> WorkerInstance:
         """
         Update the WorkerInstance
@@ -591,6 +636,8 @@ class WorkerContext(InstanceContext):
         :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
         :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
         :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param operating_unit_sid: The SID of the Operating Unit with the Worker to update.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: The updated WorkerInstance
         """
@@ -600,6 +647,8 @@ class WorkerContext(InstanceContext):
             attributes=attributes,
             friendly_name=friendly_name,
             reject_pending_reservations=reject_pending_reservations,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
         return WorkerInstance(
             self._version,
@@ -615,6 +664,8 @@ class WorkerContext(InstanceContext):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the WorkerInstance and return response metadata
@@ -624,6 +675,8 @@ class WorkerContext(InstanceContext):
         :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
         :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
         :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param operating_unit_sid: The SID of the Operating Unit with the Worker to update.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -633,6 +686,8 @@ class WorkerContext(InstanceContext):
             attributes=attributes,
             friendly_name=friendly_name,
             reject_pending_reservations=reject_pending_reservations,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
         instance = WorkerInstance(
             self._version,
@@ -649,6 +704,8 @@ class WorkerContext(InstanceContext):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -665,6 +722,8 @@ class WorkerContext(InstanceContext):
                 "RejectPendingReservations": serialize.boolean_to_string(
                     reject_pending_reservations
                 ),
+                "OperatingUnitSid": operating_unit_sid,
+                "Concurrency": concurrency,
             }
         )
         headers = values.of({})
@@ -689,6 +748,8 @@ class WorkerContext(InstanceContext):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> WorkerInstance:
         """
         Asynchronous coroutine to update the WorkerInstance
@@ -698,6 +759,8 @@ class WorkerContext(InstanceContext):
         :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
         :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
         :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param operating_unit_sid: The SID of the Operating Unit with the Worker to update.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: The updated WorkerInstance
         """
@@ -707,6 +770,8 @@ class WorkerContext(InstanceContext):
             attributes=attributes,
             friendly_name=friendly_name,
             reject_pending_reservations=reject_pending_reservations,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
         return WorkerInstance(
             self._version,
@@ -722,6 +787,8 @@ class WorkerContext(InstanceContext):
         attributes: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         reject_pending_reservations: Union[bool, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the WorkerInstance and return response metadata
@@ -731,6 +798,8 @@ class WorkerContext(InstanceContext):
         :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
         :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
         :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param operating_unit_sid: The SID of the Operating Unit with the Worker to update.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -740,6 +809,8 @@ class WorkerContext(InstanceContext):
             attributes=attributes,
             friendly_name=friendly_name,
             reject_pending_reservations=reject_pending_reservations,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
         instance = WorkerInstance(
             self._version,
@@ -799,7 +870,6 @@ class WorkerContext(InstanceContext):
 
 
 class WorkerPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> WorkerInstance:
         """
         Build an instance of WorkerInstance
@@ -820,7 +890,6 @@ class WorkerPage(Page):
 
 
 class WorkerList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkerList
@@ -846,6 +915,8 @@ class WorkerList(ListResource):
         friendly_name: str,
         activity_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -859,6 +930,8 @@ class WorkerList(ListResource):
                 "FriendlyName": friendly_name,
                 "ActivitySid": activity_sid,
                 "Attributes": attributes,
+                "OperatingUnitSid": operating_unit_sid,
+                "Concurrency": concurrency,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -876,6 +949,8 @@ class WorkerList(ListResource):
         friendly_name: str,
         activity_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> WorkerInstance:
         """
         Create the WorkerInstance
@@ -883,6 +958,8 @@ class WorkerList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
         :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
         :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param operating_unit_sid: The SID of the Operating Unit that the new Worker belongs to.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: The created WorkerInstance
         """
@@ -890,6 +967,8 @@ class WorkerList(ListResource):
             friendly_name=friendly_name,
             activity_sid=activity_sid,
             attributes=attributes,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
         return WorkerInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -900,6 +979,8 @@ class WorkerList(ListResource):
         friendly_name: str,
         activity_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the WorkerInstance and return response metadata
@@ -907,6 +988,8 @@ class WorkerList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
         :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
         :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param operating_unit_sid: The SID of the Operating Unit that the new Worker belongs to.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -914,6 +997,8 @@ class WorkerList(ListResource):
             friendly_name=friendly_name,
             activity_sid=activity_sid,
             attributes=attributes,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
         instance = WorkerInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -925,6 +1010,8 @@ class WorkerList(ListResource):
         friendly_name: str,
         activity_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -938,6 +1025,8 @@ class WorkerList(ListResource):
                 "FriendlyName": friendly_name,
                 "ActivitySid": activity_sid,
                 "Attributes": attributes,
+                "OperatingUnitSid": operating_unit_sid,
+                "Concurrency": concurrency,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -955,6 +1044,8 @@ class WorkerList(ListResource):
         friendly_name: str,
         activity_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> WorkerInstance:
         """
         Asynchronously create the WorkerInstance
@@ -962,6 +1053,8 @@ class WorkerList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
         :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
         :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param operating_unit_sid: The SID of the Operating Unit that the new Worker belongs to.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: The created WorkerInstance
         """
@@ -969,6 +1062,8 @@ class WorkerList(ListResource):
             friendly_name=friendly_name,
             activity_sid=activity_sid,
             attributes=attributes,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
         return WorkerInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -979,6 +1074,8 @@ class WorkerList(ListResource):
         friendly_name: str,
         activity_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
+        concurrency: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the WorkerInstance and return response metadata
@@ -986,6 +1083,8 @@ class WorkerList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
         :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
         :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param operating_unit_sid: The SID of the Operating Unit that the new Worker belongs to.
+        :param concurrency: The total number of Tasks that a Worker should handle for Attention Routing. TaskRouter creates reservations for Tasks up to the specified concurrency. To default to the Attention Profile's concurrency limit, use -1.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -993,6 +1092,8 @@ class WorkerList(ListResource):
             friendly_name=friendly_name,
             activity_sid=activity_sid,
             attributes=attributes,
+            operating_unit_sid=operating_unit_sid,
+            concurrency=concurrency,
         )
         instance = WorkerInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -1009,6 +1110,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[WorkerInstance]:
@@ -1026,6 +1128,7 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
+        :param str operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1045,6 +1148,7 @@ class WorkerList(ListResource):
             task_queue_name=task_queue_name,
             task_queue_sid=task_queue_sid,
             ordering=ordering,
+            operating_unit_sid=operating_unit_sid,
             page_size=limits["page_size"],
         )
 
@@ -1060,6 +1164,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[WorkerInstance]:
@@ -1077,6 +1182,7 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
+        :param str operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1096,6 +1202,7 @@ class WorkerList(ListResource):
             task_queue_name=task_queue_name,
             task_queue_sid=task_queue_sid,
             ordering=ordering,
+            operating_unit_sid=operating_unit_sid,
             page_size=limits["page_size"],
         )
 
@@ -1111,6 +1218,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -1126,6 +1234,7 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
+        :param str operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1145,6 +1254,7 @@ class WorkerList(ListResource):
             task_queue_name=task_queue_name,
             task_queue_sid=task_queue_sid,
             ordering=ordering,
+            operating_unit_sid=operating_unit_sid,
             page_size=limits["page_size"],
         )
 
@@ -1161,6 +1271,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -1176,6 +1287,7 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
+        :param str operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1195,6 +1307,7 @@ class WorkerList(ListResource):
             task_queue_name=task_queue_name,
             task_queue_sid=task_queue_sid,
             ordering=ordering,
+            operating_unit_sid=operating_unit_sid,
             page_size=limits["page_size"],
         )
 
@@ -1211,6 +1324,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[WorkerInstance]:
@@ -1227,6 +1341,7 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
+        :param str operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1246,6 +1361,7 @@ class WorkerList(ListResource):
                 task_queue_name=task_queue_name,
                 task_queue_sid=task_queue_sid,
                 ordering=ordering,
+                operating_unit_sid=operating_unit_sid,
                 limit=limit,
                 page_size=page_size,
             )
@@ -1261,6 +1377,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[WorkerInstance]:
@@ -1277,6 +1394,7 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
+        :param str operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1297,6 +1415,7 @@ class WorkerList(ListResource):
                 task_queue_name=task_queue_name,
                 task_queue_sid=task_queue_sid,
                 ordering=ordering,
+                operating_unit_sid=operating_unit_sid,
                 limit=limit,
                 page_size=page_size,
             )
@@ -1312,6 +1431,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -1327,6 +1447,7 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
+        :param str operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1345,6 +1466,7 @@ class WorkerList(ListResource):
             task_queue_name=task_queue_name,
             task_queue_sid=task_queue_sid,
             ordering=ordering,
+            operating_unit_sid=operating_unit_sid,
             limit=limit,
             page_size=page_size,
         )
@@ -1361,6 +1483,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -1376,6 +1499,7 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
+        :param str operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1394,6 +1518,7 @@ class WorkerList(ListResource):
             task_queue_name=task_queue_name,
             task_queue_sid=task_queue_sid,
             ordering=ordering,
+            operating_unit_sid=operating_unit_sid,
             limit=limit,
             page_size=page_size,
         )
@@ -1410,6 +1535,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1426,6 +1552,7 @@ class WorkerList(ListResource):
         :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param ordering: Sorting parameter for Workers
+        :param operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1442,6 +1569,7 @@ class WorkerList(ListResource):
                 "TaskQueueName": task_queue_name,
                 "TaskQueueSid": task_queue_sid,
                 "Ordering": ordering,
+                "OperatingUnitSid": operating_unit_sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1467,6 +1595,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1483,6 +1612,7 @@ class WorkerList(ListResource):
         :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param ordering: Sorting parameter for Workers
+        :param operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1499,6 +1629,7 @@ class WorkerList(ListResource):
                 "TaskQueueName": task_queue_name,
                 "TaskQueueSid": task_queue_sid,
                 "Ordering": ordering,
+                "OperatingUnitSid": operating_unit_sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1524,6 +1655,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1540,6 +1672,7 @@ class WorkerList(ListResource):
         :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param ordering: Sorting parameter for Workers
+        :param operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1556,6 +1689,7 @@ class WorkerList(ListResource):
                 "TaskQueueName": task_queue_name,
                 "TaskQueueSid": task_queue_sid,
                 "Ordering": ordering,
+                "OperatingUnitSid": operating_unit_sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1582,6 +1716,7 @@ class WorkerList(ListResource):
         task_queue_name: Union[str, object] = values.unset,
         task_queue_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
+        operating_unit_sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1598,6 +1733,7 @@ class WorkerList(ListResource):
         :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param ordering: Sorting parameter for Workers
+        :param operating_unit_sid: The SID of the Operating Unit with the Workers to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1614,6 +1750,7 @@ class WorkerList(ListResource):
                 "TaskQueueName": task_queue_name,
                 "TaskQueueSid": task_queue_sid,
                 "Ordering": ordering,
+                "OperatingUnitSid": operating_unit_sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1624,10 +1761,12 @@ class WorkerList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = WorkerPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

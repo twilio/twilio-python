@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class TaskQueuesStatisticsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
     :ivar cumulative: An object that contains the cumulative statistics for the TaskQueues.
@@ -56,7 +58,6 @@ class TaskQueuesStatisticsInstance(InstanceResource):
 
 
 class TaskQueuesStatisticsPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> TaskQueuesStatisticsInstance:
         """
         Build an instance of TaskQueuesStatisticsInstance
@@ -77,7 +78,6 @@ class TaskQueuesStatisticsPage(Page):
 
 
 class TaskQueuesStatisticsList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskQueuesStatisticsList
@@ -649,10 +649,12 @@ class TaskQueuesStatisticsList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = TaskQueuesStatisticsPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

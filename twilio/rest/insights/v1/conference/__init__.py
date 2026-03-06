@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +28,6 @@ from twilio.rest.insights.v1.conference.conference_participant import (
 
 
 class ConferenceInstance(InstanceResource):
-
     class ConferenceEndReason(object):
         LAST_PARTICIPANT_LEFT = "last_participant_left"
         CONFERENCE_ENDED_VIA_API = "conference_ended_via_api"
@@ -139,25 +139,25 @@ class ConferenceInstance(InstanceResource):
         self.unique_participants: Optional[int] = deserialize.integer(
             payload.get("unique_participants")
         )
-        self.end_reason: Optional["ConferenceInstance.ConferenceEndReason"] = (
-            payload.get("end_reason")
-        )
+        self.end_reason: Optional[
+            "ConferenceInstance.ConferenceEndReason"
+        ] = payload.get("end_reason")
         self.ended_by: Optional[str] = payload.get("ended_by")
         self.mixer_region: Optional["ConferenceInstance.Region"] = payload.get(
             "mixer_region"
         )
-        self.mixer_region_requested: Optional["ConferenceInstance.Region"] = (
-            payload.get("mixer_region_requested")
-        )
+        self.mixer_region_requested: Optional[
+            "ConferenceInstance.Region"
+        ] = payload.get("mixer_region_requested")
         self.recording_enabled: Optional[bool] = payload.get("recording_enabled")
         self.detected_issues: Optional[Dict[str, object]] = payload.get(
             "detected_issues"
         )
         self.tags: Optional[List["ConferenceInstance.Tag"]] = payload.get("tags")
         self.tag_info: Optional[Dict[str, object]] = payload.get("tag_info")
-        self.processing_state: Optional["ConferenceInstance.ProcessingState"] = (
-            payload.get("processing_state")
-        )
+        self.processing_state: Optional[
+            "ConferenceInstance.ProcessingState"
+        ] = payload.get("processing_state")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
@@ -235,7 +235,6 @@ class ConferenceInstance(InstanceResource):
 
 
 class ConferenceContext(InstanceContext):
-
     def __init__(self, version: Version, conference_sid: str):
         """
         Initialize the ConferenceContext
@@ -366,7 +365,6 @@ class ConferenceContext(InstanceContext):
 
 
 class ConferencePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ConferenceInstance:
         """
         Build an instance of ConferenceInstance
@@ -385,7 +383,6 @@ class ConferencePage(Page):
 
 
 class ConferenceList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ConferenceList
@@ -1094,10 +1091,12 @@ class ConferenceList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ConferencePage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class MessageInteractionInstance(InstanceResource):
-
     class ResourceStatus(object):
         ACCEPTED = "accepted"
         ANSWERED = "answered"
@@ -195,7 +195,6 @@ class MessageInteractionInstance(InstanceResource):
 
 
 class MessageInteractionContext(InstanceContext):
-
     def __init__(
         self,
         version: Version,
@@ -339,7 +338,6 @@ class MessageInteractionContext(InstanceContext):
 
 
 class MessageInteractionPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> MessageInteractionInstance:
         """
         Build an instance of MessageInteractionInstance
@@ -364,7 +362,6 @@ class MessageInteractionPage(Page):
 
 
 class MessageInteractionList(ListResource):
-
     def __init__(
         self, version: Version, service_sid: str, session_sid: str, participant_sid: str
     ):
@@ -868,10 +865,12 @@ class MessageInteractionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = MessageInteractionPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class OperatorInstance(InstanceResource):
-
     class Availability(object):
         INTERNAL = "internal"
         BETA = "beta"
@@ -139,7 +139,6 @@ class OperatorInstance(InstanceResource):
 
 
 class OperatorContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the OperatorContext
@@ -256,7 +255,6 @@ class OperatorContext(InstanceContext):
 
 
 class OperatorPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> OperatorInstance:
         """
         Build an instance of OperatorInstance
@@ -275,7 +273,6 @@ class OperatorPage(Page):
 
 
 class OperatorList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the OperatorList
@@ -696,10 +693,12 @@ class OperatorList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = OperatorPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

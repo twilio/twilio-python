@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class LookupOverrideInstance(InstanceResource):
-
     class OverridesRequest(object):
         """
         :ivar line_type: The new line type to override the original line type
@@ -31,7 +31,6 @@ class LookupOverrideInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.line_type: Optional["LookupOverrideInstance.str"] = payload.get(
                 "line_type"
             )
@@ -307,7 +306,6 @@ class LookupOverrideInstance(InstanceResource):
 
 
 class LookupOverrideContext(InstanceContext):
-
     class OverridesRequest(object):
         """
         :ivar line_type: The new line type to override the original line type
@@ -315,7 +313,6 @@ class LookupOverrideContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.line_type: Optional["LookupOverrideInstance.str"] = payload.get(
                 "line_type"
             )
@@ -763,7 +760,6 @@ class LookupOverrideContext(InstanceContext):
 
 
 class LookupOverrideList(ListResource):
-
     class OverridesRequest(object):
         """
         :ivar line_type: The new line type to override the original line type
@@ -771,7 +767,6 @@ class LookupOverrideList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.line_type: Optional["LookupOverrideInstance.str"] = payload.get(
                 "line_type"
             )

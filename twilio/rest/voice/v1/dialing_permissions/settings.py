@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class SettingsInstance(InstanceResource):
+
     """
     :ivar dialing_permissions_inheritance: `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`.
     :ivar url: The absolute URL of this resource.
@@ -154,7 +156,6 @@ class SettingsInstance(InstanceResource):
 
 
 class SettingsContext(InstanceContext):
-
     def __init__(self, version: Version):
         """
         Initialize the SettingsContext
@@ -378,7 +379,6 @@ class SettingsContext(InstanceContext):
 
 
 class SettingsList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the SettingsList

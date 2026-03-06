@@ -150,7 +150,6 @@ class UsageInstance(InstanceResource):
 
 
 class UsageContext(InstanceContext):
-
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the UsageContext
@@ -313,7 +312,6 @@ class UsageContext(InstanceContext):
 
 
 class UsageList(ListResource):
-
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the UsageList

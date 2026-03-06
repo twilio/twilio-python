@@ -20,7 +20,6 @@ from twilio.rest.preview_iam.v1.token import TokenList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of PreviewIam

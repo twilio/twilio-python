@@ -20,7 +20,6 @@ from twilio.rest.monitor.v1.event import EventList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Monitor

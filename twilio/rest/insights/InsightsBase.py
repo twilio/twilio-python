@@ -17,7 +17,6 @@ from twilio.rest.insights.v1 import V1
 
 
 class InsightsBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Insights Domain

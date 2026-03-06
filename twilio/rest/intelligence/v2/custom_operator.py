@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class CustomOperatorInstance(InstanceResource):
-
     class Availability(object):
         INTERNAL = "internal"
         BETA = "beta"
@@ -60,9 +60,9 @@ class CustomOperatorInstance(InstanceResource):
         self.author: Optional[str] = payload.get("author")
         self.operator_type: Optional[str] = payload.get("operator_type")
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
-        self.availability: Optional["CustomOperatorInstance.Availability"] = (
-            payload.get("availability")
-        )
+        self.availability: Optional[
+            "CustomOperatorInstance.Availability"
+        ] = payload.get("availability")
         self.config: Optional[Dict[str, object]] = payload.get("config")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
@@ -259,7 +259,6 @@ class CustomOperatorInstance(InstanceResource):
 
 
 class CustomOperatorContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CustomOperatorContext
@@ -598,7 +597,6 @@ class CustomOperatorContext(InstanceContext):
 
 
 class CustomOperatorPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> CustomOperatorInstance:
         """
         Build an instance of CustomOperatorInstance
@@ -617,7 +615,6 @@ class CustomOperatorPage(Page):
 
 
 class CustomOperatorList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the CustomOperatorList
@@ -1184,10 +1181,12 @@ class CustomOperatorList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = CustomOperatorPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

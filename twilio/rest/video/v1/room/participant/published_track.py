@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class PublishedTrackInstance(InstanceResource):
-
     class Kind(object):
         AUDIO = "audio"
         VIDEO = "video"
@@ -137,7 +137,6 @@ class PublishedTrackInstance(InstanceResource):
 
 
 class PublishedTrackContext(InstanceContext):
-
     def __init__(self, version: Version, room_sid: str, participant_sid: str, sid: str):
         """
         Initialize the PublishedTrackContext
@@ -268,7 +267,6 @@ class PublishedTrackContext(InstanceContext):
 
 
 class PublishedTrackPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> PublishedTrackInstance:
         """
         Build an instance of PublishedTrackInstance
@@ -292,7 +290,6 @@ class PublishedTrackPage(Page):
 
 
 class PublishedTrackList(ListResource):
-
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the PublishedTrackList
@@ -646,10 +643,12 @@ class PublishedTrackList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = PublishedTrackPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

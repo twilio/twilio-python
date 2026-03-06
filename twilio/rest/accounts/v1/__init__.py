@@ -25,7 +25,6 @@ from twilio.rest.accounts.v1.secondary_auth_token import SecondaryAuthTokenList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Accounts

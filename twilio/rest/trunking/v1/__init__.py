@@ -19,7 +19,6 @@ from twilio.rest.trunking.v1.trunk import TrunkList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Trunking

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,7 +28,6 @@ from twilio.rest.conversations.v1.conversation.webhook import WebhookList
 
 
 class ConversationInstance(InstanceResource):
-
     class State(object):
         INITIALIZING = "initializing"
         INACTIVE = "inactive"
@@ -435,7 +435,6 @@ class ConversationInstance(InstanceResource):
 
 
 class ConversationContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ConversationContext
@@ -1036,7 +1035,6 @@ class ConversationContext(InstanceContext):
 
 
 class ConversationPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ConversationInstance:
         """
         Build an instance of ConversationInstance
@@ -1055,7 +1053,6 @@ class ConversationPage(Page):
 
 
 class ConversationList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ConversationList
@@ -1826,10 +1823,12 @@ class ConversationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ConversationPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

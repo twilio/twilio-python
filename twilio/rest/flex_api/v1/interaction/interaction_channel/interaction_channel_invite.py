@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class InteractionChannelInviteInstance(InstanceResource):
+
     """
     :ivar sid: The unique string created by Twilio to identify an Interaction Channel Invite resource.
     :ivar interaction_sid: The Interaction SID for this Channel.
@@ -62,7 +64,6 @@ class InteractionChannelInviteInstance(InstanceResource):
 
 
 class InteractionChannelInvitePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> InteractionChannelInviteInstance:
         """
         Build an instance of InteractionChannelInviteInstance
@@ -86,7 +87,6 @@ class InteractionChannelInvitePage(Page):
 
 
 class InteractionChannelInviteList(ListResource):
-
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelInviteList
@@ -552,10 +552,12 @@ class InteractionChannelInviteList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = InteractionChannelInvitePage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

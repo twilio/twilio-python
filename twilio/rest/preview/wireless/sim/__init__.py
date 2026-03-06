@@ -398,7 +398,6 @@ class SimInstance(InstanceResource):
 
 
 class SimContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SimContext
@@ -887,7 +886,6 @@ class SimContext(InstanceContext):
 
 
 class SimPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> SimInstance:
         """
         Build an instance of SimInstance
@@ -906,7 +904,6 @@ class SimPage(Page):
 
 
 class SimList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the SimList
@@ -1435,10 +1432,12 @@ class SimList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = SimPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

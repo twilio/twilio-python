@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class ActivityInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Activity resource.
     :ivar available: Whether the Worker is eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` indicates the Activity is available. All other values indicate that it is not. The value cannot be changed after the Activity is created.
@@ -220,7 +222,6 @@ class ActivityInstance(InstanceResource):
 
 
 class ActivityContext(InstanceContext):
-
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the ActivityContext
@@ -537,7 +538,6 @@ class ActivityContext(InstanceContext):
 
 
 class ActivityPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ActivityInstance:
         """
         Build an instance of ActivityInstance
@@ -558,7 +558,6 @@ class ActivityPage(Page):
 
 
 class ActivityList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the ActivityList
@@ -1108,10 +1107,12 @@ class ActivityList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ActivityPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

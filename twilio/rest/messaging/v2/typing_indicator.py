@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class TypingIndicatorInstance(InstanceResource):
+
     """
     :ivar success: Indicates if the typing indicator was sent successfully.
     """
@@ -42,7 +44,6 @@ class TypingIndicatorInstance(InstanceResource):
 
 
 class TypingIndicatorList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the TypingIndicatorList

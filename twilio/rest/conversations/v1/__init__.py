@@ -27,11 +27,20 @@ from twilio.rest.conversations.v1.participant_conversation import (
 )
 from twilio.rest.conversations.v1.role import RoleList
 from twilio.rest.conversations.v1.service import ServiceList
+from twilio.rest.conversations.v1.stats_conversations_ratelimitingerrors import (
+    StatsConversationsRatelimitingerrorsList,
+)
+from twilio.rest.conversations.v1.stats_twilsock_concurrentconnections import (
+    StatsTwilsockConcurrentconnectionsList,
+)
+from twilio.rest.conversations.v1.stats_twilsock_ratelimitingerrors import (
+    StatsTwilsockRatelimitingerrorsList,
+)
 from twilio.rest.conversations.v1.user import UserList
+from twilio.rest.conversations.v1.webhook import WebhookList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Conversations
@@ -49,7 +58,17 @@ class V1(Version):
         self._participant_conversations: Optional[ParticipantConversationList] = None
         self._roles: Optional[RoleList] = None
         self._services: Optional[ServiceList] = None
+        self._stats_conversations_ratelimitingerrors: Optional[
+            StatsConversationsRatelimitingerrorsList
+        ] = None
+        self._stats_twilsock_concurrentconnections: Optional[
+            StatsTwilsockConcurrentconnectionsList
+        ] = None
+        self._stats_twilsock_ratelimitingerrors: Optional[
+            StatsTwilsockRatelimitingerrorsList
+        ] = None
         self._users: Optional[UserList] = None
+        self._webhooks: Optional[WebhookList] = None
 
     @property
     def address_configurations(self) -> AddressConfigurationList:
@@ -102,10 +121,44 @@ class V1(Version):
         return self._services
 
     @property
+    def stats_conversations_ratelimitingerrors(
+        self,
+    ) -> StatsConversationsRatelimitingerrorsList:
+        if self._stats_conversations_ratelimitingerrors is None:
+            self._stats_conversations_ratelimitingerrors = (
+                StatsConversationsRatelimitingerrorsList(self)
+            )
+        return self._stats_conversations_ratelimitingerrors
+
+    @property
+    def stats_twilsock_concurrentconnections(
+        self,
+    ) -> StatsTwilsockConcurrentconnectionsList:
+        if self._stats_twilsock_concurrentconnections is None:
+            self._stats_twilsock_concurrentconnections = (
+                StatsTwilsockConcurrentconnectionsList(self)
+            )
+        return self._stats_twilsock_concurrentconnections
+
+    @property
+    def stats_twilsock_ratelimitingerrors(self) -> StatsTwilsockRatelimitingerrorsList:
+        if self._stats_twilsock_ratelimitingerrors is None:
+            self._stats_twilsock_ratelimitingerrors = (
+                StatsTwilsockRatelimitingerrorsList(self)
+            )
+        return self._stats_twilsock_ratelimitingerrors
+
+    @property
     def users(self) -> UserList:
         if self._users is None:
             self._users = UserList(self)
         return self._users
+
+    @property
+    def webhooks(self) -> WebhookList:
+        if self._webhooks is None:
+            self._webhooks = WebhookList(self)
+        return self._webhooks
 
     def __repr__(self) -> str:
         """

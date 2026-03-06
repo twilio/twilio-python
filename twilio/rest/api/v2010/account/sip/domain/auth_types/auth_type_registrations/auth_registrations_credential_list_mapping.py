@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class AuthRegistrationsCredentialListMappingInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource.
     :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -161,7 +163,6 @@ class AuthRegistrationsCredentialListMappingInstance(InstanceResource):
 
 
 class AuthRegistrationsCredentialListMappingContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
         """
         Initialize the AuthRegistrationsCredentialListMappingContext
@@ -362,7 +363,6 @@ class AuthRegistrationsCredentialListMappingContext(InstanceContext):
 
 
 class AuthRegistrationsCredentialListMappingPage(Page):
-
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> AuthRegistrationsCredentialListMappingInstance:
@@ -388,7 +388,6 @@ class AuthRegistrationsCredentialListMappingPage(Page):
 
 
 class AuthRegistrationsCredentialListMappingList(ListResource):
-
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthRegistrationsCredentialListMappingList
@@ -870,10 +869,12 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AuthRegistrationsCredentialListMappingPage(
             self._version, response, self._solution

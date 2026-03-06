@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class BundleCloneInstance(InstanceResource):
-
     class Status(object):
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
@@ -187,7 +187,6 @@ class BundleCloneInstance(InstanceResource):
 
 
 class BundleCloneContext(InstanceContext):
-
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the BundleCloneContext
@@ -374,7 +373,6 @@ class BundleCloneContext(InstanceContext):
 
 
 class BundleCloneList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the BundleCloneList

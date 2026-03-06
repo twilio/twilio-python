@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class RequestManagedCertInstance(InstanceResource):
+
     """
     :ivar domain_sid: The unique string that we created to identify the Domain resource.
     :ivar date_updated: Date that this Domain was last updated.
@@ -126,7 +128,6 @@ class RequestManagedCertInstance(InstanceResource):
 
 
 class RequestManagedCertContext(InstanceContext):
-
     def __init__(self, version: Version, domain_sid: str):
         """
         Initialize the RequestManagedCertContext
@@ -239,7 +240,6 @@ class RequestManagedCertContext(InstanceContext):
 
 
 class RequestManagedCertList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the RequestManagedCertList

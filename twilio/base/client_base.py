@@ -90,7 +90,6 @@ class ClientBase(object):
         headers = self.get_headers(method, headers)
 
         if self.credential_provider:
-
             auth_strategy = self.credential_provider.to_auth_strategy()
             headers["Authorization"] = auth_strategy.get_auth_string()
         elif self.username is not None and self.password is not None:

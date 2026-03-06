@@ -17,7 +17,6 @@ from twilio.rest.wireless.v1 import V1
 
 
 class WirelessBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Wireless Domain

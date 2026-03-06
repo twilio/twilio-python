@@ -18,7 +18,6 @@ from twilio.rest.messaging.v2 import V2
 
 
 class MessagingBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Messaging Domain

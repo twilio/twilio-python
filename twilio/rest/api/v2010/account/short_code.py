@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class ShortCodeInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this ShortCode resource.
     :ivar api_version: The API version used to start a new TwiML session when an SMS message is sent to this short code.
@@ -254,7 +256,6 @@ class ShortCodeInstance(InstanceResource):
 
 
 class ShortCodeContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the ShortCodeContext
@@ -597,7 +598,6 @@ class ShortCodeContext(InstanceContext):
 
 
 class ShortCodePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ShortCodeInstance:
         """
         Build an instance of ShortCodeInstance
@@ -618,7 +618,6 @@ class ShortCodePage(Page):
 
 
 class ShortCodeList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ShortCodeList
@@ -1046,10 +1045,12 @@ class ShortCodeList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ShortCodePage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

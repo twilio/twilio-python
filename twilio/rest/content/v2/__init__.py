@@ -20,7 +20,6 @@ from twilio.rest.content.v2.content_and_approvals import ContentAndApprovalsList
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Content

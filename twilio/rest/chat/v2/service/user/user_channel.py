@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class UserChannelInstance(InstanceResource):
-
     class ChannelStatus(object):
         JOINED = "joined"
         INVITED = "invited"
@@ -78,9 +78,9 @@ class UserChannelInstance(InstanceResource):
         )
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.url: Optional[str] = payload.get("url")
-        self.notification_level: Optional["UserChannelInstance.NotificationLevel"] = (
-            payload.get("notification_level")
-        )
+        self.notification_level: Optional[
+            "UserChannelInstance.NotificationLevel"
+        ] = payload.get("notification_level")
 
         self._solution = {
             "service_sid": service_sid,
@@ -313,7 +313,6 @@ class UserChannelInstance(InstanceResource):
 
 
 class UserChannelContext(InstanceContext):
-
     def __init__(
         self, version: Version, service_sid: str, user_sid: str, channel_sid: str
     ):
@@ -756,7 +755,6 @@ class UserChannelContext(InstanceContext):
 
 
 class UserChannelPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> UserChannelInstance:
         """
         Build an instance of UserChannelInstance
@@ -780,7 +778,6 @@ class UserChannelPage(Page):
 
 
 class UserChannelList(ListResource):
-
     def __init__(self, version: Version, service_sid: str, user_sid: str):
         """
         Initialize the UserChannelList
@@ -1132,10 +1129,12 @@ class UserChannelList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = UserChannelPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

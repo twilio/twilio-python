@@ -242,7 +242,6 @@ class InstalledAddOnInstance(InstanceResource):
 
 
 class InstalledAddOnContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the InstalledAddOnContext
@@ -575,7 +574,6 @@ class InstalledAddOnContext(InstanceContext):
 
 
 class InstalledAddOnPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> InstalledAddOnInstance:
         """
         Build an instance of InstalledAddOnInstance
@@ -594,7 +592,6 @@ class InstalledAddOnPage(Page):
 
 
 class InstalledAddOnList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the InstalledAddOnList
@@ -1107,10 +1104,12 @@ class InstalledAddOnList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = InstalledAddOnPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class ModuleDataInstance(InstanceResource):
+
     """
     :ivar url: URL to query the subresource.
     :ivar sid: ModuleSid that identifies this Listing.
@@ -60,7 +62,6 @@ class ModuleDataInstance(InstanceResource):
 
 
 class ModuleDataList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ModuleDataList

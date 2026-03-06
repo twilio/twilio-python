@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,7 +23,6 @@ from twilio.base.version import Version
 
 
 class InstalledAddOnUsageInstance(InstanceResource):
-
     class MarketplaceV1InstalledAddOnInstalledAddOnUsage(object):
         """
         :ivar total_submitted: Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
@@ -30,7 +30,6 @@ class InstalledAddOnUsageInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.total_submitted: Optional[float] = deserialize.decimal(
                 payload.get("total_submitted")
             )
@@ -43,11 +42,11 @@ class InstalledAddOnUsageInstance(InstanceResource):
         def to_dict(self):
             return {
                 "total_submitted": self.total_submitted,
-                "billable_items": (
-                    [billable_items.to_dict() for billable_items in self.billable_items]
-                    if self.billable_items is not None
-                    else None
-                ),
+                "billable_items": [
+                    billable_items.to_dict() for billable_items in self.billable_items
+                ]
+                if self.billable_items is not None
+                else None,
             }
 
     class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(object):
@@ -58,7 +57,6 @@ class InstalledAddOnUsageInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.quantity: Optional[float] = payload.get("quantity")
             self.sid: Optional[str] = payload.get("sid")
             self.submitted: Optional[bool] = payload.get("submitted")
@@ -102,7 +100,6 @@ class InstalledAddOnUsageInstance(InstanceResource):
 
 
 class InstalledAddOnUsageList(ListResource):
-
     class MarketplaceV1InstalledAddOnInstalledAddOnUsage(object):
         """
         :ivar total_submitted: Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
@@ -110,7 +107,6 @@ class InstalledAddOnUsageList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.total_submitted: Optional[float] = deserialize.decimal(
                 payload.get("total_submitted")
             )
@@ -123,11 +119,11 @@ class InstalledAddOnUsageList(ListResource):
         def to_dict(self):
             return {
                 "total_submitted": self.total_submitted,
-                "billable_items": (
-                    [billable_items.to_dict() for billable_items in self.billable_items]
-                    if self.billable_items is not None
-                    else None
-                ),
+                "billable_items": [
+                    billable_items.to_dict() for billable_items in self.billable_items
+                ]
+                if self.billable_items is not None
+                else None,
             }
 
     class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(object):
@@ -138,7 +134,6 @@ class InstalledAddOnUsageList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.quantity: Optional[float] = payload.get("quantity")
             self.sid: Optional[str] = payload.get("sid")
             self.submitted: Optional[bool] = payload.get("submitted")

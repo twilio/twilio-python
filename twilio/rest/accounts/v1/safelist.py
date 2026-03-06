@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class SafelistInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the SafeList resource.
     :ivar phone_number: The phone number or phone number 1k prefix in SafeList.
@@ -44,7 +46,6 @@ class SafelistInstance(InstanceResource):
 
 
 class SafelistList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the SafelistList

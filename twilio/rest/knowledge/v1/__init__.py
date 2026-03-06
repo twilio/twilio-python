@@ -16,10 +16,10 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.knowledge.v1.knowledge import KnowledgeList
+from twilio.rest.knowledge.v1.tag import TagList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Knowledge
@@ -28,12 +28,19 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._knowledge: Optional[KnowledgeList] = None
+        self._tags: Optional[TagList] = None
 
     @property
     def knowledge(self) -> KnowledgeList:
         if self._knowledge is None:
             self._knowledge = KnowledgeList(self)
         return self._knowledge
+
+    @property
+    def tags(self) -> TagList:
+        if self._tags is None:
+            self._tags = TagList(self)
+        return self._tags
 
     def __repr__(self) -> str:
         """

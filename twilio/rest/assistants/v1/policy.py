@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class PolicyInstance(InstanceResource):
+
     """
     :ivar id: The Policy ID.
     :ivar name: The name of the policy.
@@ -64,7 +66,6 @@ class PolicyInstance(InstanceResource):
 
 
 class PolicyPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> PolicyInstance:
         """
         Build an instance of PolicyInstance
@@ -83,7 +84,6 @@ class PolicyPage(Page):
 
 
 class PolicyList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PolicyList
@@ -496,10 +496,12 @@ class PolicyList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = PolicyPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

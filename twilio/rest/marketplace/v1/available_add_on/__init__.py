@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -26,6 +27,7 @@ from twilio.rest.marketplace.v1.available_add_on.available_add_on_extension impo
 
 
 class AvailableAddOnInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the AvailableAddOn resource.
     :ivar friendly_name: The string that you assigned to describe the resource.
@@ -125,7 +127,6 @@ class AvailableAddOnInstance(InstanceResource):
 
 
 class AvailableAddOnContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AvailableAddOnContext
@@ -256,7 +257,6 @@ class AvailableAddOnContext(InstanceContext):
 
 
 class AvailableAddOnPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AvailableAddOnInstance:
         """
         Build an instance of AvailableAddOnInstance
@@ -275,7 +275,6 @@ class AvailableAddOnPage(Page):
 
 
 class AvailableAddOnList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the AvailableAddOnList
@@ -618,10 +617,12 @@ class AvailableAddOnList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AvailableAddOnPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

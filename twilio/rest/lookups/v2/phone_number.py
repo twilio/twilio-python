@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,7 +23,6 @@ from twilio.base.version import Version
 
 
 class PhoneNumberInstance(InstanceResource):
-
     class ValidationError(object):
         TOO_SHORT = "TOO_SHORT"
         TOO_LONG = "TOO_LONG"
@@ -340,7 +340,6 @@ class PhoneNumberInstance(InstanceResource):
 
 
 class PhoneNumberContext(InstanceContext):
-
     def __init__(self, version: Version, phone_number: str):
         """
         Initialize the PhoneNumberContext
@@ -723,7 +722,6 @@ class PhoneNumberContext(InstanceContext):
 
 
 class PhoneNumberList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PhoneNumberList

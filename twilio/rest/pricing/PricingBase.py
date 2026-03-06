@@ -18,7 +18,6 @@ from twilio.rest.pricing.v2 import V2
 
 
 class PricingBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Pricing Domain

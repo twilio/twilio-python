@@ -14,7 +14,6 @@ from twilio.rest import Client
 
 
 class IamBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Iam Domain

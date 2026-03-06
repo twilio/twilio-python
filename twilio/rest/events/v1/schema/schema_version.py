@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,10 +25,12 @@ from twilio.base.page import Page
 
 
 class SchemaVersionInstance(InstanceResource):
+
     """
     :ivar id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
     :ivar schema_version: The version of this schema.
     :ivar date_created: The date the schema version was created, given in ISO 8601 format.
+    :ivar public:
     :ivar url: The URL of this resource.
     :ivar raw:
     """
@@ -48,6 +51,7 @@ class SchemaVersionInstance(InstanceResource):
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
+        self.public: Optional[bool] = payload.get("public")
         self.url: Optional[str] = payload.get("url")
         self.raw: Optional[str] = payload.get("raw")
 
@@ -73,41 +77,61 @@ class SchemaVersionInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self) -> "SchemaVersionInstance":
+    def fetch(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> "SchemaVersionInstance":
         """
         Fetch the SchemaVersionInstance
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched SchemaVersionInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
+        )
 
-    async def fetch_async(self) -> "SchemaVersionInstance":
+    async def fetch_async(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> "SchemaVersionInstance":
         """
         Asynchronous coroutine to fetch the SchemaVersionInstance
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched SchemaVersionInstance
         """
-        return await self._proxy.fetch_async()
+        return await self._proxy.fetch_async(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
+        )
 
-    def fetch_with_http_info(self) -> ApiResponse:
+    def fetch_with_http_info(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> ApiResponse:
         """
         Fetch the SchemaVersionInstance with HTTP info
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return self._proxy.fetch_with_http_info()
+        return self._proxy.fetch_with_http_info(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
+        )
 
-    async def fetch_with_http_info_async(self) -> ApiResponse:
+    async def fetch_with_http_info_async(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the SchemaVersionInstance with HTTP info
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return await self._proxy.fetch_with_http_info_async()
+        return await self._proxy.fetch_with_http_info_async(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
+        )
 
     def __repr__(self) -> str:
         """
@@ -120,7 +144,6 @@ class SchemaVersionInstance(InstanceResource):
 
 
 class SchemaVersionContext(InstanceContext):
-
     def __init__(self, version: Version, id: str, schema_version: int):
         """
         Initialize the SchemaVersionContext
@@ -138,7 +161,9 @@ class SchemaVersionContext(InstanceContext):
         }
         self._uri = "/Schemas/{id}/Versions/{schema_version}".format(**self._solution)
 
-    def _fetch(self) -> tuple:
+    def _fetch(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> tuple:
         """
         Internal helper for fetch operation
 
@@ -148,20 +173,31 @@ class SchemaVersionContext(InstanceContext):
 
         headers = values.of({})
 
+        if not (
+            x_twilio_catalog_waiver is values.unset
+            or (
+                isinstance(x_twilio_catalog_waiver, str) and not x_twilio_catalog_waiver
+            )
+        ):
+            headers["X-Twilio-Catalog-Waiver"] = x_twilio_catalog_waiver
+
         headers["Accept"] = "application/json"
 
         return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, headers=headers
         )
 
-    def fetch(self) -> SchemaVersionInstance:
+    def fetch(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> SchemaVersionInstance:
         """
         Fetch the SchemaVersionInstance
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched SchemaVersionInstance
         """
-        payload, _, _ = self._fetch()
+        payload, _, _ = self._fetch(x_twilio_catalog_waiver=x_twilio_catalog_waiver)
         return SchemaVersionInstance(
             self._version,
             payload,
@@ -169,14 +205,19 @@ class SchemaVersionContext(InstanceContext):
             schema_version=self._solution["schema_version"],
         )
 
-    def fetch_with_http_info(self) -> ApiResponse:
+    def fetch_with_http_info(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> ApiResponse:
         """
         Fetch the SchemaVersionInstance and return response metadata
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._fetch()
+        payload, status_code, headers = self._fetch(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver
+        )
         instance = SchemaVersionInstance(
             self._version,
             payload,
@@ -185,7 +226,9 @@ class SchemaVersionContext(InstanceContext):
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _fetch_async(self) -> tuple:
+    async def _fetch_async(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> tuple:
         """
         Internal async helper for fetch operation
 
@@ -195,20 +238,33 @@ class SchemaVersionContext(InstanceContext):
 
         headers = values.of({})
 
+        if not (
+            x_twilio_catalog_waiver is values.unset
+            or (
+                isinstance(x_twilio_catalog_waiver, str) and not x_twilio_catalog_waiver
+            )
+        ):
+            headers["X-Twilio-Catalog-Waiver"] = x_twilio_catalog_waiver
+
         headers["Accept"] = "application/json"
 
         return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, headers=headers
         )
 
-    async def fetch_async(self) -> SchemaVersionInstance:
+    async def fetch_async(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> SchemaVersionInstance:
         """
         Asynchronous coroutine to fetch the SchemaVersionInstance
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched SchemaVersionInstance
         """
-        payload, _, _ = await self._fetch_async()
+        payload, _, _ = await self._fetch_async(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver
+        )
         return SchemaVersionInstance(
             self._version,
             payload,
@@ -216,14 +272,19 @@ class SchemaVersionContext(InstanceContext):
             schema_version=self._solution["schema_version"],
         )
 
-    async def fetch_with_http_info_async(self) -> ApiResponse:
+    async def fetch_with_http_info_async(
+        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the SchemaVersionInstance and return response metadata
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._fetch_async()
+        payload, status_code, headers = await self._fetch_async(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver
+        )
         instance = SchemaVersionInstance(
             self._version,
             payload,
@@ -243,7 +304,6 @@ class SchemaVersionContext(InstanceContext):
 
 
 class SchemaVersionPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> SchemaVersionInstance:
         """
         Build an instance of SchemaVersionInstance
@@ -262,7 +322,6 @@ class SchemaVersionPage(Page):
 
 
 class SchemaVersionList(ListResource):
-
     def __init__(self, version: Version, id: str):
         """
         Initialize the SchemaVersionList
@@ -281,6 +340,7 @@ class SchemaVersionList(ListResource):
 
     def stream(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[SchemaVersionInstance]:
@@ -290,6 +350,7 @@ class SchemaVersionList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -300,12 +361,16 @@ class SchemaVersionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
+            page_size=limits["page_size"],
+        )
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[SchemaVersionInstance]:
@@ -315,6 +380,7 @@ class SchemaVersionList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -325,12 +391,16 @@ class SchemaVersionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
+            page_size=limits["page_size"],
+        )
 
         return self._version.stream_async(page, limits["limit"])
 
     def stream_with_http_info(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -338,6 +408,7 @@ class SchemaVersionList(ListResource):
         Streams SchemaVersionInstance and returns headers from first page
 
 
+        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -348,13 +419,17 @@ class SchemaVersionList(ListResource):
         :returns: tuple of (generator, status_code, headers) where generator yields instances
         """
         limits = self._version.read_limits(limit, page_size)
-        page_response = self.page_with_http_info(page_size=limits["page_size"])
+        page_response = self.page_with_http_info(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
+            page_size=limits["page_size"],
+        )
 
         generator = self._version.stream(page_response.data, limits["limit"])
         return (generator, page_response.status_code, page_response.headers)
 
     async def stream_with_http_info_async(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -362,6 +437,7 @@ class SchemaVersionList(ListResource):
         Asynchronously streams SchemaVersionInstance and returns headers from first page
 
 
+        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -373,7 +449,8 @@ class SchemaVersionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = await self.page_with_http_info_async(
-            page_size=limits["page_size"]
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
+            page_size=limits["page_size"],
         )
 
         generator = self._version.stream_async(page_response.data, limits["limit"])
@@ -381,6 +458,7 @@ class SchemaVersionList(ListResource):
 
     def list(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SchemaVersionInstance]:
@@ -389,6 +467,7 @@ class SchemaVersionList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -400,6 +479,7 @@ class SchemaVersionList(ListResource):
         """
         return list(
             self.stream(
+                x_twilio_catalog_waiver=x_twilio_catalog_waiver,
                 limit=limit,
                 page_size=page_size,
             )
@@ -407,6 +487,7 @@ class SchemaVersionList(ListResource):
 
     async def list_async(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SchemaVersionInstance]:
@@ -415,6 +496,7 @@ class SchemaVersionList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -427,6 +509,7 @@ class SchemaVersionList(ListResource):
         return [
             record
             async for record in await self.stream_async(
+                x_twilio_catalog_waiver=x_twilio_catalog_waiver,
                 limit=limit,
                 page_size=page_size,
             )
@@ -434,6 +517,7 @@ class SchemaVersionList(ListResource):
 
     def list_with_http_info(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -441,6 +525,7 @@ class SchemaVersionList(ListResource):
         Lists SchemaVersionInstance and returns headers from first page
 
 
+        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -451,6 +536,7 @@ class SchemaVersionList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = self.stream_with_http_info(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
             limit=limit,
             page_size=page_size,
         )
@@ -459,6 +545,7 @@ class SchemaVersionList(ListResource):
 
     async def list_with_http_info_async(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -466,6 +553,7 @@ class SchemaVersionList(ListResource):
         Asynchronously lists SchemaVersionInstance and returns headers from first page
 
 
+        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -476,6 +564,7 @@ class SchemaVersionList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = await self.stream_with_http_info_async(
+            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
             limit=limit,
             page_size=page_size,
         )
@@ -484,6 +573,7 @@ class SchemaVersionList(ListResource):
 
     def page(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -492,6 +582,7 @@ class SchemaVersionList(ListResource):
         Retrieve a single page of SchemaVersionInstance records from the API.
         Request is executed immediately
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -500,13 +591,19 @@ class SchemaVersionList(ListResource):
         """
         data = values.of(
             {
+                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Accept"] = "application/json"
 
@@ -517,6 +614,7 @@ class SchemaVersionList(ListResource):
 
     async def page_async(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -525,6 +623,7 @@ class SchemaVersionList(ListResource):
         Asynchronously retrieve a single page of SchemaVersionInstance records from the API.
         Request is executed immediately
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -533,13 +632,19 @@ class SchemaVersionList(ListResource):
         """
         data = values.of(
             {
+                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Accept"] = "application/json"
 
@@ -550,6 +655,7 @@ class SchemaVersionList(ListResource):
 
     def page_with_http_info(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -558,6 +664,7 @@ class SchemaVersionList(ListResource):
         Retrieve a single page with response metadata
 
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -566,13 +673,19 @@ class SchemaVersionList(ListResource):
         """
         data = values.of(
             {
+                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Accept"] = "application/json"
 
@@ -584,6 +697,7 @@ class SchemaVersionList(ListResource):
 
     async def page_with_http_info_async(
         self,
+        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -592,6 +706,7 @@ class SchemaVersionList(ListResource):
         Asynchronously retrieve a single page with response metadata
 
 
+        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -600,20 +715,28 @@ class SchemaVersionList(ListResource):
         """
         data = values.of(
             {
+                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = SchemaVersionPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Optional
 
 
@@ -26,7 +27,6 @@ from twilio.rest.voice.v1.dialing_permissions.settings import SettingsList
 
 
 class DialingPermissionsList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the DialingPermissionsList

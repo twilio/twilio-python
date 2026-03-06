@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class SigningRequestConfigurationInstance(InstanceResource):
+
     """
     :ivar logo_sid: The SID of the document  that includes the logo that will appear in the LOA. To upload documents follow the following guide: https://www.twilio.com/docs/phone-numbers/regulatory/getting-started/create-new-bundle-public-rest-apis#supporting-document-create
     :ivar friendly_name: This is the string that you assigned as a friendly name for describing the creation of the configuration.
@@ -57,7 +59,6 @@ class SigningRequestConfigurationInstance(InstanceResource):
 
 
 class SigningRequestConfigurationPage(Page):
-
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> SigningRequestConfigurationInstance:
@@ -78,7 +79,6 @@ class SigningRequestConfigurationPage(Page):
 
 
 class SigningRequestConfigurationList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the SigningRequestConfigurationList
@@ -583,10 +583,12 @@ class SigningRequestConfigurationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = SigningRequestConfigurationPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

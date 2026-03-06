@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class CredentialListMappingInstance(InstanceResource):
+
     """
     :ivar account_sid: The unique id of the Account that is responsible for this resource.
     :ivar date_created: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
@@ -163,7 +165,6 @@ class CredentialListMappingInstance(InstanceResource):
 
 
 class CredentialListMappingContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
         """
         Initialize the CredentialListMappingContext
@@ -362,7 +363,6 @@ class CredentialListMappingContext(InstanceContext):
 
 
 class CredentialListMappingPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> CredentialListMappingInstance:
         """
         Build an instance of CredentialListMappingInstance
@@ -386,7 +386,6 @@ class CredentialListMappingPage(Page):
 
 
 class CredentialListMappingList(ListResource):
-
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the CredentialListMappingList
@@ -860,10 +859,12 @@ class CredentialListMappingList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = CredentialListMappingPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

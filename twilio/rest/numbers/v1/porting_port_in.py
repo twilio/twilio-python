@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import date, datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class PortingPortInInstance(InstanceResource):
-
     class NumbersV1PortingAddress(object):
         """
         :ivar street: The street address, ex: 101 Spear St
@@ -35,7 +35,6 @@ class PortingPortInInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.street: Optional[str] = payload.get("street")
             self.street_2: Optional[str] = payload.get("street_2")
             self.city: Optional[str] = payload.get("city")
@@ -70,16 +69,15 @@ class PortingPortInInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.customer_name: Optional[str] = payload.get("customer_name")
             self.account_number: Optional[str] = payload.get("account_number")
             self.account_telephone_number: Optional[str] = payload.get(
                 "account_telephone_number"
             )
             self.address_sid: Optional[str] = payload.get("address_sid")
-            self.address: Optional[PortingPortInList.NumbersV1PortingAddress] = (
-                payload.get("address")
-            )
+            self.address: Optional[
+                PortingPortInList.NumbersV1PortingAddress
+            ] = payload.get("address")
             self.authorized_representative: Optional[str] = payload.get(
                 "authorized_representative"
             )
@@ -128,7 +126,6 @@ class PortingPortInInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.account_sid: Optional[str] = payload.get("account_sid")
             self.documents: Optional[List[str]] = payload.get("documents")
             self.phone_numbers: Optional[
@@ -161,16 +158,14 @@ class PortingPortInInstance(InstanceResource):
             return {
                 "account_sid": self.account_sid,
                 "documents": self.documents,
-                "phone_numbers": (
-                    [phone_numbers.to_dict() for phone_numbers in self.phone_numbers]
-                    if self.phone_numbers is not None
-                    else None
-                ),
-                "losing_carrier_information": (
-                    self.losing_carrier_information.to_dict()
-                    if self.losing_carrier_information is not None
-                    else None
-                ),
+                "phone_numbers": [
+                    phone_numbers.to_dict() for phone_numbers in self.phone_numbers
+                ]
+                if self.phone_numbers is not None
+                else None,
+                "losing_carrier_information": self.losing_carrier_information.to_dict()
+                if self.losing_carrier_information is not None
+                else None,
                 "notification_emails": self.notification_emails,
                 "target_port_in_date": self.target_port_in_date,
                 "target_port_in_time_range_start": self.target_port_in_time_range_start,
@@ -187,7 +182,6 @@ class PortingPortInInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.phone_number: Optional[str] = payload.get("phone_number")
             self.pin: Optional[str] = payload.get("pin")
 
@@ -370,7 +364,6 @@ class PortingPortInInstance(InstanceResource):
 
 
 class PortingPortInContext(InstanceContext):
-
     class NumbersV1PortingAddress(object):
         """
         :ivar street: The street address, ex: 101 Spear St
@@ -382,7 +375,6 @@ class PortingPortInContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.street: Optional[str] = payload.get("street")
             self.street_2: Optional[str] = payload.get("street_2")
             self.city: Optional[str] = payload.get("city")
@@ -417,16 +409,15 @@ class PortingPortInContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.customer_name: Optional[str] = payload.get("customer_name")
             self.account_number: Optional[str] = payload.get("account_number")
             self.account_telephone_number: Optional[str] = payload.get(
                 "account_telephone_number"
             )
             self.address_sid: Optional[str] = payload.get("address_sid")
-            self.address: Optional[PortingPortInList.NumbersV1PortingAddress] = (
-                payload.get("address")
-            )
+            self.address: Optional[
+                PortingPortInList.NumbersV1PortingAddress
+            ] = payload.get("address")
             self.authorized_representative: Optional[str] = payload.get(
                 "authorized_representative"
             )
@@ -475,7 +466,6 @@ class PortingPortInContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.account_sid: Optional[str] = payload.get("account_sid")
             self.documents: Optional[List[str]] = payload.get("documents")
             self.phone_numbers: Optional[
@@ -508,16 +498,14 @@ class PortingPortInContext(InstanceContext):
             return {
                 "account_sid": self.account_sid,
                 "documents": self.documents,
-                "phone_numbers": (
-                    [phone_numbers.to_dict() for phone_numbers in self.phone_numbers]
-                    if self.phone_numbers is not None
-                    else None
-                ),
-                "losing_carrier_information": (
-                    self.losing_carrier_information.to_dict()
-                    if self.losing_carrier_information is not None
-                    else None
-                ),
+                "phone_numbers": [
+                    phone_numbers.to_dict() for phone_numbers in self.phone_numbers
+                ]
+                if self.phone_numbers is not None
+                else None,
+                "losing_carrier_information": self.losing_carrier_information.to_dict()
+                if self.losing_carrier_information is not None
+                else None,
                 "notification_emails": self.notification_emails,
                 "target_port_in_date": self.target_port_in_date,
                 "target_port_in_time_range_start": self.target_port_in_time_range_start,
@@ -534,7 +522,6 @@ class PortingPortInContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.phone_number: Optional[str] = payload.get("phone_number")
             self.pin: Optional[str] = payload.get("pin")
 
@@ -728,7 +715,6 @@ class PortingPortInContext(InstanceContext):
 
 
 class PortingPortInList(ListResource):
-
     class NumbersV1PortingAddress(object):
         """
         :ivar street: The street address, ex: 101 Spear St
@@ -740,7 +726,6 @@ class PortingPortInList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.street: Optional[str] = payload.get("street")
             self.street_2: Optional[str] = payload.get("street_2")
             self.city: Optional[str] = payload.get("city")
@@ -775,16 +760,15 @@ class PortingPortInList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.customer_name: Optional[str] = payload.get("customer_name")
             self.account_number: Optional[str] = payload.get("account_number")
             self.account_telephone_number: Optional[str] = payload.get(
                 "account_telephone_number"
             )
             self.address_sid: Optional[str] = payload.get("address_sid")
-            self.address: Optional[PortingPortInList.NumbersV1PortingAddress] = (
-                payload.get("address")
-            )
+            self.address: Optional[
+                PortingPortInList.NumbersV1PortingAddress
+            ] = payload.get("address")
             self.authorized_representative: Optional[str] = payload.get(
                 "authorized_representative"
             )
@@ -833,7 +817,6 @@ class PortingPortInList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.account_sid: Optional[str] = payload.get("account_sid")
             self.documents: Optional[List[str]] = payload.get("documents")
             self.phone_numbers: Optional[
@@ -866,16 +849,14 @@ class PortingPortInList(ListResource):
             return {
                 "account_sid": self.account_sid,
                 "documents": self.documents,
-                "phone_numbers": (
-                    [phone_numbers.to_dict() for phone_numbers in self.phone_numbers]
-                    if self.phone_numbers is not None
-                    else None
-                ),
-                "losing_carrier_information": (
-                    self.losing_carrier_information.to_dict()
-                    if self.losing_carrier_information is not None
-                    else None
-                ),
+                "phone_numbers": [
+                    phone_numbers.to_dict() for phone_numbers in self.phone_numbers
+                ]
+                if self.phone_numbers is not None
+                else None,
+                "losing_carrier_information": self.losing_carrier_information.to_dict()
+                if self.losing_carrier_information is not None
+                else None,
                 "notification_emails": self.notification_emails,
                 "target_port_in_date": self.target_port_in_date,
                 "target_port_in_time_range_start": self.target_port_in_time_range_start,
@@ -892,7 +873,6 @@ class PortingPortInList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.phone_number: Optional[str] = payload.get("phone_number")
             self.pin: Optional[str] = payload.get("pin")
 

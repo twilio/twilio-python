@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -26,7 +27,6 @@ from twilio.rest.studio.v2.flow.execution.execution_step import ExecutionStepLis
 
 
 class ExecutionInstance(InstanceResource):
-
     class Status(object):
         ACTIVE = "active"
         ENDED = "ended"
@@ -241,7 +241,6 @@ class ExecutionInstance(InstanceResource):
 
 
 class ExecutionContext(InstanceContext):
-
     def __init__(self, version: Version, flow_sid: str, sid: str):
         """
         Initialize the ExecutionContext
@@ -577,7 +576,6 @@ class ExecutionContext(InstanceContext):
 
 
 class ExecutionPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ExecutionInstance:
         """
         Build an instance of ExecutionInstance
@@ -598,7 +596,6 @@ class ExecutionPage(Page):
 
 
 class ExecutionList(ListResource):
-
     def __init__(self, version: Version, flow_sid: str):
         """
         Initialize the ExecutionList
@@ -1154,10 +1151,12 @@ class ExecutionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ExecutionPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

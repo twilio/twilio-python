@@ -22,7 +22,6 @@ from twilio.rest.preview.hosted_numbers.hosted_number_order import HostedNumberO
 
 
 class HostedNumbers(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the HostedNumbers version of Preview

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class AssistantsKnowledgeInstance(InstanceResource):
+
     """
     :ivar description: The type of knowledge source.
     :ivar id: The description of knowledge.
@@ -170,7 +172,6 @@ class AssistantsKnowledgeInstance(InstanceResource):
 
 
 class AssistantsKnowledgeContext(InstanceContext):
-
     def __init__(self, version: Version, assistant_id: str, id: str):
         """
         Initialize the AssistantsKnowledgeContext
@@ -359,7 +360,6 @@ class AssistantsKnowledgeContext(InstanceContext):
 
 
 class AssistantsKnowledgePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AssistantsKnowledgeInstance:
         """
         Build an instance of AssistantsKnowledgeInstance
@@ -380,7 +380,6 @@ class AssistantsKnowledgePage(Page):
 
 
 class AssistantsKnowledgeList(ListResource):
-
     def __init__(self, version: Version, assistant_id: str):
         """
         Initialize the AssistantsKnowledgeList
@@ -806,10 +805,12 @@ class AssistantsKnowledgeList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AssistantsKnowledgePage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

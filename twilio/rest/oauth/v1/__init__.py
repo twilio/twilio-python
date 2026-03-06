@@ -20,7 +20,6 @@ from twilio.rest.oauth.v1.token import TokenList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Oauth

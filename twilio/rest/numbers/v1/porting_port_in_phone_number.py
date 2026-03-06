@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class PortingPortInPhoneNumberInstance(InstanceResource):
+
     """
     :ivar port_in_request_sid: The unique identifier for the port in request that this phone number is associated with.
     :ivar phone_number_sid: The unique identifier for this phone number associated with this port in request.
@@ -195,7 +197,6 @@ class PortingPortInPhoneNumberInstance(InstanceResource):
 
 
 class PortingPortInPhoneNumberContext(InstanceContext):
-
     def __init__(
         self, version: Version, port_in_request_sid: str, phone_number_sid: str
     ):
@@ -390,7 +391,6 @@ class PortingPortInPhoneNumberContext(InstanceContext):
 
 
 class PortingPortInPhoneNumberList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PortingPortInPhoneNumberList

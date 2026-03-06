@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class EncryptedSentencesInstance(InstanceResource):
+
     """
     :ivar location: The location of the encrypted sentences.
     :ivar transcript_sid:
@@ -122,7 +124,6 @@ class EncryptedSentencesInstance(InstanceResource):
 
 
 class EncryptedSentencesContext(InstanceContext):
-
     def __init__(self, version: Version, transcript_sid: str):
         """
         Initialize the EncryptedSentencesContext
@@ -265,7 +266,6 @@ class EncryptedSentencesContext(InstanceContext):
 
 
 class EncryptedSentencesList(ListResource):
-
     def __init__(self, version: Version, transcript_sid: str):
         """
         Initialize the EncryptedSentencesList

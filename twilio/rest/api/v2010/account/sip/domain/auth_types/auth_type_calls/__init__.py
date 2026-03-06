@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Optional
 
 
@@ -27,7 +28,6 @@ from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_ca
 
 
 class AuthTypeCallsList(ListResource):
-
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthTypeCallsList
@@ -50,9 +50,9 @@ class AuthTypeCallsList(ListResource):
             )
         )
 
-        self._credential_list_mappings: Optional[AuthCallsCredentialListMappingList] = (
-            None
-        )
+        self._credential_list_mappings: Optional[
+            AuthCallsCredentialListMappingList
+        ] = None
         self._ip_access_control_list_mappings: Optional[
             AuthCallsIpAccessControlListMappingList
         ] = None

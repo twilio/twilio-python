@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,7 +24,6 @@ from twilio.base.page import Page
 
 
 class MetricInstance(InstanceResource):
-
     class StreamDirection(object):
         UNKNOWN = "unknown"
         INBOUND = "inbound"
@@ -79,7 +79,6 @@ class MetricInstance(InstanceResource):
 
 
 class MetricPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> MetricInstance:
         """
         Build an instance of MetricInstance
@@ -100,7 +99,6 @@ class MetricPage(Page):
 
 
 class MetricList(ListResource):
-
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the MetricList
@@ -516,10 +514,12 @@ class MetricList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = MetricPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

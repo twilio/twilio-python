@@ -17,7 +17,6 @@ from twilio.rest.routes.v2 import V2
 
 
 class RoutesBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Routes Domain

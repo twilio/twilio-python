@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class TaskQueueStatisticsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
     :ivar cumulative: An object that contains the cumulative statistics for the TaskQueue.
@@ -189,7 +191,6 @@ class TaskQueueStatisticsInstance(InstanceResource):
 
 
 class TaskQueueStatisticsContext(InstanceContext):
-
     def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
         """
         Initialize the TaskQueueStatisticsContext
@@ -422,7 +423,6 @@ class TaskQueueStatisticsContext(InstanceContext):
 
 
 class TaskQueueStatisticsList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
         """
         Initialize the TaskQueueStatisticsList

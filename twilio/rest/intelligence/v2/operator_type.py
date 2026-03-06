@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class OperatorTypeInstance(InstanceResource):
-
     class Availability(object):
         INTERNAL = "internal"
         BETA = "beta"
@@ -160,7 +160,6 @@ class OperatorTypeInstance(InstanceResource):
 
 
 class OperatorTypeContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the OperatorTypeContext
@@ -277,7 +276,6 @@ class OperatorTypeContext(InstanceContext):
 
 
 class OperatorTypePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> OperatorTypeInstance:
         """
         Build an instance of OperatorTypeInstance
@@ -296,7 +294,6 @@ class OperatorTypePage(Page):
 
 
 class OperatorTypeList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the OperatorTypeList
@@ -310,6 +307,7 @@ class OperatorTypeList(ListResource):
 
     def stream(
         self,
+        language_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[OperatorTypeInstance]:
@@ -319,6 +317,7 @@ class OperatorTypeList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str language_code: Returns Operator Types that support the provided language code.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -329,12 +328,13 @@ class OperatorTypeList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(language_code=language_code, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
+        language_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[OperatorTypeInstance]:
@@ -344,6 +344,7 @@ class OperatorTypeList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str language_code: Returns Operator Types that support the provided language code.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -354,12 +355,15 @@ class OperatorTypeList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            language_code=language_code, page_size=limits["page_size"]
+        )
 
         return self._version.stream_async(page, limits["limit"])
 
     def stream_with_http_info(
         self,
+        language_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -367,6 +371,7 @@ class OperatorTypeList(ListResource):
         Streams OperatorTypeInstance and returns headers from first page
 
 
+        :param str language_code: Returns Operator Types that support the provided language code.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -377,13 +382,16 @@ class OperatorTypeList(ListResource):
         :returns: tuple of (generator, status_code, headers) where generator yields instances
         """
         limits = self._version.read_limits(limit, page_size)
-        page_response = self.page_with_http_info(page_size=limits["page_size"])
+        page_response = self.page_with_http_info(
+            language_code=language_code, page_size=limits["page_size"]
+        )
 
         generator = self._version.stream(page_response.data, limits["limit"])
         return (generator, page_response.status_code, page_response.headers)
 
     async def stream_with_http_info_async(
         self,
+        language_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -391,6 +399,7 @@ class OperatorTypeList(ListResource):
         Asynchronously streams OperatorTypeInstance and returns headers from first page
 
 
+        :param str language_code: Returns Operator Types that support the provided language code.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -402,7 +411,7 @@ class OperatorTypeList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = await self.page_with_http_info_async(
-            page_size=limits["page_size"]
+            language_code=language_code, page_size=limits["page_size"]
         )
 
         generator = self._version.stream_async(page_response.data, limits["limit"])
@@ -410,6 +419,7 @@ class OperatorTypeList(ListResource):
 
     def list(
         self,
+        language_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[OperatorTypeInstance]:
@@ -418,6 +428,7 @@ class OperatorTypeList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str language_code: Returns Operator Types that support the provided language code.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -429,6 +440,7 @@ class OperatorTypeList(ListResource):
         """
         return list(
             self.stream(
+                language_code=language_code,
                 limit=limit,
                 page_size=page_size,
             )
@@ -436,6 +448,7 @@ class OperatorTypeList(ListResource):
 
     async def list_async(
         self,
+        language_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[OperatorTypeInstance]:
@@ -444,6 +457,7 @@ class OperatorTypeList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str language_code: Returns Operator Types that support the provided language code.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -456,6 +470,7 @@ class OperatorTypeList(ListResource):
         return [
             record
             async for record in await self.stream_async(
+                language_code=language_code,
                 limit=limit,
                 page_size=page_size,
             )
@@ -463,6 +478,7 @@ class OperatorTypeList(ListResource):
 
     def list_with_http_info(
         self,
+        language_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -470,6 +486,7 @@ class OperatorTypeList(ListResource):
         Lists OperatorTypeInstance and returns headers from first page
 
 
+        :param str language_code: Returns Operator Types that support the provided language code.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -480,6 +497,7 @@ class OperatorTypeList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = self.stream_with_http_info(
+            language_code=language_code,
             limit=limit,
             page_size=page_size,
         )
@@ -488,6 +506,7 @@ class OperatorTypeList(ListResource):
 
     async def list_with_http_info_async(
         self,
+        language_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -495,6 +514,7 @@ class OperatorTypeList(ListResource):
         Asynchronously lists OperatorTypeInstance and returns headers from first page
 
 
+        :param str language_code: Returns Operator Types that support the provided language code.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -505,6 +525,7 @@ class OperatorTypeList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = await self.stream_with_http_info_async(
+            language_code=language_code,
             limit=limit,
             page_size=page_size,
         )
@@ -513,6 +534,7 @@ class OperatorTypeList(ListResource):
 
     def page(
         self,
+        language_code: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -521,6 +543,7 @@ class OperatorTypeList(ListResource):
         Retrieve a single page of OperatorTypeInstance records from the API.
         Request is executed immediately
 
+        :param language_code: Returns Operator Types that support the provided language code.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -529,6 +552,7 @@ class OperatorTypeList(ListResource):
         """
         data = values.of(
             {
+                "LanguageCode": language_code,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -546,6 +570,7 @@ class OperatorTypeList(ListResource):
 
     async def page_async(
         self,
+        language_code: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -554,6 +579,7 @@ class OperatorTypeList(ListResource):
         Asynchronously retrieve a single page of OperatorTypeInstance records from the API.
         Request is executed immediately
 
+        :param language_code: Returns Operator Types that support the provided language code.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -562,6 +588,7 @@ class OperatorTypeList(ListResource):
         """
         data = values.of(
             {
+                "LanguageCode": language_code,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -579,6 +606,7 @@ class OperatorTypeList(ListResource):
 
     def page_with_http_info(
         self,
+        language_code: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -587,6 +615,7 @@ class OperatorTypeList(ListResource):
         Retrieve a single page with response metadata
 
 
+        :param language_code: Returns Operator Types that support the provided language code.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -595,6 +624,7 @@ class OperatorTypeList(ListResource):
         """
         data = values.of(
             {
+                "LanguageCode": language_code,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -613,6 +643,7 @@ class OperatorTypeList(ListResource):
 
     async def page_with_http_info_async(
         self,
+        language_code: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -621,6 +652,7 @@ class OperatorTypeList(ListResource):
         Asynchronously retrieve a single page with response metadata
 
 
+        :param language_code: Returns Operator Types that support the provided language code.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -629,6 +661,7 @@ class OperatorTypeList(ListResource):
         """
         data = values.of(
             {
+                "LanguageCode": language_code,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -639,10 +672,12 @@ class OperatorTypeList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = OperatorTypePage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

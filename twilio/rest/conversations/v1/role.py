@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class RoleInstance(InstanceResource):
-
     class RoleType(object):
         CONVERSATION = "conversation"
         SERVICE = "service"
@@ -211,7 +211,6 @@ class RoleInstance(InstanceResource):
 
 
 class RoleContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the RoleContext
@@ -488,7 +487,6 @@ class RoleContext(InstanceContext):
 
 
 class RolePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> RoleInstance:
         """
         Build an instance of RoleInstance
@@ -507,7 +505,6 @@ class RolePage(Page):
 
 
 class RoleList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the RoleList
@@ -974,10 +971,12 @@ class RoleList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = RolePage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

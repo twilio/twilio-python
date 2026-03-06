@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.api_response import ApiResponse
@@ -32,7 +33,6 @@ from twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_transfe
 
 
 class InteractionChannelInstance(InstanceResource):
-
     class ChannelStatus(object):
         SETUP = "setup"
         ACTIVE = "active"
@@ -249,7 +249,6 @@ class InteractionChannelInstance(InstanceResource):
 
 
 class InteractionChannelContext(InstanceContext):
-
     def __init__(self, version: Version, interaction_sid: str, sid: str):
         """
         Initialize the InteractionChannelContext
@@ -561,7 +560,6 @@ class InteractionChannelContext(InstanceContext):
 
 
 class InteractionChannelPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> InteractionChannelInstance:
         """
         Build an instance of InteractionChannelInstance
@@ -582,7 +580,6 @@ class InteractionChannelPage(Page):
 
 
 class InteractionChannelList(ListResource):
-
     def __init__(self, version: Version, interaction_sid: str):
         """
         Initialize the InteractionChannelList
@@ -930,10 +927,12 @@ class InteractionChannelList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = InteractionChannelPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

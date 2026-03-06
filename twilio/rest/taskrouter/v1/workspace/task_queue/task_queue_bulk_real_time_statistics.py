@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class TaskQueueBulkRealTimeStatisticsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
     :ivar workspace_sid: The SID of the Workspace that contains the TaskQueue.
@@ -62,7 +64,6 @@ class TaskQueueBulkRealTimeStatisticsInstance(InstanceResource):
 
 
 class TaskQueueBulkRealTimeStatisticsList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskQueueBulkRealTimeStatisticsList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,7 +23,6 @@ from twilio.base.version import Version
 
 
 class ApprovalCreateInstance(InstanceResource):
-
     class ContentApprovalRequest(object):
         """
         :ivar name: Name of the template.
@@ -30,7 +30,6 @@ class ApprovalCreateInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.name: Optional[str] = payload.get("name")
             self.category: Optional[str] = payload.get("category")
 
@@ -76,7 +75,6 @@ class ApprovalCreateInstance(InstanceResource):
 
 
 class ApprovalCreateList(ListResource):
-
     class ContentApprovalRequest(object):
         """
         :ivar name: Name of the template.
@@ -84,7 +82,6 @@ class ApprovalCreateList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.name: Optional[str] = payload.get("name")
             self.category: Optional[str] = payload.get("category")
 

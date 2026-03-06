@@ -27,7 +27,6 @@ from twilio.rest.supersim.v1.usage_record import UsageRecordList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Supersim

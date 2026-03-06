@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class WorkflowCumulativeStatisticsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
     :ivar avg_task_acceptance_time: The average time in seconds between Task creation and acceptance.
@@ -259,7 +261,6 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
 
 
 class WorkflowCumulativeStatisticsContext(InstanceContext):
-
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowCumulativeStatisticsContext
@@ -492,7 +493,6 @@ class WorkflowCumulativeStatisticsContext(InstanceContext):
 
 
 class WorkflowCumulativeStatisticsList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowCumulativeStatisticsList

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,7 +23,6 @@ from twilio.base.version import Version
 
 
 class BucketInstance(InstanceResource):
-
     class RateLimitRequest(object):
         """
         :ivar limit: Limit of requests for the bucket
@@ -30,7 +30,6 @@ class BucketInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.limit: Optional[int] = payload.get("limit")
             self.ttl: Optional[int] = payload.get("ttl")
 
@@ -232,7 +231,6 @@ class BucketInstance(InstanceResource):
 
 
 class BucketContext(InstanceContext):
-
     class RateLimitRequest(object):
         """
         :ivar limit: Limit of requests for the bucket
@@ -240,7 +238,6 @@ class BucketContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.limit: Optional[int] = payload.get("limit")
             self.ttl: Optional[int] = payload.get("ttl")
 
@@ -566,7 +563,6 @@ class BucketContext(InstanceContext):
 
 
 class BucketList(ListResource):
-
     class RateLimitRequest(object):
         """
         :ivar limit: Limit of requests for the bucket
@@ -574,7 +570,6 @@ class BucketList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.limit: Optional[int] = payload.get("limit")
             self.ttl: Optional[int] = payload.get("ttl")
 

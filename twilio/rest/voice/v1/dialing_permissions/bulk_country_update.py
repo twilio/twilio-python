@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class BulkCountryUpdateInstance(InstanceResource):
+
     """
     :ivar update_count: The number of countries updated
     :ivar update_request: A bulk update request to change voice dialing country permissions stored as a URL-encoded, JSON array of update objects. For example : `[ { \"iso_code\": \"GB\", \"low_risk_numbers_enabled\": \"true\", \"high_risk_special_numbers_enabled\":\"true\", \"high_risk_tollfraud_numbers_enabled\": \"false\" } ]`
@@ -46,7 +48,6 @@ class BulkCountryUpdateInstance(InstanceResource):
 
 
 class BulkCountryUpdateList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the BulkCountryUpdateList

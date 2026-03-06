@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -21,13 +22,15 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+from twilio.rest.conversations.v1.conversation.message.channel_metadata import (
+    ChannelMetadataList,
+)
 from twilio.rest.conversations.v1.conversation.message.delivery_receipt import (
     DeliveryReceiptList,
 )
 
 
 class MessageInstance(InstanceResource):
-
     class OrderType(object):
         ASC = "asc"
         DESC = "desc"
@@ -350,6 +353,13 @@ class MessageInstance(InstanceResource):
         )
 
     @property
+    def channel_metadata(self) -> ChannelMetadataList:
+        """
+        Access the channel_metadata
+        """
+        return self._proxy.channel_metadata
+
+    @property
     def delivery_receipts(self) -> DeliveryReceiptList:
         """
         Access the delivery_receipts
@@ -367,7 +377,6 @@ class MessageInstance(InstanceResource):
 
 
 class MessageContext(InstanceContext):
-
     def __init__(self, version: Version, conversation_sid: str, sid: str):
         """
         Initialize the MessageContext
@@ -387,6 +396,7 @@ class MessageContext(InstanceContext):
             **self._solution
         )
 
+        self._channel_metadata: Optional[ChannelMetadataList] = None
         self._delivery_receipts: Optional[DeliveryReceiptList] = None
 
     def _delete(
@@ -864,6 +874,19 @@ class MessageContext(InstanceContext):
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
+    def channel_metadata(self) -> ChannelMetadataList:
+        """
+        Access the channel_metadata
+        """
+        if self._channel_metadata is None:
+            self._channel_metadata = ChannelMetadataList(
+                self._version,
+                self._solution["conversation_sid"],
+                self._solution["sid"],
+            )
+        return self._channel_metadata
+
+    @property
     def delivery_receipts(self) -> DeliveryReceiptList:
         """
         Access the delivery_receipts
@@ -887,7 +910,6 @@ class MessageContext(InstanceContext):
 
 
 class MessagePage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> MessageInstance:
         """
         Build an instance of MessageInstance
@@ -908,7 +930,6 @@ class MessagePage(Page):
 
 
 class MessageList(ListResource):
-
     def __init__(self, version: Version, conversation_sid: str):
         """
         Initialize the MessageList
@@ -1582,10 +1603,12 @@ class MessageList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = MessagePage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

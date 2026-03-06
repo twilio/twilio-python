@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class ToolInstance(InstanceResource):
-
     class AssistantsV1ServiceCreatePolicyRequest(object):
         """
         :ivar description: The description of the policy.
@@ -35,7 +35,6 @@ class ToolInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
@@ -65,15 +64,14 @@ class ToolInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.assistant_id: Optional[str] = payload.get("assistant_id")
             self.description: Optional[str] = payload.get("description")
             self.enabled: Optional[bool] = payload.get("enabled")
             self.meta: Optional[Dict[str, object]] = payload.get("meta")
             self.name: Optional[str] = payload.get("name")
-            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
-                payload.get("policy")
-            )
+            self.policy: Optional[
+                ToolList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
@@ -99,15 +97,14 @@ class ToolInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.assistant_id: Optional[str] = payload.get("assistant_id")
             self.description: Optional[str] = payload.get("description")
             self.enabled: Optional[bool] = payload.get("enabled")
             self.meta: Optional[Dict[str, object]] = payload.get("meta")
             self.name: Optional[str] = payload.get("name")
-            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
-                payload.get("policy")
-            )
+            self.policy: Optional[
+                ToolList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
@@ -329,7 +326,6 @@ class ToolInstance(InstanceResource):
 
 
 class ToolContext(InstanceContext):
-
     class AssistantsV1ServiceCreatePolicyRequest(object):
         """
         :ivar description: The description of the policy.
@@ -340,7 +336,6 @@ class ToolContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
@@ -370,15 +365,14 @@ class ToolContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.assistant_id: Optional[str] = payload.get("assistant_id")
             self.description: Optional[str] = payload.get("description")
             self.enabled: Optional[bool] = payload.get("enabled")
             self.meta: Optional[Dict[str, object]] = payload.get("meta")
             self.name: Optional[str] = payload.get("name")
-            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
-                payload.get("policy")
-            )
+            self.policy: Optional[
+                ToolList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
@@ -404,15 +398,14 @@ class ToolContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.assistant_id: Optional[str] = payload.get("assistant_id")
             self.description: Optional[str] = payload.get("description")
             self.enabled: Optional[bool] = payload.get("enabled")
             self.meta: Optional[Dict[str, object]] = payload.get("meta")
             self.name: Optional[str] = payload.get("name")
-            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
-                payload.get("policy")
-            )
+            self.policy: Optional[
+                ToolList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
@@ -732,7 +725,6 @@ class ToolContext(InstanceContext):
 
 
 class ToolPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ToolInstance:
         """
         Build an instance of ToolInstance
@@ -751,7 +743,6 @@ class ToolPage(Page):
 
 
 class ToolList(ListResource):
-
     class AssistantsV1ServiceCreatePolicyRequest(object):
         """
         :ivar description: The description of the policy.
@@ -762,7 +753,6 @@ class ToolList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.description: Optional[str] = payload.get("description")
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
@@ -792,15 +782,14 @@ class ToolList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.assistant_id: Optional[str] = payload.get("assistant_id")
             self.description: Optional[str] = payload.get("description")
             self.enabled: Optional[bool] = payload.get("enabled")
             self.meta: Optional[Dict[str, object]] = payload.get("meta")
             self.name: Optional[str] = payload.get("name")
-            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
-                payload.get("policy")
-            )
+            self.policy: Optional[
+                ToolList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
@@ -826,15 +815,14 @@ class ToolList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.assistant_id: Optional[str] = payload.get("assistant_id")
             self.description: Optional[str] = payload.get("description")
             self.enabled: Optional[bool] = payload.get("enabled")
             self.meta: Optional[Dict[str, object]] = payload.get("meta")
             self.name: Optional[str] = payload.get("name")
-            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
-                payload.get("policy")
-            )
+            self.policy: Optional[
+                ToolList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
@@ -1336,10 +1324,12 @@ class ToolList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ToolPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

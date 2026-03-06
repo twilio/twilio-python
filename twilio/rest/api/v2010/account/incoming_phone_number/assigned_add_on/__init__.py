@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,6 +28,7 @@ from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigne
 
 
 class AssignedAddOnInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that that we created to identify the resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
@@ -183,7 +185,6 @@ class AssignedAddOnInstance(InstanceResource):
 
 
 class AssignedAddOnContext(InstanceContext):
-
     def __init__(self, version: Version, account_sid: str, resource_sid: str, sid: str):
         """
         Initialize the AssignedAddOnContext
@@ -398,7 +399,6 @@ class AssignedAddOnContext(InstanceContext):
 
 
 class AssignedAddOnPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AssignedAddOnInstance:
         """
         Build an instance of AssignedAddOnInstance
@@ -422,7 +422,6 @@ class AssignedAddOnPage(Page):
 
 
 class AssignedAddOnList(ListResource):
-
     def __init__(self, version: Version, account_sid: str, resource_sid: str):
         """
         Initialize the AssignedAddOnList
@@ -894,10 +893,12 @@ class AssignedAddOnList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AssignedAddOnPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

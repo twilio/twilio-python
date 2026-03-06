@@ -221,7 +221,6 @@ class ApiKeyInstance(InstanceResource):
 
 
 class ApiKeyContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ApiKeyContext
@@ -534,7 +533,6 @@ class ApiKeyContext(InstanceContext):
 
 
 class ApiKeyList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the ApiKeyList

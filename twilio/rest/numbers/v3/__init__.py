@@ -19,7 +19,6 @@ from twilio.rest.numbers.v3.hosted_number_order import HostedNumberOrderList
 
 
 class V3(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V3 version of Numbers

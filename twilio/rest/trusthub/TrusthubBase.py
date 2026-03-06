@@ -17,7 +17,6 @@ from twilio.rest.trusthub.v1 import V1
 
 
 class TrusthubBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Trusthub Domain

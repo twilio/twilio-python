@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import date
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class ThisMonthInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage.
     :ivar api_version: The API version used to create the resource.
@@ -82,7 +84,6 @@ class ThisMonthInstance(InstanceResource):
 
 
 class ThisMonthPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ThisMonthInstance:
         """
         Build an instance of ThisMonthInstance
@@ -103,7 +104,6 @@ class ThisMonthPage(Page):
 
 
 class ThisMonthList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ThisMonthList
@@ -603,10 +603,12 @@ class ThisMonthList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ThisMonthPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

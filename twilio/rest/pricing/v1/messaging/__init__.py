@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Optional
 
 
@@ -22,7 +23,6 @@ from twilio.rest.pricing.v1.messaging.country import CountryList
 
 
 class MessagingList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the MessagingList

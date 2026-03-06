@@ -19,7 +19,6 @@ from twilio.rest.chat.v3 import V3
 
 
 class ChatBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Chat Domain

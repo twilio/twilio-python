@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class SourceIpMappingInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the IP Record resource.
     :ivar ip_record_sid: The Twilio-provided string that uniquely identifies the IP Record resource to map from.
@@ -200,7 +202,6 @@ class SourceIpMappingInstance(InstanceResource):
 
 
 class SourceIpMappingContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SourceIpMappingContext
@@ -487,7 +488,6 @@ class SourceIpMappingContext(InstanceContext):
 
 
 class SourceIpMappingPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> SourceIpMappingInstance:
         """
         Build an instance of SourceIpMappingInstance
@@ -506,7 +506,6 @@ class SourceIpMappingPage(Page):
 
 
 class SourceIpMappingList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the SourceIpMappingList
@@ -963,10 +962,12 @@ class SourceIpMappingList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = SourceIpMappingPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

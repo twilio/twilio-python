@@ -20,7 +20,6 @@ from twilio.rest.preview.marketplace.installed_add_on import InstalledAddOnList
 
 
 class Marketplace(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the Marketplace version of Preview

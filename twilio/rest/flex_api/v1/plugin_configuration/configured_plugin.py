@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class ConfiguredPluginInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Flex Plugin resource is installed for.
     :ivar configuration_sid: The SID of the Flex Plugin Configuration that this Flex Plugin belongs to.
@@ -162,7 +164,6 @@ class ConfiguredPluginInstance(InstanceResource):
 
 
 class ConfiguredPluginContext(InstanceContext):
-
     def __init__(self, version: Version, configuration_sid: str, plugin_sid: str):
         """
         Initialize the ConfiguredPluginContext
@@ -315,7 +316,6 @@ class ConfiguredPluginContext(InstanceContext):
 
 
 class ConfiguredPluginPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ConfiguredPluginInstance:
         """
         Build an instance of ConfiguredPluginInstance
@@ -338,7 +338,6 @@ class ConfiguredPluginPage(Page):
 
 
 class ConfiguredPluginList(ListResource):
-
     def __init__(self, version: Version, configuration_sid: str):
         """
         Initialize the ConfiguredPluginList
@@ -744,10 +743,12 @@ class ConfiguredPluginList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ConfiguredPluginPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

@@ -244,7 +244,6 @@ class RatePlanInstance(InstanceResource):
 
 
 class RatePlanContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the RatePlanContext
@@ -559,7 +558,6 @@ class RatePlanContext(InstanceContext):
 
 
 class RatePlanPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> RatePlanInstance:
         """
         Build an instance of RatePlanInstance
@@ -578,7 +576,6 @@ class RatePlanPage(Page):
 
 
 class RatePlanList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the RatePlanList
@@ -1191,10 +1188,12 @@ class RatePlanList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = RatePlanPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

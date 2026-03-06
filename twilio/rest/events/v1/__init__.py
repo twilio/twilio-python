@@ -22,7 +22,6 @@ from twilio.rest.events.v1.subscription import SubscriptionList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Events

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class WebChannelInstance(InstanceResource):
-
     class ChatStatus(object):
         INACTIVE = "inactive"
 
@@ -228,7 +228,6 @@ class WebChannelInstance(InstanceResource):
 
 
 class WebChannelContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the WebChannelContext
@@ -543,7 +542,6 @@ class WebChannelContext(InstanceContext):
 
 
 class WebChannelPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> WebChannelInstance:
         """
         Build an instance of WebChannelInstance
@@ -562,7 +560,6 @@ class WebChannelPage(Page):
 
 
 class WebChannelList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the WebChannelList
@@ -1103,10 +1100,12 @@ class WebChannelList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = WebChannelPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

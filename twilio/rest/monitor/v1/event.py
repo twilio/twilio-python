@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
     :ivar actor_sid: The SID of the actor that caused the event, if available. This can be either a User ID (matching the pattern `^US[0-9a-fA-F]{32}$`) or an Account SID (matching the pattern `^AC[0-9a-fA-F]{32}$`). If the actor's SID isn't available, this field will be `null`.
@@ -130,7 +132,6 @@ class EventInstance(InstanceResource):
 
 
 class EventContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the EventContext
@@ -247,7 +248,6 @@ class EventContext(InstanceContext):
 
 
 class EventPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
@@ -266,7 +266,6 @@ class EventPage(Page):
 
 
 class EventList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the EventList
@@ -831,10 +830,12 @@ class EventList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = EventPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

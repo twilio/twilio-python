@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,7 +24,6 @@ from twilio.base.page import Page
 
 
 class ApplicationInstance(InstanceResource):
-
     class CreateShortCodeApplicationRequest(object):
         """
         :ivar friendly_name: The friendly name for the short code application.
@@ -33,7 +33,6 @@ class ApplicationInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.iso_country: Optional[str] = payload.get("iso_country")
             self.business_information: Optional[
@@ -47,11 +46,9 @@ class ApplicationInstance(InstanceResource):
             return {
                 "friendly_name": self.friendly_name,
                 "iso_country": self.iso_country,
-                "business_information": (
-                    self.business_information.to_dict()
-                    if self.business_information is not None
-                    else None
-                ),
+                "business_information": self.business_information.to_dict()
+                if self.business_information is not None
+                else None,
                 "setup": self.setup.to_dict() if self.setup is not None else None,
             }
 
@@ -61,7 +58,6 @@ class ApplicationInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.customer_facing_profile: Optional[str] = payload.get(
                 "customer_facing_profile"
             )
@@ -77,7 +73,6 @@ class ApplicationInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.charges_apply: Optional[bool] = payload.get("charges_apply")
 
         def to_dict(self):
@@ -175,7 +170,6 @@ class ApplicationInstance(InstanceResource):
 
 
 class ApplicationContext(InstanceContext):
-
     class CreateShortCodeApplicationRequest(object):
         """
         :ivar friendly_name: The friendly name for the short code application.
@@ -185,7 +179,6 @@ class ApplicationContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.iso_country: Optional[str] = payload.get("iso_country")
             self.business_information: Optional[
@@ -199,11 +192,9 @@ class ApplicationContext(InstanceContext):
             return {
                 "friendly_name": self.friendly_name,
                 "iso_country": self.iso_country,
-                "business_information": (
-                    self.business_information.to_dict()
-                    if self.business_information is not None
-                    else None
-                ),
+                "business_information": self.business_information.to_dict()
+                if self.business_information is not None
+                else None,
                 "setup": self.setup.to_dict() if self.setup is not None else None,
             }
 
@@ -213,7 +204,6 @@ class ApplicationContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.customer_facing_profile: Optional[str] = payload.get(
                 "customer_facing_profile"
             )
@@ -229,7 +219,6 @@ class ApplicationContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.charges_apply: Optional[bool] = payload.get("charges_apply")
 
         def to_dict(self):
@@ -353,7 +342,6 @@ class ApplicationContext(InstanceContext):
 
 
 class ApplicationPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> ApplicationInstance:
         """
         Build an instance of ApplicationInstance
@@ -372,7 +360,6 @@ class ApplicationPage(Page):
 
 
 class ApplicationList(ListResource):
-
     class CreateShortCodeApplicationRequest(object):
         """
         :ivar friendly_name: The friendly name for the short code application.
@@ -382,7 +369,6 @@ class ApplicationList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.iso_country: Optional[str] = payload.get("iso_country")
             self.business_information: Optional[
@@ -396,11 +382,9 @@ class ApplicationList(ListResource):
             return {
                 "friendly_name": self.friendly_name,
                 "iso_country": self.iso_country,
-                "business_information": (
-                    self.business_information.to_dict()
-                    if self.business_information is not None
-                    else None
-                ),
+                "business_information": self.business_information.to_dict()
+                if self.business_information is not None
+                else None,
                 "setup": self.setup.to_dict() if self.setup is not None else None,
             }
 
@@ -410,7 +394,6 @@ class ApplicationList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.customer_facing_profile: Optional[str] = payload.get(
                 "customer_facing_profile"
             )
@@ -426,7 +409,6 @@ class ApplicationList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.charges_apply: Optional[bool] = payload.get("charges_apply")
 
         def to_dict(self):
@@ -880,10 +862,12 @@ class ApplicationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = ApplicationPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

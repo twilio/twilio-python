@@ -17,7 +17,6 @@ from twilio.rest.proxy.v1 import V1
 
 
 class ProxyBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Proxy Domain

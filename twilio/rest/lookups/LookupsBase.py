@@ -18,7 +18,6 @@ from twilio.rest.lookups.v2 import V2
 
 
 class LookupsBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Lookups Domain

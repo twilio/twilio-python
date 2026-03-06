@@ -17,7 +17,6 @@ from twilio.rest.supersim.v1 import V1
 
 
 class SupersimBase(Domain):
-
     def __init__(self, twilio: Client):
         """
         Initialize the Supersim Domain

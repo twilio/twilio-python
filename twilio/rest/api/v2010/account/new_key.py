@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class NewKeyInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that that we created to identify the NewKey resource. You will use this as the basic-auth `user` when authenticating to the API.
     :ivar friendly_name: The string that you assigned to describe the resource.
@@ -59,7 +61,6 @@ class NewKeyInstance(InstanceResource):
 
 
 class NewKeyList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the NewKeyList

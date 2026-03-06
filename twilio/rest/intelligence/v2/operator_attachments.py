@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class OperatorAttachmentsInstance(InstanceResource):
+
     """
     :ivar service_sid: The unique SID identifier of the Service.
     :ivar operator_sids: List of Operator SIDs attached to the service. Includes both Custom and Pre-built Operators.
@@ -107,7 +109,6 @@ class OperatorAttachmentsInstance(InstanceResource):
 
 
 class OperatorAttachmentsContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the OperatorAttachmentsContext
@@ -224,7 +225,6 @@ class OperatorAttachmentsContext(InstanceContext):
 
 
 class OperatorAttachmentsList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the OperatorAttachmentsList

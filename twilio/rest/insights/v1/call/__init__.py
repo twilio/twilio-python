@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -27,6 +28,7 @@ from twilio.rest.insights.v1.call.metric import MetricList
 
 
 class CallInstance(InstanceResource):
+
     """
     :ivar sid:
     :ivar url:
@@ -137,7 +139,6 @@ class CallInstance(InstanceResource):
 
 
 class CallContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CallContext
@@ -307,7 +308,6 @@ class CallContext(InstanceContext):
 
 
 class CallList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the CallList

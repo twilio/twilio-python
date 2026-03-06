@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 from twilio.base.api_response import ApiResponse
@@ -23,7 +24,6 @@ from twilio.base.page import Page
 
 
 class InteractionChannelParticipantInstance(InstanceResource):
-
     class Status(object):
         CLOSED = "closed"
         WRAPUP = "wrapup"
@@ -158,7 +158,6 @@ class InteractionChannelParticipantInstance(InstanceResource):
 
 
 class InteractionChannelParticipantContext(InstanceContext):
-
     def __init__(
         self, version: Version, interaction_sid: str, channel_sid: str, sid: str
     ):
@@ -321,7 +320,6 @@ class InteractionChannelParticipantContext(InstanceContext):
 
 
 class InteractionChannelParticipantPage(Page):
-
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> InteractionChannelParticipantInstance:
@@ -347,7 +345,6 @@ class InteractionChannelParticipantPage(Page):
 
 
 class InteractionChannelParticipantList(ListResource):
-
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelParticipantList
@@ -875,10 +872,12 @@ class InteractionChannelParticipantList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = InteractionChannelParticipantPage(
             self._version, response, self._solution

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class NewChallengeInstance(InstanceResource):
-
     class CreatePasskeysChallengeRequest(object):
         """
         :ivar identity:
@@ -31,7 +31,6 @@ class NewChallengeInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.identity: Optional[str] = payload.get("identity")
             self.factor_sid: Optional[str] = payload.get("factor_sid")
 
@@ -181,7 +180,6 @@ class NewChallengeInstance(InstanceResource):
 
 
 class NewChallengeContext(InstanceContext):
-
     class CreatePasskeysChallengeRequest(object):
         """
         :ivar identity:
@@ -189,7 +187,6 @@ class NewChallengeContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.identity: Optional[str] = payload.get("identity")
             self.factor_sid: Optional[str] = payload.get("factor_sid")
 
@@ -339,7 +336,6 @@ class NewChallengeContext(InstanceContext):
 
 
 class NewChallengeList(ListResource):
-
     class CreatePasskeysChallengeRequest(object):
         """
         :ivar identity:
@@ -347,7 +343,6 @@ class NewChallengeList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.identity: Optional[str] = payload.get("identity")
             self.factor_sid: Optional[str] = payload.get("factor_sid")
 

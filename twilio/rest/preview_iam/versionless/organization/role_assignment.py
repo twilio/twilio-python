@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,7 +24,6 @@ from twilio.base.page import Page
 
 
 class RoleAssignmentInstance(InstanceResource):
-
     class PublicApiCreateRoleAssignmentRequest(object):
         """
         :ivar role_sid: Twilio Role Sid representing assigned role
@@ -32,7 +32,6 @@ class RoleAssignmentInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.role_sid: Optional[str] = payload.get("role_sid")
             self.scope: Optional[str] = payload.get("scope")
             self.identity: Optional[str] = payload.get("identity")
@@ -144,7 +143,6 @@ class RoleAssignmentInstance(InstanceResource):
 
 
 class RoleAssignmentContext(InstanceContext):
-
     class PublicApiCreateRoleAssignmentRequest(object):
         """
         :ivar role_sid: Twilio Role Sid representing assigned role
@@ -153,7 +151,6 @@ class RoleAssignmentContext(InstanceContext):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.role_sid: Optional[str] = payload.get("role_sid")
             self.scope: Optional[str] = payload.get("scope")
             self.identity: Optional[str] = payload.get("identity")
@@ -267,7 +264,6 @@ class RoleAssignmentContext(InstanceContext):
 
 
 class RoleAssignmentPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> RoleAssignmentInstance:
         """
         Build an instance of RoleAssignmentInstance
@@ -288,7 +284,6 @@ class RoleAssignmentPage(Page):
 
 
 class RoleAssignmentList(ListResource):
-
     class PublicApiCreateRoleAssignmentRequest(object):
         """
         :ivar role_sid: Twilio Role Sid representing assigned role
@@ -297,7 +292,6 @@ class RoleAssignmentList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.role_sid: Optional[str] = payload.get("role_sid")
             self.scope: Optional[str] = payload.get("scope")
             self.identity: Optional[str] = payload.get("identity")
@@ -842,10 +836,12 @@ class RoleAssignmentList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = RoleAssignmentPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

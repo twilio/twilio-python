@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,7 +24,6 @@ from twilio.base.version import Version
 
 
 class ApproveChallengeInstance(InstanceResource):
-
     class ApprovePasskeysChallengeRequest(object):
         """
         :ivar id: A [base64url](https://base64.guru/standards/base64url) encoded representation of `rawId`.
@@ -34,12 +34,11 @@ class ApproveChallengeInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.raw_id: Optional[str] = payload.get("raw_id")
-            self.authenticator_attachment: Optional["ApproveChallengeInstance.str"] = (
-                payload.get("authenticator_attachment")
-            )
+            self.authenticator_attachment: Optional[
+                "ApproveChallengeInstance.str"
+            ] = payload.get("authenticator_attachment")
             self.type: Optional["ApproveChallengeInstance.str"] = payload.get("type")
             self.response: Optional[
                 ApproveChallengeList.ApprovePasskeysChallengeRequestResponse
@@ -51,9 +50,9 @@ class ApproveChallengeInstance(InstanceResource):
                 "raw_id": self.raw_id,
                 "authenticator_attachment": self.authenticator_attachment,
                 "type": self.type,
-                "response": (
-                    self.response.to_dict() if self.response is not None else None
-                ),
+                "response": self.response.to_dict()
+                if self.response is not None
+                else None,
             }
 
     class ApprovePasskeysChallengeRequestResponse(object):
@@ -65,7 +64,6 @@ class ApproveChallengeInstance(InstanceResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.authenticator_data: Optional[str] = payload.get("authenticator_data")
             self.client_data_json: Optional[str] = payload.get("client_data_json")
             self.signature: Optional[str] = payload.get("signature")
@@ -147,7 +145,6 @@ class ApproveChallengeInstance(InstanceResource):
 
 
 class ApproveChallengeList(ListResource):
-
     class ApprovePasskeysChallengeRequest(object):
         """
         :ivar id: A [base64url](https://base64.guru/standards/base64url) encoded representation of `rawId`.
@@ -158,12 +155,11 @@ class ApproveChallengeList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.id: Optional[str] = payload.get("id")
             self.raw_id: Optional[str] = payload.get("raw_id")
-            self.authenticator_attachment: Optional["ApproveChallengeInstance.str"] = (
-                payload.get("authenticator_attachment")
-            )
+            self.authenticator_attachment: Optional[
+                "ApproveChallengeInstance.str"
+            ] = payload.get("authenticator_attachment")
             self.type: Optional["ApproveChallengeInstance.str"] = payload.get("type")
             self.response: Optional[
                 ApproveChallengeList.ApprovePasskeysChallengeRequestResponse
@@ -175,9 +171,9 @@ class ApproveChallengeList(ListResource):
                 "raw_id": self.raw_id,
                 "authenticator_attachment": self.authenticator_attachment,
                 "type": self.type,
-                "response": (
-                    self.response.to_dict() if self.response is not None else None
-                ),
+                "response": self.response.to_dict()
+                if self.response is not None
+                else None,
             }
 
     class ApprovePasskeysChallengeRequestResponse(object):
@@ -189,7 +185,6 @@ class ApproveChallengeList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-
             self.authenticator_data: Optional[str] = payload.get("authenticator_data")
             self.client_data_json: Optional[str] = payload.get("client_data_json")
             self.signature: Optional[str] = payload.get("signature")

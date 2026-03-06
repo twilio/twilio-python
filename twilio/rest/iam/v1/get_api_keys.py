@@ -56,7 +56,6 @@ class GetApiKeysInstance(InstanceResource):
 
 
 class GetApiKeysPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> GetApiKeysInstance:
         """
         Build an instance of GetApiKeysInstance
@@ -75,7 +74,6 @@ class GetApiKeysPage(Page):
 
 
 class GetApiKeysList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the GetApiKeysList
@@ -454,10 +452,12 @@ class GetApiKeysList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = GetApiKeysPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

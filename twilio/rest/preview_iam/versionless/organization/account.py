@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +25,7 @@ from twilio.base.page import Page
 
 
 class AccountInstance(InstanceResource):
+
     """
     :ivar account_sid: Twilio account sid
     :ivar friendly_name: Account friendly name
@@ -118,7 +120,6 @@ class AccountInstance(InstanceResource):
 
 
 class AccountContext(InstanceContext):
-
     def __init__(self, version: Version, organization_sid: str, account_sid: str):
         """
         Initialize the AccountContext
@@ -243,7 +244,6 @@ class AccountContext(InstanceContext):
 
 
 class AccountPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> AccountInstance:
         """
         Build an instance of AccountInstance
@@ -264,7 +264,6 @@ class AccountPage(Page):
 
 
 class AccountList(ListResource):
-
     def __init__(self, version: Version, organization_sid: str):
         """
         Initialize the AccountList
@@ -612,10 +611,12 @@ class AccountList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AccountPage(self._version, response, self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)

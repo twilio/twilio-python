@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +25,6 @@ from twilio.base.page import Page
 
 
 class FlexFlowInstance(InstanceResource):
-
     class ChannelType(object):
         WEB = "web"
         SMS = "sms"
@@ -75,9 +75,9 @@ class FlexFlowInstance(InstanceResource):
         )
         self.contact_identity: Optional[str] = payload.get("contact_identity")
         self.enabled: Optional[bool] = payload.get("enabled")
-        self.integration_type: Optional["FlexFlowInstance.IntegrationType"] = (
-            payload.get("integration_type")
-        )
+        self.integration_type: Optional[
+            "FlexFlowInstance.IntegrationType"
+        ] = payload.get("integration_type")
         self.integration: Optional[Dict[str, object]] = payload.get("integration")
         self.long_lived: Optional[bool] = payload.get("long_lived")
         self.janitor_enabled: Optional[bool] = payload.get("janitor_enabled")
@@ -446,7 +446,6 @@ class FlexFlowInstance(InstanceResource):
 
 
 class FlexFlowContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlexFlowContext
@@ -1021,7 +1020,6 @@ class FlexFlowContext(InstanceContext):
 
 
 class FlexFlowPage(Page):
-
     def get_instance(self, payload: Dict[str, Any]) -> FlexFlowInstance:
         """
         Build an instance of FlexFlowInstance
@@ -1040,7 +1038,6 @@ class FlexFlowPage(Page):
 
 
 class FlexFlowList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the FlexFlowList
@@ -1809,10 +1806,12 @@ class FlexFlowList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
+        (
+            response,
+            status_code,
+            response_headers,
+        ) = await self._version.page_with_response_info_async(
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         page = FlexFlowPage(self._version, response)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
