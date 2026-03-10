@@ -3,6 +3,30 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2026-03-10] Version 9.10.3
+---------------------------
+**Twiml**
+- Rename `recording_configuration` to `recording_configuration_id` attribute in `<Conference>`, `<Dial>`, `<Record>` verbs and `<Recording>` noun
+
+**Ace**
+- # ACE Signals API Changes
+- ## 2026-02-18
+- Initial release: POST /signals, GET/POST /signals/{signal_id}/results, GET /health
+- Enables OneAdmin integration for synchronous signal ingestion and policy result polling
+- Supports permission-based authorization for signal operations
+- Health endpoint available for monitoring without authentication
+
+**Api**
+- Added optional parameter `Confirmation` to Payments create endpoint to enable payment confirmation prompt before gateway submission
+- Added optional parameter `RequireMatchingInputs` to Payments create endpoint for input confirmation in agent-assisted payment flows
+- Added matcher capture types (`payment-card-number-matcher`, `expiration-date-matcher`, `security-code-matcher`, `postal-code-matcher`) to Payments update endpoint
+
+**Memory**
+- ## 2026-03-06
+- **Modified 1 path(s)**:
+- `/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries/{summaryId}` (added patch, get)
+
+
 [2026-02-18] Version 9.10.2
 ---------------------------
 **Api**

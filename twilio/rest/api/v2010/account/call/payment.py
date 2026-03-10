@@ -36,6 +36,10 @@ class PaymentInstance(InstanceResource):
         POSTAL_CODE = "postal-code"
         BANK_ROUTING_NUMBER = "bank-routing-number"
         BANK_ACCOUNT_NUMBER = "bank-account-number"
+        PAYMENT_CARD_NUMBER_MATCHER = "payment-card-number-matcher"
+        EXPIRATION_DATE_MATCHER = "expiration-date-matcher"
+        SECURITY_CODE_MATCHER = "security-code-matcher"
+        POSTAL_CODE_MATCHER = "postal-code-matcher"
 
     class PaymentMethod(object):
         CREDIT_CARD = "credit-card"
@@ -477,6 +481,8 @@ class PaymentList(ListResource):
         timeout: Union[int, object] = values.unset,
         token_type: Union["PaymentInstance.TokenType", object] = values.unset,
         valid_card_types: Union[str, object] = values.unset,
+        require_matching_inputs: Union[str, object] = values.unset,
+        confirmation: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -503,6 +509,8 @@ class PaymentList(ListResource):
                 "Timeout": timeout,
                 "TokenType": token_type,
                 "ValidCardTypes": valid_card_types,
+                "RequireMatchingInputs": require_matching_inputs,
+                "Confirmation": confirmation,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -535,6 +543,8 @@ class PaymentList(ListResource):
         timeout: Union[int, object] = values.unset,
         token_type: Union["PaymentInstance.TokenType", object] = values.unset,
         valid_card_types: Union[str, object] = values.unset,
+        require_matching_inputs: Union[str, object] = values.unset,
+        confirmation: Union[str, object] = values.unset,
     ) -> PaymentInstance:
         """
         Create the PaymentInstance
@@ -555,6 +565,8 @@ class PaymentList(ListResource):
         :param timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
         :param token_type:
         :param valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+        :param require_matching_inputs: A comma-separated list of payment information fields that require the caller to enter the same value twice for confirmation. Supported values are `payment-card-number`, `expiration-date`, `security-code`, and `postal-code`.
+        :param confirmation: Whether to prompt the caller to confirm their payment information before submitting to the payment gateway. If `true`, the caller will hear the last 4 digits of their card or account number and must press 1 to confirm or 2 to cancel. Default is `false`.
 
         :returns: The created PaymentInstance
         """
@@ -575,6 +587,8 @@ class PaymentList(ListResource):
             timeout=timeout,
             token_type=token_type,
             valid_card_types=valid_card_types,
+            require_matching_inputs=require_matching_inputs,
+            confirmation=confirmation,
         )
         return PaymentInstance(
             self._version,
@@ -603,6 +617,8 @@ class PaymentList(ListResource):
         timeout: Union[int, object] = values.unset,
         token_type: Union["PaymentInstance.TokenType", object] = values.unset,
         valid_card_types: Union[str, object] = values.unset,
+        require_matching_inputs: Union[str, object] = values.unset,
+        confirmation: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the PaymentInstance and return response metadata
@@ -623,6 +639,8 @@ class PaymentList(ListResource):
         :param timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
         :param token_type:
         :param valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+        :param require_matching_inputs: A comma-separated list of payment information fields that require the caller to enter the same value twice for confirmation. Supported values are `payment-card-number`, `expiration-date`, `security-code`, and `postal-code`.
+        :param confirmation: Whether to prompt the caller to confirm their payment information before submitting to the payment gateway. If `true`, the caller will hear the last 4 digits of their card or account number and must press 1 to confirm or 2 to cancel. Default is `false`.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -643,6 +661,8 @@ class PaymentList(ListResource):
             timeout=timeout,
             token_type=token_type,
             valid_card_types=valid_card_types,
+            require_matching_inputs=require_matching_inputs,
+            confirmation=confirmation,
         )
         instance = PaymentInstance(
             self._version,
@@ -672,6 +692,8 @@ class PaymentList(ListResource):
         timeout: Union[int, object] = values.unset,
         token_type: Union["PaymentInstance.TokenType", object] = values.unset,
         valid_card_types: Union[str, object] = values.unset,
+        require_matching_inputs: Union[str, object] = values.unset,
+        confirmation: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -698,6 +720,8 @@ class PaymentList(ListResource):
                 "Timeout": timeout,
                 "TokenType": token_type,
                 "ValidCardTypes": valid_card_types,
+                "RequireMatchingInputs": require_matching_inputs,
+                "Confirmation": confirmation,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -730,6 +754,8 @@ class PaymentList(ListResource):
         timeout: Union[int, object] = values.unset,
         token_type: Union["PaymentInstance.TokenType", object] = values.unset,
         valid_card_types: Union[str, object] = values.unset,
+        require_matching_inputs: Union[str, object] = values.unset,
+        confirmation: Union[str, object] = values.unset,
     ) -> PaymentInstance:
         """
         Asynchronously create the PaymentInstance
@@ -750,6 +776,8 @@ class PaymentList(ListResource):
         :param timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
         :param token_type:
         :param valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+        :param require_matching_inputs: A comma-separated list of payment information fields that require the caller to enter the same value twice for confirmation. Supported values are `payment-card-number`, `expiration-date`, `security-code`, and `postal-code`.
+        :param confirmation: Whether to prompt the caller to confirm their payment information before submitting to the payment gateway. If `true`, the caller will hear the last 4 digits of their card or account number and must press 1 to confirm or 2 to cancel. Default is `false`.
 
         :returns: The created PaymentInstance
         """
@@ -770,6 +798,8 @@ class PaymentList(ListResource):
             timeout=timeout,
             token_type=token_type,
             valid_card_types=valid_card_types,
+            require_matching_inputs=require_matching_inputs,
+            confirmation=confirmation,
         )
         return PaymentInstance(
             self._version,
@@ -798,6 +828,8 @@ class PaymentList(ListResource):
         timeout: Union[int, object] = values.unset,
         token_type: Union["PaymentInstance.TokenType", object] = values.unset,
         valid_card_types: Union[str, object] = values.unset,
+        require_matching_inputs: Union[str, object] = values.unset,
+        confirmation: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the PaymentInstance and return response metadata
@@ -818,6 +850,8 @@ class PaymentList(ListResource):
         :param timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
         :param token_type:
         :param valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+        :param require_matching_inputs: A comma-separated list of payment information fields that require the caller to enter the same value twice for confirmation. Supported values are `payment-card-number`, `expiration-date`, `security-code`, and `postal-code`.
+        :param confirmation: Whether to prompt the caller to confirm their payment information before submitting to the payment gateway. If `true`, the caller will hear the last 4 digits of their card or account number and must press 1 to confirm or 2 to cancel. Default is `false`.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -838,6 +872,8 @@ class PaymentList(ListResource):
             timeout=timeout,
             token_type=token_type,
             valid_card_types=valid_card_types,
+            require_matching_inputs=require_matching_inputs,
+            confirmation=confirmation,
         )
         instance = PaymentInstance(
             self._version,
