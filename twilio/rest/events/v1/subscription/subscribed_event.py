@@ -145,74 +145,58 @@ class SubscribedEventInstance(InstanceResource):
         return await self._proxy.fetch_with_http_info_async()
 
     def update(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, schema_version: Union[int, object] = values.unset
     ) -> "SubscribedEventInstance":
         """
         Update the SubscribedEventInstance
 
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
         return self._proxy.update(
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
             schema_version=schema_version,
         )
 
     async def update_async(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, schema_version: Union[int, object] = values.unset
     ) -> "SubscribedEventInstance":
         """
         Asynchronous coroutine to update the SubscribedEventInstance
 
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
         return await self._proxy.update_async(
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
             schema_version=schema_version,
         )
 
     def update_with_http_info(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, schema_version: Union[int, object] = values.unset
     ) -> ApiResponse:
         """
         Update the SubscribedEventInstance with HTTP info
 
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return self._proxy.update_with_http_info(
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
             schema_version=schema_version,
         )
 
     async def update_with_http_info_async(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, schema_version: Union[int, object] = values.unset
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the SubscribedEventInstance with HTTP info
 
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return await self._proxy.update_with_http_info_async(
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
             schema_version=schema_version,
         )
 
@@ -408,11 +392,7 @@ class SubscribedEventContext(InstanceContext):
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    def _update(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
-    ) -> tuple:
+    def _update(self, schema_version: Union[int, object] = values.unset) -> tuple:
         """
         Internal helper for update operation
 
@@ -427,15 +407,6 @@ class SubscribedEventContext(InstanceContext):
         )
         headers = values.of({})
 
-        if not (
-            x_twilio_subscriptions_waiver is values.unset
-            or (
-                isinstance(x_twilio_subscriptions_waiver, str)
-                and not x_twilio_subscriptions_waiver
-            )
-        ):
-            headers["X-Twilio-Subscriptions-Waiver"] = x_twilio_subscriptions_waiver
-
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
         headers["Accept"] = "application/json"
@@ -445,22 +416,16 @@ class SubscribedEventContext(InstanceContext):
         )
 
     def update(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, schema_version: Union[int, object] = values.unset
     ) -> SubscribedEventInstance:
         """
         Update the SubscribedEventInstance
 
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
-        payload, _, _ = self._update(
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
-            schema_version=schema_version,
-        )
+        payload, _, _ = self._update(schema_version=schema_version)
         return SubscribedEventInstance(
             self._version,
             payload,
@@ -469,22 +434,16 @@ class SubscribedEventContext(InstanceContext):
         )
 
     def update_with_http_info(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, schema_version: Union[int, object] = values.unset
     ) -> ApiResponse:
         """
         Update the SubscribedEventInstance and return response metadata
 
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._update(
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
-            schema_version=schema_version,
-        )
+        payload, status_code, headers = self._update(schema_version=schema_version)
         instance = SubscribedEventInstance(
             self._version,
             payload,
@@ -494,9 +453,7 @@ class SubscribedEventContext(InstanceContext):
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     async def _update_async(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, schema_version: Union[int, object] = values.unset
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -512,15 +469,6 @@ class SubscribedEventContext(InstanceContext):
         )
         headers = values.of({})
 
-        if not (
-            x_twilio_subscriptions_waiver is values.unset
-            or (
-                isinstance(x_twilio_subscriptions_waiver, str)
-                and not x_twilio_subscriptions_waiver
-            )
-        ):
-            headers["X-Twilio-Subscriptions-Waiver"] = x_twilio_subscriptions_waiver
-
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
         headers["Accept"] = "application/json"
@@ -530,22 +478,16 @@ class SubscribedEventContext(InstanceContext):
         )
 
     async def update_async(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, schema_version: Union[int, object] = values.unset
     ) -> SubscribedEventInstance:
         """
         Asynchronous coroutine to update the SubscribedEventInstance
 
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
-        payload, _, _ = await self._update_async(
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
-            schema_version=schema_version,
-        )
+        payload, _, _ = await self._update_async(schema_version=schema_version)
         return SubscribedEventInstance(
             self._version,
             payload,
@@ -554,21 +496,17 @@ class SubscribedEventContext(InstanceContext):
         )
 
     async def update_with_http_info_async(
-        self,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, schema_version: Union[int, object] = values.unset
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the SubscribedEventInstance and return response metadata
 
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._update_async(
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
-            schema_version=schema_version,
+            schema_version=schema_version
         )
         instance = SubscribedEventInstance(
             self._version,
@@ -628,10 +566,7 @@ class SubscribedEventList(ListResource):
         )
 
     def _create(
-        self,
-        type: str,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, type: str, schema_version: Union[int, object] = values.unset
     ) -> tuple:
         """
         Internal helper for create operation
@@ -646,12 +581,7 @@ class SubscribedEventList(ListResource):
                 "SchemaVersion": schema_version,
             }
         )
-        headers = values.of(
-            {
-                "X-Twilio-Subscriptions-Waiver": x_twilio_subscriptions_waiver,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
@@ -662,48 +592,34 @@ class SubscribedEventList(ListResource):
         )
 
     def create(
-        self,
-        type: str,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, type: str, schema_version: Union[int, object] = values.unset
     ) -> SubscribedEventInstance:
         """
         Create the SubscribedEventInstance
 
         :param type: Type of event being subscribed to.
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The created SubscribedEventInstance
         """
-        payload, _, _ = self._create(
-            type=type,
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
-            schema_version=schema_version,
-        )
+        payload, _, _ = self._create(type=type, schema_version=schema_version)
         return SubscribedEventInstance(
             self._version, payload, subscription_sid=self._solution["subscription_sid"]
         )
 
     def create_with_http_info(
-        self,
-        type: str,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, type: str, schema_version: Union[int, object] = values.unset
     ) -> ApiResponse:
         """
         Create the SubscribedEventInstance and return response metadata
 
         :param type: Type of event being subscribed to.
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._create(
-            type=type,
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
-            schema_version=schema_version,
+            type=type, schema_version=schema_version
         )
         instance = SubscribedEventInstance(
             self._version, payload, subscription_sid=self._solution["subscription_sid"]
@@ -711,10 +627,7 @@ class SubscribedEventList(ListResource):
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     async def _create_async(
-        self,
-        type: str,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, type: str, schema_version: Union[int, object] = values.unset
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -729,12 +642,7 @@ class SubscribedEventList(ListResource):
                 "SchemaVersion": schema_version,
             }
         )
-        headers = values.of(
-            {
-                "X-Twilio-Subscriptions-Waiver": x_twilio_subscriptions_waiver,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
@@ -745,48 +653,36 @@ class SubscribedEventList(ListResource):
         )
 
     async def create_async(
-        self,
-        type: str,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, type: str, schema_version: Union[int, object] = values.unset
     ) -> SubscribedEventInstance:
         """
         Asynchronously create the SubscribedEventInstance
 
         :param type: Type of event being subscribed to.
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The created SubscribedEventInstance
         """
         payload, _, _ = await self._create_async(
-            type=type,
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
-            schema_version=schema_version,
+            type=type, schema_version=schema_version
         )
         return SubscribedEventInstance(
             self._version, payload, subscription_sid=self._solution["subscription_sid"]
         )
 
     async def create_with_http_info_async(
-        self,
-        type: str,
-        x_twilio_subscriptions_waiver: Union[str, object] = values.unset,
-        schema_version: Union[int, object] = values.unset,
+        self, type: str, schema_version: Union[int, object] = values.unset
     ) -> ApiResponse:
         """
         Asynchronously create the SubscribedEventInstance and return response metadata
 
         :param type: Type of event being subscribed to.
-        :param x_twilio_subscriptions_waiver: The X-Twilio-Subscriptions-Waiver HTTP request header
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._create_async(
-            type=type,
-            x_twilio_subscriptions_waiver=x_twilio_subscriptions_waiver,
-            schema_version=schema_version,
+            type=type, schema_version=schema_version
         )
         instance = SubscribedEventInstance(
             self._version, payload, subscription_sid=self._solution["subscription_sid"]

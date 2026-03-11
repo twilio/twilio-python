@@ -633,7 +633,6 @@ class TaskChannelList(ListResource):
         friendly_name: str,
         unique_name: str,
         channel_optimized_routing: Union[bool, object] = values.unset,
-        required_attention: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -649,7 +648,6 @@ class TaskChannelList(ListResource):
                 "ChannelOptimizedRouting": serialize.boolean_to_string(
                     channel_optimized_routing
                 ),
-                "RequiredAttention": required_attention,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -667,7 +665,6 @@ class TaskChannelList(ListResource):
         friendly_name: str,
         unique_name: str,
         channel_optimized_routing: Union[bool, object] = values.unset,
-        required_attention: Union[int, object] = values.unset,
     ) -> TaskChannelInstance:
         """
         Create the TaskChannelInstance
@@ -675,7 +672,6 @@ class TaskChannelList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
         :param unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
         :param channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-        :param required_attention: The amount of Attention a Task with this channel will occupy on the Worker.
 
         :returns: The created TaskChannelInstance
         """
@@ -683,7 +679,6 @@ class TaskChannelList(ListResource):
             friendly_name=friendly_name,
             unique_name=unique_name,
             channel_optimized_routing=channel_optimized_routing,
-            required_attention=required_attention,
         )
         return TaskChannelInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -694,7 +689,6 @@ class TaskChannelList(ListResource):
         friendly_name: str,
         unique_name: str,
         channel_optimized_routing: Union[bool, object] = values.unset,
-        required_attention: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the TaskChannelInstance and return response metadata
@@ -702,7 +696,6 @@ class TaskChannelList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
         :param unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
         :param channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-        :param required_attention: The amount of Attention a Task with this channel will occupy on the Worker.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -710,7 +703,6 @@ class TaskChannelList(ListResource):
             friendly_name=friendly_name,
             unique_name=unique_name,
             channel_optimized_routing=channel_optimized_routing,
-            required_attention=required_attention,
         )
         instance = TaskChannelInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -722,7 +714,6 @@ class TaskChannelList(ListResource):
         friendly_name: str,
         unique_name: str,
         channel_optimized_routing: Union[bool, object] = values.unset,
-        required_attention: Union[int, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -738,7 +729,6 @@ class TaskChannelList(ListResource):
                 "ChannelOptimizedRouting": serialize.boolean_to_string(
                     channel_optimized_routing
                 ),
-                "RequiredAttention": required_attention,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -756,7 +746,6 @@ class TaskChannelList(ListResource):
         friendly_name: str,
         unique_name: str,
         channel_optimized_routing: Union[bool, object] = values.unset,
-        required_attention: Union[int, object] = values.unset,
     ) -> TaskChannelInstance:
         """
         Asynchronously create the TaskChannelInstance
@@ -764,7 +753,6 @@ class TaskChannelList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
         :param unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
         :param channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-        :param required_attention: The amount of Attention a Task with this channel will occupy on the Worker.
 
         :returns: The created TaskChannelInstance
         """
@@ -772,7 +760,6 @@ class TaskChannelList(ListResource):
             friendly_name=friendly_name,
             unique_name=unique_name,
             channel_optimized_routing=channel_optimized_routing,
-            required_attention=required_attention,
         )
         return TaskChannelInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -783,7 +770,6 @@ class TaskChannelList(ListResource):
         friendly_name: str,
         unique_name: str,
         channel_optimized_routing: Union[bool, object] = values.unset,
-        required_attention: Union[int, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the TaskChannelInstance and return response metadata
@@ -791,7 +777,6 @@ class TaskChannelList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
         :param unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
         :param channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-        :param required_attention: The amount of Attention a Task with this channel will occupy on the Worker.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -799,7 +784,6 @@ class TaskChannelList(ListResource):
             friendly_name=friendly_name,
             unique_name=unique_name,
             channel_optimized_routing=channel_optimized_routing,
-            required_attention=required_attention,
         )
         instance = TaskChannelInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]

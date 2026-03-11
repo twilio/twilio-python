@@ -198,84 +198,72 @@ class RecordingInstance(InstanceResource):
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> "RecordingInstance":
         """
         Update the RecordingInstance
 
         :param status:
         :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-        :param play_beep:
 
         :returns: The updated RecordingInstance
         """
         return self._proxy.update(
             status=status,
             pause_behavior=pause_behavior,
-            play_beep=play_beep,
         )
 
     async def update_async(
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> "RecordingInstance":
         """
         Asynchronous coroutine to update the RecordingInstance
 
         :param status:
         :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-        :param play_beep:
 
         :returns: The updated RecordingInstance
         """
         return await self._proxy.update_async(
             status=status,
             pause_behavior=pause_behavior,
-            play_beep=play_beep,
         )
 
     def update_with_http_info(
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the RecordingInstance with HTTP info
 
         :param status:
         :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-        :param play_beep:
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return self._proxy.update_with_http_info(
             status=status,
             pause_behavior=pause_behavior,
-            play_beep=play_beep,
         )
 
     async def update_with_http_info_async(
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the RecordingInstance with HTTP info
 
         :param status:
         :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-        :param play_beep:
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return await self._proxy.update_with_http_info_async(
             status=status,
             pause_behavior=pause_behavior,
-            play_beep=play_beep,
         )
 
     def __repr__(self) -> str:
@@ -482,7 +470,6 @@ class RecordingContext(InstanceContext):
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for update operation
@@ -495,7 +482,6 @@ class RecordingContext(InstanceContext):
             {
                 "Status": status,
                 "PauseBehavior": pause_behavior,
-                "PlayBeep": serialize.boolean_to_string(play_beep),
             }
         )
         headers = values.of({})
@@ -512,20 +498,16 @@ class RecordingContext(InstanceContext):
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> RecordingInstance:
         """
         Update the RecordingInstance
 
         :param status:
         :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-        :param play_beep:
 
         :returns: The updated RecordingInstance
         """
-        payload, _, _ = self._update(
-            status=status, pause_behavior=pause_behavior, play_beep=play_beep
-        )
+        payload, _, _ = self._update(status=status, pause_behavior=pause_behavior)
         return RecordingInstance(
             self._version,
             payload,
@@ -538,19 +520,17 @@ class RecordingContext(InstanceContext):
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the RecordingInstance and return response metadata
 
         :param status:
         :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-        :param play_beep:
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._update(
-            status=status, pause_behavior=pause_behavior, play_beep=play_beep
+            status=status, pause_behavior=pause_behavior
         )
         instance = RecordingInstance(
             self._version,
@@ -565,7 +545,6 @@ class RecordingContext(InstanceContext):
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -578,7 +557,6 @@ class RecordingContext(InstanceContext):
             {
                 "Status": status,
                 "PauseBehavior": pause_behavior,
-                "PlayBeep": serialize.boolean_to_string(play_beep),
             }
         )
         headers = values.of({})
@@ -595,19 +573,17 @@ class RecordingContext(InstanceContext):
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> RecordingInstance:
         """
         Asynchronous coroutine to update the RecordingInstance
 
         :param status:
         :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-        :param play_beep:
 
         :returns: The updated RecordingInstance
         """
         payload, _, _ = await self._update_async(
-            status=status, pause_behavior=pause_behavior, play_beep=play_beep
+            status=status, pause_behavior=pause_behavior
         )
         return RecordingInstance(
             self._version,
@@ -621,19 +597,17 @@ class RecordingContext(InstanceContext):
         self,
         status: "RecordingInstance.Status",
         pause_behavior: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the RecordingInstance and return response metadata
 
         :param status:
         :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-        :param play_beep:
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._update_async(
-            status=status, pause_behavior=pause_behavior, play_beep=play_beep
+            status=status, pause_behavior=pause_behavior
         )
         instance = RecordingInstance(
             self._version,
@@ -697,228 +671,6 @@ class RecordingList(ListResource):
         self._uri = "/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings.json".format(
             **self._solution
         )
-
-    def _create(
-        self,
-        recording_status_callback_event: Union[List[str], object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        trim: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
-    ) -> tuple:
-        """
-        Internal helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-
-        data = values.of(
-            {
-                "RecordingStatusCallbackEvent": serialize.map(
-                    recording_status_callback_event, lambda e: e
-                ),
-                "RecordingStatusCallback": recording_status_callback,
-                "RecordingStatusCallbackMethod": recording_status_callback_method,
-                "Trim": trim,
-                "RecordingConfigurationId": recording_configuration_id,
-                "PlayBeep": serialize.boolean_to_string(play_beep),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        return self._version.create_with_response_info(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    def create(
-        self,
-        recording_status_callback_event: Union[List[str], object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        trim: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
-    ) -> RecordingInstance:
-        """
-        Create the RecordingInstance
-
-        :param recording_status_callback_event: The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
-        :param recording_status_callback: The URL we should call when the recording events specified in parameter `recording_status_callback_event` occur.
-        :param recording_status_callback_method: The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
-        :param trim: Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.
-        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
-        :param play_beep:
-
-        :returns: The created RecordingInstance
-        """
-        payload, _, _ = self._create(
-            recording_status_callback_event=recording_status_callback_event,
-            recording_status_callback=recording_status_callback,
-            recording_status_callback_method=recording_status_callback_method,
-            trim=trim,
-            recording_configuration_id=recording_configuration_id,
-            play_beep=play_beep,
-        )
-        return RecordingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-        )
-
-    def create_with_http_info(
-        self,
-        recording_status_callback_event: Union[List[str], object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        trim: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
-    ) -> ApiResponse:
-        """
-        Create the RecordingInstance and return response metadata
-
-        :param recording_status_callback_event: The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
-        :param recording_status_callback: The URL we should call when the recording events specified in parameter `recording_status_callback_event` occur.
-        :param recording_status_callback_method: The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
-        :param trim: Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.
-        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
-        :param play_beep:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = self._create(
-            recording_status_callback_event=recording_status_callback_event,
-            recording_status_callback=recording_status_callback,
-            recording_status_callback_method=recording_status_callback_method,
-            trim=trim,
-            recording_configuration_id=recording_configuration_id,
-            play_beep=play_beep,
-        )
-        instance = RecordingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    async def _create_async(
-        self,
-        recording_status_callback_event: Union[List[str], object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        trim: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
-    ) -> tuple:
-        """
-        Internal async helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-
-        data = values.of(
-            {
-                "RecordingStatusCallbackEvent": serialize.map(
-                    recording_status_callback_event, lambda e: e
-                ),
-                "RecordingStatusCallback": recording_status_callback,
-                "RecordingStatusCallbackMethod": recording_status_callback_method,
-                "Trim": trim,
-                "RecordingConfigurationId": recording_configuration_id,
-                "PlayBeep": serialize.boolean_to_string(play_beep),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        return await self._version.create_with_response_info_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    async def create_async(
-        self,
-        recording_status_callback_event: Union[List[str], object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        trim: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
-    ) -> RecordingInstance:
-        """
-        Asynchronously create the RecordingInstance
-
-        :param recording_status_callback_event: The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
-        :param recording_status_callback: The URL we should call when the recording events specified in parameter `recording_status_callback_event` occur.
-        :param recording_status_callback_method: The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
-        :param trim: Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.
-        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
-        :param play_beep:
-
-        :returns: The created RecordingInstance
-        """
-        payload, _, _ = await self._create_async(
-            recording_status_callback_event=recording_status_callback_event,
-            recording_status_callback=recording_status_callback,
-            recording_status_callback_method=recording_status_callback_method,
-            trim=trim,
-            recording_configuration_id=recording_configuration_id,
-            play_beep=play_beep,
-        )
-        return RecordingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-        )
-
-    async def create_with_http_info_async(
-        self,
-        recording_status_callback_event: Union[List[str], object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        trim: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
-        play_beep: Union[bool, object] = values.unset,
-    ) -> ApiResponse:
-        """
-        Asynchronously create the RecordingInstance and return response metadata
-
-        :param recording_status_callback_event: The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
-        :param recording_status_callback: The URL we should call when the recording events specified in parameter `recording_status_callback_event` occur.
-        :param recording_status_callback_method: The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
-        :param trim: Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.
-        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
-        :param play_beep:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = await self._create_async(
-            recording_status_callback_event=recording_status_callback_event,
-            recording_status_callback=recording_status_callback,
-            recording_status_callback_method=recording_status_callback_method,
-            trim=trim,
-            recording_configuration_id=recording_configuration_id,
-            play_beep=play_beep,
-        )
-        instance = RecordingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,

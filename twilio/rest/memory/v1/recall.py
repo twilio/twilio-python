@@ -34,7 +34,7 @@ class RecallInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.text,
+                "text": self.text,
             }
 
     class MemoryRetrievalRequest(object):
@@ -65,14 +65,14 @@ class RecallInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "conversation_id": self.conversation_id,
+                "conversationId": self.conversation_id,
                 "query": self.query,
-                "begin_date": self.begin_date,
-                "end_date": self.end_date,
-                "communications_limit": self.communications_limit,
-                "observations_limit": self.observations_limit,
-                "summaries_limit": self.summaries_limit,
-                "relevance_threshold": self.relevance_threshold,
+                "beginDate": self.begin_date,
+                "endDate": self.end_date,
+                "communicationsLimit": self.communications_limit,
+                "observationsLimit": self.observations_limit,
+                "summariesLimit": self.summaries_limit,
+                "relevanceThreshold": self.relevance_threshold,
             }
 
     class Participant(object):
@@ -88,19 +88,19 @@ class RecallInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
-            self.type: Optional["ParticipantType"] = payload.get("type")
+            self.type: Optional[ParticipantType] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profile_id")
             self.address: Optional[str] = payload.get("address")
             self.channel: Optional[str] = payload.get("channel")
 
         def to_dict(self):
             return {
-                "": self.id,
-                "": self.name,
-                "": self.type.to_dict() if self.type is not None else None,
-                "": self.profile_id,
-                "": self.address,
-                "": self.channel,
+                "id": self.id,
+                "name": self.name,
+                "type": self.type.to_dict() if self.type is not None else None,
+                "profileId": self.profile_id,
+                "address": self.address,
+                "channel": self.channel,
             }
 
     class ParticipantType(object):
@@ -258,7 +258,7 @@ class RecallContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.text,
+                "text": self.text,
             }
 
     class MemoryRetrievalRequest(object):
@@ -289,14 +289,14 @@ class RecallContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "conversation_id": self.conversation_id,
+                "conversationId": self.conversation_id,
                 "query": self.query,
-                "begin_date": self.begin_date,
-                "end_date": self.end_date,
-                "communications_limit": self.communications_limit,
-                "observations_limit": self.observations_limit,
-                "summaries_limit": self.summaries_limit,
-                "relevance_threshold": self.relevance_threshold,
+                "beginDate": self.begin_date,
+                "endDate": self.end_date,
+                "communicationsLimit": self.communications_limit,
+                "observationsLimit": self.observations_limit,
+                "summariesLimit": self.summaries_limit,
+                "relevanceThreshold": self.relevance_threshold,
             }
 
     class Participant(object):
@@ -312,19 +312,19 @@ class RecallContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
-            self.type: Optional["ParticipantType"] = payload.get("type")
+            self.type: Optional[ParticipantType] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profile_id")
             self.address: Optional[str] = payload.get("address")
             self.channel: Optional[str] = payload.get("channel")
 
         def to_dict(self):
             return {
-                "": self.id,
-                "": self.name,
-                "": self.type.to_dict() if self.type is not None else None,
-                "": self.profile_id,
-                "": self.address,
-                "": self.channel,
+                "id": self.id,
+                "name": self.name,
+                "type": self.type.to_dict() if self.type is not None else None,
+                "profileId": self.profile_id,
+                "address": self.address,
+                "channel": self.channel,
             }
 
     def __init__(self, version: Version, store_id: str, profile_id: str):
@@ -547,7 +547,7 @@ class RecallList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.text,
+                "text": self.text,
             }
 
     class MemoryRetrievalRequest(object):
@@ -578,14 +578,14 @@ class RecallList(ListResource):
 
         def to_dict(self):
             return {
-                "conversation_id": self.conversation_id,
+                "conversationId": self.conversation_id,
                 "query": self.query,
-                "begin_date": self.begin_date,
-                "end_date": self.end_date,
-                "communications_limit": self.communications_limit,
-                "observations_limit": self.observations_limit,
-                "summaries_limit": self.summaries_limit,
-                "relevance_threshold": self.relevance_threshold,
+                "beginDate": self.begin_date,
+                "endDate": self.end_date,
+                "communicationsLimit": self.communications_limit,
+                "observationsLimit": self.observations_limit,
+                "summariesLimit": self.summaries_limit,
+                "relevanceThreshold": self.relevance_threshold,
             }
 
     class Participant(object):
@@ -601,19 +601,19 @@ class RecallList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
             self.id: Optional[str] = payload.get("id")
             self.name: Optional[str] = payload.get("name")
-            self.type: Optional["ParticipantType"] = payload.get("type")
+            self.type: Optional[ParticipantType] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profile_id")
             self.address: Optional[str] = payload.get("address")
             self.channel: Optional[str] = payload.get("channel")
 
         def to_dict(self):
             return {
-                "": self.id,
-                "": self.name,
-                "": self.type.to_dict() if self.type is not None else None,
-                "": self.profile_id,
-                "": self.address,
-                "": self.channel,
+                "id": self.id,
+                "name": self.name,
+                "type": self.type.to_dict() if self.type is not None else None,
+                "profileId": self.profile_id,
+                "address": self.address,
+                "channel": self.channel,
             }
 
     def __init__(self, version: Version):

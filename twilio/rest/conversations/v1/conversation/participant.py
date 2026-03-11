@@ -985,7 +985,6 @@ class ParticipantList(ListResource):
         identity: Union[str, object] = values.unset,
         messaging_binding_address: Union[str, object] = values.unset,
         messaging_binding_proxy_address: Union[str, object] = values.unset,
-        messaging_binding_proxy_address_fallback: Union[str, object] = values.unset,
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
@@ -1004,7 +1003,6 @@ class ParticipantList(ListResource):
                 "Identity": identity,
                 "MessagingBinding.Address": messaging_binding_address,
                 "MessagingBinding.ProxyAddress": messaging_binding_proxy_address,
-                "MessagingBinding.ProxyAddressFallback": messaging_binding_proxy_address_fallback,
                 "DateCreated": serialize.iso8601_datetime(date_created),
                 "DateUpdated": serialize.iso8601_datetime(date_updated),
                 "Attributes": attributes,
@@ -1035,7 +1033,6 @@ class ParticipantList(ListResource):
         identity: Union[str, object] = values.unset,
         messaging_binding_address: Union[str, object] = values.unset,
         messaging_binding_proxy_address: Union[str, object] = values.unset,
-        messaging_binding_proxy_address_fallback: Union[str, object] = values.unset,
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
@@ -1049,7 +1046,6 @@ class ParticipantList(ListResource):
         :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
         :param messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-        :param messaging_binding_proxy_address_fallback: The address of the Twilio phone number to fall back to if it is determined that the Participant is unreachable at messaging_binding.address. Only SMS fallbacks are valid at this time.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -1063,7 +1059,6 @@ class ParticipantList(ListResource):
             identity=identity,
             messaging_binding_address=messaging_binding_address,
             messaging_binding_proxy_address=messaging_binding_proxy_address,
-            messaging_binding_proxy_address_fallback=messaging_binding_proxy_address_fallback,
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
@@ -1082,7 +1077,6 @@ class ParticipantList(ListResource):
         identity: Union[str, object] = values.unset,
         messaging_binding_address: Union[str, object] = values.unset,
         messaging_binding_proxy_address: Union[str, object] = values.unset,
-        messaging_binding_proxy_address_fallback: Union[str, object] = values.unset,
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
@@ -1096,7 +1090,6 @@ class ParticipantList(ListResource):
         :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
         :param messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-        :param messaging_binding_proxy_address_fallback: The address of the Twilio phone number to fall back to if it is determined that the Participant is unreachable at messaging_binding.address. Only SMS fallbacks are valid at this time.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -1110,7 +1103,6 @@ class ParticipantList(ListResource):
             identity=identity,
             messaging_binding_address=messaging_binding_address,
             messaging_binding_proxy_address=messaging_binding_proxy_address,
-            messaging_binding_proxy_address_fallback=messaging_binding_proxy_address_fallback,
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
@@ -1130,7 +1122,6 @@ class ParticipantList(ListResource):
         identity: Union[str, object] = values.unset,
         messaging_binding_address: Union[str, object] = values.unset,
         messaging_binding_proxy_address: Union[str, object] = values.unset,
-        messaging_binding_proxy_address_fallback: Union[str, object] = values.unset,
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
@@ -1149,7 +1140,6 @@ class ParticipantList(ListResource):
                 "Identity": identity,
                 "MessagingBinding.Address": messaging_binding_address,
                 "MessagingBinding.ProxyAddress": messaging_binding_proxy_address,
-                "MessagingBinding.ProxyAddressFallback": messaging_binding_proxy_address_fallback,
                 "DateCreated": serialize.iso8601_datetime(date_created),
                 "DateUpdated": serialize.iso8601_datetime(date_updated),
                 "Attributes": attributes,
@@ -1180,7 +1170,6 @@ class ParticipantList(ListResource):
         identity: Union[str, object] = values.unset,
         messaging_binding_address: Union[str, object] = values.unset,
         messaging_binding_proxy_address: Union[str, object] = values.unset,
-        messaging_binding_proxy_address_fallback: Union[str, object] = values.unset,
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
@@ -1194,7 +1183,6 @@ class ParticipantList(ListResource):
         :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
         :param messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-        :param messaging_binding_proxy_address_fallback: The address of the Twilio phone number to fall back to if it is determined that the Participant is unreachable at messaging_binding.address. Only SMS fallbacks are valid at this time.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -1208,7 +1196,6 @@ class ParticipantList(ListResource):
             identity=identity,
             messaging_binding_address=messaging_binding_address,
             messaging_binding_proxy_address=messaging_binding_proxy_address,
-            messaging_binding_proxy_address_fallback=messaging_binding_proxy_address_fallback,
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
@@ -1227,7 +1214,6 @@ class ParticipantList(ListResource):
         identity: Union[str, object] = values.unset,
         messaging_binding_address: Union[str, object] = values.unset,
         messaging_binding_proxy_address: Union[str, object] = values.unset,
-        messaging_binding_proxy_address_fallback: Union[str, object] = values.unset,
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
@@ -1241,7 +1227,6 @@ class ParticipantList(ListResource):
         :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
         :param messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-        :param messaging_binding_proxy_address_fallback: The address of the Twilio phone number to fall back to if it is determined that the Participant is unreachable at messaging_binding.address. Only SMS fallbacks are valid at this time.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -1255,7 +1240,6 @@ class ParticipantList(ListResource):
             identity=identity,
             messaging_binding_address=messaging_binding_address,
             messaging_binding_proxy_address=messaging_binding_proxy_address,
-            messaging_binding_proxy_address_fallback=messaging_binding_proxy_address_fallback,
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,

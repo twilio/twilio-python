@@ -39,9 +39,9 @@ class ConversationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class ConversationsV2StatusTimeouts(object):
@@ -56,8 +56,8 @@ class ConversationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConversationWithConfigRequest(object):
@@ -72,7 +72,7 @@ class ConversationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "configuration_id": self.configuration_id,
+                "configurationId": self.configuration_id,
                 "name": self.name,
             }
 
@@ -111,7 +111,7 @@ class ConversationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "intelligence_configuration_ids": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
 
     """
@@ -334,9 +334,9 @@ class ConversationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class ConversationsV2StatusTimeouts(object):
@@ -351,8 +351,8 @@ class ConversationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConversationWithConfigRequest(object):
@@ -367,7 +367,7 @@ class ConversationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "configuration_id": self.configuration_id,
+                "configurationId": self.configuration_id,
                 "name": self.name,
             }
 
@@ -406,7 +406,7 @@ class ConversationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "intelligence_configuration_ids": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
 
     def __init__(self, version: Version, sid: str):
@@ -755,9 +755,9 @@ class ConversationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class ConversationsV2StatusTimeouts(object):
@@ -772,8 +772,8 @@ class ConversationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConversationWithConfigRequest(object):
@@ -788,7 +788,7 @@ class ConversationList(ListResource):
 
         def to_dict(self):
             return {
-                "configuration_id": self.configuration_id,
+                "configurationId": self.configuration_id,
                 "name": self.name,
             }
 
@@ -827,7 +827,7 @@ class ConversationList(ListResource):
 
         def to_dict(self):
             return {
-                "intelligence_configuration_ids": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
 
     def __init__(self, version: Version):

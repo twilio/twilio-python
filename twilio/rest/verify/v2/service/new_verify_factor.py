@@ -47,8 +47,8 @@ class NewVerifyFactorInstance(InstanceResource):
         def to_dict(self):
             return {
                 "id": self.id,
-                "raw_id": self.raw_id,
-                "authenticator_attachment": self.authenticator_attachment,
+                "rawId": self.raw_id,
+                "authenticatorAttachment": self.authenticator_attachment,
                 "type": self.type,
                 "response": self.response.to_dict()
                 if self.response is not None
@@ -69,8 +69,8 @@ class NewVerifyFactorInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "attestation_object": self.attestation_object,
-                "client_data_json": self.client_data_json,
+                "attestationObject": self.attestation_object,
+                "clientDataJSON": self.client_data_json,
                 "transports": self.transports,
             }
 
@@ -149,8 +149,8 @@ class NewVerifyFactorList(ListResource):
         def to_dict(self):
             return {
                 "id": self.id,
-                "raw_id": self.raw_id,
-                "authenticator_attachment": self.authenticator_attachment,
+                "rawId": self.raw_id,
+                "authenticatorAttachment": self.authenticator_attachment,
                 "type": self.type,
                 "response": self.response.to_dict()
                 if self.response is not None
@@ -171,8 +171,8 @@ class NewVerifyFactorList(ListResource):
 
         def to_dict(self):
             return {
-                "attestation_object": self.attestation_object,
-                "client_data_json": self.client_data_json,
+                "attestationObject": self.attestation_object,
+                "clientDataJSON": self.client_data_json,
                 "transports": self.transports,
             }
 

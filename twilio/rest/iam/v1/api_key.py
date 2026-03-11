@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,6 +24,7 @@ from twilio.base.version import Version
 
 
 class ApiKeyInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Key resource.
     :ivar friendly_name: The string that you assigned to describe the resource.

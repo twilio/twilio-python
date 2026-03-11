@@ -22,9 +22,6 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.conversations.v1.conversation.message.channel_metadata import (
-    ChannelMetadataList,
-)
 from twilio.rest.conversations.v1.conversation.message.delivery_receipt import (
     DeliveryReceiptList,
 )
@@ -353,13 +350,6 @@ class MessageInstance(InstanceResource):
         )
 
     @property
-    def channel_metadata(self) -> ChannelMetadataList:
-        """
-        Access the channel_metadata
-        """
-        return self._proxy.channel_metadata
-
-    @property
     def delivery_receipts(self) -> DeliveryReceiptList:
         """
         Access the delivery_receipts
@@ -396,7 +386,6 @@ class MessageContext(InstanceContext):
             **self._solution
         )
 
-        self._channel_metadata: Optional[ChannelMetadataList] = None
         self._delivery_receipts: Optional[DeliveryReceiptList] = None
 
     def _delete(
@@ -872,19 +861,6 @@ class MessageContext(InstanceContext):
             sid=self._solution["sid"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    @property
-    def channel_metadata(self) -> ChannelMetadataList:
-        """
-        Access the channel_metadata
-        """
-        if self._channel_metadata is None:
-            self._channel_metadata = ChannelMetadataList(
-                self._version,
-                self._solution["conversation_sid"],
-                self._solution["sid"],
-            )
-        return self._channel_metadata
 
     @property
     def delivery_receipts(self) -> DeliveryReceiptList:

@@ -50,8 +50,6 @@ class RecordingInstance(InstanceResource):
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource.
     :ivar status: 
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-    :ivar date_deleted: 
-    :ivar date_updated: 
     :ivar sid: The unique string that we created to identify the Recording resource.
     :ivar source_sid: The SID of the recording source. For a Room Recording, this value is a `track_sid`.
     :ivar size: The size of the recorded track, in bytes.
@@ -66,7 +64,6 @@ class RecordingInstance(InstanceResource):
     :ivar media_external_location: The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
     :ivar status_callback: The URL called using the `status_callback_method` to send status information on every recording event.
     :ivar status_callback_method: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
-    :ivar encryption_key: 
     :ivar links: The URLs of related resources.
     """
 
@@ -79,12 +76,6 @@ class RecordingInstance(InstanceResource):
         self.status: Optional["RecordingInstance.Status"] = payload.get("status")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
-        )
-        self.date_deleted: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_deleted")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
         )
         self.sid: Optional[str] = payload.get("sid")
         self.source_sid: Optional[str] = payload.get("source_sid")
@@ -106,7 +97,6 @@ class RecordingInstance(InstanceResource):
         self.status_callback_method: Optional[str] = payload.get(
             "status_callback_method"
         )
-        self.encryption_key: Optional[str] = payload.get("encryption_key")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {

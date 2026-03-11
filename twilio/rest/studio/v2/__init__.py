@@ -15,7 +15,6 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.studio.v2.application import ApplicationList
 from twilio.rest.studio.v2.flow import FlowList
 from twilio.rest.studio.v2.flow_validate import FlowValidateList
 
@@ -28,15 +27,8 @@ class V2(Version):
         :param domain: The Twilio.studio domain
         """
         super().__init__(domain, "v2")
-        self._application: Optional[ApplicationList] = None
         self._flows: Optional[FlowList] = None
         self._flow_validate: Optional[FlowValidateList] = None
-
-    @property
-    def application(self) -> ApplicationList:
-        if self._application is None:
-            self._application = ApplicationList(self)
-        return self._application
 
     @property
     def flows(self) -> FlowList:

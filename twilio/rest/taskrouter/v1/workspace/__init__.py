@@ -61,9 +61,6 @@ class WorkspaceInstance(InstanceResource):
     :ivar prioritize_queue_order: 
     :ivar url: The absolute URL of the Workspace resource.
     :ivar links: The URLs of related resources.
-    :ivar default_operating_unit_sid: The SID of the default Operating Unit of the Workspace.
-    :ivar default_attention_profile_sid: The SID of the default Attention Profile of the Workspace.
-    :ivar attention_routing_enabled: Whether Attention Based Routing is enabled.
     """
 
     def __init__(
@@ -92,15 +89,6 @@ class WorkspaceInstance(InstanceResource):
         ] = payload.get("prioritize_queue_order")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
-        self.default_operating_unit_sid: Optional[str] = payload.get(
-            "default_operating_unit_sid"
-        )
-        self.default_attention_profile_sid: Optional[str] = payload.get(
-            "default_attention_profile_sid"
-        )
-        self.attention_routing_enabled: Optional[bool] = payload.get(
-            "attention_routing_enabled"
-        )
 
         self._solution = {
             "sid": sid or self.sid,
@@ -205,8 +193,6 @@ class WorkspaceInstance(InstanceResource):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> "WorkspaceInstance":
         """
         Update the WorkspaceInstance
@@ -218,8 +204,6 @@ class WorkspaceInstance(InstanceResource):
         :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
         :param prioritize_queue_order:
-        :param default_attention_profile_sid: The SID of the default Attention Profile of the Workspace.
-        :param attention_routing_enabled: Whether Attention Based Routing is enabled.
 
         :returns: The updated WorkspaceInstance
         """
@@ -231,8 +215,6 @@ class WorkspaceInstance(InstanceResource):
             multi_task_enabled=multi_task_enabled,
             timeout_activity_sid=timeout_activity_sid,
             prioritize_queue_order=prioritize_queue_order,
-            default_attention_profile_sid=default_attention_profile_sid,
-            attention_routing_enabled=attention_routing_enabled,
         )
 
     async def update_async(
@@ -246,8 +228,6 @@ class WorkspaceInstance(InstanceResource):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> "WorkspaceInstance":
         """
         Asynchronous coroutine to update the WorkspaceInstance
@@ -259,8 +239,6 @@ class WorkspaceInstance(InstanceResource):
         :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
         :param prioritize_queue_order:
-        :param default_attention_profile_sid: The SID of the default Attention Profile of the Workspace.
-        :param attention_routing_enabled: Whether Attention Based Routing is enabled.
 
         :returns: The updated WorkspaceInstance
         """
@@ -272,8 +250,6 @@ class WorkspaceInstance(InstanceResource):
             multi_task_enabled=multi_task_enabled,
             timeout_activity_sid=timeout_activity_sid,
             prioritize_queue_order=prioritize_queue_order,
-            default_attention_profile_sid=default_attention_profile_sid,
-            attention_routing_enabled=attention_routing_enabled,
         )
 
     def update_with_http_info(
@@ -287,8 +263,6 @@ class WorkspaceInstance(InstanceResource):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the WorkspaceInstance with HTTP info
@@ -300,8 +274,6 @@ class WorkspaceInstance(InstanceResource):
         :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
         :param prioritize_queue_order:
-        :param default_attention_profile_sid: The SID of the default Attention Profile of the Workspace.
-        :param attention_routing_enabled: Whether Attention Based Routing is enabled.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -313,8 +285,6 @@ class WorkspaceInstance(InstanceResource):
             multi_task_enabled=multi_task_enabled,
             timeout_activity_sid=timeout_activity_sid,
             prioritize_queue_order=prioritize_queue_order,
-            default_attention_profile_sid=default_attention_profile_sid,
-            attention_routing_enabled=attention_routing_enabled,
         )
 
     async def update_with_http_info_async(
@@ -328,8 +298,6 @@ class WorkspaceInstance(InstanceResource):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the WorkspaceInstance with HTTP info
@@ -341,8 +309,6 @@ class WorkspaceInstance(InstanceResource):
         :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
         :param prioritize_queue_order:
-        :param default_attention_profile_sid: The SID of the default Attention Profile of the Workspace.
-        :param attention_routing_enabled: Whether Attention Based Routing is enabled.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -354,8 +320,6 @@ class WorkspaceInstance(InstanceResource):
             multi_task_enabled=multi_task_enabled,
             timeout_activity_sid=timeout_activity_sid,
             prioritize_queue_order=prioritize_queue_order,
-            default_attention_profile_sid=default_attention_profile_sid,
-            attention_routing_enabled=attention_routing_enabled,
         )
 
     @property
@@ -634,8 +598,6 @@ class WorkspaceContext(InstanceContext):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for update operation
@@ -653,10 +615,6 @@ class WorkspaceContext(InstanceContext):
                 "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
                 "TimeoutActivitySid": timeout_activity_sid,
                 "PrioritizeQueueOrder": prioritize_queue_order,
-                "DefaultAttentionProfileSid": default_attention_profile_sid,
-                "AttentionRoutingEnabled": serialize.boolean_to_string(
-                    attention_routing_enabled
-                ),
             }
         )
         headers = values.of({})
@@ -680,8 +638,6 @@ class WorkspaceContext(InstanceContext):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> WorkspaceInstance:
         """
         Update the WorkspaceInstance
@@ -693,8 +649,6 @@ class WorkspaceContext(InstanceContext):
         :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
         :param prioritize_queue_order:
-        :param default_attention_profile_sid: The SID of the default Attention Profile of the Workspace.
-        :param attention_routing_enabled: Whether Attention Based Routing is enabled.
 
         :returns: The updated WorkspaceInstance
         """
@@ -706,8 +660,6 @@ class WorkspaceContext(InstanceContext):
             multi_task_enabled=multi_task_enabled,
             timeout_activity_sid=timeout_activity_sid,
             prioritize_queue_order=prioritize_queue_order,
-            default_attention_profile_sid=default_attention_profile_sid,
-            attention_routing_enabled=attention_routing_enabled,
         )
         return WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
 
@@ -722,8 +674,6 @@ class WorkspaceContext(InstanceContext):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the WorkspaceInstance and return response metadata
@@ -735,8 +685,6 @@ class WorkspaceContext(InstanceContext):
         :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
         :param prioritize_queue_order:
-        :param default_attention_profile_sid: The SID of the default Attention Profile of the Workspace.
-        :param attention_routing_enabled: Whether Attention Based Routing is enabled.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -748,8 +696,6 @@ class WorkspaceContext(InstanceContext):
             multi_task_enabled=multi_task_enabled,
             timeout_activity_sid=timeout_activity_sid,
             prioritize_queue_order=prioritize_queue_order,
-            default_attention_profile_sid=default_attention_profile_sid,
-            attention_routing_enabled=attention_routing_enabled,
         )
         instance = WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -765,8 +711,6 @@ class WorkspaceContext(InstanceContext):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -784,10 +728,6 @@ class WorkspaceContext(InstanceContext):
                 "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
                 "TimeoutActivitySid": timeout_activity_sid,
                 "PrioritizeQueueOrder": prioritize_queue_order,
-                "DefaultAttentionProfileSid": default_attention_profile_sid,
-                "AttentionRoutingEnabled": serialize.boolean_to_string(
-                    attention_routing_enabled
-                ),
             }
         )
         headers = values.of({})
@@ -811,8 +751,6 @@ class WorkspaceContext(InstanceContext):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> WorkspaceInstance:
         """
         Asynchronous coroutine to update the WorkspaceInstance
@@ -824,8 +762,6 @@ class WorkspaceContext(InstanceContext):
         :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
         :param prioritize_queue_order:
-        :param default_attention_profile_sid: The SID of the default Attention Profile of the Workspace.
-        :param attention_routing_enabled: Whether Attention Based Routing is enabled.
 
         :returns: The updated WorkspaceInstance
         """
@@ -837,8 +773,6 @@ class WorkspaceContext(InstanceContext):
             multi_task_enabled=multi_task_enabled,
             timeout_activity_sid=timeout_activity_sid,
             prioritize_queue_order=prioritize_queue_order,
-            default_attention_profile_sid=default_attention_profile_sid,
-            attention_routing_enabled=attention_routing_enabled,
         )
         return WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
 
@@ -853,8 +787,6 @@ class WorkspaceContext(InstanceContext):
         prioritize_queue_order: Union[
             "WorkspaceInstance.QueueOrder", object
         ] = values.unset,
-        default_attention_profile_sid: Union[str, object] = values.unset,
-        attention_routing_enabled: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the WorkspaceInstance and return response metadata
@@ -866,8 +798,6 @@ class WorkspaceContext(InstanceContext):
         :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
         :param prioritize_queue_order:
-        :param default_attention_profile_sid: The SID of the default Attention Profile of the Workspace.
-        :param attention_routing_enabled: Whether Attention Based Routing is enabled.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -879,8 +809,6 @@ class WorkspaceContext(InstanceContext):
             multi_task_enabled=multi_task_enabled,
             timeout_activity_sid=timeout_activity_sid,
             prioritize_queue_order=prioritize_queue_order,
-            default_attention_profile_sid=default_attention_profile_sid,
-            attention_routing_enabled=attention_routing_enabled,
         )
         instance = WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)

@@ -37,7 +37,7 @@ class EventInstance(InstanceResource):
         def to_dict(self):
             return {
                 "address": self.address,
-                "participant_id": self.participant_id,
+                "participantId": self.participant_id,
             }
 
     class CommunicationLifecycleEventSender(object):
@@ -53,7 +53,7 @@ class EventInstance(InstanceResource):
         def to_dict(self):
             return {
                 "address": self.address,
-                "participant_id": self.participant_id,
+                "participantId": self.participant_id,
             }
 
     class ProfileEventRequest(object):
@@ -114,17 +114,17 @@ class EventInstance(InstanceResource):
             return {
                 "timestamp": self.timestamp,
                 "lifecycle": self.lifecycle,
-                "conversation_id": self.conversation_id,
-                "communication_id": self.communication_id,
-                "communication_type": self.communication_type,
-                "communication_status": self.communication_status,
+                "conversationId": self.conversation_id,
+                "communicationId": self.communication_id,
+                "communicationType": self.communication_type,
+                "communicationStatus": self.communication_status,
                 "direction": self.direction,
                 "sender": self.sender.to_dict() if self.sender is not None else None,
                 "recipient": self.recipient.to_dict()
                 if self.recipient is not None
                 else None,
-                "error_code": self.error_code,
-                "error_message": self.error_message,
+                "errorCode": self.error_code,
+                "errorMessage": self.error_message,
             }
 
     """
@@ -244,7 +244,7 @@ class EventContext(InstanceContext):
         def to_dict(self):
             return {
                 "address": self.address,
-                "participant_id": self.participant_id,
+                "participantId": self.participant_id,
             }
 
     class CommunicationLifecycleEventSender(object):
@@ -260,7 +260,7 @@ class EventContext(InstanceContext):
         def to_dict(self):
             return {
                 "address": self.address,
-                "participant_id": self.participant_id,
+                "participantId": self.participant_id,
             }
 
     class ProfileEventRequest(object):
@@ -321,17 +321,17 @@ class EventContext(InstanceContext):
             return {
                 "timestamp": self.timestamp,
                 "lifecycle": self.lifecycle,
-                "conversation_id": self.conversation_id,
-                "communication_id": self.communication_id,
-                "communication_type": self.communication_type,
-                "communication_status": self.communication_status,
+                "conversationId": self.conversation_id,
+                "communicationId": self.communication_id,
+                "communicationType": self.communication_type,
+                "communicationStatus": self.communication_status,
                 "direction": self.direction,
                 "sender": self.sender.to_dict() if self.sender is not None else None,
                 "recipient": self.recipient.to_dict()
                 if self.recipient is not None
                 else None,
-                "error_code": self.error_code,
-                "error_message": self.error_message,
+                "errorCode": self.error_code,
+                "errorMessage": self.error_message,
             }
 
     def __init__(self, version: Version, store_id: str, profile_id: str):
@@ -499,7 +499,7 @@ class EventList(ListResource):
         def to_dict(self):
             return {
                 "address": self.address,
-                "participant_id": self.participant_id,
+                "participantId": self.participant_id,
             }
 
     class CommunicationLifecycleEventSender(object):
@@ -515,7 +515,7 @@ class EventList(ListResource):
         def to_dict(self):
             return {
                 "address": self.address,
-                "participant_id": self.participant_id,
+                "participantId": self.participant_id,
             }
 
     class ProfileEventRequest(object):
@@ -576,17 +576,17 @@ class EventList(ListResource):
             return {
                 "timestamp": self.timestamp,
                 "lifecycle": self.lifecycle,
-                "conversation_id": self.conversation_id,
-                "communication_id": self.communication_id,
-                "communication_type": self.communication_type,
-                "communication_status": self.communication_status,
+                "conversationId": self.conversation_id,
+                "communicationId": self.communication_id,
+                "communicationType": self.communication_type,
+                "communicationStatus": self.communication_status,
                 "direction": self.direction,
                 "sender": self.sender.to_dict() if self.sender is not None else None,
                 "recipient": self.recipient.to_dict()
                 if self.recipient is not None
                 else None,
-                "error_code": self.error_code,
-                "error_message": self.error_message,
+                "errorCode": self.error_code,
+                "errorMessage": self.error_message,
             }
 
     def __init__(self, version: Version):

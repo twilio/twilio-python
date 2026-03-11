@@ -125,7 +125,7 @@ class IdentifierInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
+                "idType": self.id_type,
                 "value": self.value,
             }
 
@@ -143,9 +143,9 @@ class IdentifierInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
-                "old_value": self.old_value,
-                "new_value": self.new_value,
+                "idType": self.id_type,
+                "oldValue": self.old_value,
+                "newValue": self.new_value,
             }
 
     """
@@ -401,7 +401,7 @@ class IdentifierContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
+                "idType": self.id_type,
                 "value": self.value,
             }
 
@@ -419,9 +419,9 @@ class IdentifierContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
-                "old_value": self.old_value,
-                "new_value": self.new_value,
+                "idType": self.id_type,
+                "oldValue": self.old_value,
+                "newValue": self.new_value,
             }
 
     def __init__(self, version: Version, store_id: str, profile_id: str, id_type: str):
@@ -906,7 +906,7 @@ class IdentifierList(ListResource):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
+                "idType": self.id_type,
                 "value": self.value,
             }
 
@@ -924,9 +924,9 @@ class IdentifierList(ListResource):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
-                "old_value": self.old_value,
-                "new_value": self.new_value,
+                "idType": self.id_type,
+                "oldValue": self.old_value,
+                "newValue": self.new_value,
             }
 
     def __init__(self, version: Version):

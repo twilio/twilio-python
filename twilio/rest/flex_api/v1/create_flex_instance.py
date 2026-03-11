@@ -36,7 +36,7 @@ class CreateFlexInstanceInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "conversation": self.conversation.to_dict()
+                "Conversation": self.conversation.to_dict()
                 if self.conversation is not None
                 else None,
             }
@@ -51,7 +51,7 @@ class CreateFlexInstanceInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "default": self.default,
+                "Default": self.default,
             }
 
     """
@@ -182,7 +182,7 @@ class CreateFlexInstanceContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "conversation": self.conversation.to_dict()
+                "Conversation": self.conversation.to_dict()
                 if self.conversation is not None
                 else None,
             }
@@ -197,7 +197,7 @@ class CreateFlexInstanceContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "default": self.default,
+                "Default": self.default,
             }
 
     def __init__(self, version: Version):
@@ -355,7 +355,7 @@ class CreateFlexInstanceList(ListResource):
 
         def to_dict(self):
             return {
-                "conversation": self.conversation.to_dict()
+                "Conversation": self.conversation.to_dict()
                 if self.conversation is not None
                 else None,
             }
@@ -370,7 +370,7 @@ class CreateFlexInstanceList(ListResource):
 
         def to_dict(self):
             return {
-                "default": self.default,
+                "Default": self.default,
             }
 
     def __init__(self, version: Version):

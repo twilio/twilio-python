@@ -67,7 +67,6 @@ class ReservationInstance(InstanceResource):
     :ivar workspace_sid: The SID of the Workspace that this task is contained within.
     :ivar url: The absolute URL of the TaskReservation reservation.
     :ivar links: The URLs of related resources.
-    :ivar attention: The attention consumed for the reservation.
     """
 
     def __init__(
@@ -97,7 +96,6 @@ class ReservationInstance(InstanceResource):
         self.workspace_sid: Optional[str] = payload.get("workspace_sid")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
-        self.attention: Optional[int] = deserialize.integer(payload.get("attention"))
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -221,8 +219,6 @@ class ReservationInstance(InstanceResource):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> "ReservationInstance":
         """
@@ -282,8 +278,6 @@ class ReservationInstance(InstanceResource):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param transcribe: Whether to transcribe the call recording. The default is `false`.
-        :param transcription_configuration: The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
         :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
@@ -343,8 +337,6 @@ class ReservationInstance(InstanceResource):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            transcribe=transcribe,
-            transcription_configuration=transcription_configuration,
             jitter_buffer_size=jitter_buffer_size,
         )
 
@@ -410,8 +402,6 @@ class ReservationInstance(InstanceResource):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> "ReservationInstance":
         """
@@ -471,8 +461,6 @@ class ReservationInstance(InstanceResource):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param transcribe: Whether to transcribe the call recording. The default is `false`.
-        :param transcription_configuration: The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
         :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
@@ -532,8 +520,6 @@ class ReservationInstance(InstanceResource):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            transcribe=transcribe,
-            transcription_configuration=transcription_configuration,
             jitter_buffer_size=jitter_buffer_size,
         )
 
@@ -599,8 +585,6 @@ class ReservationInstance(InstanceResource):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
@@ -660,8 +644,6 @@ class ReservationInstance(InstanceResource):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param transcribe: Whether to transcribe the call recording. The default is `false`.
-        :param transcription_configuration: The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
         :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: ApiResponse with instance, status code, and headers
@@ -721,8 +703,6 @@ class ReservationInstance(InstanceResource):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            transcribe=transcribe,
-            transcription_configuration=transcription_configuration,
             jitter_buffer_size=jitter_buffer_size,
         )
 
@@ -788,8 +768,6 @@ class ReservationInstance(InstanceResource):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
@@ -849,8 +827,6 @@ class ReservationInstance(InstanceResource):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param transcribe: Whether to transcribe the call recording. The default is `false`.
-        :param transcription_configuration: The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
         :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: ApiResponse with instance, status code, and headers
@@ -910,8 +886,6 @@ class ReservationInstance(InstanceResource):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            transcribe=transcribe,
-            transcription_configuration=transcription_configuration,
             jitter_buffer_size=jitter_buffer_size,
         )
 
@@ -1109,8 +1083,6 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> tuple:
         """
@@ -1189,8 +1161,6 @@ class ReservationContext(InstanceContext):
                 "BeepOnCustomerEntrance": serialize.boolean_to_string(
                     beep_on_customer_entrance
                 ),
-                "Transcribe": serialize.boolean_to_string(transcribe),
-                "TranscriptionConfiguration": transcription_configuration,
                 "JitterBufferSize": jitter_buffer_size,
             }
         )
@@ -1271,8 +1241,6 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ReservationInstance:
         """
@@ -1332,8 +1300,6 @@ class ReservationContext(InstanceContext):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param transcribe: Whether to transcribe the call recording. The default is `false`.
-        :param transcription_configuration: The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
         :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
@@ -1393,8 +1359,6 @@ class ReservationContext(InstanceContext):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            transcribe=transcribe,
-            transcription_configuration=transcription_configuration,
             jitter_buffer_size=jitter_buffer_size,
         )
         return ReservationInstance(
@@ -1467,8 +1431,6 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
@@ -1528,8 +1490,6 @@ class ReservationContext(InstanceContext):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param transcribe: Whether to transcribe the call recording. The default is `false`.
-        :param transcription_configuration: The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
         :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: ApiResponse with instance, status code, and headers
@@ -1589,8 +1549,6 @@ class ReservationContext(InstanceContext):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            transcribe=transcribe,
-            transcription_configuration=transcription_configuration,
             jitter_buffer_size=jitter_buffer_size,
         )
         instance = ReservationInstance(
@@ -1664,8 +1622,6 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> tuple:
         """
@@ -1744,8 +1700,6 @@ class ReservationContext(InstanceContext):
                 "BeepOnCustomerEntrance": serialize.boolean_to_string(
                     beep_on_customer_entrance
                 ),
-                "Transcribe": serialize.boolean_to_string(transcribe),
-                "TranscriptionConfiguration": transcription_configuration,
                 "JitterBufferSize": jitter_buffer_size,
             }
         )
@@ -1826,8 +1780,6 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ReservationInstance:
         """
@@ -1887,8 +1839,6 @@ class ReservationContext(InstanceContext):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param transcribe: Whether to transcribe the call recording. The default is `false`.
-        :param transcription_configuration: The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
         :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
@@ -1948,8 +1898,6 @@ class ReservationContext(InstanceContext):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            transcribe=transcribe,
-            transcription_configuration=transcription_configuration,
             jitter_buffer_size=jitter_buffer_size,
         )
         return ReservationInstance(
@@ -2022,8 +1970,6 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        transcribe: Union[bool, object] = values.unset,
-        transcription_configuration: Union[str, object] = values.unset,
         jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
@@ -2083,8 +2029,6 @@ class ReservationContext(InstanceContext):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param transcribe: Whether to transcribe the call recording. The default is `false`.
-        :param transcription_configuration: The SID or (unique) friendly name of the transcription configuration object to use for transcribing.
         :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: ApiResponse with instance, status code, and headers
@@ -2144,8 +2088,6 @@ class ReservationContext(InstanceContext):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            transcribe=transcribe,
-            transcription_configuration=transcription_configuration,
             jitter_buffer_size=jitter_buffer_size,
         )
         instance = ReservationInstance(

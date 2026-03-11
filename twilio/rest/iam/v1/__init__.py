@@ -15,7 +15,11 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.iam.v1.self import SelfList
+from twilio.rest.iam.v1.api_key import ApiKeyList
+from twilio.rest.iam.v1.get_api_keys import GetApiKeysList
+from twilio.rest.iam.v1.new_api_key import NewApiKeyList
+from twilio.rest.iam.v1.o_auth_app import OAuthAppList
+from twilio.rest.iam.v1.token import TokenList
 
 
 class V1(Version):
@@ -26,13 +30,41 @@ class V1(Version):
         :param domain: The Twilio.iam domain
         """
         super().__init__(domain, "v1")
-        self._self: Optional[SelfList] = None
+        self._api_key: Optional[ApiKeyList] = None
+        self._get_api_keys: Optional[GetApiKeysList] = None
+        self._new_api_key: Optional[NewApiKeyList] = None
+        self._o_auth_apps: Optional[OAuthAppList] = None
+        self._token: Optional[TokenList] = None
 
     @property
-    def self(self) -> SelfList:
-        if self._self is None:
-            self._self = SelfList(self)
-        return self._self
+    def api_key(self) -> ApiKeyList:
+        if self._api_key is None:
+            self._api_key = ApiKeyList(self)
+        return self._api_key
+
+    @property
+    def get_api_keys(self) -> GetApiKeysList:
+        if self._get_api_keys is None:
+            self._get_api_keys = GetApiKeysList(self)
+        return self._get_api_keys
+
+    @property
+    def new_api_key(self) -> NewApiKeyList:
+        if self._new_api_key is None:
+            self._new_api_key = NewApiKeyList(self)
+        return self._new_api_key
+
+    @property
+    def o_auth_apps(self) -> OAuthAppList:
+        if self._o_auth_apps is None:
+            self._o_auth_apps = OAuthAppList(self)
+        return self._o_auth_apps
+
+    @property
+    def token(self) -> TokenList:
+        if self._token is None:
+            self._token = TokenList(self)
+        return self._token
 
     def __repr__(self) -> str:
         """

@@ -60,7 +60,6 @@ class TaskQueueInstance(InstanceResource):
     :ivar url: The absolute URL of the TaskQueue resource.
     :ivar workspace_sid: The SID of the Workspace that contains the TaskQueue.
     :ivar links: The URLs of related resources.
-    :ivar operating_unit_sid: The SID of the Operating Unit that contains the TaskQueue.
     """
 
     def __init__(
@@ -103,7 +102,6 @@ class TaskQueueInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
         self.workspace_sid: Optional[str] = payload.get("workspace_sid")
         self.links: Optional[Dict[str, object]] = payload.get("links")
-        self.operating_unit_sid: Optional[str] = payload.get("operating_unit_sid")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -207,7 +205,6 @@ class TaskQueueInstance(InstanceResource):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> "TaskQueueInstance":
         """
         Update the TaskQueueInstance
@@ -218,7 +215,6 @@ class TaskQueueInstance(InstanceResource):
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
         :param task_order:
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to update.
 
         :returns: The updated TaskQueueInstance
         """
@@ -229,7 +225,6 @@ class TaskQueueInstance(InstanceResource):
             assignment_activity_sid=assignment_activity_sid,
             max_reserved_workers=max_reserved_workers,
             task_order=task_order,
-            operating_unit_sid=operating_unit_sid,
         )
 
     async def update_async(
@@ -240,7 +235,6 @@ class TaskQueueInstance(InstanceResource):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> "TaskQueueInstance":
         """
         Asynchronous coroutine to update the TaskQueueInstance
@@ -251,7 +245,6 @@ class TaskQueueInstance(InstanceResource):
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
         :param task_order:
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to update.
 
         :returns: The updated TaskQueueInstance
         """
@@ -262,7 +255,6 @@ class TaskQueueInstance(InstanceResource):
             assignment_activity_sid=assignment_activity_sid,
             max_reserved_workers=max_reserved_workers,
             task_order=task_order,
-            operating_unit_sid=operating_unit_sid,
         )
 
     def update_with_http_info(
@@ -273,7 +265,6 @@ class TaskQueueInstance(InstanceResource):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the TaskQueueInstance with HTTP info
@@ -284,7 +275,6 @@ class TaskQueueInstance(InstanceResource):
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
         :param task_order:
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to update.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -295,7 +285,6 @@ class TaskQueueInstance(InstanceResource):
             assignment_activity_sid=assignment_activity_sid,
             max_reserved_workers=max_reserved_workers,
             task_order=task_order,
-            operating_unit_sid=operating_unit_sid,
         )
 
     async def update_with_http_info_async(
@@ -306,7 +295,6 @@ class TaskQueueInstance(InstanceResource):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the TaskQueueInstance with HTTP info
@@ -317,7 +305,6 @@ class TaskQueueInstance(InstanceResource):
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
         :param task_order:
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to update.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -328,7 +315,6 @@ class TaskQueueInstance(InstanceResource):
             assignment_activity_sid=assignment_activity_sid,
             max_reserved_workers=max_reserved_workers,
             task_order=task_order,
-            operating_unit_sid=operating_unit_sid,
         )
 
     @property
@@ -556,7 +542,6 @@ class TaskQueueContext(InstanceContext):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for update operation
@@ -573,7 +558,6 @@ class TaskQueueContext(InstanceContext):
                 "AssignmentActivitySid": assignment_activity_sid,
                 "MaxReservedWorkers": max_reserved_workers,
                 "TaskOrder": task_order,
-                "OperatingUnitSid": operating_unit_sid,
             }
         )
         headers = values.of({})
@@ -594,7 +578,6 @@ class TaskQueueContext(InstanceContext):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> TaskQueueInstance:
         """
         Update the TaskQueueInstance
@@ -605,7 +588,6 @@ class TaskQueueContext(InstanceContext):
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
         :param task_order:
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to update.
 
         :returns: The updated TaskQueueInstance
         """
@@ -616,7 +598,6 @@ class TaskQueueContext(InstanceContext):
             assignment_activity_sid=assignment_activity_sid,
             max_reserved_workers=max_reserved_workers,
             task_order=task_order,
-            operating_unit_sid=operating_unit_sid,
         )
         return TaskQueueInstance(
             self._version,
@@ -633,7 +614,6 @@ class TaskQueueContext(InstanceContext):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the TaskQueueInstance and return response metadata
@@ -644,7 +624,6 @@ class TaskQueueContext(InstanceContext):
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
         :param task_order:
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to update.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -655,7 +634,6 @@ class TaskQueueContext(InstanceContext):
             assignment_activity_sid=assignment_activity_sid,
             max_reserved_workers=max_reserved_workers,
             task_order=task_order,
-            operating_unit_sid=operating_unit_sid,
         )
         instance = TaskQueueInstance(
             self._version,
@@ -673,7 +651,6 @@ class TaskQueueContext(InstanceContext):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -690,7 +667,6 @@ class TaskQueueContext(InstanceContext):
                 "AssignmentActivitySid": assignment_activity_sid,
                 "MaxReservedWorkers": max_reserved_workers,
                 "TaskOrder": task_order,
-                "OperatingUnitSid": operating_unit_sid,
             }
         )
         headers = values.of({})
@@ -711,7 +687,6 @@ class TaskQueueContext(InstanceContext):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> TaskQueueInstance:
         """
         Asynchronous coroutine to update the TaskQueueInstance
@@ -722,7 +697,6 @@ class TaskQueueContext(InstanceContext):
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
         :param task_order:
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to update.
 
         :returns: The updated TaskQueueInstance
         """
@@ -733,7 +707,6 @@ class TaskQueueContext(InstanceContext):
             assignment_activity_sid=assignment_activity_sid,
             max_reserved_workers=max_reserved_workers,
             task_order=task_order,
-            operating_unit_sid=operating_unit_sid,
         )
         return TaskQueueInstance(
             self._version,
@@ -750,7 +723,6 @@ class TaskQueueContext(InstanceContext):
         assignment_activity_sid: Union[str, object] = values.unset,
         max_reserved_workers: Union[int, object] = values.unset,
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the TaskQueueInstance and return response metadata
@@ -761,7 +733,6 @@ class TaskQueueContext(InstanceContext):
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
         :param task_order:
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to update.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -772,7 +743,6 @@ class TaskQueueContext(InstanceContext):
             assignment_activity_sid=assignment_activity_sid,
             max_reserved_workers=max_reserved_workers,
             task_order=task_order,
-            operating_unit_sid=operating_unit_sid,
         )
         instance = TaskQueueInstance(
             self._version,
@@ -881,7 +851,6 @@ class TaskQueueList(ListResource):
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
         reservation_activity_sid: Union[str, object] = values.unset,
         assignment_activity_sid: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -898,7 +867,6 @@ class TaskQueueList(ListResource):
                 "TaskOrder": task_order,
                 "ReservationActivitySid": reservation_activity_sid,
                 "AssignmentActivitySid": assignment_activity_sid,
-                "OperatingUnitSid": operating_unit_sid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -919,7 +887,6 @@ class TaskQueueList(ListResource):
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
         reservation_activity_sid: Union[str, object] = values.unset,
         assignment_activity_sid: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> TaskQueueInstance:
         """
         Create the TaskQueueInstance
@@ -930,7 +897,6 @@ class TaskQueueList(ListResource):
         :param task_order:
         :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
-        :param operating_unit_sid: The SID of the Operating Unit that the new TaskQueue belongs to.
 
         :returns: The created TaskQueueInstance
         """
@@ -941,7 +907,6 @@ class TaskQueueList(ListResource):
             task_order=task_order,
             reservation_activity_sid=reservation_activity_sid,
             assignment_activity_sid=assignment_activity_sid,
-            operating_unit_sid=operating_unit_sid,
         )
         return TaskQueueInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -955,7 +920,6 @@ class TaskQueueList(ListResource):
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
         reservation_activity_sid: Union[str, object] = values.unset,
         assignment_activity_sid: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the TaskQueueInstance and return response metadata
@@ -966,7 +930,6 @@ class TaskQueueList(ListResource):
         :param task_order:
         :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
-        :param operating_unit_sid: The SID of the Operating Unit that the new TaskQueue belongs to.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -977,7 +940,6 @@ class TaskQueueList(ListResource):
             task_order=task_order,
             reservation_activity_sid=reservation_activity_sid,
             assignment_activity_sid=assignment_activity_sid,
-            operating_unit_sid=operating_unit_sid,
         )
         instance = TaskQueueInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -992,7 +954,6 @@ class TaskQueueList(ListResource):
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
         reservation_activity_sid: Union[str, object] = values.unset,
         assignment_activity_sid: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -1009,7 +970,6 @@ class TaskQueueList(ListResource):
                 "TaskOrder": task_order,
                 "ReservationActivitySid": reservation_activity_sid,
                 "AssignmentActivitySid": assignment_activity_sid,
-                "OperatingUnitSid": operating_unit_sid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -1030,7 +990,6 @@ class TaskQueueList(ListResource):
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
         reservation_activity_sid: Union[str, object] = values.unset,
         assignment_activity_sid: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> TaskQueueInstance:
         """
         Asynchronously create the TaskQueueInstance
@@ -1041,7 +1000,6 @@ class TaskQueueList(ListResource):
         :param task_order:
         :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
-        :param operating_unit_sid: The SID of the Operating Unit that the new TaskQueue belongs to.
 
         :returns: The created TaskQueueInstance
         """
@@ -1052,7 +1010,6 @@ class TaskQueueList(ListResource):
             task_order=task_order,
             reservation_activity_sid=reservation_activity_sid,
             assignment_activity_sid=assignment_activity_sid,
-            operating_unit_sid=operating_unit_sid,
         )
         return TaskQueueInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -1066,7 +1023,6 @@ class TaskQueueList(ListResource):
         task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
         reservation_activity_sid: Union[str, object] = values.unset,
         assignment_activity_sid: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the TaskQueueInstance and return response metadata
@@ -1077,7 +1033,6 @@ class TaskQueueList(ListResource):
         :param task_order:
         :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
         :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
-        :param operating_unit_sid: The SID of the Operating Unit that the new TaskQueue belongs to.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -1088,7 +1043,6 @@ class TaskQueueList(ListResource):
             task_order=task_order,
             reservation_activity_sid=reservation_activity_sid,
             assignment_activity_sid=assignment_activity_sid,
-            operating_unit_sid=operating_unit_sid,
         )
         instance = TaskQueueInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -1101,7 +1055,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[TaskQueueInstance]:
@@ -1115,7 +1068,6 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param str operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1131,7 +1083,6 @@ class TaskQueueList(ListResource):
             evaluate_worker_attributes=evaluate_worker_attributes,
             worker_sid=worker_sid,
             ordering=ordering,
-            operating_unit_sid=operating_unit_sid,
             page_size=limits["page_size"],
         )
 
@@ -1143,7 +1094,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[TaskQueueInstance]:
@@ -1157,7 +1107,6 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param str operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1173,7 +1122,6 @@ class TaskQueueList(ListResource):
             evaluate_worker_attributes=evaluate_worker_attributes,
             worker_sid=worker_sid,
             ordering=ordering,
-            operating_unit_sid=operating_unit_sid,
             page_size=limits["page_size"],
         )
 
@@ -1185,7 +1133,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -1197,7 +1144,6 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param str operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1213,7 +1159,6 @@ class TaskQueueList(ListResource):
             evaluate_worker_attributes=evaluate_worker_attributes,
             worker_sid=worker_sid,
             ordering=ordering,
-            operating_unit_sid=operating_unit_sid,
             page_size=limits["page_size"],
         )
 
@@ -1226,7 +1171,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -1238,7 +1182,6 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param str operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1254,7 +1197,6 @@ class TaskQueueList(ListResource):
             evaluate_worker_attributes=evaluate_worker_attributes,
             worker_sid=worker_sid,
             ordering=ordering,
-            operating_unit_sid=operating_unit_sid,
             page_size=limits["page_size"],
         )
 
@@ -1267,7 +1209,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TaskQueueInstance]:
@@ -1280,7 +1221,6 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param str operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1296,7 +1236,6 @@ class TaskQueueList(ListResource):
                 evaluate_worker_attributes=evaluate_worker_attributes,
                 worker_sid=worker_sid,
                 ordering=ordering,
-                operating_unit_sid=operating_unit_sid,
                 limit=limit,
                 page_size=page_size,
             )
@@ -1308,7 +1247,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TaskQueueInstance]:
@@ -1321,7 +1259,6 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param str operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1338,7 +1275,6 @@ class TaskQueueList(ListResource):
                 evaluate_worker_attributes=evaluate_worker_attributes,
                 worker_sid=worker_sid,
                 ordering=ordering,
-                operating_unit_sid=operating_unit_sid,
                 limit=limit,
                 page_size=page_size,
             )
@@ -1350,7 +1286,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -1362,7 +1297,6 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param str operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1377,7 +1311,6 @@ class TaskQueueList(ListResource):
             evaluate_worker_attributes=evaluate_worker_attributes,
             worker_sid=worker_sid,
             ordering=ordering,
-            operating_unit_sid=operating_unit_sid,
             limit=limit,
             page_size=page_size,
         )
@@ -1390,7 +1323,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -1402,7 +1334,6 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param str operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1417,7 +1348,6 @@ class TaskQueueList(ListResource):
             evaluate_worker_attributes=evaluate_worker_attributes,
             worker_sid=worker_sid,
             ordering=ordering,
-            operating_unit_sid=operating_unit_sid,
             limit=limit,
             page_size=page_size,
         )
@@ -1430,7 +1360,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1443,7 +1372,6 @@ class TaskQueueList(ListResource):
         :param evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param ordering: Sorting parameter for TaskQueues
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1456,7 +1384,6 @@ class TaskQueueList(ListResource):
                 "EvaluateWorkerAttributes": evaluate_worker_attributes,
                 "WorkerSid": worker_sid,
                 "Ordering": ordering,
-                "OperatingUnitSid": operating_unit_sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1478,7 +1405,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1491,7 +1417,6 @@ class TaskQueueList(ListResource):
         :param evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param ordering: Sorting parameter for TaskQueues
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1504,7 +1429,6 @@ class TaskQueueList(ListResource):
                 "EvaluateWorkerAttributes": evaluate_worker_attributes,
                 "WorkerSid": worker_sid,
                 "Ordering": ordering,
-                "OperatingUnitSid": operating_unit_sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1526,7 +1450,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1539,7 +1462,6 @@ class TaskQueueList(ListResource):
         :param evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param ordering: Sorting parameter for TaskQueues
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1552,7 +1474,6 @@ class TaskQueueList(ListResource):
                 "EvaluateWorkerAttributes": evaluate_worker_attributes,
                 "WorkerSid": worker_sid,
                 "Ordering": ordering,
-                "OperatingUnitSid": operating_unit_sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1575,7 +1496,6 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        operating_unit_sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1588,7 +1508,6 @@ class TaskQueueList(ListResource):
         :param evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param ordering: Sorting parameter for TaskQueues
-        :param operating_unit_sid: The SID of the Operating Unit with the TaskQueue to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1601,7 +1520,6 @@ class TaskQueueList(ListResource):
                 "EvaluateWorkerAttributes": evaluate_worker_attributes,
                 "WorkerSid": worker_sid,
                 "Ordering": ordering,
-                "OperatingUnitSid": operating_unit_sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

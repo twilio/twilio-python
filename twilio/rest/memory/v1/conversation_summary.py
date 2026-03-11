@@ -34,7 +34,7 @@ Nested response model for CreateSummariesRequest
 
 
 class CreateSummariesRequest:
-    def __init__(self, summaries: List["ConversationSummaryList.SummaryCore"]):
+    def __init__(self, summaries: List[ConversationSummaryList.SummaryCore]):
         self.summaries = summaries
 
 
@@ -155,8 +155,8 @@ class ConversationSummaryInstance(InstanceResource):
             return {
                 "source": self.source,
                 "content": self.content,
-                "occurred_at": self.occurred_at,
-                "conversation_id": self.conversation_id,
+                "occurredAt": self.occurred_at,
+                "conversationId": self.conversation_id,
             }
 
     """
@@ -362,8 +362,8 @@ class ConversationSummaryContext(InstanceContext):
             return {
                 "source": self.source,
                 "content": self.content,
-                "occurred_at": self.occurred_at,
-                "conversation_id": self.conversation_id,
+                "occurredAt": self.occurred_at,
+                "conversationId": self.conversation_id,
             }
 
     def __init__(self, version: Version, store_id: str, profile_id: str):
@@ -705,8 +705,8 @@ class ConversationSummaryList(ListResource):
             return {
                 "source": self.source,
                 "content": self.content,
-                "occurred_at": self.occurred_at,
-                "conversation_id": self.conversation_id,
+                "occurredAt": self.occurred_at,
+                "conversationId": self.conversation_id,
             }
 
     def __init__(self, version: Version):

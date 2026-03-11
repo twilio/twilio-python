@@ -50,7 +50,7 @@ class CreateProfilesImportRequest:
         self,
         filename: str,
         fileSize: int,
-        columnMappings: List["ImportList.ColumnMappingItem"],
+        columnMappings: List[ImportList.ColumnMappingItem],
     ):
         self.filename = filename
         self.fileSize = fileSize
@@ -136,9 +136,9 @@ class ImportInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "column_name": self.column_name,
-                "trait_group": self.trait_group,
-                "trait_name": self.trait_name,
+                "columnName": self.column_name,
+                "traitGroup": self.trait_group,
+                "traitName": self.trait_name,
             }
 
     class CreateProfilesImportRequest(object):
@@ -158,8 +158,8 @@ class ImportInstance(InstanceResource):
         def to_dict(self):
             return {
                 "filename": self.filename,
-                "file_size": self.file_size,
-                "column_mappings": [
+                "fileSize": self.file_size,
+                "columnMappings": [
                     column_mappings.to_dict()
                     for column_mappings in self.column_mappings
                 ]
@@ -179,8 +179,8 @@ class ImportInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.errors,
-                "": self.warnings,
+                "errors": self.errors,
+                "warnings": self.warnings,
             }
 
     """
@@ -336,9 +336,9 @@ class ImportContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "column_name": self.column_name,
-                "trait_group": self.trait_group,
-                "trait_name": self.trait_name,
+                "columnName": self.column_name,
+                "traitGroup": self.trait_group,
+                "traitName": self.trait_name,
             }
 
     class CreateProfilesImportRequest(object):
@@ -358,8 +358,8 @@ class ImportContext(InstanceContext):
         def to_dict(self):
             return {
                 "filename": self.filename,
-                "file_size": self.file_size,
-                "column_mappings": [
+                "fileSize": self.file_size,
+                "columnMappings": [
                     column_mappings.to_dict()
                     for column_mappings in self.column_mappings
                 ]
@@ -379,8 +379,8 @@ class ImportContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.errors,
-                "": self.warnings,
+                "errors": self.errors,
+                "warnings": self.warnings,
             }
 
     def __init__(self, version: Version, store_id: str):
@@ -643,9 +643,9 @@ class ImportList(ListResource):
 
         def to_dict(self):
             return {
-                "column_name": self.column_name,
-                "trait_group": self.trait_group,
-                "trait_name": self.trait_name,
+                "columnName": self.column_name,
+                "traitGroup": self.trait_group,
+                "traitName": self.trait_name,
             }
 
     class CreateProfilesImportRequest(object):
@@ -665,8 +665,8 @@ class ImportList(ListResource):
         def to_dict(self):
             return {
                 "filename": self.filename,
-                "file_size": self.file_size,
-                "column_mappings": [
+                "fileSize": self.file_size,
+                "columnMappings": [
                     column_mappings.to_dict()
                     for column_mappings in self.column_mappings
                 ]
@@ -686,8 +686,8 @@ class ImportList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.errors,
-                "": self.warnings,
+                "errors": self.errors,
+                "warnings": self.warnings,
             }
 
     def __init__(self, version: Version):

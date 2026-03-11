@@ -51,12 +51,12 @@ class IdentityResolutionSettingInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
-                "matching_algo": self.matching_algo,
-                "matching_threshold": self.matching_threshold,
+                "idType": self.id_type,
+                "matchingAlgo": self.matching_algo,
+                "matchingThreshold": self.matching_threshold,
                 "limit": self.limit,
-                "limit_policy": self.limit_policy,
-                "enforce_unique": self.enforce_unique,
+                "limitPolicy": self.limit_policy,
+                "enforceUnique": self.enforce_unique,
                 "normalization": self.normalization,
             }
 
@@ -74,13 +74,13 @@ class IdentityResolutionSettingInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "identifier_configs": [
+                "identifierConfigs": [
                     identifier_configs.to_dict()
                     for identifier_configs in self.identifier_configs
                 ]
                 if self.identifier_configs is not None
                 else None,
-                "matching_rules": self.matching_rules,
+                "matchingRules": self.matching_rules,
             }
 
     """
@@ -277,12 +277,12 @@ class IdentityResolutionSettingContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
-                "matching_algo": self.matching_algo,
-                "matching_threshold": self.matching_threshold,
+                "idType": self.id_type,
+                "matchingAlgo": self.matching_algo,
+                "matchingThreshold": self.matching_threshold,
                 "limit": self.limit,
-                "limit_policy": self.limit_policy,
-                "enforce_unique": self.enforce_unique,
+                "limitPolicy": self.limit_policy,
+                "enforceUnique": self.enforce_unique,
                 "normalization": self.normalization,
             }
 
@@ -300,13 +300,13 @@ class IdentityResolutionSettingContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "identifier_configs": [
+                "identifierConfigs": [
                     identifier_configs.to_dict()
                     for identifier_configs in self.identifier_configs
                 ]
                 if self.identifier_configs is not None
                 else None,
-                "matching_rules": self.matching_rules,
+                "matchingRules": self.matching_rules,
             }
 
     def __init__(self, version: Version, store_id: str):
@@ -617,12 +617,12 @@ class IdentityResolutionSettingList(ListResource):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
-                "matching_algo": self.matching_algo,
-                "matching_threshold": self.matching_threshold,
+                "idType": self.id_type,
+                "matchingAlgo": self.matching_algo,
+                "matchingThreshold": self.matching_threshold,
                 "limit": self.limit,
-                "limit_policy": self.limit_policy,
-                "enforce_unique": self.enforce_unique,
+                "limitPolicy": self.limit_policy,
+                "enforceUnique": self.enforce_unique,
                 "normalization": self.normalization,
             }
 
@@ -640,13 +640,13 @@ class IdentityResolutionSettingList(ListResource):
 
         def to_dict(self):
             return {
-                "identifier_configs": [
+                "identifierConfigs": [
                     identifier_configs.to_dict()
                     for identifier_configs in self.identifier_configs
                 ]
                 if self.identifier_configs is not None
                 else None,
-                "matching_rules": self.matching_rules,
+                "matchingRules": self.matching_rules,
             }
 
     def __init__(self, version: Version):

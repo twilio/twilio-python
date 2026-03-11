@@ -15,38 +15,20 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.trusthub.v1.branded_calling import BrandedCallingList
-from twilio.rest.trusthub.v1.bulk_regulated_items import BulkRegulatedItemsList
-from twilio.rest.trusthub.v1.bundle_items_details import BundleItemsDetailsList
 from twilio.rest.trusthub.v1.compliance_inquiries import ComplianceInquiriesList
-from twilio.rest.trusthub.v1.compliance_inquiry_individual import (
-    ComplianceInquiryIndividualList,
-)
 from twilio.rest.trusthub.v1.compliance_registration_inquiries import (
     ComplianceRegistrationInquiriesList,
-)
-from twilio.rest.trusthub.v1.compliance_registrations_compliance_item import (
-    ComplianceRegistrationsComplianceItemList,
 )
 from twilio.rest.trusthub.v1.compliance_tollfree_inquiries import (
     ComplianceTollfreeInquiriesList,
 )
-from twilio.rest.trusthub.v1.compliance_upgrade_individual import (
-    ComplianceUpgradeIndividualList,
-)
 from twilio.rest.trusthub.v1.customer_profiles import CustomerProfilesList
-from twilio.rest.trusthub.v1.customer_profiles_provisional_copy import (
-    CustomerProfilesProvisionalCopyList,
-)
 from twilio.rest.trusthub.v1.end_user import EndUserList
 from twilio.rest.trusthub.v1.end_user_type import EndUserTypeList
 from twilio.rest.trusthub.v1.policies import PoliciesList
 from twilio.rest.trusthub.v1.supporting_document import SupportingDocumentList
 from twilio.rest.trusthub.v1.supporting_document_type import SupportingDocumentTypeList
 from twilio.rest.trusthub.v1.trust_products import TrustProductsList
-from twilio.rest.trusthub.v1.trust_products_provisional_copy import (
-    TrustProductsProvisionalCopyList,
-)
 
 
 class V1(Version):
@@ -57,68 +39,26 @@ class V1(Version):
         :param domain: The Twilio.trusthub domain
         """
         super().__init__(domain, "v1")
-        self._branded_calling: Optional[BrandedCallingList] = None
-        self._bulk_regulated_items: Optional[BulkRegulatedItemsList] = None
-        self._bundle_items_details: Optional[BundleItemsDetailsList] = None
         self._compliance_inquiries: Optional[ComplianceInquiriesList] = None
-        self._compliance_inquiry_individual: Optional[
-            ComplianceInquiryIndividualList
-        ] = None
         self._compliance_registration_inquiries: Optional[
             ComplianceRegistrationInquiriesList
-        ] = None
-        self._compliance_registrations_compliance_item: Optional[
-            ComplianceRegistrationsComplianceItemList
         ] = None
         self._compliance_tollfree_inquiries: Optional[
             ComplianceTollfreeInquiriesList
         ] = None
-        self._compliance_upgrade_individual: Optional[
-            ComplianceUpgradeIndividualList
-        ] = None
         self._customer_profiles: Optional[CustomerProfilesList] = None
-        self._customer_profiles_provisional_copy: Optional[
-            CustomerProfilesProvisionalCopyList
-        ] = None
         self._end_users: Optional[EndUserList] = None
         self._end_user_types: Optional[EndUserTypeList] = None
         self._policies: Optional[PoliciesList] = None
         self._supporting_documents: Optional[SupportingDocumentList] = None
         self._supporting_document_types: Optional[SupportingDocumentTypeList] = None
         self._trust_products: Optional[TrustProductsList] = None
-        self._trust_products_provisional_copy: Optional[
-            TrustProductsProvisionalCopyList
-        ] = None
-
-    @property
-    def branded_calling(self) -> BrandedCallingList:
-        if self._branded_calling is None:
-            self._branded_calling = BrandedCallingList(self)
-        return self._branded_calling
-
-    @property
-    def bulk_regulated_items(self) -> BulkRegulatedItemsList:
-        if self._bulk_regulated_items is None:
-            self._bulk_regulated_items = BulkRegulatedItemsList(self)
-        return self._bulk_regulated_items
-
-    @property
-    def bundle_items_details(self) -> BundleItemsDetailsList:
-        if self._bundle_items_details is None:
-            self._bundle_items_details = BundleItemsDetailsList(self)
-        return self._bundle_items_details
 
     @property
     def compliance_inquiries(self) -> ComplianceInquiriesList:
         if self._compliance_inquiries is None:
             self._compliance_inquiries = ComplianceInquiriesList(self)
         return self._compliance_inquiries
-
-    @property
-    def compliance_inquiry_individual(self) -> ComplianceInquiryIndividualList:
-        if self._compliance_inquiry_individual is None:
-            self._compliance_inquiry_individual = ComplianceInquiryIndividualList(self)
-        return self._compliance_inquiry_individual
 
     @property
     def compliance_registration_inquiries(self) -> ComplianceRegistrationInquiriesList:
@@ -129,40 +69,16 @@ class V1(Version):
         return self._compliance_registration_inquiries
 
     @property
-    def compliance_registrations_compliance_item(
-        self,
-    ) -> ComplianceRegistrationsComplianceItemList:
-        if self._compliance_registrations_compliance_item is None:
-            self._compliance_registrations_compliance_item = (
-                ComplianceRegistrationsComplianceItemList(self)
-            )
-        return self._compliance_registrations_compliance_item
-
-    @property
     def compliance_tollfree_inquiries(self) -> ComplianceTollfreeInquiriesList:
         if self._compliance_tollfree_inquiries is None:
             self._compliance_tollfree_inquiries = ComplianceTollfreeInquiriesList(self)
         return self._compliance_tollfree_inquiries
 
     @property
-    def compliance_upgrade_individual(self) -> ComplianceUpgradeIndividualList:
-        if self._compliance_upgrade_individual is None:
-            self._compliance_upgrade_individual = ComplianceUpgradeIndividualList(self)
-        return self._compliance_upgrade_individual
-
-    @property
     def customer_profiles(self) -> CustomerProfilesList:
         if self._customer_profiles is None:
             self._customer_profiles = CustomerProfilesList(self)
         return self._customer_profiles
-
-    @property
-    def customer_profiles_provisional_copy(self) -> CustomerProfilesProvisionalCopyList:
-        if self._customer_profiles_provisional_copy is None:
-            self._customer_profiles_provisional_copy = (
-                CustomerProfilesProvisionalCopyList(self)
-            )
-        return self._customer_profiles_provisional_copy
 
     @property
     def end_users(self) -> EndUserList:
@@ -199,14 +115,6 @@ class V1(Version):
         if self._trust_products is None:
             self._trust_products = TrustProductsList(self)
         return self._trust_products
-
-    @property
-    def trust_products_provisional_copy(self) -> TrustProductsProvisionalCopyList:
-        if self._trust_products_provisional_copy is None:
-            self._trust_products_provisional_copy = TrustProductsProvisionalCopyList(
-                self
-            )
-        return self._trust_products_provisional_copy
 
     def __repr__(self) -> str:
         """

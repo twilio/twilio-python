@@ -37,7 +37,6 @@ class QueueInstance(InstanceResource):
     :ivar sid: The unique string that that we created to identify this Queue resource.
     :ivar date_created: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar max_size:  The maximum number of calls that can be in the queue. The default is 1000 and the maximum is 5000.
-    :ivar subresource_uris:
     """
 
     def __init__(
@@ -66,9 +65,6 @@ class QueueInstance(InstanceResource):
             payload.get("date_created")
         )
         self.max_size: Optional[int] = deserialize.integer(payload.get("max_size"))
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
-            "subresource_uris"
-        )
 
         self._solution = {
             "account_sid": account_sid,

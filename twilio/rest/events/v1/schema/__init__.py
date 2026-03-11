@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
@@ -70,61 +70,41 @@ class SchemaInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> "SchemaInstance":
+    def fetch(self) -> "SchemaInstance":
         """
         Fetch the SchemaInstance
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched SchemaInstance
         """
-        return self._proxy.fetch(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-        )
+        return self._proxy.fetch()
 
-    async def fetch_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> "SchemaInstance":
+    async def fetch_async(self) -> "SchemaInstance":
         """
         Asynchronous coroutine to fetch the SchemaInstance
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched SchemaInstance
         """
-        return await self._proxy.fetch_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-        )
+        return await self._proxy.fetch_async()
 
-    def fetch_with_http_info(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> ApiResponse:
+    def fetch_with_http_info(self) -> ApiResponse:
         """
         Fetch the SchemaInstance with HTTP info
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return self._proxy.fetch_with_http_info(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-        )
+        return self._proxy.fetch_with_http_info()
 
-    async def fetch_with_http_info_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> ApiResponse:
+    async def fetch_with_http_info_async(self) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the SchemaInstance with HTTP info
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return await self._proxy.fetch_with_http_info_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-        )
+        return await self._proxy.fetch_with_http_info_async()
 
     @property
     def versions(self) -> SchemaVersionList:
@@ -161,9 +141,7 @@ class SchemaContext(InstanceContext):
 
         self._versions: Optional[SchemaVersionList] = None
 
-    def _fetch(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> tuple:
+    def _fetch(self) -> tuple:
         """
         Internal helper for fetch operation
 
@@ -173,50 +151,34 @@ class SchemaContext(InstanceContext):
 
         headers = values.of({})
 
-        if not (
-            x_twilio_catalog_waiver is values.unset
-            or (
-                isinstance(x_twilio_catalog_waiver, str) and not x_twilio_catalog_waiver
-            )
-        ):
-            headers["X-Twilio-Catalog-Waiver"] = x_twilio_catalog_waiver
-
         headers["Accept"] = "application/json"
 
         return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, headers=headers
         )
 
-    def fetch(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> SchemaInstance:
+    def fetch(self) -> SchemaInstance:
         """
         Fetch the SchemaInstance
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched SchemaInstance
         """
-        payload, _, _ = self._fetch(x_twilio_catalog_waiver=x_twilio_catalog_waiver)
+        payload, _, _ = self._fetch()
         return SchemaInstance(
             self._version,
             payload,
             id=self._solution["id"],
         )
 
-    def fetch_with_http_info(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> ApiResponse:
+    def fetch_with_http_info(self) -> ApiResponse:
         """
         Fetch the SchemaInstance and return response metadata
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._fetch(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver
-        )
+        payload, status_code, headers = self._fetch()
         instance = SchemaInstance(
             self._version,
             payload,
@@ -224,9 +186,7 @@ class SchemaContext(InstanceContext):
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _fetch_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> tuple:
+    async def _fetch_async(self) -> tuple:
         """
         Internal async helper for fetch operation
 
@@ -236,52 +196,34 @@ class SchemaContext(InstanceContext):
 
         headers = values.of({})
 
-        if not (
-            x_twilio_catalog_waiver is values.unset
-            or (
-                isinstance(x_twilio_catalog_waiver, str) and not x_twilio_catalog_waiver
-            )
-        ):
-            headers["X-Twilio-Catalog-Waiver"] = x_twilio_catalog_waiver
-
         headers["Accept"] = "application/json"
 
         return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, headers=headers
         )
 
-    async def fetch_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> SchemaInstance:
+    async def fetch_async(self) -> SchemaInstance:
         """
         Asynchronous coroutine to fetch the SchemaInstance
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched SchemaInstance
         """
-        payload, _, _ = await self._fetch_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver
-        )
+        payload, _, _ = await self._fetch_async()
         return SchemaInstance(
             self._version,
             payload,
             id=self._solution["id"],
         )
 
-    async def fetch_with_http_info_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> ApiResponse:
+    async def fetch_with_http_info_async(self) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the SchemaInstance and return response metadata
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._fetch_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver
-        )
+        payload, status_code, headers = await self._fetch_async()
         instance = SchemaInstance(
             self._version,
             payload,

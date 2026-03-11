@@ -36,7 +36,7 @@ class StoreInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
             }
 
@@ -52,7 +52,7 @@ class StoreInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
             }
 
@@ -242,7 +242,7 @@ class StoreContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
             }
 
@@ -258,7 +258,7 @@ class StoreContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
             }
 
@@ -562,7 +562,7 @@ class StoreList(ListResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
             }
 
@@ -578,7 +578,7 @@ class StoreList(ListResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
             }
 
@@ -1037,7 +1037,7 @@ class StoreList(ListResource):
         self,
         page_token: Union[str, object] = values.unset,
         order_by: Union[str, object] = values.unset,
-        # page_token: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
     ) -> ApiResponse:

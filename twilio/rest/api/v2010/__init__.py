@@ -16,11 +16,6 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.api.v2010.account import AccountList
-from twilio.rest.api.v2010.sms_feedback import SmsFeedbackList
-from twilio.rest.api.v2010.twiml_session import TwimlSessionList
-from twilio.rest.api.v2010.usage_record_time_parameterized import (
-    UsageRecordTimeParameterizedList,
-)
 from twilio.rest.api.v2010.account import AccountContext
 
 
@@ -33,11 +28,6 @@ class V2010(Version):
         """
         super().__init__(domain, "2010-04-01")
         self._accounts: Optional[AccountList] = None
-        self._sms_feedback: Optional[SmsFeedbackList] = None
-        self._twiml_sessions: Optional[TwimlSessionList] = None
-        self._usage_record_time_parameterized: Optional[
-            UsageRecordTimeParameterizedList
-        ] = None
         self._account: Optional[AccountContext] = None
 
     @property
@@ -45,26 +35,6 @@ class V2010(Version):
         if self._accounts is None:
             self._accounts = AccountList(self)
         return self._accounts
-
-    @property
-    def sms_feedback(self) -> SmsFeedbackList:
-        if self._sms_feedback is None:
-            self._sms_feedback = SmsFeedbackList(self)
-        return self._sms_feedback
-
-    @property
-    def twiml_sessions(self) -> TwimlSessionList:
-        if self._twiml_sessions is None:
-            self._twiml_sessions = TwimlSessionList(self)
-        return self._twiml_sessions
-
-    @property
-    def usage_record_time_parameterized(self) -> UsageRecordTimeParameterizedList:
-        if self._usage_record_time_parameterized is None:
-            self._usage_record_time_parameterized = UsageRecordTimeParameterizedList(
-                self
-            )
-        return self._usage_record_time_parameterized
 
     @property
     def account(self) -> AccountContext:

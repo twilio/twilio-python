@@ -60,9 +60,9 @@ class UserInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "resource_type": self.resource_type,
+                "resourceType": self.resource_type,
                 "created": self.created,
-                "last_modified": self.last_modified,
+                "lastModified": self.last_modified,
                 "version": self.version,
             }
 
@@ -78,8 +78,8 @@ class UserInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "given_name": self.given_name,
-                "family_name": self.family_name,
+                "givenName": self.given_name,
+                "familyName": self.family_name,
             }
 
     class ScimUser(object):
@@ -393,9 +393,9 @@ class UserContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "resource_type": self.resource_type,
+                "resourceType": self.resource_type,
                 "created": self.created,
-                "last_modified": self.last_modified,
+                "lastModified": self.last_modified,
                 "version": self.version,
             }
 
@@ -411,8 +411,8 @@ class UserContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "given_name": self.given_name,
-                "family_name": self.family_name,
+                "givenName": self.given_name,
+                "familyName": self.family_name,
             }
 
     class ScimUser(object):
@@ -864,9 +864,9 @@ class UserList(ListResource):
 
         def to_dict(self):
             return {
-                "resource_type": self.resource_type,
+                "resourceType": self.resource_type,
                 "created": self.created,
-                "last_modified": self.last_modified,
+                "lastModified": self.last_modified,
                 "version": self.version,
             }
 
@@ -882,8 +882,8 @@ class UserList(ListResource):
 
         def to_dict(self):
             return {
-                "given_name": self.given_name,
-                "family_name": self.family_name,
+                "givenName": self.given_name,
+                "familyName": self.family_name,
             }
 
     class ScimUser(object):

@@ -22,14 +22,11 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.messaging.v1.service.add_on import AddOnList
 from twilio.rest.messaging.v1.service.alpha_sender import AlphaSenderList
 from twilio.rest.messaging.v1.service.channel_sender import ChannelSenderList
 from twilio.rest.messaging.v1.service.destination_alpha_sender import (
     DestinationAlphaSenderList,
 )
-from twilio.rest.messaging.v1.service.message import MessageList
-from twilio.rest.messaging.v1.service.numbers_and_sender import NumbersAndSenderList
 from twilio.rest.messaging.v1.service.phone_number import PhoneNumberList
 from twilio.rest.messaging.v1.service.short_code import ShortCodeList
 from twilio.rest.messaging.v1.service.us_app_to_person import UsAppToPersonList
@@ -68,7 +65,6 @@ class ServiceInstance(InstanceResource):
     :ivar usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
     :ivar us_app_to_person_registered: Whether US A2P campaign is registered for this Service.
     :ivar use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
-    :ivar sending_windows: A list of Sending Windows, which indicate defined time ranges in which a message can be sent, in the UTC time zone. Each window is defined by two strings, labeled \"start_time\" and \"end_time\".
     """
 
     def __init__(
@@ -114,9 +110,6 @@ class ServiceInstance(InstanceResource):
         )
         self.use_inbound_webhook_on_number: Optional[bool] = payload.get(
             "use_inbound_webhook_on_number"
-        )
-        self.sending_windows: Optional[Dict[str, object]] = payload.get(
-            "sending_windows"
         )
 
         self._solution = {
@@ -460,13 +453,6 @@ class ServiceInstance(InstanceResource):
         )
 
     @property
-    def add_ons(self) -> AddOnList:
-        """
-        Access the add_ons
-        """
-        return self._proxy.add_ons
-
-    @property
     def alpha_senders(self) -> AlphaSenderList:
         """
         Access the alpha_senders
@@ -486,20 +472,6 @@ class ServiceInstance(InstanceResource):
         Access the destination_alpha_senders
         """
         return self._proxy.destination_alpha_senders
-
-    @property
-    def messages(self) -> MessageList:
-        """
-        Access the messages
-        """
-        return self._proxy.messages
-
-    @property
-    def numbers_and_senders(self) -> NumbersAndSenderList:
-        """
-        Access the numbers_and_senders
-        """
-        return self._proxy.numbers_and_senders
 
     @property
     def phone_numbers(self) -> PhoneNumberList:
@@ -555,12 +527,9 @@ class ServiceContext(InstanceContext):
         }
         self._uri = "/Services/{sid}".format(**self._solution)
 
-        self._add_ons: Optional[AddOnList] = None
         self._alpha_senders: Optional[AlphaSenderList] = None
         self._channel_senders: Optional[ChannelSenderList] = None
         self._destination_alpha_senders: Optional[DestinationAlphaSenderList] = None
-        self._messages: Optional[MessageList] = None
-        self._numbers_and_senders: Optional[NumbersAndSenderList] = None
         self._phone_numbers: Optional[PhoneNumberList] = None
         self._short_codes: Optional[ShortCodeList] = None
         self._us_app_to_person: Optional[UsAppToPersonList] = None
@@ -1107,18 +1076,6 @@ class ServiceContext(InstanceContext):
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
-    def add_ons(self) -> AddOnList:
-        """
-        Access the add_ons
-        """
-        if self._add_ons is None:
-            self._add_ons = AddOnList(
-                self._version,
-                self._solution["sid"],
-            )
-        return self._add_ons
-
-    @property
     def alpha_senders(self) -> AlphaSenderList:
         """
         Access the alpha_senders
@@ -1153,30 +1110,6 @@ class ServiceContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._destination_alpha_senders
-
-    @property
-    def messages(self) -> MessageList:
-        """
-        Access the messages
-        """
-        if self._messages is None:
-            self._messages = MessageList(
-                self._version,
-                self._solution["sid"],
-            )
-        return self._messages
-
-    @property
-    def numbers_and_senders(self) -> NumbersAndSenderList:
-        """
-        Access the numbers_and_senders
-        """
-        if self._numbers_and_senders is None:
-            self._numbers_and_senders = NumbersAndSenderList(
-                self._version,
-                self._solution["sid"],
-            )
-        return self._numbers_and_senders
 
     @property
     def phone_numbers(self) -> PhoneNumberList:

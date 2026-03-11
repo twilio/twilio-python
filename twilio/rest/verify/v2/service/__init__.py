@@ -49,7 +49,6 @@ class ServiceInstance(InstanceResource):
     :ivar skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
     :ivar dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
     :ivar tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
-    :ivar mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
     :ivar do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
     :ivar custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
     :ivar push: Configurations for the Push factors (channel) created under this Service.
@@ -82,7 +81,6 @@ class ServiceInstance(InstanceResource):
         )
         self.dtmf_input_required: Optional[bool] = payload.get("dtmf_input_required")
         self.tts_name: Optional[str] = payload.get("tts_name")
-        self.mailer_sid: Optional[str] = payload.get("mailer_sid")
         self.do_not_share_warning_enabled: Optional[bool] = payload.get(
             "do_not_share_warning_enabled"
         )
@@ -205,7 +203,6 @@ class ServiceInstance(InstanceResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -236,7 +233,6 @@ class ServiceInstance(InstanceResource):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
@@ -267,7 +263,6 @@ class ServiceInstance(InstanceResource):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -298,7 +293,6 @@ class ServiceInstance(InstanceResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -329,7 +323,6 @@ class ServiceInstance(InstanceResource):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
@@ -360,7 +353,6 @@ class ServiceInstance(InstanceResource):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -391,7 +383,6 @@ class ServiceInstance(InstanceResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -422,7 +413,6 @@ class ServiceInstance(InstanceResource):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
@@ -453,7 +443,6 @@ class ServiceInstance(InstanceResource):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -484,7 +473,6 @@ class ServiceInstance(InstanceResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -515,7 +503,6 @@ class ServiceInstance(InstanceResource):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
@@ -546,7 +533,6 @@ class ServiceInstance(InstanceResource):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -850,7 +836,6 @@ class ServiceContext(InstanceContext):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -889,7 +874,6 @@ class ServiceContext(InstanceContext):
                 "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
                 "TtsName": tts_name,
                 "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
-                "MailerSid": mailer_sid,
                 "DoNotShareWarningEnabled": serialize.boolean_to_string(
                     do_not_share_warning_enabled
                 ),
@@ -934,7 +918,6 @@ class ServiceContext(InstanceContext):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -965,7 +948,6 @@ class ServiceContext(InstanceContext):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
@@ -996,7 +978,6 @@ class ServiceContext(InstanceContext):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -1028,7 +1009,6 @@ class ServiceContext(InstanceContext):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -1059,7 +1039,6 @@ class ServiceContext(InstanceContext):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
@@ -1090,7 +1069,6 @@ class ServiceContext(InstanceContext):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -1123,7 +1101,6 @@ class ServiceContext(InstanceContext):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -1162,7 +1139,6 @@ class ServiceContext(InstanceContext):
                 "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
                 "TtsName": tts_name,
                 "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
-                "MailerSid": mailer_sid,
                 "DoNotShareWarningEnabled": serialize.boolean_to_string(
                     do_not_share_warning_enabled
                 ),
@@ -1207,7 +1183,6 @@ class ServiceContext(InstanceContext):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -1238,7 +1213,6 @@ class ServiceContext(InstanceContext):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
@@ -1269,7 +1243,6 @@ class ServiceContext(InstanceContext):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -1301,7 +1274,6 @@ class ServiceContext(InstanceContext):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -1332,7 +1304,6 @@ class ServiceContext(InstanceContext):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
@@ -1363,7 +1334,6 @@ class ServiceContext(InstanceContext):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -1568,7 +1538,6 @@ class ServiceList(ListResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -1607,7 +1576,6 @@ class ServiceList(ListResource):
                 "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
                 "TtsName": tts_name,
                 "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
-                "MailerSid": mailer_sid,
                 "DoNotShareWarningEnabled": serialize.boolean_to_string(
                     do_not_share_warning_enabled
                 ),
@@ -1652,7 +1620,6 @@ class ServiceList(ListResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -1683,7 +1650,6 @@ class ServiceList(ListResource):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
@@ -1714,7 +1680,6 @@ class ServiceList(ListResource):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -1746,7 +1711,6 @@ class ServiceList(ListResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -1777,7 +1741,6 @@ class ServiceList(ListResource):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
@@ -1808,7 +1771,6 @@ class ServiceList(ListResource):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -1841,7 +1803,6 @@ class ServiceList(ListResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -1880,7 +1841,6 @@ class ServiceList(ListResource):
                 "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
                 "TtsName": tts_name,
                 "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
-                "MailerSid": mailer_sid,
                 "DoNotShareWarningEnabled": serialize.boolean_to_string(
                     do_not_share_warning_enabled
                 ),
@@ -1925,7 +1885,6 @@ class ServiceList(ListResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -1956,7 +1915,6 @@ class ServiceList(ListResource):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
@@ -1987,7 +1945,6 @@ class ServiceList(ListResource):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,
@@ -2019,7 +1976,6 @@ class ServiceList(ListResource):
         dtmf_input_required: Union[bool, object] = values.unset,
         tts_name: Union[str, object] = values.unset,
         psd2_enabled: Union[bool, object] = values.unset,
-        mailer_sid: Union[str, object] = values.unset,
         do_not_share_warning_enabled: Union[bool, object] = values.unset,
         custom_code_enabled: Union[bool, object] = values.unset,
         push_include_date: Union[bool, object] = values.unset,
@@ -2050,7 +2006,6 @@ class ServiceList(ListResource):
         :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param mailer_sid: Mailer SID associated to the verify service. Used for creating Verifications via the email channel.
         :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
         :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
@@ -2081,7 +2036,6 @@ class ServiceList(ListResource):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
-            mailer_sid=mailer_sid,
             do_not_share_warning_enabled=do_not_share_warning_enabled,
             custom_code_enabled=custom_code_enabled,
             push_include_date=push_include_date,

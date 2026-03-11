@@ -15,11 +15,8 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.numbers.v1.a2_p_registration_detail import A2PRegistrationDetailList
-from twilio.rest.numbers.v1.authorization_document import AuthorizationDocumentList
 from twilio.rest.numbers.v1.bulk_eligibility import BulkEligibilityList
 from twilio.rest.numbers.v1.eligibility import EligibilityList
-from twilio.rest.numbers.v1.hosted_number_order import HostedNumberOrderList
 from twilio.rest.numbers.v1.porting_all_port_in import PortingAllPortInList
 from twilio.rest.numbers.v1.porting_port_in import PortingPortInList
 from twilio.rest.numbers.v1.porting_port_in_phone_number import (
@@ -46,11 +43,8 @@ class V1(Version):
         :param domain: The Twilio.numbers domain
         """
         super().__init__(domain, "v1")
-        self._a2_p_registration_details: Optional[A2PRegistrationDetailList] = None
-        self._authorization_documents: Optional[AuthorizationDocumentList] = None
         self._bulk_eligibilities: Optional[BulkEligibilityList] = None
         self._eligibilities: Optional[EligibilityList] = None
-        self._hosted_number_orders: Optional[HostedNumberOrderList] = None
         self._porting_all_port_ins: Optional[PortingAllPortInList] = None
         self._porting_port_ins: Optional[PortingPortInList] = None
         self._porting_port_in_phone_number: Optional[
@@ -69,18 +63,6 @@ class V1(Version):
         self._webhook: Optional[WebhookList] = None
 
     @property
-    def a2_p_registration_details(self) -> A2PRegistrationDetailList:
-        if self._a2_p_registration_details is None:
-            self._a2_p_registration_details = A2PRegistrationDetailList(self)
-        return self._a2_p_registration_details
-
-    @property
-    def authorization_documents(self) -> AuthorizationDocumentList:
-        if self._authorization_documents is None:
-            self._authorization_documents = AuthorizationDocumentList(self)
-        return self._authorization_documents
-
-    @property
     def bulk_eligibilities(self) -> BulkEligibilityList:
         if self._bulk_eligibilities is None:
             self._bulk_eligibilities = BulkEligibilityList(self)
@@ -91,12 +73,6 @@ class V1(Version):
         if self._eligibilities is None:
             self._eligibilities = EligibilityList(self)
         return self._eligibilities
-
-    @property
-    def hosted_number_orders(self) -> HostedNumberOrderList:
-        if self._hosted_number_orders is None:
-            self._hosted_number_orders = HostedNumberOrderList(self)
-        return self._hosted_number_orders
 
     @property
     def porting_all_port_ins(self) -> PortingAllPortInList:

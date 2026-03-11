@@ -35,7 +35,7 @@ class LookupInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
+                "idType": self.id_type,
                 "value": self.value,
             }
 
@@ -143,7 +143,7 @@ class LookupContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
+                "idType": self.id_type,
                 "value": self.value,
             }
 
@@ -277,7 +277,7 @@ class LookupList(ListResource):
 
         def to_dict(self):
             return {
-                "id_type": self.id_type,
+                "idType": self.id_type,
                 "value": self.value,
             }
 

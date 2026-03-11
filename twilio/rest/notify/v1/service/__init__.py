@@ -24,8 +24,6 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.notify.v1.service.binding import BindingList
 from twilio.rest.notify.v1.service.notification import NotificationList
-from twilio.rest.notify.v1.service.segment import SegmentList
-from twilio.rest.notify.v1.service.user import UserList
 
 
 class ServiceInstance(InstanceResource):
@@ -417,20 +415,6 @@ class ServiceInstance(InstanceResource):
         """
         return self._proxy.notifications
 
-    @property
-    def segments(self) -> SegmentList:
-        """
-        Access the segments
-        """
-        return self._proxy.segments
-
-    @property
-    def users(self) -> UserList:
-        """
-        Access the users
-        """
-        return self._proxy.users
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -459,8 +443,6 @@ class ServiceContext(InstanceContext):
 
         self._bindings: Optional[BindingList] = None
         self._notifications: Optional[NotificationList] = None
-        self._segments: Optional[SegmentList] = None
-        self._users: Optional[UserList] = None
 
     def _delete(self) -> tuple:
         """
@@ -973,30 +955,6 @@ class ServiceContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._notifications
-
-    @property
-    def segments(self) -> SegmentList:
-        """
-        Access the segments
-        """
-        if self._segments is None:
-            self._segments = SegmentList(
-                self._version,
-                self._solution["sid"],
-            )
-        return self._segments
-
-    @property
-    def users(self) -> UserList:
-        """
-        Access the users
-        """
-        if self._users is None:
-            self._users = UserList(
-                self._version,
-                self._solution["sid"],
-            )
-        return self._users
 
     def __repr__(self) -> str:
         """

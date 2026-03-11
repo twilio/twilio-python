@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class UsageInstance(InstanceResource):
+
     """
     :ivar sim_sid:
     :ivar sim_unique_name:

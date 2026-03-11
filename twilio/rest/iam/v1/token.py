@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class TokenInstance(InstanceResource):
+
     """
     :ivar access_token: Token which carries the necessary information to access a Twilio resource directly.
     :ivar refresh_token: Token which carries the information necessary to get a new access token.

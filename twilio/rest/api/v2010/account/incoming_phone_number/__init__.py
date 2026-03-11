@@ -89,7 +89,6 @@ class IncomingPhoneNumberInstance(InstanceResource):
     :ivar bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
     :ivar status: 
     :ivar type: The phone number type.
-    :ivar subresource_uris: 
     """
 
     def __init__(
@@ -152,9 +151,6 @@ class IncomingPhoneNumberInstance(InstanceResource):
         self.bundle_sid: Optional[str] = payload.get("bundle_sid")
         self.status: Optional[str] = payload.get("status")
         self.type: Optional[str] = payload.get("type")
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
-            "subresource_uris"
-        )
 
         self._solution = {
             "account_sid": account_sid,

@@ -30,7 +30,6 @@ class EventTypeInstance(InstanceResource):
     :ivar type: A string that uniquely identifies this Event Type.
     :ivar schema_id: A string that uniquely identifies the Schema this Event Type adheres to.
     :ivar date_created: The date that this Event Type was created, given in ISO 8601 format.
-    :ivar public:
     :ivar date_updated: The date that this Event Type was updated, given in ISO 8601 format.
     :ivar description: A human readable description for this Event Type.
     :ivar status: A string that describes how this Event Type can be used. For example: `available`, `deprecated`, `restricted`, `discontinued`. When the status is `available`, the Event Type can be used normally.
@@ -49,7 +48,6 @@ class EventTypeInstance(InstanceResource):
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self.public: Optional[bool] = payload.get("public")
         self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
@@ -79,61 +77,41 @@ class EventTypeInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> "EventTypeInstance":
+    def fetch(self) -> "EventTypeInstance":
         """
         Fetch the EventTypeInstance
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched EventTypeInstance
         """
-        return self._proxy.fetch(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-        )
+        return self._proxy.fetch()
 
-    async def fetch_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> "EventTypeInstance":
+    async def fetch_async(self) -> "EventTypeInstance":
         """
         Asynchronous coroutine to fetch the EventTypeInstance
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched EventTypeInstance
         """
-        return await self._proxy.fetch_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-        )
+        return await self._proxy.fetch_async()
 
-    def fetch_with_http_info(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> ApiResponse:
+    def fetch_with_http_info(self) -> ApiResponse:
         """
         Fetch the EventTypeInstance with HTTP info
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return self._proxy.fetch_with_http_info(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-        )
+        return self._proxy.fetch_with_http_info()
 
-    async def fetch_with_http_info_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> ApiResponse:
+    async def fetch_with_http_info_async(self) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the EventTypeInstance with HTTP info
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return await self._proxy.fetch_with_http_info_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-        )
+        return await self._proxy.fetch_with_http_info_async()
 
     def __repr__(self) -> str:
         """
@@ -161,9 +139,7 @@ class EventTypeContext(InstanceContext):
         }
         self._uri = "/Types/{type}".format(**self._solution)
 
-    def _fetch(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> tuple:
+    def _fetch(self) -> tuple:
         """
         Internal helper for fetch operation
 
@@ -173,50 +149,34 @@ class EventTypeContext(InstanceContext):
 
         headers = values.of({})
 
-        if not (
-            x_twilio_catalog_waiver is values.unset
-            or (
-                isinstance(x_twilio_catalog_waiver, str) and not x_twilio_catalog_waiver
-            )
-        ):
-            headers["X-Twilio-Catalog-Waiver"] = x_twilio_catalog_waiver
-
         headers["Accept"] = "application/json"
 
         return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, headers=headers
         )
 
-    def fetch(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> EventTypeInstance:
+    def fetch(self) -> EventTypeInstance:
         """
         Fetch the EventTypeInstance
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched EventTypeInstance
         """
-        payload, _, _ = self._fetch(x_twilio_catalog_waiver=x_twilio_catalog_waiver)
+        payload, _, _ = self._fetch()
         return EventTypeInstance(
             self._version,
             payload,
             type=self._solution["type"],
         )
 
-    def fetch_with_http_info(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> ApiResponse:
+    def fetch_with_http_info(self) -> ApiResponse:
         """
         Fetch the EventTypeInstance and return response metadata
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._fetch(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver
-        )
+        payload, status_code, headers = self._fetch()
         instance = EventTypeInstance(
             self._version,
             payload,
@@ -224,9 +184,7 @@ class EventTypeContext(InstanceContext):
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _fetch_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> tuple:
+    async def _fetch_async(self) -> tuple:
         """
         Internal async helper for fetch operation
 
@@ -236,52 +194,34 @@ class EventTypeContext(InstanceContext):
 
         headers = values.of({})
 
-        if not (
-            x_twilio_catalog_waiver is values.unset
-            or (
-                isinstance(x_twilio_catalog_waiver, str) and not x_twilio_catalog_waiver
-            )
-        ):
-            headers["X-Twilio-Catalog-Waiver"] = x_twilio_catalog_waiver
-
         headers["Accept"] = "application/json"
 
         return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, headers=headers
         )
 
-    async def fetch_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> EventTypeInstance:
+    async def fetch_async(self) -> EventTypeInstance:
         """
         Asynchronous coroutine to fetch the EventTypeInstance
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: The fetched EventTypeInstance
         """
-        payload, _, _ = await self._fetch_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver
-        )
+        payload, _, _ = await self._fetch_async()
         return EventTypeInstance(
             self._version,
             payload,
             type=self._solution["type"],
         )
 
-    async def fetch_with_http_info_async(
-        self, x_twilio_catalog_waiver: Union[str, object] = values.unset
-    ) -> ApiResponse:
+    async def fetch_with_http_info_async(self) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the EventTypeInstance and return response metadata
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._fetch_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver
-        )
+        payload, status_code, headers = await self._fetch_async()
         instance = EventTypeInstance(
             self._version,
             payload,
@@ -331,7 +271,6 @@ class EventTypeList(ListResource):
 
     def stream(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -342,7 +281,6 @@ class EventTypeList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -354,17 +292,12 @@ class EventTypeList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-            schema_id=schema_id,
-            page_size=limits["page_size"],
-        )
+        page = self.page(schema_id=schema_id, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -375,7 +308,6 @@ class EventTypeList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -387,17 +319,12 @@ class EventTypeList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-            schema_id=schema_id,
-            page_size=limits["page_size"],
-        )
+        page = await self.page_async(schema_id=schema_id, page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
 
     def stream_with_http_info(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -406,7 +333,6 @@ class EventTypeList(ListResource):
         Streams EventTypeInstance and returns headers from first page
 
 
-        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -419,9 +345,7 @@ class EventTypeList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = self.page_with_http_info(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-            schema_id=schema_id,
-            page_size=limits["page_size"],
+            schema_id=schema_id, page_size=limits["page_size"]
         )
 
         generator = self._version.stream(page_response.data, limits["limit"])
@@ -429,7 +353,6 @@ class EventTypeList(ListResource):
 
     async def stream_with_http_info_async(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -438,7 +361,6 @@ class EventTypeList(ListResource):
         Asynchronously streams EventTypeInstance and returns headers from first page
 
 
-        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -451,9 +373,7 @@ class EventTypeList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = await self.page_with_http_info_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
-            schema_id=schema_id,
-            page_size=limits["page_size"],
+            schema_id=schema_id, page_size=limits["page_size"]
         )
 
         generator = self._version.stream_async(page_response.data, limits["limit"])
@@ -461,7 +381,6 @@ class EventTypeList(ListResource):
 
     def list(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -471,7 +390,6 @@ class EventTypeList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -484,7 +402,6 @@ class EventTypeList(ListResource):
         """
         return list(
             self.stream(
-                x_twilio_catalog_waiver=x_twilio_catalog_waiver,
                 schema_id=schema_id,
                 limit=limit,
                 page_size=page_size,
@@ -493,7 +410,6 @@ class EventTypeList(ListResource):
 
     async def list_async(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -503,7 +419,6 @@ class EventTypeList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -517,7 +432,6 @@ class EventTypeList(ListResource):
         return [
             record
             async for record in await self.stream_async(
-                x_twilio_catalog_waiver=x_twilio_catalog_waiver,
                 schema_id=schema_id,
                 limit=limit,
                 page_size=page_size,
@@ -526,7 +440,6 @@ class EventTypeList(ListResource):
 
     def list_with_http_info(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -535,7 +448,6 @@ class EventTypeList(ListResource):
         Lists EventTypeInstance and returns headers from first page
 
 
-        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -547,7 +459,6 @@ class EventTypeList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = self.stream_with_http_info(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
             schema_id=schema_id,
             limit=limit,
             page_size=page_size,
@@ -557,7 +468,6 @@ class EventTypeList(ListResource):
 
     async def list_with_http_info_async(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -566,7 +476,6 @@ class EventTypeList(ListResource):
         Asynchronously lists EventTypeInstance and returns headers from first page
 
 
-        :param str x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -578,7 +487,6 @@ class EventTypeList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = await self.stream_with_http_info_async(
-            x_twilio_catalog_waiver=x_twilio_catalog_waiver,
             schema_id=schema_id,
             limit=limit,
             page_size=page_size,
@@ -588,7 +496,6 @@ class EventTypeList(ListResource):
 
     def page(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -598,7 +505,6 @@ class EventTypeList(ListResource):
         Retrieve a single page of EventTypeInstance records from the API.
         Request is executed immediately
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -608,7 +514,6 @@ class EventTypeList(ListResource):
         """
         data = values.of(
             {
-                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
                 "SchemaId": schema_id,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -616,12 +521,7 @@ class EventTypeList(ListResource):
             }
         )
 
-        headers = values.of(
-            {
-                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
@@ -632,7 +532,6 @@ class EventTypeList(ListResource):
 
     async def page_async(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -642,7 +541,6 @@ class EventTypeList(ListResource):
         Asynchronously retrieve a single page of EventTypeInstance records from the API.
         Request is executed immediately
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -652,7 +550,6 @@ class EventTypeList(ListResource):
         """
         data = values.of(
             {
-                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
                 "SchemaId": schema_id,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -660,12 +557,7 @@ class EventTypeList(ListResource):
             }
         )
 
-        headers = values.of(
-            {
-                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
@@ -676,7 +568,6 @@ class EventTypeList(ListResource):
 
     def page_with_http_info(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -686,7 +577,6 @@ class EventTypeList(ListResource):
         Retrieve a single page with response metadata
 
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -696,7 +586,6 @@ class EventTypeList(ListResource):
         """
         data = values.of(
             {
-                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
                 "SchemaId": schema_id,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -704,12 +593,7 @@ class EventTypeList(ListResource):
             }
         )
 
-        headers = values.of(
-            {
-                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
@@ -721,7 +605,6 @@ class EventTypeList(ListResource):
 
     async def page_with_http_info_async(
         self,
-        x_twilio_catalog_waiver: Union[str, object] = values.unset,
         schema_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -731,7 +614,6 @@ class EventTypeList(ListResource):
         Asynchronously retrieve a single page with response metadata
 
 
-        :param x_twilio_catalog_waiver: The X-Twilio-Catalog-Waiver HTTP request header
         :param schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -741,7 +623,6 @@ class EventTypeList(ListResource):
         """
         data = values.of(
             {
-                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
                 "SchemaId": schema_id,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -749,12 +630,7 @@ class EventTypeList(ListResource):
             }
         )
 
-        headers = values.of(
-            {
-                "X-Twilio-Catalog-Waiver": x_twilio_catalog_waiver,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 

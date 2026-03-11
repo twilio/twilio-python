@@ -65,8 +65,8 @@ class CommunicationInstance(InstanceResource):
         def to_dict(self):
             return {
                 "text": self.text,
-                "start_time": self.start_time,
-                "end_time": self.end_time,
+                "startTime": self.start_time,
+                "endTime": self.end_time,
             }
 
     class CreateCommunicationRequest(object):
@@ -95,14 +95,14 @@ class CommunicationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "conversation_id": self.conversation_id,
-                "configuration_id": self.configuration_id,
+                "conversationId": self.conversation_id,
+                "configurationId": self.configuration_id,
                 "author": self.author.to_dict() if self.author is not None else None,
                 "recipients": [recipients.to_dict() for recipients in self.recipients]
                 if self.recipients is not None
                 else None,
                 "content": self.content.to_dict() if self.content is not None else None,
-                "channel_id": self.channel_id,
+                "channelId": self.channel_id,
             }
 
     class CreateCommunicationRequestAuthor(object):
@@ -121,7 +121,7 @@ class CommunicationInstance(InstanceResource):
             return {
                 "address": self.address,
                 "channel": self.channel,
-                "participant_id": self.participant_id,
+                "participantId": self.participant_id,
             }
 
     class CreateCommunicationRequestContent(object):
@@ -296,8 +296,8 @@ class CommunicationContext(InstanceContext):
         def to_dict(self):
             return {
                 "text": self.text,
-                "start_time": self.start_time,
-                "end_time": self.end_time,
+                "startTime": self.start_time,
+                "endTime": self.end_time,
             }
 
     class CreateCommunicationRequest(object):
@@ -326,14 +326,14 @@ class CommunicationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "conversation_id": self.conversation_id,
-                "configuration_id": self.configuration_id,
+                "conversationId": self.conversation_id,
+                "configurationId": self.configuration_id,
                 "author": self.author.to_dict() if self.author is not None else None,
                 "recipients": [recipients.to_dict() for recipients in self.recipients]
                 if self.recipients is not None
                 else None,
                 "content": self.content.to_dict() if self.content is not None else None,
-                "channel_id": self.channel_id,
+                "channelId": self.channel_id,
             }
 
     class CreateCommunicationRequestAuthor(object):
@@ -352,7 +352,7 @@ class CommunicationContext(InstanceContext):
             return {
                 "address": self.address,
                 "channel": self.channel,
-                "participant_id": self.participant_id,
+                "participantId": self.participant_id,
             }
 
     class CreateCommunicationRequestContent(object):
@@ -543,8 +543,8 @@ class CommunicationList(ListResource):
         def to_dict(self):
             return {
                 "text": self.text,
-                "start_time": self.start_time,
-                "end_time": self.end_time,
+                "startTime": self.start_time,
+                "endTime": self.end_time,
             }
 
     class CreateCommunicationRequest(object):
@@ -573,14 +573,14 @@ class CommunicationList(ListResource):
 
         def to_dict(self):
             return {
-                "conversation_id": self.conversation_id,
-                "configuration_id": self.configuration_id,
+                "conversationId": self.conversation_id,
+                "configurationId": self.configuration_id,
                 "author": self.author.to_dict() if self.author is not None else None,
                 "recipients": [recipients.to_dict() for recipients in self.recipients]
                 if self.recipients is not None
                 else None,
                 "content": self.content.to_dict() if self.content is not None else None,
-                "channel_id": self.channel_id,
+                "channelId": self.channel_id,
             }
 
     class CreateCommunicationRequestAuthor(object):
@@ -599,7 +599,7 @@ class CommunicationList(ListResource):
             return {
                 "address": self.address,
                 "channel": self.channel,
-                "participant_id": self.participant_id,
+                "participantId": self.participant_id,
             }
 
     class CreateCommunicationRequestContent(object):

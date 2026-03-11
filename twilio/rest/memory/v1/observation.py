@@ -34,7 +34,7 @@ Nested response model for CreateObservationsRequest
 
 
 class CreateObservationsRequest:
-    def __init__(self, observations: List["ObservationList.ObservationCore"]):
+    def __init__(self, observations: List[ObservationList.ObservationCore]):
         self.observations = observations
 
 
@@ -160,9 +160,9 @@ class ObservationInstance(InstanceResource):
         def to_dict(self):
             return {
                 "content": self.content,
-                "occurred_at": self.occurred_at,
+                "occurredAt": self.occurred_at,
                 "source": self.source,
-                "conversation_ids": self.conversation_ids,
+                "conversationIds": self.conversation_ids,
             }
 
     """
@@ -460,9 +460,9 @@ class ObservationContext(InstanceContext):
         def to_dict(self):
             return {
                 "content": self.content,
-                "occurred_at": self.occurred_at,
+                "occurredAt": self.occurred_at,
                 "source": self.source,
-                "conversation_ids": self.conversation_ids,
+                "conversationIds": self.conversation_ids,
             }
 
     def __init__(
@@ -1023,9 +1023,9 @@ class ObservationList(ListResource):
         def to_dict(self):
             return {
                 "content": self.content,
-                "occurred_at": self.occurred_at,
+                "occurredAt": self.occurred_at,
                 "source": self.source,
-                "conversation_ids": self.conversation_ids,
+                "conversationIds": self.conversation_ids,
             }
 
     def __init__(self, version: Version):

@@ -2,7 +2,6 @@ from twilio.rest.memory.MemoryBase import MemoryBase
 
 
 class Memory(MemoryBase):
-
     def bulk(self):
         return self.v1.bulk
 
@@ -32,4 +31,3 @@ class Memory(MemoryBase):
 
     def recall(self):
         return self.v1.recall
-

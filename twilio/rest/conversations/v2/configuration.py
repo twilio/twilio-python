@@ -39,9 +39,9 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class ConversationsV2StatusTimeouts(object):
@@ -56,8 +56,8 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConfigurationRequest(object):
@@ -90,23 +90,23 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
-                "conversation_grouping_type": self.conversation_grouping_type,
-                "memory_store_id": self.memory_store_id,
-                "channel_settings": [
+                "conversationGroupingType": self.conversation_grouping_type,
+                "memoryStoreId": self.memory_store_id,
+                "channelSettings": [
                     channel_settings.to_dict()
                     for channel_settings in self.channel_settings
                 ]
                 if self.channel_settings is not None
                 else None,
-                "status_callbacks": [
+                "statusCallbacks": [
                     status_callbacks.to_dict()
                     for status_callbacks in self.status_callbacks
                 ]
                 if self.status_callbacks is not None
                 else None,
-                "intelligence_configuration_ids": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
 
     class CreateConfigurationRequestChannelSettingsValue(object):
@@ -125,10 +125,12 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.status_timeouts.to_dict()
+                "statusTimeouts": self.status_timeouts.to_dict()
                 if self.status_timeouts is not None
                 else None,
-                "": [capture_rules.to_dict() for capture_rules in self.capture_rules]
+                "captureRules": [
+                    capture_rules.to_dict() for capture_rules in self.capture_rules
+                ]
                 if self.capture_rules is not None
                 else None,
             }
@@ -147,9 +149,9 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class CreateConfigurationRequestChannelSettingsValueStatusTimeouts(object):
@@ -164,8 +166,8 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConfigurationRequestStatusCallbacks(object):
@@ -214,23 +216,23 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
-                "conversation_grouping_type": self.conversation_grouping_type,
-                "memory_store_id": self.memory_store_id,
-                "channel_settings": [
+                "conversationGroupingType": self.conversation_grouping_type,
+                "memoryStoreId": self.memory_store_id,
+                "channelSettings": [
                     channel_settings.to_dict()
                     for channel_settings in self.channel_settings
                 ]
                 if self.channel_settings is not None
                 else None,
-                "status_callbacks": [
+                "statusCallbacks": [
                     status_callbacks.to_dict()
                     for status_callbacks in self.status_callbacks
                 ]
                 if self.status_callbacks is not None
                 else None,
-                "intelligence_configuration_ids": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
 
     class UpdateConfigurationRequestChannelSettingsValue(object):
@@ -249,10 +251,12 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.status_timeouts.to_dict()
+                "statusTimeouts": self.status_timeouts.to_dict()
                 if self.status_timeouts is not None
                 else None,
-                "": [capture_rules.to_dict() for capture_rules in self.capture_rules]
+                "captureRules": [
+                    capture_rules.to_dict() for capture_rules in self.capture_rules
+                ]
                 if self.capture_rules is not None
                 else None,
             }
@@ -271,9 +275,9 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class UpdateConfigurationRequestChannelSettingsValueStatusTimeouts(object):
@@ -288,8 +292,8 @@ class ConfigurationInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class UpdateConfigurationRequestStatusCallbacks(object):
@@ -540,9 +544,9 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class ConversationsV2StatusTimeouts(object):
@@ -557,8 +561,8 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConfigurationRequest(object):
@@ -591,23 +595,23 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
-                "conversation_grouping_type": self.conversation_grouping_type,
-                "memory_store_id": self.memory_store_id,
-                "channel_settings": [
+                "conversationGroupingType": self.conversation_grouping_type,
+                "memoryStoreId": self.memory_store_id,
+                "channelSettings": [
                     channel_settings.to_dict()
                     for channel_settings in self.channel_settings
                 ]
                 if self.channel_settings is not None
                 else None,
-                "status_callbacks": [
+                "statusCallbacks": [
                     status_callbacks.to_dict()
                     for status_callbacks in self.status_callbacks
                 ]
                 if self.status_callbacks is not None
                 else None,
-                "intelligence_configuration_ids": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
 
     class CreateConfigurationRequestChannelSettingsValue(object):
@@ -626,10 +630,12 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.status_timeouts.to_dict()
+                "statusTimeouts": self.status_timeouts.to_dict()
                 if self.status_timeouts is not None
                 else None,
-                "": [capture_rules.to_dict() for capture_rules in self.capture_rules]
+                "captureRules": [
+                    capture_rules.to_dict() for capture_rules in self.capture_rules
+                ]
                 if self.capture_rules is not None
                 else None,
             }
@@ -648,9 +654,9 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class CreateConfigurationRequestChannelSettingsValueStatusTimeouts(object):
@@ -665,8 +671,8 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConfigurationRequestStatusCallbacks(object):
@@ -715,23 +721,23 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
-                "conversation_grouping_type": self.conversation_grouping_type,
-                "memory_store_id": self.memory_store_id,
-                "channel_settings": [
+                "conversationGroupingType": self.conversation_grouping_type,
+                "memoryStoreId": self.memory_store_id,
+                "channelSettings": [
                     channel_settings.to_dict()
                     for channel_settings in self.channel_settings
                 ]
                 if self.channel_settings is not None
                 else None,
-                "status_callbacks": [
+                "statusCallbacks": [
                     status_callbacks.to_dict()
                     for status_callbacks in self.status_callbacks
                 ]
                 if self.status_callbacks is not None
                 else None,
-                "intelligence_configuration_ids": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
 
     class UpdateConfigurationRequestChannelSettingsValue(object):
@@ -750,10 +756,12 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.status_timeouts.to_dict()
+                "statusTimeouts": self.status_timeouts.to_dict()
                 if self.status_timeouts is not None
                 else None,
-                "": [capture_rules.to_dict() for capture_rules in self.capture_rules]
+                "captureRules": [
+                    capture_rules.to_dict() for capture_rules in self.capture_rules
+                ]
                 if self.capture_rules is not None
                 else None,
             }
@@ -772,9 +780,9 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class UpdateConfigurationRequestChannelSettingsValueStatusTimeouts(object):
@@ -789,8 +797,8 @@ class ConfigurationContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class UpdateConfigurationRequestStatusCallbacks(object):
@@ -1155,9 +1163,9 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class ConversationsV2StatusTimeouts(object):
@@ -1172,8 +1180,8 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConfigurationRequest(object):
@@ -1206,23 +1214,23 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
-                "conversation_grouping_type": self.conversation_grouping_type,
-                "memory_store_id": self.memory_store_id,
-                "channel_settings": [
+                "conversationGroupingType": self.conversation_grouping_type,
+                "memoryStoreId": self.memory_store_id,
+                "channelSettings": [
                     channel_settings.to_dict()
                     for channel_settings in self.channel_settings
                 ]
                 if self.channel_settings is not None
                 else None,
-                "status_callbacks": [
+                "statusCallbacks": [
                     status_callbacks.to_dict()
                     for status_callbacks in self.status_callbacks
                 ]
                 if self.status_callbacks is not None
                 else None,
-                "intelligence_configuration_ids": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
 
     class CreateConfigurationRequestChannelSettingsValue(object):
@@ -1241,10 +1249,12 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.status_timeouts.to_dict()
+                "statusTimeouts": self.status_timeouts.to_dict()
                 if self.status_timeouts is not None
                 else None,
-                "": [capture_rules.to_dict() for capture_rules in self.capture_rules]
+                "captureRules": [
+                    capture_rules.to_dict() for capture_rules in self.capture_rules
+                ]
                 if self.capture_rules is not None
                 else None,
             }
@@ -1263,9 +1273,9 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class CreateConfigurationRequestChannelSettingsValueStatusTimeouts(object):
@@ -1280,8 +1290,8 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class CreateConfigurationRequestStatusCallbacks(object):
@@ -1330,23 +1340,23 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
-                "conversation_grouping_type": self.conversation_grouping_type,
-                "memory_store_id": self.memory_store_id,
-                "channel_settings": [
+                "conversationGroupingType": self.conversation_grouping_type,
+                "memoryStoreId": self.memory_store_id,
+                "channelSettings": [
                     channel_settings.to_dict()
                     for channel_settings in self.channel_settings
                 ]
                 if self.channel_settings is not None
                 else None,
-                "status_callbacks": [
+                "statusCallbacks": [
                     status_callbacks.to_dict()
                     for status_callbacks in self.status_callbacks
                 ]
                 if self.status_callbacks is not None
                 else None,
-                "intelligence_configuration_ids": self.intelligence_configuration_ids,
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
             }
 
     class UpdateConfigurationRequestChannelSettingsValue(object):
@@ -1365,10 +1375,12 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.status_timeouts.to_dict()
+                "statusTimeouts": self.status_timeouts.to_dict()
                 if self.status_timeouts is not None
                 else None,
-                "": [capture_rules.to_dict() for capture_rules in self.capture_rules]
+                "captureRules": [
+                    capture_rules.to_dict() for capture_rules in self.capture_rules
+                ]
                 if self.capture_rules is not None
                 else None,
             }
@@ -1387,9 +1399,9 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self._from,
-                "": self.to,
-                "": self.metadata,
+                "from": self._from,
+                "to": self.to,
+                "metadata": self.metadata,
             }
 
     class UpdateConfigurationRequestChannelSettingsValueStatusTimeouts(object):
@@ -1404,8 +1416,8 @@ class ConfigurationList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.inactive,
-                "": self.closed,
+                "inactive": self.inactive,
+                "closed": self.closed,
             }
 
     class UpdateConfigurationRequestStatusCallbacks(object):

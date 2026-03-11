@@ -65,7 +65,7 @@ class TraitGroup:
         self,
         displayName: str,
         description: str,
-        traits: Dict[str, "TraitGroupCoreTraitsValue"],
+        traits: Dict[str, TraitGroupCoreTraitsValue],
         version: int,
     ):
         self.displayName = displayName
@@ -85,7 +85,7 @@ class TraitGroupCoreTraitsValue:
         displayName: str,
         dataType: str,
         description: str,
-        validationRule: "ValidationRule",
+        validationRule: ValidationRule,
         idTypePromotion: str,
     ):
         self.displayName = displayName
@@ -226,10 +226,10 @@ class TraitGroupInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.display_name,
-                "": self.data_type,
-                "": self.description,
-                "": self.id_type_promotion,
+                "displayName": self.display_name,
+                "dataType": self.data_type,
+                "description": self.description,
+                "idTypePromotion": self.id_type_promotion,
             }
 
     class TraitGroupCoreTraitsValue(object):
@@ -252,13 +252,13 @@ class TraitGroupInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.display_name,
-                "": self.data_type,
-                "": self.description,
-                "": self.validation_rule.to_dict()
+                "displayName": self.display_name,
+                "dataType": self.data_type,
+                "description": self.description,
+                "validationRule": self.validation_rule.to_dict()
                 if self.validation_rule is not None
                 else None,
-                "": self.id_type_promotion,
+                "idTypePromotion": self.id_type_promotion,
             }
 
     class TraitGroupRequest(object):
@@ -277,7 +277,7 @@ class TraitGroupInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
                 "traits": [traits.to_dict() for traits in self.traits]
                 if self.traits is not None
@@ -326,14 +326,14 @@ class TraitGroupInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.pattern,
-                "": self.min_length,
-                "": self.max_length,
-                "": self.rule_type,
-                "": self.min,
-                "": self.max,
-                "": self.min_items,
-                "": self.max_items,
+                "pattern": self.pattern,
+                "minLength": self.min_length,
+                "maxLength": self.max_length,
+                "ruleType": self.rule_type,
+                "min": self.min,
+                "max": self.max,
+                "minItems": self.min_items,
+                "maxItems": self.max_items,
             }
 
     """
@@ -714,10 +714,10 @@ class TraitGroupContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.display_name,
-                "": self.data_type,
-                "": self.description,
-                "": self.id_type_promotion,
+                "displayName": self.display_name,
+                "dataType": self.data_type,
+                "description": self.description,
+                "idTypePromotion": self.id_type_promotion,
             }
 
     class TraitGroupCoreTraitsValue(object):
@@ -740,13 +740,13 @@ class TraitGroupContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.display_name,
-                "": self.data_type,
-                "": self.description,
-                "": self.validation_rule.to_dict()
+                "displayName": self.display_name,
+                "dataType": self.data_type,
+                "description": self.description,
+                "validationRule": self.validation_rule.to_dict()
                 if self.validation_rule is not None
                 else None,
-                "": self.id_type_promotion,
+                "idTypePromotion": self.id_type_promotion,
             }
 
     class TraitGroupRequest(object):
@@ -765,7 +765,7 @@ class TraitGroupContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
                 "traits": [traits.to_dict() for traits in self.traits]
                 if self.traits is not None
@@ -814,14 +814,14 @@ class TraitGroupContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.pattern,
-                "": self.min_length,
-                "": self.max_length,
-                "": self.rule_type,
-                "": self.min,
-                "": self.max,
-                "": self.min_items,
-                "": self.max_items,
+                "pattern": self.pattern,
+                "minLength": self.min_length,
+                "maxLength": self.max_length,
+                "ruleType": self.rule_type,
+                "min": self.min,
+                "max": self.max,
+                "minItems": self.min_items,
+                "maxItems": self.max_items,
             }
 
     def __init__(self, version: Version, store_id: str, trait_group_name: str):
@@ -1496,10 +1496,10 @@ class TraitGroupList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.display_name,
-                "": self.data_type,
-                "": self.description,
-                "": self.id_type_promotion,
+                "displayName": self.display_name,
+                "dataType": self.data_type,
+                "description": self.description,
+                "idTypePromotion": self.id_type_promotion,
             }
 
     class TraitGroupCoreTraitsValue(object):
@@ -1522,13 +1522,13 @@ class TraitGroupList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.display_name,
-                "": self.data_type,
-                "": self.description,
-                "": self.validation_rule.to_dict()
+                "displayName": self.display_name,
+                "dataType": self.data_type,
+                "description": self.description,
+                "validationRule": self.validation_rule.to_dict()
                 if self.validation_rule is not None
                 else None,
-                "": self.id_type_promotion,
+                "idTypePromotion": self.id_type_promotion,
             }
 
     class TraitGroupRequest(object):
@@ -1547,7 +1547,7 @@ class TraitGroupList(ListResource):
 
         def to_dict(self):
             return {
-                "display_name": self.display_name,
+                "displayName": self.display_name,
                 "description": self.description,
                 "traits": [traits.to_dict() for traits in self.traits]
                 if self.traits is not None
@@ -1596,14 +1596,14 @@ class TraitGroupList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.pattern,
-                "": self.min_length,
-                "": self.max_length,
-                "": self.rule_type,
-                "": self.min,
-                "": self.max,
-                "": self.min_items,
-                "": self.max_items,
+                "pattern": self.pattern,
+                "minLength": self.min_length,
+                "maxLength": self.max_length,
+                "ruleType": self.rule_type,
+                "min": self.min,
+                "max": self.max,
+                "minItems": self.min_items,
+                "maxItems": self.max_items,
             }
 
     def __init__(self, version: Version):

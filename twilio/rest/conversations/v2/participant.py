@@ -45,7 +45,7 @@ class ParticipantInstance(InstanceResource):
             return {
                 "name": self.name,
                 "type": self.type,
-                "profile_id": self.profile_id,
+                "profileId": self.profile_id,
                 "addresses": [addresses.to_dict() for addresses in self.addresses]
                 if self.addresses is not None
                 else None,
@@ -67,7 +67,7 @@ class ParticipantInstance(InstanceResource):
             return {
                 "channel": self.channel,
                 "address": self.address,
-                "channel_id": self.channel_id,
+                "channelId": self.channel_id,
             }
 
     """
@@ -262,7 +262,7 @@ class ParticipantContext(InstanceContext):
             return {
                 "name": self.name,
                 "type": self.type,
-                "profile_id": self.profile_id,
+                "profileId": self.profile_id,
                 "addresses": [addresses.to_dict() for addresses in self.addresses]
                 if self.addresses is not None
                 else None,
@@ -284,7 +284,7 @@ class ParticipantContext(InstanceContext):
             return {
                 "channel": self.channel,
                 "address": self.address,
-                "channel_id": self.channel_id,
+                "channelId": self.channel_id,
             }
 
     def __init__(self, version: Version, conversation_sid: str, sid: str):
@@ -593,7 +593,7 @@ class ParticipantList(ListResource):
             return {
                 "name": self.name,
                 "type": self.type,
-                "profile_id": self.profile_id,
+                "profileId": self.profile_id,
                 "addresses": [addresses.to_dict() for addresses in self.addresses]
                 if self.addresses is not None
                 else None,
@@ -615,7 +615,7 @@ class ParticipantList(ListResource):
             return {
                 "channel": self.channel,
                 "address": self.address,
-                "channel_id": self.channel_id,
+                "channelId": self.channel_id,
             }
 
     def __init__(self, version: Version, conversation_sid: str):

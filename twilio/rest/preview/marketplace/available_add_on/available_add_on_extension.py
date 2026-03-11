@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
@@ -23,6 +24,7 @@ from twilio.base.page import Page
 
 
 class AvailableAddOnExtensionInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the AvailableAddOnExtension resource.
     :ivar available_add_on_sid: The SID of the AvailableAddOn resource to which this extension applies.

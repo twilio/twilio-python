@@ -36,9 +36,6 @@ class UsageRecordInstance(InstanceResource):
         NETWORK = "network"
         ISOCOUNTRY = "isoCountry"
 
-    class SortBy(object):
-        TIME = "time"
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that incurred the usage.
     :ivar sim_sid: SID of a Sim resource to which the UsageRecord belongs. Value will only be present when either a value for the `Sim` query parameter is provided or when UsageRecords are grouped by `sim`. Otherwise, the value will be `null`.
@@ -118,7 +115,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -136,7 +132,6 @@ class UsageRecordList(ListResource):
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param &quot;UsageRecordInstance.SortBy&quot; sort_by:
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param limit: Upper limit for the number of records to return. stream()
@@ -156,7 +151,6 @@ class UsageRecordList(ListResource):
             iso_country=iso_country,
             group=group,
             granularity=granularity,
-            sort_by=sort_by,
             start_time=start_time,
             end_time=end_time,
             page_size=limits["page_size"],
@@ -172,7 +166,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -190,7 +183,6 @@ class UsageRecordList(ListResource):
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param &quot;UsageRecordInstance.SortBy&quot; sort_by:
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param limit: Upper limit for the number of records to return. stream()
@@ -210,7 +202,6 @@ class UsageRecordList(ListResource):
             iso_country=iso_country,
             group=group,
             granularity=granularity,
-            sort_by=sort_by,
             start_time=start_time,
             end_time=end_time,
             page_size=limits["page_size"],
@@ -226,7 +217,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -242,7 +232,6 @@ class UsageRecordList(ListResource):
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param &quot;UsageRecordInstance.SortBy&quot; sort_by:
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param limit: Upper limit for the number of records to return. stream()
@@ -262,7 +251,6 @@ class UsageRecordList(ListResource):
             iso_country=iso_country,
             group=group,
             granularity=granularity,
-            sort_by=sort_by,
             start_time=start_time,
             end_time=end_time,
             page_size=limits["page_size"],
@@ -279,7 +267,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -295,7 +282,6 @@ class UsageRecordList(ListResource):
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param &quot;UsageRecordInstance.SortBy&quot; sort_by:
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param limit: Upper limit for the number of records to return. stream()
@@ -315,7 +301,6 @@ class UsageRecordList(ListResource):
             iso_country=iso_country,
             group=group,
             granularity=granularity,
-            sort_by=sort_by,
             start_time=start_time,
             end_time=end_time,
             page_size=limits["page_size"],
@@ -332,7 +317,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -349,7 +333,6 @@ class UsageRecordList(ListResource):
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param &quot;UsageRecordInstance.SortBy&quot; sort_by:
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -369,7 +352,6 @@ class UsageRecordList(ListResource):
                 iso_country=iso_country,
                 group=group,
                 granularity=granularity,
-                sort_by=sort_by,
                 start_time=start_time,
                 end_time=end_time,
                 limit=limit,
@@ -385,7 +367,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -402,7 +383,6 @@ class UsageRecordList(ListResource):
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param &quot;UsageRecordInstance.SortBy&quot; sort_by:
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -423,7 +403,6 @@ class UsageRecordList(ListResource):
                 iso_country=iso_country,
                 group=group,
                 granularity=granularity,
-                sort_by=sort_by,
                 start_time=start_time,
                 end_time=end_time,
                 limit=limit,
@@ -439,7 +418,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -455,7 +433,6 @@ class UsageRecordList(ListResource):
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param &quot;UsageRecordInstance.SortBy&quot; sort_by:
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -474,7 +451,6 @@ class UsageRecordList(ListResource):
             iso_country=iso_country,
             group=group,
             granularity=granularity,
-            sort_by=sort_by,
             start_time=start_time,
             end_time=end_time,
             limit=limit,
@@ -491,7 +467,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -507,7 +482,6 @@ class UsageRecordList(ListResource):
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param &quot;UsageRecordInstance.SortBy&quot; sort_by:
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -526,7 +500,6 @@ class UsageRecordList(ListResource):
             iso_country=iso_country,
             group=group,
             granularity=granularity,
-            sort_by=sort_by,
             start_time=start_time,
             end_time=end_time,
             limit=limit,
@@ -543,7 +516,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -560,7 +532,6 @@ class UsageRecordList(ListResource):
         :param iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param sort_by:
         :param start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param page_token: PageToken provided by the API
@@ -577,7 +548,6 @@ class UsageRecordList(ListResource):
                 "IsoCountry": iso_country,
                 "Group": group,
                 "Granularity": granularity,
-                "SortBy": sort_by,
                 "StartTime": serialize.iso8601_datetime(start_time),
                 "EndTime": serialize.iso8601_datetime(end_time),
                 "PageToken": page_token,
@@ -603,7 +573,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -620,7 +589,6 @@ class UsageRecordList(ListResource):
         :param iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param sort_by:
         :param start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param page_token: PageToken provided by the API
@@ -637,7 +605,6 @@ class UsageRecordList(ListResource):
                 "IsoCountry": iso_country,
                 "Group": group,
                 "Granularity": granularity,
-                "SortBy": sort_by,
                 "StartTime": serialize.iso8601_datetime(start_time),
                 "EndTime": serialize.iso8601_datetime(end_time),
                 "PageToken": page_token,
@@ -663,7 +630,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -680,7 +646,6 @@ class UsageRecordList(ListResource):
         :param iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param sort_by:
         :param start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param page_token: PageToken provided by the API
@@ -697,7 +662,6 @@ class UsageRecordList(ListResource):
                 "IsoCountry": iso_country,
                 "Group": group,
                 "Granularity": granularity,
-                "SortBy": sort_by,
                 "StartTime": serialize.iso8601_datetime(start_time),
                 "EndTime": serialize.iso8601_datetime(end_time),
                 "PageToken": page_token,
@@ -724,7 +688,6 @@ class UsageRecordList(ListResource):
         iso_country: Union[str, object] = values.unset,
         group: Union["UsageRecordInstance.Group", object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        sort_by: Union["UsageRecordInstance.SortBy", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -741,7 +704,6 @@ class UsageRecordList(ListResource):
         :param iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
         :param group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
         :param granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param sort_by:
         :param start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param page_token: PageToken provided by the API
@@ -758,7 +720,6 @@ class UsageRecordList(ListResource):
                 "IsoCountry": iso_country,
                 "Group": group,
                 "Granularity": granularity,
-                "SortBy": sort_by,
                 "StartTime": serialize.iso8601_datetime(start_time),
                 "EndTime": serialize.iso8601_datetime(end_time),
                 "PageToken": page_token,

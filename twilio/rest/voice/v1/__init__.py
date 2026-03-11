@@ -20,7 +20,6 @@ from twilio.rest.voice.v1.byoc_trunk import ByocTrunkList
 from twilio.rest.voice.v1.connection_policy import ConnectionPolicyList
 from twilio.rest.voice.v1.dialing_permissions import DialingPermissionsList
 from twilio.rest.voice.v1.ip_record import IpRecordList
-from twilio.rest.voice.v1.recording import RecordingList
 from twilio.rest.voice.v1.source_ip_mapping import SourceIpMappingList
 
 
@@ -37,7 +36,6 @@ class V1(Version):
         self._connection_policies: Optional[ConnectionPolicyList] = None
         self._dialing_permissions: Optional[DialingPermissionsList] = None
         self._ip_records: Optional[IpRecordList] = None
-        self._recordings: Optional[RecordingList] = None
         self._source_ip_mappings: Optional[SourceIpMappingList] = None
 
     @property
@@ -69,12 +67,6 @@ class V1(Version):
         if self._ip_records is None:
             self._ip_records = IpRecordList(self)
         return self._ip_records
-
-    @property
-    def recordings(self) -> RecordingList:
-        if self._recordings is None:
-            self._recordings = RecordingList(self)
-        return self._recordings
 
     @property
     def source_ip_mappings(self) -> SourceIpMappingList:

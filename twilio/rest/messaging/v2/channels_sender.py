@@ -115,8 +115,8 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.email,
-                "": self.label,
+                "email": self.email,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(object):
@@ -131,8 +131,8 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.phone_number,
-                "": self.label,
+                "phone_number": self.phone_number,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponseWebsites(object):
@@ -147,8 +147,8 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.website,
-                "": self.label,
+                "website": self.website,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
@@ -254,8 +254,8 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.name,
-                "": self.status.to_dict() if self.status is not None else None,
+                "name": self.name,
+                "status": self.status.to_dict() if self.status is not None else None,
             }
 
     class MessagingV2RcsComplianceCountryResponse(object):
@@ -276,10 +276,10 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.country,
-                "": self.registration_sid,
-                "": self.status.to_dict() if self.status is not None else None,
-                "": [carriers.to_dict() for carriers in self.carriers]
+                "country": self.country,
+                "registration_sid": self.registration_sid,
+                "status": self.status.to_dict() if self.status is not None else None,
+                "carriers": [carriers.to_dict() for carriers in self.carriers]
                 if self.carriers is not None
                 else None,
             }
@@ -600,8 +600,8 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.email,
-                "": self.label,
+                "email": self.email,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(object):
@@ -616,8 +616,8 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.phone_number,
-                "": self.label,
+                "phone_number": self.phone_number,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponseWebsites(object):
@@ -632,8 +632,8 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.website,
-                "": self.label,
+                "website": self.website,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
@@ -739,8 +739,8 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.name,
-                "": self.status.to_dict() if self.status is not None else None,
+                "name": self.name,
+                "status": self.status.to_dict() if self.status is not None else None,
             }
 
     class MessagingV2RcsComplianceCountryResponse(object):
@@ -761,10 +761,10 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.country,
-                "": self.registration_sid,
-                "": self.status.to_dict() if self.status is not None else None,
-                "": [carriers.to_dict() for carriers in self.carriers]
+                "country": self.country,
+                "registration_sid": self.registration_sid,
+                "status": self.status.to_dict() if self.status is not None else None,
+                "carriers": [carriers.to_dict() for carriers in self.carriers]
                 if self.carriers is not None
                 else None,
             }
@@ -1188,8 +1188,8 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.email,
-                "": self.label,
+                "email": self.email,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(object):
@@ -1204,8 +1204,8 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.phone_number,
-                "": self.label,
+                "phone_number": self.phone_number,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponseWebsites(object):
@@ -1220,8 +1220,8 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.website,
-                "": self.label,
+                "website": self.website,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
@@ -1327,8 +1327,8 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.name,
-                "": self.status.to_dict() if self.status is not None else None,
+                "name": self.name,
+                "status": self.status.to_dict() if self.status is not None else None,
             }
 
     class MessagingV2RcsComplianceCountryResponse(object):
@@ -1349,10 +1349,10 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.country,
-                "": self.registration_sid,
-                "": self.status.to_dict() if self.status is not None else None,
-                "": [carriers.to_dict() for carriers in self.carriers]
+                "country": self.country,
+                "registration_sid": self.registration_sid,
+                "status": self.status.to_dict() if self.status is not None else None,
+                "carriers": [carriers.to_dict() for carriers in self.carriers]
                 if self.carriers is not None
                 else None,
             }

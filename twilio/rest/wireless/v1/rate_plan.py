@@ -45,9 +45,6 @@ class RatePlanInstance(InstanceResource):
     :ivar international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-    :ivar usage_notification_url: 
-    :ivar usage_notification_method: 
-    :ivar data_limit_strategy: 
     :ivar url: The absolute URL of the resource.
     """
 
@@ -83,15 +80,6 @@ class RatePlanInstance(InstanceResource):
         self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self.usage_notification_url: Optional[str] = payload.get(
-            "usage_notification_url"
-        )
-        self.usage_notification_method: Optional[str] = payload.get(
-            "usage_notification_method"
-        )
-        self.data_limit_strategy: Optional[
-            "RatePlanInstance.DataLimitStrategy"
-        ] = payload.get("data_limit_strategy")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -190,96 +178,72 @@ class RatePlanInstance(InstanceResource):
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> "RatePlanInstance":
         """
         Update the RatePlanInstance
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param usage_notification_url:
-        :param usage_notification_method:
 
         :returns: The updated RatePlanInstance
         """
         return self._proxy.update(
             unique_name=unique_name,
             friendly_name=friendly_name,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
         )
 
     async def update_async(
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> "RatePlanInstance":
         """
         Asynchronous coroutine to update the RatePlanInstance
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param usage_notification_url:
-        :param usage_notification_method:
 
         :returns: The updated RatePlanInstance
         """
         return await self._proxy.update_async(
             unique_name=unique_name,
             friendly_name=friendly_name,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
         )
 
     def update_with_http_info(
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the RatePlanInstance with HTTP info
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param usage_notification_url:
-        :param usage_notification_method:
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return self._proxy.update_with_http_info(
             unique_name=unique_name,
             friendly_name=friendly_name,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
         )
 
     async def update_with_http_info_async(
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the RatePlanInstance with HTTP info
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param usage_notification_url:
-        :param usage_notification_method:
 
         :returns: ApiResponse with instance, status code, and headers
         """
         return await self._proxy.update_with_http_info_async(
             unique_name=unique_name,
             friendly_name=friendly_name,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
         )
 
     def __repr__(self) -> str:
@@ -470,8 +434,6 @@ class RatePlanContext(InstanceContext):
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for update operation
@@ -484,8 +446,6 @@ class RatePlanContext(InstanceContext):
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
-                "UsageNotificationUrl": usage_notification_url,
-                "UsageNotificationMethod": usage_notification_method,
             }
         )
         headers = values.of({})
@@ -502,24 +462,17 @@ class RatePlanContext(InstanceContext):
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> RatePlanInstance:
         """
         Update the RatePlanInstance
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param usage_notification_url:
-        :param usage_notification_method:
 
         :returns: The updated RatePlanInstance
         """
         payload, _, _ = self._update(
-            unique_name=unique_name,
-            friendly_name=friendly_name,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
+            unique_name=unique_name, friendly_name=friendly_name
         )
         return RatePlanInstance(self._version, payload, sid=self._solution["sid"])
 
@@ -527,24 +480,17 @@ class RatePlanContext(InstanceContext):
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the RatePlanInstance and return response metadata
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param usage_notification_url:
-        :param usage_notification_method:
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._update(
-            unique_name=unique_name,
-            friendly_name=friendly_name,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
+            unique_name=unique_name, friendly_name=friendly_name
         )
         instance = RatePlanInstance(self._version, payload, sid=self._solution["sid"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -553,8 +499,6 @@ class RatePlanContext(InstanceContext):
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -567,8 +511,6 @@ class RatePlanContext(InstanceContext):
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
-                "UsageNotificationUrl": usage_notification_url,
-                "UsageNotificationMethod": usage_notification_method,
             }
         )
         headers = values.of({})
@@ -585,24 +527,17 @@ class RatePlanContext(InstanceContext):
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> RatePlanInstance:
         """
         Asynchronous coroutine to update the RatePlanInstance
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param usage_notification_url:
-        :param usage_notification_method:
 
         :returns: The updated RatePlanInstance
         """
         payload, _, _ = await self._update_async(
-            unique_name=unique_name,
-            friendly_name=friendly_name,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
+            unique_name=unique_name, friendly_name=friendly_name
         )
         return RatePlanInstance(self._version, payload, sid=self._solution["sid"])
 
@@ -610,24 +545,17 @@ class RatePlanContext(InstanceContext):
         self,
         unique_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the RatePlanInstance and return response metadata
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param usage_notification_url:
-        :param usage_notification_method:
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._update_async(
-            unique_name=unique_name,
-            friendly_name=friendly_name,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
+            unique_name=unique_name, friendly_name=friendly_name
         )
         instance = RatePlanInstance(self._version, payload, sid=self._solution["sid"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -685,8 +613,6 @@ class RatePlanList(ListResource):
         international_roaming: Union[List[str], object] = values.unset,
         national_roaming_data_limit: Union[int, object] = values.unset,
         international_roaming_data_limit: Union[int, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
         data_limit_strategy: Union[
             "RatePlanInstance.DataLimitStrategy", object
         ] = values.unset,
@@ -715,8 +641,6 @@ class RatePlanList(ListResource):
                 ),
                 "NationalRoamingDataLimit": national_roaming_data_limit,
                 "InternationalRoamingDataLimit": international_roaming_data_limit,
-                "UsageNotificationUrl": usage_notification_url,
-                "UsageNotificationMethod": usage_notification_method,
                 "DataLimitStrategy": data_limit_strategy,
             }
         )
@@ -743,8 +667,6 @@ class RatePlanList(ListResource):
         international_roaming: Union[List[str], object] = values.unset,
         national_roaming_data_limit: Union[int, object] = values.unset,
         international_roaming_data_limit: Union[int, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
         data_limit_strategy: Union[
             "RatePlanInstance.DataLimitStrategy", object
         ] = values.unset,
@@ -763,8 +685,6 @@ class RatePlanList(ListResource):
         :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
         :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming) for more info.
         :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
-        :param usage_notification_url:
-        :param usage_notification_method:
         :param data_limit_strategy:
 
         :returns: The created RatePlanInstance
@@ -781,8 +701,6 @@ class RatePlanList(ListResource):
             international_roaming=international_roaming,
             national_roaming_data_limit=national_roaming_data_limit,
             international_roaming_data_limit=international_roaming_data_limit,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
             data_limit_strategy=data_limit_strategy,
         )
         return RatePlanInstance(self._version, payload)
@@ -800,8 +718,6 @@ class RatePlanList(ListResource):
         international_roaming: Union[List[str], object] = values.unset,
         national_roaming_data_limit: Union[int, object] = values.unset,
         international_roaming_data_limit: Union[int, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
         data_limit_strategy: Union[
             "RatePlanInstance.DataLimitStrategy", object
         ] = values.unset,
@@ -820,8 +736,6 @@ class RatePlanList(ListResource):
         :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
         :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming) for more info.
         :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
-        :param usage_notification_url:
-        :param usage_notification_method:
         :param data_limit_strategy:
 
         :returns: ApiResponse with instance, status code, and headers
@@ -838,8 +752,6 @@ class RatePlanList(ListResource):
             international_roaming=international_roaming,
             national_roaming_data_limit=national_roaming_data_limit,
             international_roaming_data_limit=international_roaming_data_limit,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
             data_limit_strategy=data_limit_strategy,
         )
         instance = RatePlanInstance(self._version, payload)
@@ -858,8 +770,6 @@ class RatePlanList(ListResource):
         international_roaming: Union[List[str], object] = values.unset,
         national_roaming_data_limit: Union[int, object] = values.unset,
         international_roaming_data_limit: Union[int, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
         data_limit_strategy: Union[
             "RatePlanInstance.DataLimitStrategy", object
         ] = values.unset,
@@ -888,8 +798,6 @@ class RatePlanList(ListResource):
                 ),
                 "NationalRoamingDataLimit": national_roaming_data_limit,
                 "InternationalRoamingDataLimit": international_roaming_data_limit,
-                "UsageNotificationUrl": usage_notification_url,
-                "UsageNotificationMethod": usage_notification_method,
                 "DataLimitStrategy": data_limit_strategy,
             }
         )
@@ -916,8 +824,6 @@ class RatePlanList(ListResource):
         international_roaming: Union[List[str], object] = values.unset,
         national_roaming_data_limit: Union[int, object] = values.unset,
         international_roaming_data_limit: Union[int, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
         data_limit_strategy: Union[
             "RatePlanInstance.DataLimitStrategy", object
         ] = values.unset,
@@ -936,8 +842,6 @@ class RatePlanList(ListResource):
         :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
         :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming) for more info.
         :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
-        :param usage_notification_url:
-        :param usage_notification_method:
         :param data_limit_strategy:
 
         :returns: The created RatePlanInstance
@@ -954,8 +858,6 @@ class RatePlanList(ListResource):
             international_roaming=international_roaming,
             national_roaming_data_limit=national_roaming_data_limit,
             international_roaming_data_limit=international_roaming_data_limit,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
             data_limit_strategy=data_limit_strategy,
         )
         return RatePlanInstance(self._version, payload)
@@ -973,8 +875,6 @@ class RatePlanList(ListResource):
         international_roaming: Union[List[str], object] = values.unset,
         national_roaming_data_limit: Union[int, object] = values.unset,
         international_roaming_data_limit: Union[int, object] = values.unset,
-        usage_notification_url: Union[str, object] = values.unset,
-        usage_notification_method: Union[str, object] = values.unset,
         data_limit_strategy: Union[
             "RatePlanInstance.DataLimitStrategy", object
         ] = values.unset,
@@ -993,8 +893,6 @@ class RatePlanList(ListResource):
         :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
         :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming) for more info.
         :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
-        :param usage_notification_url:
-        :param usage_notification_method:
         :param data_limit_strategy:
 
         :returns: ApiResponse with instance, status code, and headers
@@ -1011,8 +909,6 @@ class RatePlanList(ListResource):
             international_roaming=international_roaming,
             national_roaming_data_limit=national_roaming_data_limit,
             international_roaming_data_limit=international_roaming_data_limit,
-            usage_notification_url=usage_notification_url,
-            usage_notification_method=usage_notification_method,
             data_limit_strategy=data_limit_strategy,
         )
         instance = RatePlanInstance(self._version, payload)

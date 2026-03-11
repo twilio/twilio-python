@@ -47,8 +47,8 @@ class ApproveChallengeInstance(InstanceResource):
         def to_dict(self):
             return {
                 "id": self.id,
-                "raw_id": self.raw_id,
-                "authenticator_attachment": self.authenticator_attachment,
+                "rawId": self.raw_id,
+                "authenticatorAttachment": self.authenticator_attachment,
                 "type": self.type,
                 "response": self.response.to_dict()
                 if self.response is not None
@@ -71,10 +71,10 @@ class ApproveChallengeInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "authenticator_data": self.authenticator_data,
-                "client_data_json": self.client_data_json,
+                "authenticatorData": self.authenticator_data,
+                "clientDataJSON": self.client_data_json,
                 "signature": self.signature,
-                "user_handle": self.user_handle,
+                "userHandle": self.user_handle,
             }
 
     """
@@ -168,8 +168,8 @@ class ApproveChallengeList(ListResource):
         def to_dict(self):
             return {
                 "id": self.id,
-                "raw_id": self.raw_id,
-                "authenticator_attachment": self.authenticator_attachment,
+                "rawId": self.raw_id,
+                "authenticatorAttachment": self.authenticator_attachment,
                 "type": self.type,
                 "response": self.response.to_dict()
                 if self.response is not None
@@ -192,10 +192,10 @@ class ApproveChallengeList(ListResource):
 
         def to_dict(self):
             return {
-                "authenticator_data": self.authenticator_data,
-                "client_data_json": self.client_data_json,
+                "authenticatorData": self.authenticator_data,
+                "clientDataJSON": self.client_data_json,
                 "signature": self.signature,
-                "user_handle": self.user_handle,
+                "userHandle": self.user_handle,
             }
 
     def __init__(self, version: Version, service_sid: str):

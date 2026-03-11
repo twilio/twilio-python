@@ -540,7 +540,7 @@ class ContentInstance(InstanceResource):
             return {
                 "id": self.id,
                 "title": self.title,
-                "time_slots": self.time_slots,
+                "timeSlots": self.time_slots,
             }
 
     class TwilioText(object):
@@ -620,46 +620,46 @@ class ContentInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "twilio_text": self.twilio_text.to_dict()
+                "twilio/text": self.twilio_text.to_dict()
                 if self.twilio_text is not None
                 else None,
-                "twilio_media": self.twilio_media.to_dict()
+                "twilio/media": self.twilio_media.to_dict()
                 if self.twilio_media is not None
                 else None,
-                "twilio_location": self.twilio_location.to_dict()
+                "twilio/location": self.twilio_location.to_dict()
                 if self.twilio_location is not None
                 else None,
-                "twilio_list_picker": self.twilio_list_picker.to_dict()
+                "twilio/list-picker": self.twilio_list_picker.to_dict()
                 if self.twilio_list_picker is not None
                 else None,
-                "twilio_call_to_action": self.twilio_call_to_action.to_dict()
+                "twilio/call-to-action": self.twilio_call_to_action.to_dict()
                 if self.twilio_call_to_action is not None
                 else None,
-                "twilio_quick_reply": self.twilio_quick_reply.to_dict()
+                "twilio/quick-reply": self.twilio_quick_reply.to_dict()
                 if self.twilio_quick_reply is not None
                 else None,
-                "twilio_card": self.twilio_card.to_dict()
+                "twilio/card": self.twilio_card.to_dict()
                 if self.twilio_card is not None
                 else None,
-                "twilio_catalog": self.twilio_catalog.to_dict()
+                "twilio/catalog": self.twilio_catalog.to_dict()
                 if self.twilio_catalog is not None
                 else None,
-                "twilio_carousel": self.twilio_carousel.to_dict()
+                "twilio/carousel": self.twilio_carousel.to_dict()
                 if self.twilio_carousel is not None
                 else None,
-                "twilio_flows": self.twilio_flows.to_dict()
+                "twilio/flows": self.twilio_flows.to_dict()
                 if self.twilio_flows is not None
                 else None,
-                "twilio_schedule": self.twilio_schedule.to_dict()
+                "twilio/schedule": self.twilio_schedule.to_dict()
                 if self.twilio_schedule is not None
                 else None,
-                "whatsapp_card": self.whatsapp_card.to_dict()
+                "whatsapp/card": self.whatsapp_card.to_dict()
                 if self.whatsapp_card is not None
                 else None,
-                "whatsapp_authentication": self.whatsapp_authentication.to_dict()
+                "whatsapp/authentication": self.whatsapp_authentication.to_dict()
                 if self.whatsapp_authentication is not None
                 else None,
-                "whatsapp_flows": self.whatsapp_flows.to_dict()
+                "whatsapp/flows": self.whatsapp_flows.to_dict()
                 if self.whatsapp_flows is not None
                 else None,
             }
@@ -1504,7 +1504,7 @@ class ContentContext(InstanceContext):
             return {
                 "id": self.id,
                 "title": self.title,
-                "time_slots": self.time_slots,
+                "timeSlots": self.time_slots,
             }
 
     class TwilioText(object):
@@ -1584,46 +1584,46 @@ class ContentContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "twilio_text": self.twilio_text.to_dict()
+                "twilio/text": self.twilio_text.to_dict()
                 if self.twilio_text is not None
                 else None,
-                "twilio_media": self.twilio_media.to_dict()
+                "twilio/media": self.twilio_media.to_dict()
                 if self.twilio_media is not None
                 else None,
-                "twilio_location": self.twilio_location.to_dict()
+                "twilio/location": self.twilio_location.to_dict()
                 if self.twilio_location is not None
                 else None,
-                "twilio_list_picker": self.twilio_list_picker.to_dict()
+                "twilio/list-picker": self.twilio_list_picker.to_dict()
                 if self.twilio_list_picker is not None
                 else None,
-                "twilio_call_to_action": self.twilio_call_to_action.to_dict()
+                "twilio/call-to-action": self.twilio_call_to_action.to_dict()
                 if self.twilio_call_to_action is not None
                 else None,
-                "twilio_quick_reply": self.twilio_quick_reply.to_dict()
+                "twilio/quick-reply": self.twilio_quick_reply.to_dict()
                 if self.twilio_quick_reply is not None
                 else None,
-                "twilio_card": self.twilio_card.to_dict()
+                "twilio/card": self.twilio_card.to_dict()
                 if self.twilio_card is not None
                 else None,
-                "twilio_catalog": self.twilio_catalog.to_dict()
+                "twilio/catalog": self.twilio_catalog.to_dict()
                 if self.twilio_catalog is not None
                 else None,
-                "twilio_carousel": self.twilio_carousel.to_dict()
+                "twilio/carousel": self.twilio_carousel.to_dict()
                 if self.twilio_carousel is not None
                 else None,
-                "twilio_flows": self.twilio_flows.to_dict()
+                "twilio/flows": self.twilio_flows.to_dict()
                 if self.twilio_flows is not None
                 else None,
-                "twilio_schedule": self.twilio_schedule.to_dict()
+                "twilio/schedule": self.twilio_schedule.to_dict()
                 if self.twilio_schedule is not None
                 else None,
-                "whatsapp_card": self.whatsapp_card.to_dict()
+                "whatsapp/card": self.whatsapp_card.to_dict()
                 if self.whatsapp_card is not None
                 else None,
-                "whatsapp_authentication": self.whatsapp_authentication.to_dict()
+                "whatsapp/authentication": self.whatsapp_authentication.to_dict()
                 if self.whatsapp_authentication is not None
                 else None,
-                "whatsapp_flows": self.whatsapp_flows.to_dict()
+                "whatsapp/flows": self.whatsapp_flows.to_dict()
                 if self.whatsapp_flows is not None
                 else None,
             }
@@ -2560,7 +2560,7 @@ class ContentList(ListResource):
             return {
                 "id": self.id,
                 "title": self.title,
-                "time_slots": self.time_slots,
+                "timeSlots": self.time_slots,
             }
 
     class TwilioText(object):
@@ -2640,46 +2640,46 @@ class ContentList(ListResource):
 
         def to_dict(self):
             return {
-                "twilio_text": self.twilio_text.to_dict()
+                "twilio/text": self.twilio_text.to_dict()
                 if self.twilio_text is not None
                 else None,
-                "twilio_media": self.twilio_media.to_dict()
+                "twilio/media": self.twilio_media.to_dict()
                 if self.twilio_media is not None
                 else None,
-                "twilio_location": self.twilio_location.to_dict()
+                "twilio/location": self.twilio_location.to_dict()
                 if self.twilio_location is not None
                 else None,
-                "twilio_list_picker": self.twilio_list_picker.to_dict()
+                "twilio/list-picker": self.twilio_list_picker.to_dict()
                 if self.twilio_list_picker is not None
                 else None,
-                "twilio_call_to_action": self.twilio_call_to_action.to_dict()
+                "twilio/call-to-action": self.twilio_call_to_action.to_dict()
                 if self.twilio_call_to_action is not None
                 else None,
-                "twilio_quick_reply": self.twilio_quick_reply.to_dict()
+                "twilio/quick-reply": self.twilio_quick_reply.to_dict()
                 if self.twilio_quick_reply is not None
                 else None,
-                "twilio_card": self.twilio_card.to_dict()
+                "twilio/card": self.twilio_card.to_dict()
                 if self.twilio_card is not None
                 else None,
-                "twilio_catalog": self.twilio_catalog.to_dict()
+                "twilio/catalog": self.twilio_catalog.to_dict()
                 if self.twilio_catalog is not None
                 else None,
-                "twilio_carousel": self.twilio_carousel.to_dict()
+                "twilio/carousel": self.twilio_carousel.to_dict()
                 if self.twilio_carousel is not None
                 else None,
-                "twilio_flows": self.twilio_flows.to_dict()
+                "twilio/flows": self.twilio_flows.to_dict()
                 if self.twilio_flows is not None
                 else None,
-                "twilio_schedule": self.twilio_schedule.to_dict()
+                "twilio/schedule": self.twilio_schedule.to_dict()
                 if self.twilio_schedule is not None
                 else None,
-                "whatsapp_card": self.whatsapp_card.to_dict()
+                "whatsapp/card": self.whatsapp_card.to_dict()
                 if self.whatsapp_card is not None
                 else None,
-                "whatsapp_authentication": self.whatsapp_authentication.to_dict()
+                "whatsapp/authentication": self.whatsapp_authentication.to_dict()
                 if self.whatsapp_authentication is not None
                 else None,
-                "whatsapp_flows": self.whatsapp_flows.to_dict()
+                "whatsapp/flows": self.whatsapp_flows.to_dict()
                 if self.whatsapp_flows is not None
                 else None,
             }

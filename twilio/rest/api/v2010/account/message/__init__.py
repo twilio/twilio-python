@@ -90,7 +90,6 @@ class MessageInstance(InstanceResource):
     :ivar price_unit: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
     :ivar api_version: The API version used to process the Message
     :ivar subresource_uris: A list of related resources identified by their URIs relative to `https://api.twilio.com`
-    :ivar tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message.
     """
 
     def __init__(
@@ -130,7 +129,6 @@ class MessageInstance(InstanceResource):
         self.subresource_uris: Optional[Dict[str, object]] = payload.get(
             "subresource_uris"
         )
-        self.tags: Optional[Dict[str, object]] = payload.get("tags")
 
         self._solution = {
             "account_sid": account_sid,
@@ -733,9 +731,7 @@ class MessageList(ListResource):
         provide_feedback: Union[bool, object] = values.unset,
         attempt: Union[int, object] = values.unset,
         validity_period: Union[int, object] = values.unset,
-        max_rate: Union[str, object] = values.unset,
         force_delivery: Union[bool, object] = values.unset,
-        provider_sid: Union[str, object] = values.unset,
         content_retention: Union[
             "MessageInstance.ContentRetention", object
         ] = values.unset,
@@ -744,22 +740,12 @@ class MessageList(ListResource):
         ] = values.unset,
         smart_encoded: Union[bool, object] = values.unset,
         persistent_action: Union[List[str], object] = values.unset,
-        interactive_data: Union[str, object] = values.unset,
-        force_opt_in: Union[bool, object] = values.unset,
         traffic_type: Union["MessageInstance.TrafficType", object] = values.unset,
         shorten_urls: Union[bool, object] = values.unset,
         schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
         send_at: Union[datetime, object] = values.unset,
-        optimize_start_at: Union[datetime, object] = values.unset,
-        optimize_end_at: Union[datetime, object] = values.unset,
-        invoice_tag: Union[str, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
-        message_intent: Union[str, object] = values.unset,
-        dlt_pe_id: Union[str, object] = values.unset,
-        dlt_template_id: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-        tags: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         messaging_service_sid: Union[str, object] = values.unset,
@@ -783,29 +769,17 @@ class MessageList(ListResource):
                 "ProvideFeedback": serialize.boolean_to_string(provide_feedback),
                 "Attempt": attempt,
                 "ValidityPeriod": validity_period,
-                "MaxRate": max_rate,
                 "ForceDelivery": serialize.boolean_to_string(force_delivery),
-                "ProviderSid": provider_sid,
                 "ContentRetention": content_retention,
                 "AddressRetention": address_retention,
                 "SmartEncoded": serialize.boolean_to_string(smart_encoded),
                 "PersistentAction": serialize.map(persistent_action, lambda e: e),
-                "InteractiveData": interactive_data,
-                "ForceOptIn": serialize.boolean_to_string(force_opt_in),
                 "TrafficType": traffic_type,
                 "ShortenUrls": serialize.boolean_to_string(shorten_urls),
                 "ScheduleType": schedule_type,
                 "SendAt": serialize.iso8601_datetime(send_at),
-                "OptimizeStartAt": serialize.iso8601_datetime(optimize_start_at),
-                "OptimizeEndAt": serialize.iso8601_datetime(optimize_end_at),
-                "InvoiceTag": invoice_tag,
                 "SendAsMms": serialize.boolean_to_string(send_as_mms),
                 "ContentVariables": content_variables,
-                "MessageIntent": message_intent,
-                "DltPEId": dlt_pe_id,
-                "DltTemplateId": dlt_template_id,
-                "Subject": subject,
-                "Tags": tags,
                 "RiskCheck": risk_check,
                 "From": from_,
                 "MessagingServiceSid": messaging_service_sid,
@@ -833,9 +807,7 @@ class MessageList(ListResource):
         provide_feedback: Union[bool, object] = values.unset,
         attempt: Union[int, object] = values.unset,
         validity_period: Union[int, object] = values.unset,
-        max_rate: Union[str, object] = values.unset,
         force_delivery: Union[bool, object] = values.unset,
-        provider_sid: Union[str, object] = values.unset,
         content_retention: Union[
             "MessageInstance.ContentRetention", object
         ] = values.unset,
@@ -844,22 +816,12 @@ class MessageList(ListResource):
         ] = values.unset,
         smart_encoded: Union[bool, object] = values.unset,
         persistent_action: Union[List[str], object] = values.unset,
-        interactive_data: Union[str, object] = values.unset,
-        force_opt_in: Union[bool, object] = values.unset,
         traffic_type: Union["MessageInstance.TrafficType", object] = values.unset,
         shorten_urls: Union[bool, object] = values.unset,
         schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
         send_at: Union[datetime, object] = values.unset,
-        optimize_start_at: Union[datetime, object] = values.unset,
-        optimize_end_at: Union[datetime, object] = values.unset,
-        invoice_tag: Union[str, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
-        message_intent: Union[str, object] = values.unset,
-        dlt_pe_id: Union[str, object] = values.unset,
-        dlt_template_id: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-        tags: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         messaging_service_sid: Union[str, object] = values.unset,
@@ -877,29 +839,17 @@ class MessageList(ListResource):
         :param provide_feedback: Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
         :param attempt: Total number of attempts made (including this request) to send the message regardless of the provider used
         :param validity_period: The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
-        :param max_rate:
         :param force_delivery: Reserved
-        :param provider_sid:
         :param content_retention:
         :param address_retention:
         :param smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param persistent_action: Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
-        :param interactive_data:
-        :param force_opt_in:
         :param traffic_type:
         :param shorten_urls: For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
         :param schedule_type:
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
-        :param optimize_start_at:
-        :param optimize_end_at:
-        :param invoice_tag:
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
-        :param message_intent:
-        :param dlt_pe_id:
-        :param dlt_template_id:
-        :param subject:
-        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
         :param risk_check:
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service's Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool.
@@ -917,29 +867,17 @@ class MessageList(ListResource):
             provide_feedback=provide_feedback,
             attempt=attempt,
             validity_period=validity_period,
-            max_rate=max_rate,
             force_delivery=force_delivery,
-            provider_sid=provider_sid,
             content_retention=content_retention,
             address_retention=address_retention,
             smart_encoded=smart_encoded,
             persistent_action=persistent_action,
-            interactive_data=interactive_data,
-            force_opt_in=force_opt_in,
             traffic_type=traffic_type,
             shorten_urls=shorten_urls,
             schedule_type=schedule_type,
             send_at=send_at,
-            optimize_start_at=optimize_start_at,
-            optimize_end_at=optimize_end_at,
-            invoice_tag=invoice_tag,
             send_as_mms=send_as_mms,
             content_variables=content_variables,
-            message_intent=message_intent,
-            dlt_pe_id=dlt_pe_id,
-            dlt_template_id=dlt_template_id,
-            subject=subject,
-            tags=tags,
             risk_check=risk_check,
             from_=from_,
             messaging_service_sid=messaging_service_sid,
@@ -960,9 +898,7 @@ class MessageList(ListResource):
         provide_feedback: Union[bool, object] = values.unset,
         attempt: Union[int, object] = values.unset,
         validity_period: Union[int, object] = values.unset,
-        max_rate: Union[str, object] = values.unset,
         force_delivery: Union[bool, object] = values.unset,
-        provider_sid: Union[str, object] = values.unset,
         content_retention: Union[
             "MessageInstance.ContentRetention", object
         ] = values.unset,
@@ -971,22 +907,12 @@ class MessageList(ListResource):
         ] = values.unset,
         smart_encoded: Union[bool, object] = values.unset,
         persistent_action: Union[List[str], object] = values.unset,
-        interactive_data: Union[str, object] = values.unset,
-        force_opt_in: Union[bool, object] = values.unset,
         traffic_type: Union["MessageInstance.TrafficType", object] = values.unset,
         shorten_urls: Union[bool, object] = values.unset,
         schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
         send_at: Union[datetime, object] = values.unset,
-        optimize_start_at: Union[datetime, object] = values.unset,
-        optimize_end_at: Union[datetime, object] = values.unset,
-        invoice_tag: Union[str, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
-        message_intent: Union[str, object] = values.unset,
-        dlt_pe_id: Union[str, object] = values.unset,
-        dlt_template_id: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-        tags: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         messaging_service_sid: Union[str, object] = values.unset,
@@ -1004,29 +930,17 @@ class MessageList(ListResource):
         :param provide_feedback: Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
         :param attempt: Total number of attempts made (including this request) to send the message regardless of the provider used
         :param validity_period: The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
-        :param max_rate:
         :param force_delivery: Reserved
-        :param provider_sid:
         :param content_retention:
         :param address_retention:
         :param smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param persistent_action: Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
-        :param interactive_data:
-        :param force_opt_in:
         :param traffic_type:
         :param shorten_urls: For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
         :param schedule_type:
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
-        :param optimize_start_at:
-        :param optimize_end_at:
-        :param invoice_tag:
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
-        :param message_intent:
-        :param dlt_pe_id:
-        :param dlt_template_id:
-        :param subject:
-        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
         :param risk_check:
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service's Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool.
@@ -1044,29 +958,17 @@ class MessageList(ListResource):
             provide_feedback=provide_feedback,
             attempt=attempt,
             validity_period=validity_period,
-            max_rate=max_rate,
             force_delivery=force_delivery,
-            provider_sid=provider_sid,
             content_retention=content_retention,
             address_retention=address_retention,
             smart_encoded=smart_encoded,
             persistent_action=persistent_action,
-            interactive_data=interactive_data,
-            force_opt_in=force_opt_in,
             traffic_type=traffic_type,
             shorten_urls=shorten_urls,
             schedule_type=schedule_type,
             send_at=send_at,
-            optimize_start_at=optimize_start_at,
-            optimize_end_at=optimize_end_at,
-            invoice_tag=invoice_tag,
             send_as_mms=send_as_mms,
             content_variables=content_variables,
-            message_intent=message_intent,
-            dlt_pe_id=dlt_pe_id,
-            dlt_template_id=dlt_template_id,
-            subject=subject,
-            tags=tags,
             risk_check=risk_check,
             from_=from_,
             messaging_service_sid=messaging_service_sid,
@@ -1088,9 +990,7 @@ class MessageList(ListResource):
         provide_feedback: Union[bool, object] = values.unset,
         attempt: Union[int, object] = values.unset,
         validity_period: Union[int, object] = values.unset,
-        max_rate: Union[str, object] = values.unset,
         force_delivery: Union[bool, object] = values.unset,
-        provider_sid: Union[str, object] = values.unset,
         content_retention: Union[
             "MessageInstance.ContentRetention", object
         ] = values.unset,
@@ -1099,22 +999,12 @@ class MessageList(ListResource):
         ] = values.unset,
         smart_encoded: Union[bool, object] = values.unset,
         persistent_action: Union[List[str], object] = values.unset,
-        interactive_data: Union[str, object] = values.unset,
-        force_opt_in: Union[bool, object] = values.unset,
         traffic_type: Union["MessageInstance.TrafficType", object] = values.unset,
         shorten_urls: Union[bool, object] = values.unset,
         schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
         send_at: Union[datetime, object] = values.unset,
-        optimize_start_at: Union[datetime, object] = values.unset,
-        optimize_end_at: Union[datetime, object] = values.unset,
-        invoice_tag: Union[str, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
-        message_intent: Union[str, object] = values.unset,
-        dlt_pe_id: Union[str, object] = values.unset,
-        dlt_template_id: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-        tags: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         messaging_service_sid: Union[str, object] = values.unset,
@@ -1138,29 +1028,17 @@ class MessageList(ListResource):
                 "ProvideFeedback": serialize.boolean_to_string(provide_feedback),
                 "Attempt": attempt,
                 "ValidityPeriod": validity_period,
-                "MaxRate": max_rate,
                 "ForceDelivery": serialize.boolean_to_string(force_delivery),
-                "ProviderSid": provider_sid,
                 "ContentRetention": content_retention,
                 "AddressRetention": address_retention,
                 "SmartEncoded": serialize.boolean_to_string(smart_encoded),
                 "PersistentAction": serialize.map(persistent_action, lambda e: e),
-                "InteractiveData": interactive_data,
-                "ForceOptIn": serialize.boolean_to_string(force_opt_in),
                 "TrafficType": traffic_type,
                 "ShortenUrls": serialize.boolean_to_string(shorten_urls),
                 "ScheduleType": schedule_type,
                 "SendAt": serialize.iso8601_datetime(send_at),
-                "OptimizeStartAt": serialize.iso8601_datetime(optimize_start_at),
-                "OptimizeEndAt": serialize.iso8601_datetime(optimize_end_at),
-                "InvoiceTag": invoice_tag,
                 "SendAsMms": serialize.boolean_to_string(send_as_mms),
                 "ContentVariables": content_variables,
-                "MessageIntent": message_intent,
-                "DltPEId": dlt_pe_id,
-                "DltTemplateId": dlt_template_id,
-                "Subject": subject,
-                "Tags": tags,
                 "RiskCheck": risk_check,
                 "From": from_,
                 "MessagingServiceSid": messaging_service_sid,
@@ -1188,9 +1066,7 @@ class MessageList(ListResource):
         provide_feedback: Union[bool, object] = values.unset,
         attempt: Union[int, object] = values.unset,
         validity_period: Union[int, object] = values.unset,
-        max_rate: Union[str, object] = values.unset,
         force_delivery: Union[bool, object] = values.unset,
-        provider_sid: Union[str, object] = values.unset,
         content_retention: Union[
             "MessageInstance.ContentRetention", object
         ] = values.unset,
@@ -1199,22 +1075,12 @@ class MessageList(ListResource):
         ] = values.unset,
         smart_encoded: Union[bool, object] = values.unset,
         persistent_action: Union[List[str], object] = values.unset,
-        interactive_data: Union[str, object] = values.unset,
-        force_opt_in: Union[bool, object] = values.unset,
         traffic_type: Union["MessageInstance.TrafficType", object] = values.unset,
         shorten_urls: Union[bool, object] = values.unset,
         schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
         send_at: Union[datetime, object] = values.unset,
-        optimize_start_at: Union[datetime, object] = values.unset,
-        optimize_end_at: Union[datetime, object] = values.unset,
-        invoice_tag: Union[str, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
-        message_intent: Union[str, object] = values.unset,
-        dlt_pe_id: Union[str, object] = values.unset,
-        dlt_template_id: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-        tags: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         messaging_service_sid: Union[str, object] = values.unset,
@@ -1232,29 +1098,17 @@ class MessageList(ListResource):
         :param provide_feedback: Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
         :param attempt: Total number of attempts made (including this request) to send the message regardless of the provider used
         :param validity_period: The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
-        :param max_rate:
         :param force_delivery: Reserved
-        :param provider_sid:
         :param content_retention:
         :param address_retention:
         :param smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param persistent_action: Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
-        :param interactive_data:
-        :param force_opt_in:
         :param traffic_type:
         :param shorten_urls: For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
         :param schedule_type:
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
-        :param optimize_start_at:
-        :param optimize_end_at:
-        :param invoice_tag:
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
-        :param message_intent:
-        :param dlt_pe_id:
-        :param dlt_template_id:
-        :param subject:
-        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
         :param risk_check:
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service's Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool.
@@ -1272,29 +1126,17 @@ class MessageList(ListResource):
             provide_feedback=provide_feedback,
             attempt=attempt,
             validity_period=validity_period,
-            max_rate=max_rate,
             force_delivery=force_delivery,
-            provider_sid=provider_sid,
             content_retention=content_retention,
             address_retention=address_retention,
             smart_encoded=smart_encoded,
             persistent_action=persistent_action,
-            interactive_data=interactive_data,
-            force_opt_in=force_opt_in,
             traffic_type=traffic_type,
             shorten_urls=shorten_urls,
             schedule_type=schedule_type,
             send_at=send_at,
-            optimize_start_at=optimize_start_at,
-            optimize_end_at=optimize_end_at,
-            invoice_tag=invoice_tag,
             send_as_mms=send_as_mms,
             content_variables=content_variables,
-            message_intent=message_intent,
-            dlt_pe_id=dlt_pe_id,
-            dlt_template_id=dlt_template_id,
-            subject=subject,
-            tags=tags,
             risk_check=risk_check,
             from_=from_,
             messaging_service_sid=messaging_service_sid,
@@ -1315,9 +1157,7 @@ class MessageList(ListResource):
         provide_feedback: Union[bool, object] = values.unset,
         attempt: Union[int, object] = values.unset,
         validity_period: Union[int, object] = values.unset,
-        max_rate: Union[str, object] = values.unset,
         force_delivery: Union[bool, object] = values.unset,
-        provider_sid: Union[str, object] = values.unset,
         content_retention: Union[
             "MessageInstance.ContentRetention", object
         ] = values.unset,
@@ -1326,22 +1166,12 @@ class MessageList(ListResource):
         ] = values.unset,
         smart_encoded: Union[bool, object] = values.unset,
         persistent_action: Union[List[str], object] = values.unset,
-        interactive_data: Union[str, object] = values.unset,
-        force_opt_in: Union[bool, object] = values.unset,
         traffic_type: Union["MessageInstance.TrafficType", object] = values.unset,
         shorten_urls: Union[bool, object] = values.unset,
         schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
         send_at: Union[datetime, object] = values.unset,
-        optimize_start_at: Union[datetime, object] = values.unset,
-        optimize_end_at: Union[datetime, object] = values.unset,
-        invoice_tag: Union[str, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
-        message_intent: Union[str, object] = values.unset,
-        dlt_pe_id: Union[str, object] = values.unset,
-        dlt_template_id: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-        tags: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         messaging_service_sid: Union[str, object] = values.unset,
@@ -1359,29 +1189,17 @@ class MessageList(ListResource):
         :param provide_feedback: Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
         :param attempt: Total number of attempts made (including this request) to send the message regardless of the provider used
         :param validity_period: The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
-        :param max_rate:
         :param force_delivery: Reserved
-        :param provider_sid:
         :param content_retention:
         :param address_retention:
         :param smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param persistent_action: Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
-        :param interactive_data:
-        :param force_opt_in:
         :param traffic_type:
         :param shorten_urls: For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
         :param schedule_type:
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
-        :param optimize_start_at:
-        :param optimize_end_at:
-        :param invoice_tag:
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
-        :param message_intent:
-        :param dlt_pe_id:
-        :param dlt_template_id:
-        :param subject:
-        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
         :param risk_check:
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service's Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool.
@@ -1399,29 +1217,17 @@ class MessageList(ListResource):
             provide_feedback=provide_feedback,
             attempt=attempt,
             validity_period=validity_period,
-            max_rate=max_rate,
             force_delivery=force_delivery,
-            provider_sid=provider_sid,
             content_retention=content_retention,
             address_retention=address_retention,
             smart_encoded=smart_encoded,
             persistent_action=persistent_action,
-            interactive_data=interactive_data,
-            force_opt_in=force_opt_in,
             traffic_type=traffic_type,
             shorten_urls=shorten_urls,
             schedule_type=schedule_type,
             send_at=send_at,
-            optimize_start_at=optimize_start_at,
-            optimize_end_at=optimize_end_at,
-            invoice_tag=invoice_tag,
             send_as_mms=send_as_mms,
             content_variables=content_variables,
-            message_intent=message_intent,
-            dlt_pe_id=dlt_pe_id,
-            dlt_template_id=dlt_template_id,
-            subject=subject,
-            tags=tags,
             risk_check=risk_check,
             from_=from_,
             messaging_service_sid=messaging_service_sid,

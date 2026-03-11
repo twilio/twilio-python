@@ -991,7 +991,6 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1000,12 +999,6 @@ class ParticipantList(ListResource):
         machine_detection_silence_timeout: Union[int, object] = values.unset,
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
-        machine_detection_engine: Union[str, object] = values.unset,
-        machine_detection_min_word_length: Union[int, object] = values.unset,
-        machine_detection_max_word_length: Union[int, object] = values.unset,
-        machine_detection_words_silence: Union[int, object] = values.unset,
-        machine_detection_max_num_of_words: Union[int, object] = values.unset,
-        machine_detection_silence_threshold: Union[int, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
@@ -1070,7 +1063,6 @@ class ParticipantList(ListResource):
                 "CallerId": caller_id,
                 "CallReason": call_reason,
                 "RecordingTrack": recording_track,
-                "RecordingConfigurationId": recording_configuration_id,
                 "TimeLimit": time_limit,
                 "MachineDetection": machine_detection,
                 "MachineDetectionTimeout": machine_detection_timeout,
@@ -1079,12 +1071,6 @@ class ParticipantList(ListResource):
                 "MachineDetectionSilenceTimeout": machine_detection_silence_timeout,
                 "AmdStatusCallback": amd_status_callback,
                 "AmdStatusCallbackMethod": amd_status_callback_method,
-                "MachineDetectionEngine": machine_detection_engine,
-                "MachineDetectionMinWordLength": machine_detection_min_word_length,
-                "MachineDetectionMaxWordLength": machine_detection_max_word_length,
-                "MachineDetectionWordsSilence": machine_detection_words_silence,
-                "MachineDetectionMaxNumOfWords": machine_detection_max_num_of_words,
-                "MachineDetectionSilenceThreshold": machine_detection_silence_threshold,
                 "Trim": trim,
                 "CallToken": call_token,
                 "ClientNotificationUrl": client_notification_url,
@@ -1143,7 +1129,6 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1152,12 +1137,6 @@ class ParticipantList(ListResource):
         machine_detection_silence_timeout: Union[int, object] = values.unset,
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
-        machine_detection_engine: Union[str, object] = values.unset,
-        machine_detection_min_word_length: Union[int, object] = values.unset,
-        machine_detection_max_word_length: Union[int, object] = values.unset,
-        machine_detection_words_silence: Union[int, object] = values.unset,
-        machine_detection_max_num_of_words: Union[int, object] = values.unset,
-        machine_detection_silence_threshold: Union[int, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
@@ -1204,7 +1183,6 @@ class ParticipantList(ListResource):
         :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
-        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
@@ -1213,12 +1191,6 @@ class ParticipantList(ListResource):
         :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
         :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-        :param machine_detection_engine: Select answering machine detection engine. Can be: `Lumenvox` or `Asterisk`. Default: `Lumenvox`.
-        :param machine_detection_min_word_length: The minimum duration in milliseconds of voice to be considered as a word. Default: 100.
-        :param machine_detection_max_word_length: The maximum duration in milliseconds of a word to accept. Default: 5000.
-        :param machine_detection_words_silence: The minimum duration in milliseconds of silence after a word to consider the audio what follows as a new word. Default: 50.
-        :param machine_detection_max_num_of_words: The maximum number of words in the greeting. If exceeded, then it's considered as MACHINE. Default: 5.
-        :param machine_detection_silence_threshold: The silence threshold. Default: 256.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
         :param client_notification_url: The URL that we should use to deliver `push call notification`.
@@ -1265,7 +1237,6 @@ class ParticipantList(ListResource):
             caller_id=caller_id,
             call_reason=call_reason,
             recording_track=recording_track,
-            recording_configuration_id=recording_configuration_id,
             time_limit=time_limit,
             machine_detection=machine_detection,
             machine_detection_timeout=machine_detection_timeout,
@@ -1274,12 +1245,6 @@ class ParticipantList(ListResource):
             machine_detection_silence_timeout=machine_detection_silence_timeout,
             amd_status_callback=amd_status_callback,
             amd_status_callback_method=amd_status_callback_method,
-            machine_detection_engine=machine_detection_engine,
-            machine_detection_min_word_length=machine_detection_min_word_length,
-            machine_detection_max_word_length=machine_detection_max_word_length,
-            machine_detection_words_silence=machine_detection_words_silence,
-            machine_detection_max_num_of_words=machine_detection_max_num_of_words,
-            machine_detection_silence_threshold=machine_detection_silence_threshold,
             trim=trim,
             call_token=call_token,
             client_notification_url=client_notification_url,
@@ -1334,7 +1299,6 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1343,12 +1307,6 @@ class ParticipantList(ListResource):
         machine_detection_silence_timeout: Union[int, object] = values.unset,
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
-        machine_detection_engine: Union[str, object] = values.unset,
-        machine_detection_min_word_length: Union[int, object] = values.unset,
-        machine_detection_max_word_length: Union[int, object] = values.unset,
-        machine_detection_words_silence: Union[int, object] = values.unset,
-        machine_detection_max_num_of_words: Union[int, object] = values.unset,
-        machine_detection_silence_threshold: Union[int, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
@@ -1395,7 +1353,6 @@ class ParticipantList(ListResource):
         :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
-        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
@@ -1404,12 +1361,6 @@ class ParticipantList(ListResource):
         :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
         :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-        :param machine_detection_engine: Select answering machine detection engine. Can be: `Lumenvox` or `Asterisk`. Default: `Lumenvox`.
-        :param machine_detection_min_word_length: The minimum duration in milliseconds of voice to be considered as a word. Default: 100.
-        :param machine_detection_max_word_length: The maximum duration in milliseconds of a word to accept. Default: 5000.
-        :param machine_detection_words_silence: The minimum duration in milliseconds of silence after a word to consider the audio what follows as a new word. Default: 50.
-        :param machine_detection_max_num_of_words: The maximum number of words in the greeting. If exceeded, then it's considered as MACHINE. Default: 5.
-        :param machine_detection_silence_threshold: The silence threshold. Default: 256.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
         :param client_notification_url: The URL that we should use to deliver `push call notification`.
@@ -1456,7 +1407,6 @@ class ParticipantList(ListResource):
             caller_id=caller_id,
             call_reason=call_reason,
             recording_track=recording_track,
-            recording_configuration_id=recording_configuration_id,
             time_limit=time_limit,
             machine_detection=machine_detection,
             machine_detection_timeout=machine_detection_timeout,
@@ -1465,12 +1415,6 @@ class ParticipantList(ListResource):
             machine_detection_silence_timeout=machine_detection_silence_timeout,
             amd_status_callback=amd_status_callback,
             amd_status_callback_method=amd_status_callback_method,
-            machine_detection_engine=machine_detection_engine,
-            machine_detection_min_word_length=machine_detection_min_word_length,
-            machine_detection_max_word_length=machine_detection_max_word_length,
-            machine_detection_words_silence=machine_detection_words_silence,
-            machine_detection_max_num_of_words=machine_detection_max_num_of_words,
-            machine_detection_silence_threshold=machine_detection_silence_threshold,
             trim=trim,
             call_token=call_token,
             client_notification_url=client_notification_url,
@@ -1526,7 +1470,6 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1535,12 +1478,6 @@ class ParticipantList(ListResource):
         machine_detection_silence_timeout: Union[int, object] = values.unset,
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
-        machine_detection_engine: Union[str, object] = values.unset,
-        machine_detection_min_word_length: Union[int, object] = values.unset,
-        machine_detection_max_word_length: Union[int, object] = values.unset,
-        machine_detection_words_silence: Union[int, object] = values.unset,
-        machine_detection_max_num_of_words: Union[int, object] = values.unset,
-        machine_detection_silence_threshold: Union[int, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
@@ -1605,7 +1542,6 @@ class ParticipantList(ListResource):
                 "CallerId": caller_id,
                 "CallReason": call_reason,
                 "RecordingTrack": recording_track,
-                "RecordingConfigurationId": recording_configuration_id,
                 "TimeLimit": time_limit,
                 "MachineDetection": machine_detection,
                 "MachineDetectionTimeout": machine_detection_timeout,
@@ -1614,12 +1550,6 @@ class ParticipantList(ListResource):
                 "MachineDetectionSilenceTimeout": machine_detection_silence_timeout,
                 "AmdStatusCallback": amd_status_callback,
                 "AmdStatusCallbackMethod": amd_status_callback_method,
-                "MachineDetectionEngine": machine_detection_engine,
-                "MachineDetectionMinWordLength": machine_detection_min_word_length,
-                "MachineDetectionMaxWordLength": machine_detection_max_word_length,
-                "MachineDetectionWordsSilence": machine_detection_words_silence,
-                "MachineDetectionMaxNumOfWords": machine_detection_max_num_of_words,
-                "MachineDetectionSilenceThreshold": machine_detection_silence_threshold,
                 "Trim": trim,
                 "CallToken": call_token,
                 "ClientNotificationUrl": client_notification_url,
@@ -1678,7 +1608,6 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1687,12 +1616,6 @@ class ParticipantList(ListResource):
         machine_detection_silence_timeout: Union[int, object] = values.unset,
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
-        machine_detection_engine: Union[str, object] = values.unset,
-        machine_detection_min_word_length: Union[int, object] = values.unset,
-        machine_detection_max_word_length: Union[int, object] = values.unset,
-        machine_detection_words_silence: Union[int, object] = values.unset,
-        machine_detection_max_num_of_words: Union[int, object] = values.unset,
-        machine_detection_silence_threshold: Union[int, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
@@ -1739,7 +1662,6 @@ class ParticipantList(ListResource):
         :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
-        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
@@ -1748,12 +1670,6 @@ class ParticipantList(ListResource):
         :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
         :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-        :param machine_detection_engine: Select answering machine detection engine. Can be: `Lumenvox` or `Asterisk`. Default: `Lumenvox`.
-        :param machine_detection_min_word_length: The minimum duration in milliseconds of voice to be considered as a word. Default: 100.
-        :param machine_detection_max_word_length: The maximum duration in milliseconds of a word to accept. Default: 5000.
-        :param machine_detection_words_silence: The minimum duration in milliseconds of silence after a word to consider the audio what follows as a new word. Default: 50.
-        :param machine_detection_max_num_of_words: The maximum number of words in the greeting. If exceeded, then it's considered as MACHINE. Default: 5.
-        :param machine_detection_silence_threshold: The silence threshold. Default: 256.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
         :param client_notification_url: The URL that we should use to deliver `push call notification`.
@@ -1800,7 +1716,6 @@ class ParticipantList(ListResource):
             caller_id=caller_id,
             call_reason=call_reason,
             recording_track=recording_track,
-            recording_configuration_id=recording_configuration_id,
             time_limit=time_limit,
             machine_detection=machine_detection,
             machine_detection_timeout=machine_detection_timeout,
@@ -1809,12 +1724,6 @@ class ParticipantList(ListResource):
             machine_detection_silence_timeout=machine_detection_silence_timeout,
             amd_status_callback=amd_status_callback,
             amd_status_callback_method=amd_status_callback_method,
-            machine_detection_engine=machine_detection_engine,
-            machine_detection_min_word_length=machine_detection_min_word_length,
-            machine_detection_max_word_length=machine_detection_max_word_length,
-            machine_detection_words_silence=machine_detection_words_silence,
-            machine_detection_max_num_of_words=machine_detection_max_num_of_words,
-            machine_detection_silence_threshold=machine_detection_silence_threshold,
             trim=trim,
             call_token=call_token,
             client_notification_url=client_notification_url,
@@ -1869,7 +1778,6 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
-        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1878,12 +1786,6 @@ class ParticipantList(ListResource):
         machine_detection_silence_timeout: Union[int, object] = values.unset,
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
-        machine_detection_engine: Union[str, object] = values.unset,
-        machine_detection_min_word_length: Union[int, object] = values.unset,
-        machine_detection_max_word_length: Union[int, object] = values.unset,
-        machine_detection_words_silence: Union[int, object] = values.unset,
-        machine_detection_max_num_of_words: Union[int, object] = values.unset,
-        machine_detection_silence_threshold: Union[int, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
@@ -1930,7 +1832,6 @@ class ParticipantList(ListResource):
         :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
-        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
@@ -1939,12 +1840,6 @@ class ParticipantList(ListResource):
         :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
         :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-        :param machine_detection_engine: Select answering machine detection engine. Can be: `Lumenvox` or `Asterisk`. Default: `Lumenvox`.
-        :param machine_detection_min_word_length: The minimum duration in milliseconds of voice to be considered as a word. Default: 100.
-        :param machine_detection_max_word_length: The maximum duration in milliseconds of a word to accept. Default: 5000.
-        :param machine_detection_words_silence: The minimum duration in milliseconds of silence after a word to consider the audio what follows as a new word. Default: 50.
-        :param machine_detection_max_num_of_words: The maximum number of words in the greeting. If exceeded, then it's considered as MACHINE. Default: 5.
-        :param machine_detection_silence_threshold: The silence threshold. Default: 256.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
         :param client_notification_url: The URL that we should use to deliver `push call notification`.
@@ -1991,7 +1886,6 @@ class ParticipantList(ListResource):
             caller_id=caller_id,
             call_reason=call_reason,
             recording_track=recording_track,
-            recording_configuration_id=recording_configuration_id,
             time_limit=time_limit,
             machine_detection=machine_detection,
             machine_detection_timeout=machine_detection_timeout,
@@ -2000,12 +1894,6 @@ class ParticipantList(ListResource):
             machine_detection_silence_timeout=machine_detection_silence_timeout,
             amd_status_callback=amd_status_callback,
             amd_status_callback_method=amd_status_callback_method,
-            machine_detection_engine=machine_detection_engine,
-            machine_detection_min_word_length=machine_detection_min_word_length,
-            machine_detection_max_word_length=machine_detection_max_word_length,
-            machine_detection_words_silence=machine_detection_words_silence,
-            machine_detection_max_num_of_words=machine_detection_max_num_of_words,
-            machine_detection_silence_threshold=machine_detection_silence_threshold,
             trim=trim,
             call_token=call_token,
             client_notification_url=client_notification_url,
