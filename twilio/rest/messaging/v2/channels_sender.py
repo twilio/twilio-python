@@ -30,6 +30,7 @@ class ChannelsSenderInstance(InstanceResource):
         :ivar verification_method: The verification method.
         :ivar verification_code: The verification code.
         :ivar voice_application_sid: The SID of the Twilio Voice application.
+        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -42,6 +43,9 @@ class ChannelsSenderInstance(InstanceResource):
             self.voice_application_sid: Optional[str] = payload.get(
                 "voice_application_sid"
             )
+            self.account_type: Optional["ChannelsSenderInstance.str"] = payload.get(
+                "account_type"
+            )
 
         def to_dict(self):
             return {
@@ -49,6 +53,7 @@ class ChannelsSenderInstance(InstanceResource):
                 "verification_method": self.verification_method,
                 "verification_code": self.verification_code,
                 "voice_application_sid": self.voice_application_sid,
+                "account_type": self.account_type,
             }
 
     class MessagingV2ChannelsSenderProfile(object):
@@ -118,8 +123,8 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.email,
-                "": self.label,
+                "email": self.email,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(object):
@@ -135,8 +140,8 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.phone_number,
-                "": self.label,
+                "phone_number": self.phone_number,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponseWebsites(object):
@@ -152,8 +157,8 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.website,
-                "": self.label,
+                "website": self.website,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
@@ -267,8 +272,8 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.name,
-                "": self.status.to_dict() if self.status is not None else None,
+                "name": self.name,
+                "status": self.status.to_dict() if self.status is not None else None,
             }
 
     class MessagingV2RcsComplianceCountryResponse(object):
@@ -290,10 +295,10 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.country,
-                "": self.registration_sid,
-                "": self.status.to_dict() if self.status is not None else None,
-                "": (
+                "country": self.country,
+                "registration_sid": self.registration_sid,
+                "status": self.status.to_dict() if self.status is not None else None,
+                "carriers": (
                     [carriers.to_dict() for carriers in self.carriers]
                     if self.carriers is not None
                     else None
@@ -532,6 +537,7 @@ class ChannelsSenderContext(InstanceContext):
         :ivar verification_method: The verification method.
         :ivar verification_code: The verification code.
         :ivar voice_application_sid: The SID of the Twilio Voice application.
+        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -544,6 +550,9 @@ class ChannelsSenderContext(InstanceContext):
             self.voice_application_sid: Optional[str] = payload.get(
                 "voice_application_sid"
             )
+            self.account_type: Optional["ChannelsSenderInstance.str"] = payload.get(
+                "account_type"
+            )
 
         def to_dict(self):
             return {
@@ -551,6 +560,7 @@ class ChannelsSenderContext(InstanceContext):
                 "verification_method": self.verification_method,
                 "verification_code": self.verification_code,
                 "voice_application_sid": self.voice_application_sid,
+                "account_type": self.account_type,
             }
 
     class MessagingV2ChannelsSenderProfile(object):
@@ -620,8 +630,8 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.email,
-                "": self.label,
+                "email": self.email,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(object):
@@ -637,8 +647,8 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.phone_number,
-                "": self.label,
+                "phone_number": self.phone_number,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponseWebsites(object):
@@ -654,8 +664,8 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.website,
-                "": self.label,
+                "website": self.website,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
@@ -769,8 +779,8 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.name,
-                "": self.status.to_dict() if self.status is not None else None,
+                "name": self.name,
+                "status": self.status.to_dict() if self.status is not None else None,
             }
 
     class MessagingV2RcsComplianceCountryResponse(object):
@@ -792,10 +802,10 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
-                "": self.country,
-                "": self.registration_sid,
-                "": self.status.to_dict() if self.status is not None else None,
-                "": (
+                "country": self.country,
+                "registration_sid": self.registration_sid,
+                "status": self.status.to_dict() if self.status is not None else None,
+                "carriers": (
                     [carriers.to_dict() for carriers in self.carriers]
                     if self.carriers is not None
                     else None
@@ -1138,6 +1148,7 @@ class ChannelsSenderList(ListResource):
         :ivar verification_method: The verification method.
         :ivar verification_code: The verification code.
         :ivar voice_application_sid: The SID of the Twilio Voice application.
+        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1150,6 +1161,9 @@ class ChannelsSenderList(ListResource):
             self.voice_application_sid: Optional[str] = payload.get(
                 "voice_application_sid"
             )
+            self.account_type: Optional["ChannelsSenderInstance.str"] = payload.get(
+                "account_type"
+            )
 
         def to_dict(self):
             return {
@@ -1157,6 +1171,7 @@ class ChannelsSenderList(ListResource):
                 "verification_method": self.verification_method,
                 "verification_code": self.verification_code,
                 "voice_application_sid": self.voice_application_sid,
+                "account_type": self.account_type,
             }
 
     class MessagingV2ChannelsSenderProfile(object):
@@ -1226,8 +1241,8 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.email,
-                "": self.label,
+                "email": self.email,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(object):
@@ -1243,8 +1258,8 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.phone_number,
-                "": self.label,
+                "phone_number": self.phone_number,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderProfileGenericResponseWebsites(object):
@@ -1260,8 +1275,8 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.website,
-                "": self.label,
+                "website": self.website,
+                "label": self.label,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
@@ -1375,8 +1390,8 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.name,
-                "": self.status.to_dict() if self.status is not None else None,
+                "name": self.name,
+                "status": self.status.to_dict() if self.status is not None else None,
             }
 
     class MessagingV2RcsComplianceCountryResponse(object):
@@ -1398,10 +1413,10 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.country,
-                "": self.registration_sid,
-                "": self.status.to_dict() if self.status is not None else None,
-                "": (
+                "country": self.country,
+                "registration_sid": self.registration_sid,
+                "status": self.status.to_dict() if self.status is not None else None,
+                "carriers": (
                     [carriers.to_dict() for carriers in self.carriers]
                     if self.carriers is not None
                     else None

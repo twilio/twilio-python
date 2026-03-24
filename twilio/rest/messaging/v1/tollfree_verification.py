@@ -169,8 +169,8 @@ class TollfreeVerificationInstance(InstanceResource):
             "business_contact_phone"
         )
         self.notification_email: Optional[str] = payload.get("notification_email")
-        self.use_case_categories: Optional[List[str]] = payload.get(
-            "use_case_categories"
+        self.use_case_categories: Optional["TollfreeVerificationInstance.str]"] = (
+            payload.get("use_case_categories")
         )
         self.use_case_summary: Optional[str] = payload.get("use_case_summary")
         self.production_message_sample: Optional[str] = payload.get(

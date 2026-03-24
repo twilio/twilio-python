@@ -84,9 +84,9 @@ class QueryInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                "": self.last_sim_swap_date,
-                "": self.swapped_period,
-                "": self.swapped_in_period,
+                "last_sim_swap_date": self.last_sim_swap_date,
+                "swapped_period": self.swapped_period,
+                "swapped_in_period": self.swapped_in_period,
             }
 
     class LookupBatchRequest(object):
@@ -268,9 +268,9 @@ class QueryList(ListResource):
 
         def to_dict(self):
             return {
-                "": self.last_sim_swap_date,
-                "": self.swapped_period,
-                "": self.swapped_in_period,
+                "last_sim_swap_date": self.last_sim_swap_date,
+                "swapped_period": self.swapped_period,
+                "swapped_in_period": self.swapped_in_period,
             }
 
     class LookupBatchRequest(object):

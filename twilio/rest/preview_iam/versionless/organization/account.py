@@ -43,7 +43,7 @@ class AccountInstance(InstanceResource):
 
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.status: Optional[str] = payload.get("status")
+        self.status: Optional["AccountInstance.str"] = payload.get("status")
         self.owner_sid: Optional[str] = payload.get("owner_sid")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
