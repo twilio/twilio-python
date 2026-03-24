@@ -46,7 +46,34 @@ class ProfilePatch:
     
 
 
+'''
+Nested response model for ProfilesMeta
+'''
+class ProfilesMeta:
+  def __init__(self,key: str, page_size: int, next_token: str, previous_token: str):
+    self.key = key
+    self.page_size = page_size
+    self.next_token = next_token
+    self.previous_token = previous_token
+    
 
+
+
+
+"""
+Response model for ListProfiles_200_response operations
+"""
+class ListProfiles_200_responseResource:
+  def __init__(self,profiles: List[str], meta: ProfilesMeta):
+    """
+    Initialize the ListProfiles_200_responseResource
+    :param profiles: 
+    :param meta: 
+    
+    """
+    self.profiles = profiles
+    self.meta = meta
+    
 
 """
 Response model for UpdateProfileTraits_202_response operations
@@ -140,6 +167,31 @@ class ProfileInstance(InstanceResource):
             return {
                 
                     "traits": self.traits,
+            }
+
+    class ProfilesMeta(object):
+        """
+            :ivar key: The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+            :ivar page_size: 
+            :ivar next_token: 
+            :ivar previous_token: 
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            
+            self.key: Optional[str] = payload.get("key")
+            self.page_size: Optional[int] = payload.get("page_size")
+            self.next_token: Optional[str] = payload.get("next_token")
+            self.previous_token: Optional[str] = payload.get("previous_token")
+
+        def to_dict(self):
+            return {
+                
+                    "": self.key,
+                    "": self.page_size,
+                    "": self.next_token,
+                    "": self.previous_token,
             }
 
 
@@ -375,6 +427,31 @@ class ProfileContext(InstanceContext):
             return {
                 
                     "traits": self.traits,
+            }
+
+    class ProfilesMeta(object):
+        """
+            :ivar key: The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+            :ivar page_size: 
+            :ivar next_token: 
+            :ivar previous_token: 
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            
+            self.key: Optional[str] = payload.get("key")
+            self.page_size: Optional[int] = payload.get("page_size")
+            self.next_token: Optional[str] = payload.get("next_token")
+            self.previous_token: Optional[str] = payload.get("previous_token")
+
+        def to_dict(self):
+            return {
+                
+                    "": self.key,
+                    "": self.page_size,
+                    "": self.next_token,
+                    "": self.previous_token,
             }
 
 
@@ -875,6 +952,31 @@ class ProfileList(ListResource):
             return {
                 
                     "traits": self.traits,
+            }
+
+    class ProfilesMeta(object):
+        """
+            :ivar key: The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+            :ivar page_size: 
+            :ivar next_token: 
+            :ivar previous_token: 
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            
+            self.key: Optional[str] = payload.get("key")
+            self.page_size: Optional[int] = payload.get("page_size")
+            self.next_token: Optional[str] = payload.get("next_token")
+            self.previous_token: Optional[str] = payload.get("previous_token")
+
+        def to_dict(self):
+            return {
+                
+                    "": self.key,
+                    "": self.page_size,
+                    "": self.next_token,
+                    "": self.previous_token,
             }
 
 

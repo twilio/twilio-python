@@ -49,6 +49,18 @@ class ObservationCore:
     
 
 
+'''
+Nested response model for ObservationsMeta
+'''
+class ObservationsMeta:
+  def __init__(self,key: str, page_size: int, next_token: str, previous_token: str):
+    self.key = key
+    self.page_size = page_size
+    self.next_token = next_token
+    self.previous_token = previous_token
+    
+
+
 
 
 """
@@ -94,6 +106,21 @@ class DeleteProfileObservation_202_responseResource:
     
     """
     self.message = message
+    
+
+"""
+Response model for ListProfileObservations_200_response operations
+"""
+class ListProfileObservations_200_responseResource:
+  def __init__(self,observations: List[Dict[str, object]], meta: ObservationsMeta):
+    """
+    Initialize the ListProfileObservations_200_responseResource
+    :param observations: 
+    :param meta: 
+    
+    """
+    self.observations = observations
+    self.meta = meta
     
 
 """
@@ -152,6 +179,31 @@ class ObservationInstance(InstanceResource):
                     "occurred_at": self.occurred_at,
                     "source": self.source,
                     "conversation_ids": self.conversation_ids,
+            }
+
+    class ObservationsMeta(object):
+        """
+            :ivar key: The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+            :ivar page_size: 
+            :ivar next_token: 
+            :ivar previous_token: 
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            
+            self.key: Optional[str] = payload.get("key")
+            self.page_size: Optional[int] = payload.get("page_size")
+            self.next_token: Optional[str] = payload.get("next_token")
+            self.previous_token: Optional[str] = payload.get("previous_token")
+
+        def to_dict(self):
+            return {
+                
+                    "": self.key,
+                    "": self.page_size,
+                    "": self.next_token,
+                    "": self.previous_token,
             }
 
 
@@ -399,6 +451,31 @@ class ObservationContext(InstanceContext):
                     "occurred_at": self.occurred_at,
                     "source": self.source,
                     "conversation_ids": self.conversation_ids,
+            }
+
+    class ObservationsMeta(object):
+        """
+            :ivar key: The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+            :ivar page_size: 
+            :ivar next_token: 
+            :ivar previous_token: 
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            
+            self.key: Optional[str] = payload.get("key")
+            self.page_size: Optional[int] = payload.get("page_size")
+            self.next_token: Optional[str] = payload.get("next_token")
+            self.previous_token: Optional[str] = payload.get("previous_token")
+
+        def to_dict(self):
+            return {
+                
+                    "": self.key,
+                    "": self.page_size,
+                    "": self.next_token,
+                    "": self.previous_token,
             }
 
 
@@ -928,6 +1005,31 @@ class ObservationList(ListResource):
                     "occurred_at": self.occurred_at,
                     "source": self.source,
                     "conversation_ids": self.conversation_ids,
+            }
+
+    class ObservationsMeta(object):
+        """
+            :ivar key: The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+            :ivar page_size: 
+            :ivar next_token: 
+            :ivar previous_token: 
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            
+            self.key: Optional[str] = payload.get("key")
+            self.page_size: Optional[int] = payload.get("page_size")
+            self.next_token: Optional[str] = payload.get("next_token")
+            self.previous_token: Optional[str] = payload.get("previous_token")
+
+        def to_dict(self):
+            return {
+                
+                    "": self.key,
+                    "": self.page_size,
+                    "": self.next_token,
+                    "": self.previous_token,
             }
 
 

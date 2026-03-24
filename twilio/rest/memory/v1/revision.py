@@ -18,13 +18,57 @@ from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator, Pr
 from twilio.base import deserialize, serialize, values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
-
+from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.token_pagination import TokenPagination
 
 
 
+class RevisionInstance(InstanceResource):
+
+
+    """
+    :ivar revisions: Array of observation revisions ordered chronologically descending by update time (newest first).
+    :ivar meta: 
+    """
+
+    def __init__(self, version: Version, payload:Dict[str, Any], store_id: Optional[str] = None, profile_id: Optional[str] = None, observation_id: Optional[str] = None):
+        super().__init__(version)
+
+        
+        self.revisions: Optional[List[Dict[str, object]]] = payload.get("revisions")
+        self.meta: Optional[str] = payload.get("meta")
+
+        
+        self._solution = { 
+            "store_id": store_id or self.store_id,
+            "profile_id": profile_id or self.profile_id,
+            "observation_id": observation_id or self.observation_id,
+        }
+        self._context: Optional[RevisionContext] = None
+
+    @property
+    def _proxy(self) -> "RevisionContext":
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: RevisionContext for this RevisionInstance
+        """
+        if self._context is None:
+            self._context = RevisionContext(self._version, store_id=self._solution['store_id'], profile_id=self._solution['profile_id'], observation_id=self._solution['observation_id'],)
+        return self._context
+    
+    
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Memory.V1.RevisionInstance {}>'.format(context)
 
 class RevisionContext(InstanceContext):
 

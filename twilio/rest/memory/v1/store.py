@@ -25,7 +25,109 @@ from twilio.base.token_pagination import TokenPagination
 
 
 
+class ResponseResource(Protocol):
+  pass
+
+'''
+Nested response model for Meta
+'''
+class Meta:
+  def __init__(self,key: str, page_size: int, next_token: str, previous_token: str):
+    self.key = key
+    self.page_size = page_size
+    self.next_token = next_token
+    self.previous_token = previous_token
+    
+
+
+'''
+Nested response model for ServiceRequest
+'''
+class ServiceRequest:
+  def __init__(self,display_name: str, description: str):
+    self.display_name = display_name
+    self.description = description
+    
+
+
+'''
+Nested response model for UpdateStoreRequest
+'''
+class UpdateStoreRequest:
+  def __init__(self,display_name: str, description: str):
+    self.display_name = display_name
+    self.description = description
+    
+
+
+
+
+"""
+Response model for ServiceList operations
+"""
+class ServiceListResource:
+  def __init__(self,stores: List[str], meta: Meta):
+    """
+    Initialize the ServiceListResource
+    :param stores: List of Memory Store IDs associated with the Twilio account.
+    :param meta: 
+    
+    """
+    self.stores = stores
+    self.meta = meta
+    
+
+"""
+Response model for Store operations
+"""
+class StoreResource:
+  def __init__(self,display_name: str, description: str, id: str, status: str, intelligence_service_id: str, version: int):
+    """
+    Initialize the StoreResource
+    :param display_name: Provides a unique and addressable name to be assigned to this Store. This name is assigned by the developer and can be used in addition to the ID. It is intended to be human-readable and unique within the account.
+    :param description: A human readable description of this resource, up to 128 characters.
+    :param id: The unique identifier for the Memory Store
+    :param status: The current status of the Memory Store.  A store begins in the QUEUED state as it is scheduled for processing.  It then moves to PROVISIONING at the beginning of processing. It transitions to ACTIVE once all dependent resources are provisioned, including Conversational Intelligence capabilities.  If there is an issue provisioning resources, the store will move to the FAILED state.
+    :param intelligence_service_id: The ID of the associated intelligence service that was provisioned for memory extraction.
+    :param version: The current version number of the Memory Store. Incremented on each successful update.
+    
+    """
+    self.display_name = display_name
+    self.description = description
+    self.id = id
+    self.status = status
+    self.intelligence_service_id = intelligence_service_id
+    self.version = version
+    
+
+
+
 class StoreInstance(InstanceResource):
+
+    class Meta(object):
+        """
+            :ivar key: The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+            :ivar page_size: 
+            :ivar next_token: 
+            :ivar previous_token: 
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            
+            self.key: Optional[str] = payload.get("key")
+            self.page_size: Optional[int] = payload.get("page_size")
+            self.next_token: Optional[str] = payload.get("next_token")
+            self.previous_token: Optional[str] = payload.get("previous_token")
+
+        def to_dict(self):
+            return {
+                
+                    "": self.key,
+                    "": self.page_size,
+                    "": self.next_token,
+                    "": self.previous_token,
+            }
 
     class ServiceRequest(object):
         """
@@ -76,7 +178,7 @@ class StoreInstance(InstanceResource):
     :ivar version: The current version number of the Memory Store. Incremented on each successful update.
     """
 
-    def __init__(self, version: Version, payload:Dict[str, Any], store_id: Optional[str] = None):
+    def __init__(self, version: Version, payload:ResponseResource, store_id: Optional[str] = None):
         super().__init__(version)
 
         
@@ -201,6 +303,31 @@ class StoreInstance(InstanceResource):
         return '<Twilio.Memory.V1.StoreInstance {}>'.format(context)
 
 class StoreContext(InstanceContext):
+
+    class Meta(object):
+        """
+            :ivar key: The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+            :ivar page_size: 
+            :ivar next_token: 
+            :ivar previous_token: 
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            
+            self.key: Optional[str] = payload.get("key")
+            self.page_size: Optional[int] = payload.get("page_size")
+            self.next_token: Optional[str] = payload.get("next_token")
+            self.previous_token: Optional[str] = payload.get("previous_token")
+
+        def to_dict(self):
+            return {
+                
+                    "": self.key,
+                    "": self.page_size,
+                    "": self.next_token,
+                    "": self.previous_token,
+            }
 
     class ServiceRequest(object):
         """
@@ -522,6 +649,31 @@ class StorePage(TokenPagination):
 
 class StoreList(ListResource):
     
+    class Meta(object):
+        """
+            :ivar key: The key of the list property contains the actual data items. This enables programmatic iteration over paginated results. 
+            :ivar page_size: 
+            :ivar next_token: 
+            :ivar previous_token: 
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            
+            self.key: Optional[str] = payload.get("key")
+            self.page_size: Optional[int] = payload.get("page_size")
+            self.next_token: Optional[str] = payload.get("next_token")
+            self.previous_token: Optional[str] = payload.get("previous_token")
+
+        def to_dict(self):
+            return {
+                
+                    "": self.key,
+                    "": self.page_size,
+                    "": self.next_token,
+                    "": self.previous_token,
+            }
+
     class ServiceRequest(object):
         """
             :ivar display_name: Provides a unique and addressable name to be assigned to this Store. This name is assigned by the developer and can be used in addition to the ID. It is intended to be human-readable and unique within the account.

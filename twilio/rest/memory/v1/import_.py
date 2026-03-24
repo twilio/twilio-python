@@ -43,7 +43,7 @@ class ColumnMappingItem:
 Nested response model for CreateProfilesImportRequest
 '''
 class CreateProfilesImportRequest:
-  def __init__(self,filename: str, file_size: int, column_mappings: List[Import_List.ColumnMappingItem]):
+  def __init__(self,filename: str, file_size: int, column_mappings: List[ImportList.ColumnMappingItem]):
     self.filename = filename
     self.file_size = file_size
     self.column_mappings = column_mappings
@@ -61,6 +61,19 @@ class FetchProfileImport200ResponseSummary:
 
 
 
+
+"""
+Response model for ListProfileImports_200_response operations
+"""
+class ListProfileImports_200_responseResource:
+  def __init__(self,imports: List[str]):
+    """
+    Initialize the ListProfileImports_200_responseResource
+    :param imports: 
+    
+    """
+    self.imports = imports
+    
 
 """
 Response model for FetchProfileImportV2_200_response operations
@@ -129,7 +142,7 @@ class FetchProfileImport_200_responseResource:
 
 
 
-class Import_Instance(InstanceResource):
+class ImportInstance(InstanceResource):
 
     class ColumnMappingItem(object):
         """
@@ -165,7 +178,7 @@ class Import_Instance(InstanceResource):
             
             self.filename: Optional[str] = payload.get("filename")
             self.file_size: Optional[int] = payload.get("file_size")
-            self.column_mappings: Optional[List[Import_List.ColumnMappingItem]] = payload.get("column_mappings")
+            self.column_mappings: Optional[List[ImportList.ColumnMappingItem]] = payload.get("column_mappings")
 
         def to_dict(self):
             return {
@@ -212,43 +225,43 @@ class Import_Instance(InstanceResource):
         self._solution = { 
             "store_id": store_id or self.store_id,
         }
-        self._context: Optional[Import_Context] = None
+        self._context: Optional[ImportContext] = None
 
     @property
-    def _proxy(self) -> "Import_Context":
+    def _proxy(self) -> "ImportContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
-        :returns: Import_Context for this Import_Instance
+        :returns: ImportContext for this ImportInstance
         """
         if self._context is None:
-            self._context = Import_Context(self._version, store_id=self._solution['store_id'],)
+            self._context = ImportContext(self._version, store_id=self._solution['store_id'],)
         return self._context
     
     
-    def create(self, create_profiles_import_request: CreateProfilesImportRequest) -> "Import_Instance":
+    def create(self, create_profiles_import_request: CreateProfilesImportRequest) -> "ImportInstance":
         """
-        Create the Import_Instance
+        Create the ImportInstance
         
         :param create_profiles_import_request: 
 
-        :returns: The created Import_Instance
+        :returns: The created ImportInstance
         """
         return self._proxy.create(create_profiles_import_request, )
-    async def create_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> "Import_Instance":
+    async def create_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> "ImportInstance":
         """
-        Asynchronous coroutine to create the Import_Instance
+        Asynchronous coroutine to create the ImportInstance
         
         :param create_profiles_import_request: 
 
-        :returns: The created Import_Instance
+        :returns: The created ImportInstance
         """
         return await self._proxy.create_async(create_profiles_import_request, )
 
     def create_with_http_info(self, create_profiles_import_request: CreateProfilesImportRequest) -> ApiResponse:
         """
-        Create the Import_Instance with HTTP info
+        Create the ImportInstance with HTTP info
         
         :param create_profiles_import_request: 
 
@@ -258,7 +271,7 @@ class Import_Instance(InstanceResource):
 
     async def create_with_http_info_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> ApiResponse:
         """
-        Asynchronous coroutine to create the Import_Instance with HTTP info
+        Asynchronous coroutine to create the ImportInstance with HTTP info
         
         :param create_profiles_import_request: 
 
@@ -267,28 +280,28 @@ class Import_Instance(InstanceResource):
         return await self._proxy.create_with_http_info_async(create_profiles_import_request, )
     
     
-    def create(self, create_profiles_import_request: CreateProfilesImportRequest) -> "Import_Instance":
+    def create(self, create_profiles_import_request: CreateProfilesImportRequest) -> "ImportInstance":
         """
-        Create the Import_Instance
+        Create the ImportInstance
         
         :param create_profiles_import_request: 
 
-        :returns: The created Import_Instance
+        :returns: The created ImportInstance
         """
         return self._proxy.create(create_profiles_import_request, )
-    async def create_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> "Import_Instance":
+    async def create_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> "ImportInstance":
         """
-        Asynchronous coroutine to create the Import_Instance
+        Asynchronous coroutine to create the ImportInstance
         
         :param create_profiles_import_request: 
 
-        :returns: The created Import_Instance
+        :returns: The created ImportInstance
         """
         return await self._proxy.create_async(create_profiles_import_request, )
 
     def create_with_http_info(self, create_profiles_import_request: CreateProfilesImportRequest) -> ApiResponse:
         """
-        Create the Import_Instance with HTTP info
+        Create the ImportInstance with HTTP info
         
         :param create_profiles_import_request: 
 
@@ -298,7 +311,7 @@ class Import_Instance(InstanceResource):
 
     async def create_with_http_info_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> ApiResponse:
         """
-        Asynchronous coroutine to create the Import_Instance with HTTP info
+        Asynchronous coroutine to create the ImportInstance with HTTP info
         
         :param create_profiles_import_request: 
 
@@ -307,27 +320,27 @@ class Import_Instance(InstanceResource):
         return await self._proxy.create_with_http_info_async(create_profiles_import_request, )
     
     
-    def fetch(self) -> "Import_Instance":
+    def fetch(self) -> "ImportInstance":
         """
-        Fetch the Import_Instance
+        Fetch the ImportInstance
         
 
-        :returns: The fetched Import_Instance
+        :returns: The fetched ImportInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self) -> "Import_Instance":
+    async def fetch_async(self) -> "ImportInstance":
         """
-        Asynchronous coroutine to fetch the Import_Instance
+        Asynchronous coroutine to fetch the ImportInstance
         
 
-        :returns: The fetched Import_Instance
+        :returns: The fetched ImportInstance
         """
         return await self._proxy.fetch_async()
 
     def fetch_with_http_info(self) -> ApiResponse:
         """
-        Fetch the Import_Instance with HTTP info
+        Fetch the ImportInstance with HTTP info
         
 
         :returns: ApiResponse with instance, status code, and headers
@@ -336,7 +349,7 @@ class Import_Instance(InstanceResource):
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
         """
-        Asynchronous coroutine to fetch the Import_Instance with HTTP info
+        Asynchronous coroutine to fetch the ImportInstance with HTTP info
         
 
         :returns: ApiResponse with instance, status code, and headers
@@ -344,27 +357,27 @@ class Import_Instance(InstanceResource):
         return await self._proxy.fetch_with_http_info_async()
     
     
-    def fetch(self) -> "Import_Instance":
+    def fetch(self) -> "ImportInstance":
         """
-        Fetch the Import_Instance
+        Fetch the ImportInstance
         
 
-        :returns: The fetched Import_Instance
+        :returns: The fetched ImportInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self) -> "Import_Instance":
+    async def fetch_async(self) -> "ImportInstance":
         """
-        Asynchronous coroutine to fetch the Import_Instance
+        Asynchronous coroutine to fetch the ImportInstance
         
 
-        :returns: The fetched Import_Instance
+        :returns: The fetched ImportInstance
         """
         return await self._proxy.fetch_async()
 
     def fetch_with_http_info(self) -> ApiResponse:
         """
-        Fetch the Import_Instance with HTTP info
+        Fetch the ImportInstance with HTTP info
         
 
         :returns: ApiResponse with instance, status code, and headers
@@ -373,7 +386,7 @@ class Import_Instance(InstanceResource):
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
         """
-        Asynchronous coroutine to fetch the Import_Instance with HTTP info
+        Asynchronous coroutine to fetch the ImportInstance with HTTP info
         
 
         :returns: ApiResponse with instance, status code, and headers
@@ -389,9 +402,9 @@ class Import_Instance(InstanceResource):
         :returns: Machine friendly representation
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Memory.V1.Import_Instance {}>'.format(context)
+        return '<Twilio.Memory.V1.ImportInstance {}>'.format(context)
 
-class Import_Context(InstanceContext):
+class ImportContext(InstanceContext):
 
     class ColumnMappingItem(object):
         """
@@ -427,7 +440,7 @@ class Import_Context(InstanceContext):
             
             self.filename: Optional[str] = payload.get("filename")
             self.file_size: Optional[int] = payload.get("file_size")
-            self.column_mappings: Optional[List[Import_List.ColumnMappingItem]] = payload.get("column_mappings")
+            self.column_mappings: Optional[List[ImportList.ColumnMappingItem]] = payload.get("column_mappings")
 
         def to_dict(self):
             return {
@@ -459,7 +472,7 @@ class Import_Context(InstanceContext):
 
     def __init__(self, version: Version, store_id: str):
         """
-        Initialize the Import_Context
+        Initialize the ImportContext
 
         :param version: Version that contains the resource
         :param store_id: A unique Memory Store ID using Twilio Type ID (TTID) format
@@ -495,16 +508,16 @@ class Import_Context(InstanceContext):
 
         return self._version.create_with_response_info(method='POST', uri=self._uri, data=data, headers=headers)
 
-    def create(self, create_profiles_import_request: CreateProfilesImportRequest) -> Import_Instance:
+    def create(self, create_profiles_import_request: CreateProfilesImportRequest) -> ImportInstance:
         """
-        Create the Import_Instance
+        Create the ImportInstance
         
         :param create_profiles_import_request: 
 
-        :returns: The created Import_Instance
+        :returns: The created ImportInstance
         """
         payload, _, _ = self._create(create_profiles_import_request=create_profiles_import_request)
-        return Import_Instance(
+        return ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id']
@@ -512,14 +525,14 @@ class Import_Context(InstanceContext):
 
     def create_with_http_info(self, create_profiles_import_request: CreateProfilesImportRequest) -> ApiResponse:
         """
-        Create the Import_Instance and return response metadata
+        Create the ImportInstance and return response metadata
         
         :param create_profiles_import_request: 
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._create(create_profiles_import_request=create_profiles_import_request)
-        instance = Import_Instance(
+        instance = ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id']
@@ -546,16 +559,16 @@ class Import_Context(InstanceContext):
 
         return await self._version.create_with_response_info_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-    async def create_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> Import_Instance:
+    async def create_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> ImportInstance:
         """
-        Asynchronous coroutine to create the Import_Instance
+        Asynchronous coroutine to create the ImportInstance
         
         :param create_profiles_import_request: 
 
-        :returns: The created Import_Instance
+        :returns: The created ImportInstance
         """
         payload, _, _ = await self._create_async(create_profiles_import_request=create_profiles_import_request)
-        return Import_Instance(
+        return ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id']
@@ -563,14 +576,14 @@ class Import_Context(InstanceContext):
 
     async def create_with_http_info_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> ApiResponse:
         """
-        Asynchronous coroutine to create the Import_Instance and return response metadata
+        Asynchronous coroutine to create the ImportInstance and return response metadata
         
         :param create_profiles_import_request: 
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._create_async(create_profiles_import_request=create_profiles_import_request)
-        instance = Import_Instance(
+        instance = ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id']
@@ -598,16 +611,16 @@ class Import_Context(InstanceContext):
 
         return self._version.create_with_response_info(method='POST', uri=self._uri, data=data, headers=headers)
 
-    def create(self, create_profiles_import_request: CreateProfilesImportRequest) -> Import_Instance:
+    def create(self, create_profiles_import_request: CreateProfilesImportRequest) -> ImportInstance:
         """
-        Create the Import_Instance
+        Create the ImportInstance
         
         :param create_profiles_import_request: 
 
-        :returns: The created Import_Instance
+        :returns: The created ImportInstance
         """
         payload, _, _ = self._create(create_profiles_import_request=create_profiles_import_request)
-        return Import_Instance(
+        return ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id']
@@ -615,14 +628,14 @@ class Import_Context(InstanceContext):
 
     def create_with_http_info(self, create_profiles_import_request: CreateProfilesImportRequest) -> ApiResponse:
         """
-        Create the Import_Instance and return response metadata
+        Create the ImportInstance and return response metadata
         
         :param create_profiles_import_request: 
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._create(create_profiles_import_request=create_profiles_import_request)
-        instance = Import_Instance(
+        instance = ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id']
@@ -649,16 +662,16 @@ class Import_Context(InstanceContext):
 
         return await self._version.create_with_response_info_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-    async def create_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> Import_Instance:
+    async def create_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> ImportInstance:
         """
-        Asynchronous coroutine to create the Import_Instance
+        Asynchronous coroutine to create the ImportInstance
         
         :param create_profiles_import_request: 
 
-        :returns: The created Import_Instance
+        :returns: The created ImportInstance
         """
         payload, _, _ = await self._create_async(create_profiles_import_request=create_profiles_import_request)
-        return Import_Instance(
+        return ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id']
@@ -666,14 +679,14 @@ class Import_Context(InstanceContext):
 
     async def create_with_http_info_async(self, create_profiles_import_request: CreateProfilesImportRequest) -> ApiResponse:
         """
-        Asynchronous coroutine to create the Import_Instance and return response metadata
+        Asynchronous coroutine to create the ImportInstance and return response metadata
         
         :param create_profiles_import_request: 
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._create_async(create_profiles_import_request=create_profiles_import_request)
-        instance = Import_Instance(
+        instance = ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id']
@@ -698,15 +711,15 @@ class Import_Context(InstanceContext):
         
         return self._version.fetch_with_response_info(method='GET', uri=self._uri, headers=headers)
 
-    def fetch(self) -> Import_Instance:
+    def fetch(self) -> ImportInstance:
         """
-        Fetch the Import_Instance
+        Fetch the ImportInstance
         
 
-        :returns: The fetched Import_Instance
+        :returns: The fetched ImportInstance
         """
         payload, _, _ = self._fetch()
-        return Import_Instance(
+        return ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id'],
@@ -715,13 +728,13 @@ class Import_Context(InstanceContext):
 
     def fetch_with_http_info(self) -> ApiResponse:
         """
-        Fetch the Import_Instance and return response metadata
+        Fetch the ImportInstance and return response metadata
         
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._fetch()
-        instance = Import_Instance(
+        instance = ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id'],
@@ -746,15 +759,15 @@ class Import_Context(InstanceContext):
         
         return await self._version.fetch_with_response_info_async(method='GET', uri=self._uri, headers=headers)
 
-    async def fetch_async(self) -> Import_Instance:
+    async def fetch_async(self) -> ImportInstance:
         """
-        Asynchronous coroutine to fetch the Import_Instance
+        Asynchronous coroutine to fetch the ImportInstance
         
 
-        :returns: The fetched Import_Instance
+        :returns: The fetched ImportInstance
         """
         payload, _, _ = await self._fetch_async()
-        return Import_Instance(
+        return ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id'],
@@ -763,13 +776,13 @@ class Import_Context(InstanceContext):
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
         """
-        Asynchronous coroutine to fetch the Import_Instance and return response metadata
+        Asynchronous coroutine to fetch the ImportInstance and return response metadata
         
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._fetch_async()
-        instance = Import_Instance(
+        instance = ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id'],
@@ -795,15 +808,15 @@ class Import_Context(InstanceContext):
         
         return self._version.fetch_with_response_info(method='GET', uri=self._uri, headers=headers)
 
-    def fetch(self) -> Import_Instance:
+    def fetch(self) -> ImportInstance:
         """
-        Fetch the Import_Instance
+        Fetch the ImportInstance
         
 
-        :returns: The fetched Import_Instance
+        :returns: The fetched ImportInstance
         """
         payload, _, _ = self._fetch()
-        return Import_Instance(
+        return ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id'],
@@ -812,13 +825,13 @@ class Import_Context(InstanceContext):
 
     def fetch_with_http_info(self) -> ApiResponse:
         """
-        Fetch the Import_Instance and return response metadata
+        Fetch the ImportInstance and return response metadata
         
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._fetch()
-        instance = Import_Instance(
+        instance = ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id'],
@@ -843,15 +856,15 @@ class Import_Context(InstanceContext):
         
         return await self._version.fetch_with_response_info_async(method='GET', uri=self._uri, headers=headers)
 
-    async def fetch_async(self) -> Import_Instance:
+    async def fetch_async(self) -> ImportInstance:
         """
-        Asynchronous coroutine to fetch the Import_Instance
+        Asynchronous coroutine to fetch the ImportInstance
         
 
-        :returns: The fetched Import_Instance
+        :returns: The fetched ImportInstance
         """
         payload, _, _ = await self._fetch_async()
-        return Import_Instance(
+        return ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id'],
@@ -860,13 +873,13 @@ class Import_Context(InstanceContext):
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
         """
-        Asynchronous coroutine to fetch the Import_Instance and return response metadata
+        Asynchronous coroutine to fetch the ImportInstance and return response metadata
         
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._fetch_async()
-        instance = Import_Instance(
+        instance = ImportInstance(
             self._version,
             payload,
             store_id=self._solution['store_id'],
@@ -884,7 +897,7 @@ class Import_Context(InstanceContext):
         :returns: Machine friendly representation
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Memory.V1.Import_Context {}>'.format(context)
+        return '<Twilio.Memory.V1.ImportContext {}>'.format(context)
 
 
 
@@ -896,15 +909,15 @@ class Import_Context(InstanceContext):
 
 
 
-class Import_Page(TokenPagination):
+class ImportPage(TokenPagination):
 
-    def get_instance(self, payload: Dict[str, Any]) -> Import_Instance:
+    def get_instance(self, payload: Dict[str, Any]) -> ImportInstance:
         """
-        Build an instance of Import_Instance
+        Build an instance of ImportInstance
 
         :param payload: Payload response from the API
         """
-        return Import_Instance(self._version, payload)
+        return ImportInstance(self._version, payload)
 
     def __repr__(self) -> str:
         """
@@ -912,20 +925,20 @@ class Import_Page(TokenPagination):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Memory.V1.Import_Page>"
+        return "<Twilio.Memory.V1.ImportPage>"
 
 
 
 
-class Import_Page(TokenPagination):
+class ImportPage(TokenPagination):
 
-    def get_instance(self, payload: Dict[str, Any]) -> Import_Instance:
+    def get_instance(self, payload: Dict[str, Any]) -> ImportInstance:
         """
-        Build an instance of Import_Instance
+        Build an instance of ImportInstance
 
         :param payload: Payload response from the API
         """
-        return Import_Instance(self._version, payload)
+        return ImportInstance(self._version, payload)
 
     def __repr__(self) -> str:
         """
@@ -933,13 +946,13 @@ class Import_Page(TokenPagination):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Memory.V1.Import_Page>"
+        return "<Twilio.Memory.V1.ImportPage>"
 
 
 
 
 
-class Import_List(ListResource):
+class ImportList(ListResource):
     
     class ColumnMappingItem(object):
         """
@@ -975,7 +988,7 @@ class Import_List(ListResource):
             
             self.filename: Optional[str] = payload.get("filename")
             self.file_size: Optional[int] = payload.get("file_size")
-            self.column_mappings: Optional[List[Import_List.ColumnMappingItem]] = payload.get("column_mappings")
+            self.column_mappings: Optional[List[ImportList.ColumnMappingItem]] = payload.get("column_mappings")
 
         def to_dict(self):
             return {
@@ -1007,7 +1020,7 @@ class Import_List(ListResource):
 
     def __init__(self, version: Version):
         """
-        Initialize the Import_List
+        Initialize the ImportList
 
         :param version: Version that contains the resource
         
@@ -1019,21 +1032,21 @@ class Import_List(ListResource):
         
         
 
-    def get(self, store_id: str) -> Import_Context:
+    def get(self, store_id: str) -> ImportContext:
         """
-        Constructs a Import_Context
+        Constructs a ImportContext
         
         :param store_id: A unique Memory Store ID using Twilio Type ID (TTID) format
         """
-        return Import_Context(self._version, store_id=store_id)
+        return ImportContext(self._version, store_id=store_id)
 
-    def __call__(self, store_id: str) -> Import_Context:
+    def __call__(self, store_id: str) -> ImportContext:
         """
-        Constructs a Import_Context
+        Constructs a ImportContext
         
         :param store_id: A unique Memory Store ID using Twilio Type ID (TTID) format
         """
-        return Import_Context(self._version, store_id=store_id)
+        return ImportContext(self._version, store_id=store_id)
 
     def __repr__(self) -> str:
         """
@@ -1041,5 +1054,5 @@ class Import_List(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Memory.V1.Import_List>'
+        return '<Twilio.Memory.V1.ImportList>'
 
