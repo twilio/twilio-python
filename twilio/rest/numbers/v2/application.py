@@ -12,8 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -87,11 +88,26 @@ class ApplicationInstance(InstanceResource):
 
     """
     :ivar sid: The unique identifier of the Short Code Application.
-    :ivar bundle_sid: The Bundle SID for regulatory compliance.
     :ivar application_requirements_sid: The Application Requirements SID.
+    :ivar application_requirements_version: The version of the application requirements.
+    :ivar account_sid: The Account SID associated with the application.
+    :ivar bundle_sid: The Bundle SID for regulatory compliance.
+    :ivar reviewer: The reviewer of the application.
+    :ivar zendesk_ticket_id: The Zendesk ticket ID associated with the application.
     :ivar friendly_name: The friendly name of the application.
+    :ivar notification_emails: The notification emails for the application.
     :ivar iso_country: The ISO country code.
     :ivar state: The state of the application.
+    :ivar setup: 
+    :ivar business_information: 
+    :ivar user_sign_up: 
+    :ivar compliance_keywords: 
+    :ivar content_examples: 
+    :ivar sms_campaign_details: 
+    :ivar date_created: The date and time the application was created.
+    :ivar date_updated: The date and time the application was last updated.
+    :ivar created_by: The identity of the user who created the application.
+    :ivar updated_by: The identity of the user who last updated the application.
     """
 
     def __init__(
@@ -100,13 +116,36 @@ class ApplicationInstance(InstanceResource):
         super().__init__(version)
 
         self.sid: Optional[str] = payload.get("sid")
-        self.bundle_sid: Optional[str] = payload.get("bundle_sid")
         self.application_requirements_sid: Optional[str] = payload.get(
             "application_requirements_sid"
         )
+        self.application_requirements_version: Optional[int] = deserialize.integer(
+            payload.get("application_requirements_version")
+        )
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.bundle_sid: Optional[str] = payload.get("bundle_sid")
+        self.reviewer: Optional[str] = payload.get("reviewer")
+        self.zendesk_ticket_id: Optional[str] = payload.get("zendesk_ticket_id")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.notification_emails: Optional[List[str]] = payload.get(
+            "notification_emails"
+        )
         self.iso_country: Optional[str] = payload.get("iso_country")
-        self.state: Optional[str] = payload.get("state")
+        self.state: Optional["ApplicationInstance.str"] = payload.get("state")
+        self.setup: Optional[str] = payload.get("setup")
+        self.business_information: Optional[str] = payload.get("business_information")
+        self.user_sign_up: Optional[str] = payload.get("user_sign_up")
+        self.compliance_keywords: Optional[str] = payload.get("compliance_keywords")
+        self.content_examples: Optional[str] = payload.get("content_examples")
+        self.sms_campaign_details: Optional[str] = payload.get("sms_campaign_details")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.created_by: Optional[str] = payload.get("created_by")
+        self.updated_by: Optional[str] = payload.get("updated_by")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -551,6 +590,11 @@ class ApplicationList(ListResource):
 
     def stream(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ApplicationInstance]:
@@ -560,6 +604,11 @@ class ApplicationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str account_sid: The Account SID to filter by.
+        :param str iso_country: The ISO country to filter by.
+        :param str status: The application status to filter by.
+        :param str friendly_name: The friendly name to filter by.
+        :param str sid: The application SID to filter by.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -570,12 +619,24 @@ class ApplicationList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            account_sid=account_sid,
+            iso_country=iso_country,
+            status=status,
+            friendly_name=friendly_name,
+            sid=sid,
+            page_size=limits["page_size"],
+        )
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ApplicationInstance]:
@@ -585,6 +646,11 @@ class ApplicationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str account_sid: The Account SID to filter by.
+        :param str iso_country: The ISO country to filter by.
+        :param str status: The application status to filter by.
+        :param str friendly_name: The friendly name to filter by.
+        :param str sid: The application SID to filter by.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -595,12 +661,24 @@ class ApplicationList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            account_sid=account_sid,
+            iso_country=iso_country,
+            status=status,
+            friendly_name=friendly_name,
+            sid=sid,
+            page_size=limits["page_size"],
+        )
 
         return self._version.stream_async(page, limits["limit"])
 
     def stream_with_http_info(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -608,6 +686,11 @@ class ApplicationList(ListResource):
         Streams ApplicationInstance and returns headers from first page
 
 
+        :param str account_sid: The Account SID to filter by.
+        :param str iso_country: The ISO country to filter by.
+        :param str status: The application status to filter by.
+        :param str friendly_name: The friendly name to filter by.
+        :param str sid: The application SID to filter by.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -618,13 +701,25 @@ class ApplicationList(ListResource):
         :returns: tuple of (generator, status_code, headers) where generator yields instances
         """
         limits = self._version.read_limits(limit, page_size)
-        page_response = self.page_with_http_info(page_size=limits["page_size"])
+        page_response = self.page_with_http_info(
+            account_sid=account_sid,
+            iso_country=iso_country,
+            status=status,
+            friendly_name=friendly_name,
+            sid=sid,
+            page_size=limits["page_size"],
+        )
 
         generator = self._version.stream(page_response.data, limits["limit"])
         return (generator, page_response.status_code, page_response.headers)
 
     async def stream_with_http_info_async(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -632,6 +727,11 @@ class ApplicationList(ListResource):
         Asynchronously streams ApplicationInstance and returns headers from first page
 
 
+        :param str account_sid: The Account SID to filter by.
+        :param str iso_country: The ISO country to filter by.
+        :param str status: The application status to filter by.
+        :param str friendly_name: The friendly name to filter by.
+        :param str sid: The application SID to filter by.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -643,7 +743,12 @@ class ApplicationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = await self.page_with_http_info_async(
-            page_size=limits["page_size"]
+            account_sid=account_sid,
+            iso_country=iso_country,
+            status=status,
+            friendly_name=friendly_name,
+            sid=sid,
+            page_size=limits["page_size"],
         )
 
         generator = self._version.stream_async(page_response.data, limits["limit"])
@@ -651,6 +756,11 @@ class ApplicationList(ListResource):
 
     def list(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ApplicationInstance]:
@@ -659,6 +769,11 @@ class ApplicationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str account_sid: The Account SID to filter by.
+        :param str iso_country: The ISO country to filter by.
+        :param str status: The application status to filter by.
+        :param str friendly_name: The friendly name to filter by.
+        :param str sid: The application SID to filter by.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -670,6 +785,11 @@ class ApplicationList(ListResource):
         """
         return list(
             self.stream(
+                account_sid=account_sid,
+                iso_country=iso_country,
+                status=status,
+                friendly_name=friendly_name,
+                sid=sid,
                 limit=limit,
                 page_size=page_size,
             )
@@ -677,6 +797,11 @@ class ApplicationList(ListResource):
 
     async def list_async(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ApplicationInstance]:
@@ -685,6 +810,11 @@ class ApplicationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str account_sid: The Account SID to filter by.
+        :param str iso_country: The ISO country to filter by.
+        :param str status: The application status to filter by.
+        :param str friendly_name: The friendly name to filter by.
+        :param str sid: The application SID to filter by.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -697,6 +827,11 @@ class ApplicationList(ListResource):
         return [
             record
             async for record in await self.stream_async(
+                account_sid=account_sid,
+                iso_country=iso_country,
+                status=status,
+                friendly_name=friendly_name,
+                sid=sid,
                 limit=limit,
                 page_size=page_size,
             )
@@ -704,6 +839,11 @@ class ApplicationList(ListResource):
 
     def list_with_http_info(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -711,6 +851,11 @@ class ApplicationList(ListResource):
         Lists ApplicationInstance and returns headers from first page
 
 
+        :param str account_sid: The Account SID to filter by.
+        :param str iso_country: The ISO country to filter by.
+        :param str status: The application status to filter by.
+        :param str friendly_name: The friendly name to filter by.
+        :param str sid: The application SID to filter by.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -721,6 +866,11 @@ class ApplicationList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = self.stream_with_http_info(
+            account_sid=account_sid,
+            iso_country=iso_country,
+            status=status,
+            friendly_name=friendly_name,
+            sid=sid,
             limit=limit,
             page_size=page_size,
         )
@@ -729,6 +879,11 @@ class ApplicationList(ListResource):
 
     async def list_with_http_info_async(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -736,6 +891,11 @@ class ApplicationList(ListResource):
         Asynchronously lists ApplicationInstance and returns headers from first page
 
 
+        :param str account_sid: The Account SID to filter by.
+        :param str iso_country: The ISO country to filter by.
+        :param str status: The application status to filter by.
+        :param str friendly_name: The friendly name to filter by.
+        :param str sid: The application SID to filter by.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -746,6 +906,11 @@ class ApplicationList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = await self.stream_with_http_info_async(
+            account_sid=account_sid,
+            iso_country=iso_country,
+            status=status,
+            friendly_name=friendly_name,
+            sid=sid,
             limit=limit,
             page_size=page_size,
         )
@@ -754,6 +919,11 @@ class ApplicationList(ListResource):
 
     def page(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -762,6 +932,11 @@ class ApplicationList(ListResource):
         Retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
 
+        :param account_sid: The Account SID to filter by.
+        :param iso_country: The ISO country to filter by.
+        :param status: The application status to filter by.
+        :param friendly_name: The friendly name to filter by.
+        :param sid: The application SID to filter by.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -770,6 +945,11 @@ class ApplicationList(ListResource):
         """
         data = values.of(
             {
+                "AccountSid": account_sid,
+                "IsoCountry": iso_country,
+                "Status": status,
+                "FriendlyName": friendly_name,
+                "Sid": sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -787,6 +967,11 @@ class ApplicationList(ListResource):
 
     async def page_async(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -795,6 +980,11 @@ class ApplicationList(ListResource):
         Asynchronously retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
 
+        :param account_sid: The Account SID to filter by.
+        :param iso_country: The ISO country to filter by.
+        :param status: The application status to filter by.
+        :param friendly_name: The friendly name to filter by.
+        :param sid: The application SID to filter by.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -803,6 +993,11 @@ class ApplicationList(ListResource):
         """
         data = values.of(
             {
+                "AccountSid": account_sid,
+                "IsoCountry": iso_country,
+                "Status": status,
+                "FriendlyName": friendly_name,
+                "Sid": sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -820,6 +1015,11 @@ class ApplicationList(ListResource):
 
     def page_with_http_info(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -828,6 +1028,11 @@ class ApplicationList(ListResource):
         Retrieve a single page with response metadata
 
 
+        :param account_sid: The Account SID to filter by.
+        :param iso_country: The ISO country to filter by.
+        :param status: The application status to filter by.
+        :param friendly_name: The friendly name to filter by.
+        :param sid: The application SID to filter by.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -836,6 +1041,11 @@ class ApplicationList(ListResource):
         """
         data = values.of(
             {
+                "AccountSid": account_sid,
+                "IsoCountry": iso_country,
+                "Status": status,
+                "FriendlyName": friendly_name,
+                "Sid": sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -854,6 +1064,11 @@ class ApplicationList(ListResource):
 
     async def page_with_http_info_async(
         self,
+        account_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -862,6 +1077,11 @@ class ApplicationList(ListResource):
         Asynchronously retrieve a single page with response metadata
 
 
+        :param account_sid: The Account SID to filter by.
+        :param iso_country: The ISO country to filter by.
+        :param status: The application status to filter by.
+        :param friendly_name: The friendly name to filter by.
+        :param sid: The application SID to filter by.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -870,6 +1090,11 @@ class ApplicationList(ListResource):
         """
         data = values.of(
             {
+                "AccountSid": account_sid,
+                "IsoCountry": iso_country,
+                "Status": status,
+                "FriendlyName": friendly_name,
+                "Sid": sid,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

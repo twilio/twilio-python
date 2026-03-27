@@ -17,6 +17,7 @@ from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.numbers.v1.bulk_eligibility import BulkEligibilityList
 from twilio.rest.numbers.v1.eligibility import EligibilityList
+from twilio.rest.numbers.v1.embedded_session import EmbeddedSessionList
 from twilio.rest.numbers.v1.porting_all_port_in import PortingAllPortInList
 from twilio.rest.numbers.v1.porting_port_in import PortingPortInList
 from twilio.rest.numbers.v1.porting_port_in_phone_number import (
@@ -29,6 +30,7 @@ from twilio.rest.numbers.v1.porting_webhook_configuration import (
 from twilio.rest.numbers.v1.porting_webhook_configuration_delete import (
     PortingWebhookConfigurationDeleteList,
 )
+from twilio.rest.numbers.v1.sender_id_registration import SenderIdRegistrationList
 from twilio.rest.numbers.v1.signing_request_configuration import (
     SigningRequestConfigurationList,
 )
@@ -46,6 +48,7 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._bulk_eligibilities: Optional[BulkEligibilityList] = None
         self._eligibilities: Optional[EligibilityList] = None
+        self._embedded_sessions: Optional[EmbeddedSessionList] = None
         self._porting_all_port_ins: Optional[PortingAllPortInList] = None
         self._porting_port_ins: Optional[PortingPortInList] = None
         self._porting_port_in_phone_number: Optional[PortingPortInPhoneNumberList] = (
@@ -58,6 +61,7 @@ class V1(Version):
         self._porting_webhook_configurations_delete: Optional[
             PortingWebhookConfigurationDeleteList
         ] = None
+        self._sender_id_registrations: Optional[SenderIdRegistrationList] = None
         self._signing_request_configurations: Optional[
             SigningRequestConfigurationList
         ] = None
@@ -74,6 +78,12 @@ class V1(Version):
         if self._eligibilities is None:
             self._eligibilities = EligibilityList(self)
         return self._eligibilities
+
+    @property
+    def embedded_sessions(self) -> EmbeddedSessionList:
+        if self._embedded_sessions is None:
+            self._embedded_sessions = EmbeddedSessionList(self)
+        return self._embedded_sessions
 
     @property
     def porting_all_port_ins(self) -> PortingAllPortInList:
@@ -114,6 +124,12 @@ class V1(Version):
                 PortingWebhookConfigurationDeleteList(self)
             )
         return self._porting_webhook_configurations_delete
+
+    @property
+    def sender_id_registrations(self) -> SenderIdRegistrationList:
+        if self._sender_id_registrations is None:
+            self._sender_id_registrations = SenderIdRegistrationList(self)
+        return self._sender_id_registrations
 
     @property
     def signing_request_configurations(self) -> SigningRequestConfigurationList:

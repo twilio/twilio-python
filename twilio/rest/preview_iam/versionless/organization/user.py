@@ -55,16 +55,16 @@ class UserInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.resource_type: Optional[str] = payload.get("resource_type")
+            self.resource_type: Optional[str] = payload.get("resourceType")
             self.created: Optional[datetime] = payload.get("created")
-            self.last_modified: Optional[datetime] = payload.get("last_modified")
+            self.last_modified: Optional[datetime] = payload.get("lastModified")
             self.version: Optional[str] = payload.get("version")
 
         def to_dict(self):
             return {
-                "resource_type": self.resource_type,
+                "resourceType": self.resource_type,
                 "created": self.created,
-                "last_modified": self.last_modified,
+                "lastModified": self.last_modified,
                 "version": self.version,
             }
 
@@ -76,13 +76,56 @@ class UserInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.given_name: Optional[str] = payload.get("given_name")
-            self.family_name: Optional[str] = payload.get("family_name")
+            self.given_name: Optional[str] = payload.get("givenName")
+            self.family_name: Optional[str] = payload.get("familyName")
 
         def to_dict(self):
             return {
-                "given_name": self.given_name,
-                "family_name": self.family_name,
+                "givenName": self.given_name,
+                "familyName": self.family_name,
+            }
+
+    class ScimPatchOperation(object):
+        """
+        :ivar op: The operation to perform
+        :ivar path:
+        :ivar value:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.op: Optional[str] = payload.get("op")
+            self.path: Optional[str] = payload.get("path")
+            self.value: Optional[Dict[str, object]] = payload.get("value")
+
+        def to_dict(self):
+            return {
+                "op": self.op,
+                "path": self.path,
+                "value": self.value,
+            }
+
+    class ScimPatchRequest(object):
+        """
+        :ivar schemas:
+        :ivar operations:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.schemas: Optional[List[str]] = payload.get("schemas")
+            self.operations: Optional[List[UserList.ScimPatchOperation]] = payload.get(
+                "Operations"
+            )
+
+        def to_dict(self):
+            return {
+                "schemas": self.schemas,
+                "Operations": (
+                    [operations.to_dict() for operations in self.operations]
+                    if self.operations is not None
+                    else None
+                ),
             }
 
     class ScimUser(object):
@@ -108,9 +151,9 @@ class UserInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.id: Optional[str] = payload.get("id")
-            self.external_id: Optional[str] = payload.get("external_id")
-            self.user_name: Optional[str] = payload.get("user_name")
-            self.display_name: Optional[str] = payload.get("display_name")
+            self.external_id: Optional[str] = payload.get("externalId")
+            self.user_name: Optional[str] = payload.get("userName")
+            self.display_name: Optional[str] = payload.get("displayName")
             self.name: Optional[UserList.ScimName] = payload.get("name")
             self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get(
                 "emails"
@@ -121,10 +164,10 @@ class UserInstance(InstanceResource):
             self.schemas: Optional[List[str]] = payload.get("schemas")
             self.meta: Optional[UserList.ScimMeta] = payload.get("meta")
             self.detail: Optional[str] = payload.get("detail")
-            self.scim_type: Optional[str] = payload.get("scim_type")
+            self.scim_type: Optional["UserInstance.str"] = payload.get("scimType")
             self.status: Optional[str] = payload.get("status")
             self.code: Optional[int] = payload.get("code")
-            self.more_info: Optional[str] = payload.get("more_info")
+            self.more_info: Optional[str] = payload.get("moreInfo")
 
         def to_dict(self):
             return {
@@ -190,7 +233,7 @@ class UserInstance(InstanceResource):
         self.schemas: Optional[List[str]] = payload.get("schemas")
         self.meta: Optional[UserList.str] = payload.get("meta")
         self.detail: Optional[str] = payload.get("detail")
-        self.scim_type: Optional[str] = payload.get("scimType")
+        self.scim_type: Optional["UserInstance.str"] = payload.get("scimType")
         self.status: Optional[str] = payload.get("status")
         self.code: Optional[int] = payload.get("code")
         self.more_info: Optional[str] = payload.get("moreInfo")
@@ -288,6 +331,42 @@ class UserInstance(InstanceResource):
         :returns: ApiResponse with instance, status code, and headers
         """
         return await self._proxy.fetch_with_http_info_async()
+
+    def patch(
+        self,
+        scim_patch_request: ScimPatchRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> "UserInstance":
+        """
+        Patch the UserInstance
+
+        :param scim_patch_request:
+        :param if_match:
+
+        :returns: The patched UserInstance
+        """
+        return self._proxy.patch(
+            scim_patch_request=scim_patch_request,
+            if_match=if_match,
+        )
+
+    async def patch_async(
+        self,
+        scim_patch_request: ScimPatchRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> "UserInstance":
+        """
+        Asynchronous coroutine to patch the UserInstance
+
+        :param scim_patch_request:
+        :param if_match:
+
+        :returns: The patched UserInstance
+        """
+        return await self._proxy.patch_async(
+            scim_patch_request=scim_patch_request,
+            if_match=if_match,
+        )
 
     def update(
         self, scim_user: ScimUser, if_match: Union[str, object] = values.unset
@@ -395,16 +474,16 @@ class UserContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.resource_type: Optional[str] = payload.get("resource_type")
+            self.resource_type: Optional[str] = payload.get("resourceType")
             self.created: Optional[datetime] = payload.get("created")
-            self.last_modified: Optional[datetime] = payload.get("last_modified")
+            self.last_modified: Optional[datetime] = payload.get("lastModified")
             self.version: Optional[str] = payload.get("version")
 
         def to_dict(self):
             return {
-                "resource_type": self.resource_type,
+                "resourceType": self.resource_type,
                 "created": self.created,
-                "last_modified": self.last_modified,
+                "lastModified": self.last_modified,
                 "version": self.version,
             }
 
@@ -416,13 +495,56 @@ class UserContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.given_name: Optional[str] = payload.get("given_name")
-            self.family_name: Optional[str] = payload.get("family_name")
+            self.given_name: Optional[str] = payload.get("givenName")
+            self.family_name: Optional[str] = payload.get("familyName")
 
         def to_dict(self):
             return {
-                "given_name": self.given_name,
-                "family_name": self.family_name,
+                "givenName": self.given_name,
+                "familyName": self.family_name,
+            }
+
+    class ScimPatchOperation(object):
+        """
+        :ivar op: The operation to perform
+        :ivar path:
+        :ivar value:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.op: Optional[str] = payload.get("op")
+            self.path: Optional[str] = payload.get("path")
+            self.value: Optional[Dict[str, object]] = payload.get("value")
+
+        def to_dict(self):
+            return {
+                "op": self.op,
+                "path": self.path,
+                "value": self.value,
+            }
+
+    class ScimPatchRequest(object):
+        """
+        :ivar schemas:
+        :ivar operations:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.schemas: Optional[List[str]] = payload.get("schemas")
+            self.operations: Optional[List[UserList.ScimPatchOperation]] = payload.get(
+                "Operations"
+            )
+
+        def to_dict(self):
+            return {
+                "schemas": self.schemas,
+                "Operations": (
+                    [operations.to_dict() for operations in self.operations]
+                    if self.operations is not None
+                    else None
+                ),
             }
 
     class ScimUser(object):
@@ -448,9 +570,9 @@ class UserContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.id: Optional[str] = payload.get("id")
-            self.external_id: Optional[str] = payload.get("external_id")
-            self.user_name: Optional[str] = payload.get("user_name")
-            self.display_name: Optional[str] = payload.get("display_name")
+            self.external_id: Optional[str] = payload.get("externalId")
+            self.user_name: Optional[str] = payload.get("userName")
+            self.display_name: Optional[str] = payload.get("displayName")
             self.name: Optional[UserList.ScimName] = payload.get("name")
             self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get(
                 "emails"
@@ -461,10 +583,10 @@ class UserContext(InstanceContext):
             self.schemas: Optional[List[str]] = payload.get("schemas")
             self.meta: Optional[UserList.ScimMeta] = payload.get("meta")
             self.detail: Optional[str] = payload.get("detail")
-            self.scim_type: Optional[str] = payload.get("scim_type")
+            self.scim_type: Optional["UserInstance.str"] = payload.get("scimType")
             self.status: Optional[str] = payload.get("status")
             self.code: Optional[int] = payload.get("code")
-            self.more_info: Optional[str] = payload.get("more_info")
+            self.more_info: Optional[str] = payload.get("moreInfo")
 
         def to_dict(self):
             return {
@@ -665,6 +787,160 @@ class UserContext(InstanceContext):
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._fetch_async()
+        instance = UserInstance(
+            self._version,
+            payload,
+            organization_sid=self._solution["organization_sid"],
+            id=self._solution["id"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _patch(
+        self,
+        scim_patch_request: ScimPatchRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for patch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = scim_patch_request.to_dict()
+
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Content-Type"] = "application/scim+json"
+
+        headers["Accept"] = "application/scim+json"
+
+        return self._version.patch_with_response_info(
+            method="PATCH", uri=self._uri, data=data, headers=headers
+        )
+
+    def patch(
+        self,
+        scim_patch_request: ScimPatchRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> UserInstance:
+        """
+        Patch the UserInstance
+
+        :param scim_patch_request:
+        :param if_match:
+
+        :returns: The patched UserInstance
+        """
+        payload, _, _ = self._patch(
+            scim_patch_request=scim_patch_request, if_match=if_match
+        )
+        return UserInstance(
+            self._version,
+            payload,
+            organization_sid=self._solution["organization_sid"],
+            id=self._solution["id"],
+        )
+
+    def patch_with_http_info(
+        self,
+        scim_patch_request: ScimPatchRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Patch the UserInstance and return response metadata
+
+        :param scim_patch_request:
+        :param if_match:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._patch(
+            scim_patch_request=scim_patch_request, if_match=if_match
+        )
+        instance = UserInstance(
+            self._version,
+            payload,
+            organization_sid=self._solution["organization_sid"],
+            id=self._solution["id"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _patch_async(
+        self,
+        scim_patch_request: ScimPatchRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for patch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = scim_patch_request.to_dict()
+
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Content-Type"] = "application/scim+json"
+
+        headers["Accept"] = "application/scim+json"
+
+        return await self._version.patch_with_response_info_async(
+            method="PATCH", uri=self._uri, data=data, headers=headers
+        )
+
+    async def patch_async(
+        self,
+        scim_patch_request: ScimPatchRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> UserInstance:
+        """
+        Asynchronous coroutine to patch the UserInstance
+
+        :param scim_patch_request:
+        :param if_match:
+
+        :returns: The patched UserInstance
+        """
+        payload, _, _ = await self._patch_async(
+            scim_patch_request=scim_patch_request, if_match=if_match
+        )
+        return UserInstance(
+            self._version,
+            payload,
+            organization_sid=self._solution["organization_sid"],
+            id=self._solution["id"],
+        )
+
+    async def patch_with_http_info_async(
+        self,
+        scim_patch_request: ScimPatchRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to patch the UserInstance and return response metadata
+
+        :param scim_patch_request:
+        :param if_match:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._patch_async(
+            scim_patch_request=scim_patch_request, if_match=if_match
+        )
         instance = UserInstance(
             self._version,
             payload,
@@ -874,16 +1150,16 @@ class UserList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.resource_type: Optional[str] = payload.get("resource_type")
+            self.resource_type: Optional[str] = payload.get("resourceType")
             self.created: Optional[datetime] = payload.get("created")
-            self.last_modified: Optional[datetime] = payload.get("last_modified")
+            self.last_modified: Optional[datetime] = payload.get("lastModified")
             self.version: Optional[str] = payload.get("version")
 
         def to_dict(self):
             return {
-                "resource_type": self.resource_type,
+                "resourceType": self.resource_type,
                 "created": self.created,
-                "last_modified": self.last_modified,
+                "lastModified": self.last_modified,
                 "version": self.version,
             }
 
@@ -895,13 +1171,56 @@ class UserList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.given_name: Optional[str] = payload.get("given_name")
-            self.family_name: Optional[str] = payload.get("family_name")
+            self.given_name: Optional[str] = payload.get("givenName")
+            self.family_name: Optional[str] = payload.get("familyName")
 
         def to_dict(self):
             return {
-                "given_name": self.given_name,
-                "family_name": self.family_name,
+                "givenName": self.given_name,
+                "familyName": self.family_name,
+            }
+
+    class ScimPatchOperation(object):
+        """
+        :ivar op: The operation to perform
+        :ivar path:
+        :ivar value:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.op: Optional[str] = payload.get("op")
+            self.path: Optional[str] = payload.get("path")
+            self.value: Optional[Dict[str, object]] = payload.get("value")
+
+        def to_dict(self):
+            return {
+                "op": self.op,
+                "path": self.path,
+                "value": self.value,
+            }
+
+    class ScimPatchRequest(object):
+        """
+        :ivar schemas:
+        :ivar operations:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.schemas: Optional[List[str]] = payload.get("schemas")
+            self.operations: Optional[List[UserList.ScimPatchOperation]] = payload.get(
+                "Operations"
+            )
+
+        def to_dict(self):
+            return {
+                "schemas": self.schemas,
+                "Operations": (
+                    [operations.to_dict() for operations in self.operations]
+                    if self.operations is not None
+                    else None
+                ),
             }
 
     class ScimUser(object):
@@ -927,9 +1246,9 @@ class UserList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.id: Optional[str] = payload.get("id")
-            self.external_id: Optional[str] = payload.get("external_id")
-            self.user_name: Optional[str] = payload.get("user_name")
-            self.display_name: Optional[str] = payload.get("display_name")
+            self.external_id: Optional[str] = payload.get("externalId")
+            self.user_name: Optional[str] = payload.get("userName")
+            self.display_name: Optional[str] = payload.get("displayName")
             self.name: Optional[UserList.ScimName] = payload.get("name")
             self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get(
                 "emails"
@@ -940,10 +1259,10 @@ class UserList(ListResource):
             self.schemas: Optional[List[str]] = payload.get("schemas")
             self.meta: Optional[UserList.ScimMeta] = payload.get("meta")
             self.detail: Optional[str] = payload.get("detail")
-            self.scim_type: Optional[str] = payload.get("scim_type")
+            self.scim_type: Optional["UserInstance.str"] = payload.get("scimType")
             self.status: Optional[str] = payload.get("status")
             self.code: Optional[int] = payload.get("code")
-            self.more_info: Optional[str] = payload.get("more_info")
+            self.more_info: Optional[str] = payload.get("moreInfo")
 
         def to_dict(self):
             return {

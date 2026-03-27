@@ -36,6 +36,8 @@ class ExecutionInstance(InstanceResource):
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Execution resource.
     :ivar flow_sid: The SID of the Flow.
     :ivar contact_channel_address: The phone number, SIP address or Client identifier that triggered the Execution. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+    :ivar contact_sid: The SID of the Contact.
+    :ivar flow_version: The Flow version number at the time of Execution creation.
     :ivar context: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
     :ivar status: 
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -58,6 +60,10 @@ class ExecutionInstance(InstanceResource):
         self.flow_sid: Optional[str] = payload.get("flow_sid")
         self.contact_channel_address: Optional[str] = payload.get(
             "contact_channel_address"
+        )
+        self.contact_sid: Optional[str] = payload.get("contact_sid")
+        self.flow_version: Optional[int] = deserialize.integer(
+            payload.get("flow_version")
         )
         self.context: Optional[Dict[str, object]] = payload.get("context")
         self.status: Optional["ExecutionInstance.Status"] = payload.get("status")

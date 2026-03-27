@@ -85,12 +85,16 @@ class NewChallengeInstance(InstanceResource):
         self.expiration_date: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("expiration_date")
         )
-        self.status: Optional[str] = payload.get("status")
-        self.responded_reason: Optional[str] = payload.get("responded_reason")
+        self.status: Optional["ApproveChallengeInstance.str"] = payload.get("status")
+        self.responded_reason: Optional["ApproveChallengeInstance.str"] = payload.get(
+            "responded_reason"
+        )
         self.details: Optional[Dict[str, object]] = payload.get("details")
         self.hidden_details: Optional[Dict[str, object]] = payload.get("hidden_details")
         self.metadata: Optional[Dict[str, object]] = payload.get("metadata")
-        self.factor_type: Optional[str] = payload.get("factor_type")
+        self.factor_type: Optional["ApproveChallengeInstance.str"] = payload.get(
+            "factor_type"
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 

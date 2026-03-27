@@ -25,6 +25,33 @@ from twilio.base.page import Page
 
 class TollfreeVerificationInstance(InstanceResource):
 
+    class BusinessRegistrationAuthority(object):
+        EIN = "EIN"
+        CBN = "CBN"
+        CRN = "CRN"
+        PROVINCIAL_NUMBER = "PROVINCIAL_NUMBER"
+        VAT = "VAT"
+        ACN = "ACN"
+        ABN = "ABN"
+        BRN = "BRN"
+        SIREN = "SIREN"
+        SIRET = "SIRET"
+        NZBN = "NZBN"
+        UST_IDNR = "USt-IdNr"
+        CIF = "CIF"
+        NIF = "NIF"
+        CNPJ = "CNPJ"
+        UID = "UID"
+        NEQ = "NEQ"
+        OTHER = "OTHER"
+
+    class BusinessType(object):
+        PRIVATE_PROFIT = "PRIVATE_PROFIT"
+        PUBLIC_PROFIT = "PUBLIC_PROFIT"
+        SOLE_PROPRIETOR = "SOLE_PROPRIETOR"
+        NON_PROFIT = "NON_PROFIT"
+        GOVERNMENT = "GOVERNMENT"
+
     class OptInType(object):
         VERBAL = "VERBAL"
         WEB_FORM = "WEB_FORM"
@@ -64,7 +91,7 @@ class TollfreeVerificationInstance(InstanceResource):
     :ivar business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
     :ivar business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
     :ivar notification_email: The email address to receive the notification about the verification result. .
-    :ivar use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+    :ivar use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
     :ivar use_case_summary: Use this to further explain how messaging is used by the business or organization.
     :ivar production_message_sample: An example of message content, i.e. a sample message.
     :ivar opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -80,9 +107,9 @@ class TollfreeVerificationInstance(InstanceResource):
     :ivar edit_expiration: The date and time when the ability to edit a rejected verification expires.
     :ivar edit_allowed: If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
     :ivar business_registration_number: A legally recognized business registration number
-    :ivar business_registration_authority: The organizational authority for business registrations
+    :ivar business_registration_authority: 
     :ivar business_registration_country: Country business is registered in
-    :ivar business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+    :ivar business_type: 
     :ivar business_registration_phone_number: The E.164 formatted number associated with the business.
     :ivar doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
     :ivar opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -142,8 +169,8 @@ class TollfreeVerificationInstance(InstanceResource):
             "business_contact_phone"
         )
         self.notification_email: Optional[str] = payload.get("notification_email")
-        self.use_case_categories: Optional[List[str]] = payload.get(
-            "use_case_categories"
+        self.use_case_categories: Optional["TollfreeVerificationInstance.str]"] = (
+            payload.get("use_case_categories")
         )
         self.use_case_summary: Optional[str] = payload.get("use_case_summary")
         self.production_message_sample: Optional[str] = payload.get(
@@ -174,13 +201,15 @@ class TollfreeVerificationInstance(InstanceResource):
         self.business_registration_number: Optional[str] = payload.get(
             "business_registration_number"
         )
-        self.business_registration_authority: Optional[str] = payload.get(
-            "business_registration_authority"
-        )
+        self.business_registration_authority: Optional[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority"
+        ] = payload.get("business_registration_authority")
         self.business_registration_country: Optional[str] = payload.get(
             "business_registration_country"
         )
-        self.business_type: Optional[str] = payload.get("business_type")
+        self.business_type: Optional["TollfreeVerificationInstance.BusinessType"] = (
+            payload.get("business_type")
+        )
         self.business_registration_phone_number: Optional[str] = payload.get(
             "business_registration_phone_number"
         )
@@ -326,9 +355,13 @@ class TollfreeVerificationInstance(InstanceResource):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -348,7 +381,7 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -366,10 +399,10 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
-        :param business_registration_number: A legaly recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority:
         :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -447,9 +480,13 @@ class TollfreeVerificationInstance(InstanceResource):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -469,7 +506,7 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -487,10 +524,10 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
-        :param business_registration_number: A legaly recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority:
         :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -568,9 +605,13 @@ class TollfreeVerificationInstance(InstanceResource):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -590,7 +631,7 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -608,10 +649,10 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
-        :param business_registration_number: A legaly recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority:
         :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -689,9 +730,13 @@ class TollfreeVerificationInstance(InstanceResource):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -711,7 +756,7 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -729,10 +774,10 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
-        :param business_registration_number: A legaly recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority:
         :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -995,9 +1040,13 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -1093,9 +1142,13 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -1115,7 +1168,7 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -1133,10 +1186,10 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
-        :param business_registration_number: A legaly recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority:
         :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -1217,9 +1270,13 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -1239,7 +1296,7 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -1257,10 +1314,10 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
-        :param business_registration_number: A legaly recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority:
         :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -1342,9 +1399,13 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -1440,9 +1501,13 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -1462,7 +1527,7 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -1480,10 +1545,10 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
-        :param business_registration_number: A legaly recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority:
         :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -1564,9 +1629,13 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -1586,7 +1655,7 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -1604,10 +1673,10 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
-        :param business_registration_number: A legaly recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority:
         :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -1731,9 +1800,13 @@ class TollfreeVerificationList(ListResource):
         business_contact_phone: Union[str, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -1831,9 +1904,13 @@ class TollfreeVerificationList(ListResource):
         business_contact_phone: Union[str, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -1853,7 +1930,7 @@ class TollfreeVerificationList(ListResource):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -1874,9 +1951,9 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
         :param business_registration_number: A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
-        :param business_registration_authority: The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_authority:
         :param business_registration_country: The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -1957,9 +2034,13 @@ class TollfreeVerificationList(ListResource):
         business_contact_phone: Union[str, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -1979,7 +2060,7 @@ class TollfreeVerificationList(ListResource):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -2000,9 +2081,9 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
         :param business_registration_number: A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
-        :param business_registration_authority: The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_authority:
         :param business_registration_country: The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -2084,9 +2165,13 @@ class TollfreeVerificationList(ListResource):
         business_contact_phone: Union[str, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -2184,9 +2269,13 @@ class TollfreeVerificationList(ListResource):
         business_contact_phone: Union[str, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -2206,7 +2295,7 @@ class TollfreeVerificationList(ListResource):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -2227,9 +2316,9 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
         :param business_registration_number: A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
-        :param business_registration_authority: The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_authority:
         :param business_registration_country: The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -2310,9 +2399,13 @@ class TollfreeVerificationList(ListResource):
         business_contact_phone: Union[str, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
         business_registration_number: Union[str, object] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "TollfreeVerificationInstance.BusinessRegistrationAuthority", object
+        ] = values.unset,
         business_registration_country: Union[str, object] = values.unset,
-        business_type: Union[str, object] = values.unset,
+        business_type: Union[
+            "TollfreeVerificationInstance.BusinessType", object
+        ] = values.unset,
         business_registration_phone_number: Union[str, object] = values.unset,
         doing_business_as: Union[str, object] = values.unset,
         opt_in_confirmation_message: Union[str, object] = values.unset,
@@ -2332,7 +2425,7 @@ class TollfreeVerificationList(ListResource):
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param notification_email: The email address to receive the notification about the verification result. .
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many as are applicable.
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -2353,9 +2446,9 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
         :param business_registration_number: A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
-        :param business_registration_authority: The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_authority:
         :param business_registration_country: The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
+        :param business_type:
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
