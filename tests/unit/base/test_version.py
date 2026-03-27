@@ -130,6 +130,60 @@ class VersionTestCase(IntegrationTestCase):
 
         self.assertIn("Unable to delete record", str(context.exception))
 
+    def test_delete_with_response_body(self):
+        """Test delete that returns JSON response body (V1 API style)"""
+        self.holodeck.mock(
+            Response(
+                202,
+                '{"sid": "DE123", "status": "deleted", "account_sid": "AC123"}',
+            ),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Resources/DE123.json",
+            ),
+        )
+        result = self.client.api.v2010.delete(
+            method="DELETE", uri="/Accounts/AC123/Resources/DE123.json"
+        )
+
+        self.assertIsInstance(result, dict)
+        self.assertEqual(result["sid"], "DE123")
+        self.assertEqual(result["status"], "deleted")
+        self.assertEqual(result["account_sid"], "AC123")
+
+    def test_delete_no_content(self):
+        """Test traditional delete with no content (204)"""
+        self.holodeck.mock(
+            Response(204, ""),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages/MM123.json",
+            ),
+        )
+        result = self.client.api.v2010.delete(
+            method="DELETE", uri="/Accounts/AC123/Messages/MM123.json"
+        )
+
+        self.assertTrue(result)
+        self.assertIsInstance(result, bool)
+
+    def test_delete_with_invalid_json(self):
+        """Test delete with response content that is not valid JSON"""
+        self.holodeck.mock(
+            Response(200, "Not valid JSON content"),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Resources/DE123.json",
+            ),
+        )
+        result = self.client.api.v2010.delete(
+            method="DELETE", uri="/Accounts/AC123/Resources/DE123.json"
+        )
+
+        # Should fallback to boolean True when JSON parsing fails
+        self.assertTrue(result)
+        self.assertIsInstance(result, bool)
+
 
 class VersionExceptionTestCase(unittest.TestCase):
     """Test cases for base Version.exception() method with RFC-9457 auto-detection"""
@@ -718,6 +772,73 @@ class ResponseInfoIntegrationTestCase(IntegrationTestCase):
 
         self.assertIn("Unable to delete record", str(context.exception))
 
+    def test_delete_with_response_info_json_body(self):
+        """Test delete_with_response_info with JSON response body"""
+        self.holodeck.mock(
+            Response(
+                202,
+                '{"sid": "DE123", "status": "deleted", "account_sid": "AC123"}',
+                {"X-Delete-Header": "deleted", "X-Request-Id": "req123"},
+            ),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Resources/DE123.json",
+            ),
+        )
+        result, status_code, headers = self.client.api.v2010.delete_with_response_info(
+            method="DELETE", uri="/Accounts/AC123/Resources/DE123.json"
+        )
+
+        self.assertIsInstance(result, dict)
+        self.assertEqual(result["sid"], "DE123")
+        self.assertEqual(result["status"], "deleted")
+        self.assertEqual(result["account_sid"], "AC123")
+        self.assertEqual(status_code, 202)
+        self.assertIn("X-Delete-Header", headers)
+        self.assertEqual(headers["X-Delete-Header"], "deleted")
+        self.assertIn("X-Request-Id", headers)
+
+    def test_delete_with_response_info_no_content(self):
+        """Test delete_with_response_info with no content (returns boolean)"""
+        self.holodeck.mock(
+            Response(204, "", {"X-Delete-Header": "success"}),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages/MM123.json",
+            ),
+        )
+        result, status_code, headers = self.client.api.v2010.delete_with_response_info(
+            method="DELETE", uri="/Accounts/AC123/Messages/MM123.json"
+        )
+
+        self.assertTrue(result)
+        self.assertIsInstance(result, bool)
+        self.assertEqual(status_code, 204)
+        self.assertIn("X-Delete-Header", headers)
+
+    def test_delete_with_response_info_invalid_json(self):
+        """Test delete_with_response_info with invalid JSON content"""
+        self.holodeck.mock(
+            Response(
+                200,
+                "Not valid JSON",
+                {"X-Delete-Header": "deleted"},
+            ),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Resources/DE123.json",
+            ),
+        )
+        result, status_code, headers = self.client.api.v2010.delete_with_response_info(
+            method="DELETE", uri="/Accounts/AC123/Resources/DE123.json"
+        )
+
+        # Should fallback to boolean True when JSON parsing fails
+        self.assertTrue(result)
+        self.assertIsInstance(result, bool)
+        self.assertEqual(status_code, 200)
+        self.assertIn("X-Delete-Header", headers)
+
     def test_create_with_response_info_error(self):
         self.holodeck.mock(
             Response(400, '{"message": "Invalid request"}'),
@@ -963,6 +1084,79 @@ class AsyncVersionTestCase(aiounittest.AsyncTestCase):
             )
 
         self.assertIn("Unable to delete record", str(context.exception))
+
+    async def test_delete_with_response_info_async_json_body(self):
+        """Test delete_with_response_info_async with JSON response body"""
+        self.holodeck.mock(
+            Response(
+                202,
+                '{"sid": "DE123", "status": "deleted", "account_sid": "AC123"}',
+                {"X-Delete-Header": "deleted", "X-Request-Id": "req123"},
+            ),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Resources/DE123.json",
+            ),
+        )
+        result, status_code, headers = (
+            await self.client.api.v2010.delete_with_response_info_async(
+                method="DELETE", uri="/Accounts/AC123/Resources/DE123.json"
+            )
+        )
+
+        self.assertIsInstance(result, dict)
+        self.assertEqual(result["sid"], "DE123")
+        self.assertEqual(result["status"], "deleted")
+        self.assertEqual(result["account_sid"], "AC123")
+        self.assertEqual(status_code, 202)
+        self.assertIn("X-Delete-Header", headers)
+        self.assertEqual(headers["X-Delete-Header"], "deleted")
+        self.assertIn("X-Request-Id", headers)
+
+    async def test_delete_with_response_info_async_no_content(self):
+        """Test delete_with_response_info_async with no content (returns boolean)"""
+        self.holodeck.mock(
+            Response(204, "", {"X-Delete-Header": "success"}),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages/MM123.json",
+            ),
+        )
+        result, status_code, headers = (
+            await self.client.api.v2010.delete_with_response_info_async(
+                method="DELETE", uri="/Accounts/AC123/Messages/MM123.json"
+            )
+        )
+
+        self.assertTrue(result)
+        self.assertIsInstance(result, bool)
+        self.assertEqual(status_code, 204)
+        self.assertIn("X-Delete-Header", headers)
+
+    async def test_delete_with_response_info_async_invalid_json(self):
+        """Test delete_with_response_info_async with invalid JSON content"""
+        self.holodeck.mock(
+            Response(
+                200,
+                "Not valid JSON",
+                {"X-Delete-Header": "deleted"},
+            ),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Resources/DE123.json",
+            ),
+        )
+        result, status_code, headers = (
+            await self.client.api.v2010.delete_with_response_info_async(
+                method="DELETE", uri="/Accounts/AC123/Resources/DE123.json"
+            )
+        )
+
+        # Should fallback to boolean True when JSON parsing fails
+        self.assertTrue(result)
+        self.assertIsInstance(result, bool)
+        self.assertEqual(status_code, 200)
+        self.assertIn("X-Delete-Header", headers)
 
     async def test_create_with_response_info_async_error(self):
         """Test create_with_response_info_async method with error"""
