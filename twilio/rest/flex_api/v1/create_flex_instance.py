@@ -33,11 +33,11 @@ class CreateFlexInstanceInstance(InstanceResource):
 
             self.conversation: Optional[
                 CreateFlexInstanceList.CreateInstanceRequestBodyConversation
-            ] = payload.get("conversation")
+            ] = payload.get("Conversation")
 
         def to_dict(self):
             return {
-                "conversation": (
+                "Conversation": (
                     self.conversation.to_dict()
                     if self.conversation is not None
                     else None
@@ -51,11 +51,11 @@ class CreateFlexInstanceInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.default: Optional[bool] = payload.get("default")
+            self.default: Optional[bool] = payload.get("Default")
 
         def to_dict(self):
             return {
-                "default": self.default,
+                "Default": self.default,
             }
 
     """
@@ -71,7 +71,7 @@ class CreateFlexInstanceInstance(InstanceResource):
 
         self.flex_instance_sid: Optional[str] = payload.get("flex_instance_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.status: Optional[str] = payload.get("status")
+        self.status: Optional["CreateFlexInstanceInstance.str"] = payload.get("status")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -184,11 +184,11 @@ class CreateFlexInstanceContext(InstanceContext):
 
             self.conversation: Optional[
                 CreateFlexInstanceList.CreateInstanceRequestBodyConversation
-            ] = payload.get("conversation")
+            ] = payload.get("Conversation")
 
         def to_dict(self):
             return {
-                "conversation": (
+                "Conversation": (
                     self.conversation.to_dict()
                     if self.conversation is not None
                     else None
@@ -202,11 +202,11 @@ class CreateFlexInstanceContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.default: Optional[bool] = payload.get("default")
+            self.default: Optional[bool] = payload.get("Default")
 
         def to_dict(self):
             return {
-                "default": self.default,
+                "Default": self.default,
             }
 
     def __init__(self, version: Version):
@@ -362,11 +362,11 @@ class CreateFlexInstanceList(ListResource):
 
             self.conversation: Optional[
                 CreateFlexInstanceList.CreateInstanceRequestBodyConversation
-            ] = payload.get("conversation")
+            ] = payload.get("Conversation")
 
         def to_dict(self):
             return {
-                "conversation": (
+                "Conversation": (
                     self.conversation.to_dict()
                     if self.conversation is not None
                     else None
@@ -380,11 +380,11 @@ class CreateFlexInstanceList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.default: Optional[bool] = payload.get("default")
+            self.default: Optional[bool] = payload.get("Default")
 
         def to_dict(self):
             return {
-                "default": self.default,
+                "Default": self.default,
             }
 
     def __init__(self, version: Version):

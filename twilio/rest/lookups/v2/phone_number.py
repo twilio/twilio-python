@@ -64,7 +64,9 @@ class PhoneNumberInstance(InstanceResource):
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.national_format: Optional[str] = payload.get("national_format")
         self.valid: Optional[bool] = payload.get("valid")
-        self.validation_errors: Optional[List[str]] = payload.get("validation_errors")
+        self.validation_errors: Optional[List[Enumstr]] = payload.get(
+            "validation_errors"
+        )
         self.caller_name: Optional[str] = payload.get("caller_name")
         self.sim_swap: Optional[str] = payload.get("sim_swap")
         self.call_forwarding: Optional[str] = payload.get("call_forwarding")

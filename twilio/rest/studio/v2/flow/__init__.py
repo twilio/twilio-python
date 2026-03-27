@@ -35,6 +35,7 @@ class FlowInstance(InstanceResource):
     """
     :ivar sid: The unique string that we created to identify the Flow resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource.
+    :ivar author_sid: The SID of the User that created or last updated the Flow.
     :ivar friendly_name: The string that you assigned to describe the Flow.
     :ivar definition: JSON representation of flow definition.
     :ivar status: 
@@ -57,6 +58,7 @@ class FlowInstance(InstanceResource):
 
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
+        self.author_sid: Optional[str] = payload.get("author_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.definition: Optional[Dict[str, object]] = payload.get("definition")
         self.status: Optional["FlowInstance.Status"] = payload.get("status")

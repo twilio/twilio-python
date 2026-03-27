@@ -53,6 +53,8 @@ class UsAppToPersonInstance(InstanceResource):
     :ivar url: The absolute URL of the US App to Person resource.
     :ivar mock: A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
     :ivar errors: Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
+    :ivar privacy_policy_url: The URL of the privacy policy for the campaign.
+    :ivar terms_and_conditions_url: The URL of the terms and conditions for the campaign.
     """
 
     def __init__(
@@ -102,6 +104,10 @@ class UsAppToPersonInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
         self.mock: Optional[bool] = payload.get("mock")
         self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
+        self.privacy_policy_url: Optional[str] = payload.get("privacy_policy_url")
+        self.terms_and_conditions_url: Optional[str] = payload.get(
+            "terms_and_conditions_url"
+        )
 
         self._solution = {
             "messaging_service_sid": messaging_service_sid,
@@ -161,41 +167,61 @@ class UsAppToPersonInstance(InstanceResource):
         """
         return await self._proxy.delete_with_http_info_async()
 
-    def fetch(self) -> "UsAppToPersonInstance":
+    def fetch(
+        self, x_twilio_api_version: Union[str, object] = values.unset
+    ) -> "UsAppToPersonInstance":
         """
         Fetch the UsAppToPersonInstance
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
 
         :returns: The fetched UsAppToPersonInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(
+            x_twilio_api_version=x_twilio_api_version,
+        )
 
-    async def fetch_async(self) -> "UsAppToPersonInstance":
+    async def fetch_async(
+        self, x_twilio_api_version: Union[str, object] = values.unset
+    ) -> "UsAppToPersonInstance":
         """
         Asynchronous coroutine to fetch the UsAppToPersonInstance
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
 
         :returns: The fetched UsAppToPersonInstance
         """
-        return await self._proxy.fetch_async()
+        return await self._proxy.fetch_async(
+            x_twilio_api_version=x_twilio_api_version,
+        )
 
-    def fetch_with_http_info(self) -> ApiResponse:
+    def fetch_with_http_info(
+        self, x_twilio_api_version: Union[str, object] = values.unset
+    ) -> ApiResponse:
         """
         Fetch the UsAppToPersonInstance with HTTP info
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return self._proxy.fetch_with_http_info()
+        return self._proxy.fetch_with_http_info(
+            x_twilio_api_version=x_twilio_api_version,
+        )
 
-    async def fetch_with_http_info_async(self) -> ApiResponse:
+    async def fetch_with_http_info_async(
+        self, x_twilio_api_version: Union[str, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the UsAppToPersonInstance with HTTP info
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return await self._proxy.fetch_with_http_info_async()
+        return await self._proxy.fetch_with_http_info_async(
+            x_twilio_api_version=x_twilio_api_version,
+        )
 
     def update(
         self,
@@ -206,6 +232,9 @@ class UsAppToPersonInstance(InstanceResource):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> "UsAppToPersonInstance":
         """
         Update the UsAppToPersonInstance
@@ -217,6 +246,9 @@ class UsAppToPersonInstance(InstanceResource):
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: The updated UsAppToPersonInstance
         """
@@ -228,6 +260,9 @@ class UsAppToPersonInstance(InstanceResource):
             description=description,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            x_twilio_api_version=x_twilio_api_version,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
 
     async def update_async(
@@ -239,6 +274,9 @@ class UsAppToPersonInstance(InstanceResource):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> "UsAppToPersonInstance":
         """
         Asynchronous coroutine to update the UsAppToPersonInstance
@@ -250,6 +288,9 @@ class UsAppToPersonInstance(InstanceResource):
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: The updated UsAppToPersonInstance
         """
@@ -261,6 +302,9 @@ class UsAppToPersonInstance(InstanceResource):
             description=description,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            x_twilio_api_version=x_twilio_api_version,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
 
     def update_with_http_info(
@@ -272,6 +316,9 @@ class UsAppToPersonInstance(InstanceResource):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the UsAppToPersonInstance with HTTP info
@@ -283,6 +330,9 @@ class UsAppToPersonInstance(InstanceResource):
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -294,6 +344,9 @@ class UsAppToPersonInstance(InstanceResource):
             description=description,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            x_twilio_api_version=x_twilio_api_version,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
 
     async def update_with_http_info_async(
@@ -305,6 +358,9 @@ class UsAppToPersonInstance(InstanceResource):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the UsAppToPersonInstance with HTTP info
@@ -316,6 +372,9 @@ class UsAppToPersonInstance(InstanceResource):
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -327,6 +386,9 @@ class UsAppToPersonInstance(InstanceResource):
             description=description,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            x_twilio_api_version=x_twilio_api_version,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
 
     def __repr__(self) -> str:
@@ -428,7 +490,7 @@ class UsAppToPersonContext(InstanceContext):
         success, status_code, headers = await self._delete_async()
         return ApiResponse(data=success, status_code=status_code, headers=headers)
 
-    def _fetch(self) -> tuple:
+    def _fetch(self, x_twilio_api_version: Union[str, object] = values.unset) -> tuple:
         """
         Internal helper for fetch operation
 
@@ -438,20 +500,29 @@ class UsAppToPersonContext(InstanceContext):
 
         headers = values.of({})
 
+        if not (
+            x_twilio_api_version is values.unset
+            or (isinstance(x_twilio_api_version, str) and not x_twilio_api_version)
+        ):
+            headers["X-Twilio-Api-Version"] = x_twilio_api_version
+
         headers["Accept"] = "application/json"
 
         return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, headers=headers
         )
 
-    def fetch(self) -> UsAppToPersonInstance:
+    def fetch(
+        self, x_twilio_api_version: Union[str, object] = values.unset
+    ) -> UsAppToPersonInstance:
         """
         Fetch the UsAppToPersonInstance
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
 
         :returns: The fetched UsAppToPersonInstance
         """
-        payload, _, _ = self._fetch()
+        payload, _, _ = self._fetch(x_twilio_api_version=x_twilio_api_version)
         return UsAppToPersonInstance(
             self._version,
             payload,
@@ -459,14 +530,19 @@ class UsAppToPersonContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def fetch_with_http_info(self) -> ApiResponse:
+    def fetch_with_http_info(
+        self, x_twilio_api_version: Union[str, object] = values.unset
+    ) -> ApiResponse:
         """
         Fetch the UsAppToPersonInstance and return response metadata
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._fetch()
+        payload, status_code, headers = self._fetch(
+            x_twilio_api_version=x_twilio_api_version
+        )
         instance = UsAppToPersonInstance(
             self._version,
             payload,
@@ -475,7 +551,9 @@ class UsAppToPersonContext(InstanceContext):
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _fetch_async(self) -> tuple:
+    async def _fetch_async(
+        self, x_twilio_api_version: Union[str, object] = values.unset
+    ) -> tuple:
         """
         Internal async helper for fetch operation
 
@@ -485,20 +563,31 @@ class UsAppToPersonContext(InstanceContext):
 
         headers = values.of({})
 
+        if not (
+            x_twilio_api_version is values.unset
+            or (isinstance(x_twilio_api_version, str) and not x_twilio_api_version)
+        ):
+            headers["X-Twilio-Api-Version"] = x_twilio_api_version
+
         headers["Accept"] = "application/json"
 
         return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, headers=headers
         )
 
-    async def fetch_async(self) -> UsAppToPersonInstance:
+    async def fetch_async(
+        self, x_twilio_api_version: Union[str, object] = values.unset
+    ) -> UsAppToPersonInstance:
         """
         Asynchronous coroutine to fetch the UsAppToPersonInstance
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
 
         :returns: The fetched UsAppToPersonInstance
         """
-        payload, _, _ = await self._fetch_async()
+        payload, _, _ = await self._fetch_async(
+            x_twilio_api_version=x_twilio_api_version
+        )
         return UsAppToPersonInstance(
             self._version,
             payload,
@@ -506,14 +595,19 @@ class UsAppToPersonContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_with_http_info_async(self) -> ApiResponse:
+    async def fetch_with_http_info_async(
+        self, x_twilio_api_version: Union[str, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to fetch the UsAppToPersonInstance and return response metadata
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._fetch_async()
+        payload, status_code, headers = await self._fetch_async(
+            x_twilio_api_version=x_twilio_api_version
+        )
         instance = UsAppToPersonInstance(
             self._version,
             payload,
@@ -531,6 +625,9 @@ class UsAppToPersonContext(InstanceContext):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for update operation
@@ -548,9 +645,17 @@ class UsAppToPersonContext(InstanceContext):
                 "Description": description,
                 "AgeGated": serialize.boolean_to_string(age_gated),
                 "DirectLending": serialize.boolean_to_string(direct_lending),
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
             }
         )
         headers = values.of({})
+
+        if not (
+            x_twilio_api_version is values.unset
+            or (isinstance(x_twilio_api_version, str) and not x_twilio_api_version)
+        ):
+            headers["X-Twilio-Api-Version"] = x_twilio_api_version
 
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
@@ -569,6 +674,9 @@ class UsAppToPersonContext(InstanceContext):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> UsAppToPersonInstance:
         """
         Update the UsAppToPersonInstance
@@ -580,6 +688,9 @@ class UsAppToPersonContext(InstanceContext):
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: The updated UsAppToPersonInstance
         """
@@ -591,6 +702,9 @@ class UsAppToPersonContext(InstanceContext):
             description=description,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            x_twilio_api_version=x_twilio_api_version,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
         return UsAppToPersonInstance(
             self._version,
@@ -608,6 +722,9 @@ class UsAppToPersonContext(InstanceContext):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the UsAppToPersonInstance and return response metadata
@@ -619,6 +736,9 @@ class UsAppToPersonContext(InstanceContext):
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -630,6 +750,9 @@ class UsAppToPersonContext(InstanceContext):
             description=description,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            x_twilio_api_version=x_twilio_api_version,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
         instance = UsAppToPersonInstance(
             self._version,
@@ -648,6 +771,9 @@ class UsAppToPersonContext(InstanceContext):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -665,9 +791,17 @@ class UsAppToPersonContext(InstanceContext):
                 "Description": description,
                 "AgeGated": serialize.boolean_to_string(age_gated),
                 "DirectLending": serialize.boolean_to_string(direct_lending),
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
             }
         )
         headers = values.of({})
+
+        if not (
+            x_twilio_api_version is values.unset
+            or (isinstance(x_twilio_api_version, str) and not x_twilio_api_version)
+        ):
+            headers["X-Twilio-Api-Version"] = x_twilio_api_version
 
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
@@ -686,6 +820,9 @@ class UsAppToPersonContext(InstanceContext):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> UsAppToPersonInstance:
         """
         Asynchronous coroutine to update the UsAppToPersonInstance
@@ -697,6 +834,9 @@ class UsAppToPersonContext(InstanceContext):
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: The updated UsAppToPersonInstance
         """
@@ -708,6 +848,9 @@ class UsAppToPersonContext(InstanceContext):
             description=description,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            x_twilio_api_version=x_twilio_api_version,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
         return UsAppToPersonInstance(
             self._version,
@@ -725,6 +868,9 @@ class UsAppToPersonContext(InstanceContext):
         description: str,
         age_gated: bool,
         direct_lending: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the UsAppToPersonInstance and return response metadata
@@ -736,6 +882,9 @@ class UsAppToPersonContext(InstanceContext):
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -747,6 +896,9 @@ class UsAppToPersonContext(InstanceContext):
             description=description,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            x_twilio_api_version=x_twilio_api_version,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
         instance = UsAppToPersonInstance(
             self._version,
@@ -818,6 +970,7 @@ class UsAppToPersonList(ListResource):
         us_app_to_person_usecase: str,
         has_embedded_links: bool,
         has_embedded_phone: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
         opt_in_message: Union[str, object] = values.unset,
         opt_out_message: Union[str, object] = values.unset,
         help_message: Union[str, object] = values.unset,
@@ -827,6 +980,8 @@ class UsAppToPersonList(ListResource):
         subscriber_opt_in: Union[bool, object] = values.unset,
         age_gated: Union[bool, object] = values.unset,
         direct_lending: Union[bool, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -853,9 +1008,16 @@ class UsAppToPersonList(ListResource):
                 "SubscriberOptIn": serialize.boolean_to_string(subscriber_opt_in),
                 "AgeGated": serialize.boolean_to_string(age_gated),
                 "DirectLending": serialize.boolean_to_string(direct_lending),
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
             }
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Api-Version": x_twilio_api_version,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
@@ -874,6 +1036,7 @@ class UsAppToPersonList(ListResource):
         us_app_to_person_usecase: str,
         has_embedded_links: bool,
         has_embedded_phone: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
         opt_in_message: Union[str, object] = values.unset,
         opt_out_message: Union[str, object] = values.unset,
         help_message: Union[str, object] = values.unset,
@@ -883,6 +1046,8 @@ class UsAppToPersonList(ListResource):
         subscriber_opt_in: Union[bool, object] = values.unset,
         age_gated: Union[bool, object] = values.unset,
         direct_lending: Union[bool, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> UsAppToPersonInstance:
         """
         Create the UsAppToPersonInstance
@@ -894,6 +1059,7 @@ class UsAppToPersonList(ListResource):
         :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
         :param opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
         :param opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
         :param help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
@@ -903,6 +1069,8 @@ class UsAppToPersonList(ListResource):
         :param subscriber_opt_in: A boolean that specifies whether campaign has Subscriber Optin or not.
         :param age_gated: A boolean that specifies whether campaign is age gated or not.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: The created UsAppToPersonInstance
         """
@@ -914,6 +1082,7 @@ class UsAppToPersonList(ListResource):
             us_app_to_person_usecase=us_app_to_person_usecase,
             has_embedded_links=has_embedded_links,
             has_embedded_phone=has_embedded_phone,
+            x_twilio_api_version=x_twilio_api_version,
             opt_in_message=opt_in_message,
             opt_out_message=opt_out_message,
             help_message=help_message,
@@ -923,6 +1092,8 @@ class UsAppToPersonList(ListResource):
             subscriber_opt_in=subscriber_opt_in,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
         return UsAppToPersonInstance(
             self._version,
@@ -939,6 +1110,7 @@ class UsAppToPersonList(ListResource):
         us_app_to_person_usecase: str,
         has_embedded_links: bool,
         has_embedded_phone: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
         opt_in_message: Union[str, object] = values.unset,
         opt_out_message: Union[str, object] = values.unset,
         help_message: Union[str, object] = values.unset,
@@ -948,6 +1120,8 @@ class UsAppToPersonList(ListResource):
         subscriber_opt_in: Union[bool, object] = values.unset,
         age_gated: Union[bool, object] = values.unset,
         direct_lending: Union[bool, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the UsAppToPersonInstance and return response metadata
@@ -959,6 +1133,7 @@ class UsAppToPersonList(ListResource):
         :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
         :param opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
         :param opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
         :param help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
@@ -968,6 +1143,8 @@ class UsAppToPersonList(ListResource):
         :param subscriber_opt_in: A boolean that specifies whether campaign has Subscriber Optin or not.
         :param age_gated: A boolean that specifies whether campaign is age gated or not.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -979,6 +1156,7 @@ class UsAppToPersonList(ListResource):
             us_app_to_person_usecase=us_app_to_person_usecase,
             has_embedded_links=has_embedded_links,
             has_embedded_phone=has_embedded_phone,
+            x_twilio_api_version=x_twilio_api_version,
             opt_in_message=opt_in_message,
             opt_out_message=opt_out_message,
             help_message=help_message,
@@ -988,6 +1166,8 @@ class UsAppToPersonList(ListResource):
             subscriber_opt_in=subscriber_opt_in,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
         instance = UsAppToPersonInstance(
             self._version,
@@ -1005,6 +1185,7 @@ class UsAppToPersonList(ListResource):
         us_app_to_person_usecase: str,
         has_embedded_links: bool,
         has_embedded_phone: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
         opt_in_message: Union[str, object] = values.unset,
         opt_out_message: Union[str, object] = values.unset,
         help_message: Union[str, object] = values.unset,
@@ -1014,6 +1195,8 @@ class UsAppToPersonList(ListResource):
         subscriber_opt_in: Union[bool, object] = values.unset,
         age_gated: Union[bool, object] = values.unset,
         direct_lending: Union[bool, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -1040,9 +1223,16 @@ class UsAppToPersonList(ListResource):
                 "SubscriberOptIn": serialize.boolean_to_string(subscriber_opt_in),
                 "AgeGated": serialize.boolean_to_string(age_gated),
                 "DirectLending": serialize.boolean_to_string(direct_lending),
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
             }
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Api-Version": x_twilio_api_version,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
@@ -1061,6 +1251,7 @@ class UsAppToPersonList(ListResource):
         us_app_to_person_usecase: str,
         has_embedded_links: bool,
         has_embedded_phone: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
         opt_in_message: Union[str, object] = values.unset,
         opt_out_message: Union[str, object] = values.unset,
         help_message: Union[str, object] = values.unset,
@@ -1070,6 +1261,8 @@ class UsAppToPersonList(ListResource):
         subscriber_opt_in: Union[bool, object] = values.unset,
         age_gated: Union[bool, object] = values.unset,
         direct_lending: Union[bool, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> UsAppToPersonInstance:
         """
         Asynchronously create the UsAppToPersonInstance
@@ -1081,6 +1274,7 @@ class UsAppToPersonList(ListResource):
         :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
         :param opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
         :param opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
         :param help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
@@ -1090,6 +1284,8 @@ class UsAppToPersonList(ListResource):
         :param subscriber_opt_in: A boolean that specifies whether campaign has Subscriber Optin or not.
         :param age_gated: A boolean that specifies whether campaign is age gated or not.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: The created UsAppToPersonInstance
         """
@@ -1101,6 +1297,7 @@ class UsAppToPersonList(ListResource):
             us_app_to_person_usecase=us_app_to_person_usecase,
             has_embedded_links=has_embedded_links,
             has_embedded_phone=has_embedded_phone,
+            x_twilio_api_version=x_twilio_api_version,
             opt_in_message=opt_in_message,
             opt_out_message=opt_out_message,
             help_message=help_message,
@@ -1110,6 +1307,8 @@ class UsAppToPersonList(ListResource):
             subscriber_opt_in=subscriber_opt_in,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
         return UsAppToPersonInstance(
             self._version,
@@ -1126,6 +1325,7 @@ class UsAppToPersonList(ListResource):
         us_app_to_person_usecase: str,
         has_embedded_links: bool,
         has_embedded_phone: bool,
+        x_twilio_api_version: Union[str, object] = values.unset,
         opt_in_message: Union[str, object] = values.unset,
         opt_out_message: Union[str, object] = values.unset,
         help_message: Union[str, object] = values.unset,
@@ -1135,6 +1335,8 @@ class UsAppToPersonList(ListResource):
         subscriber_opt_in: Union[bool, object] = values.unset,
         age_gated: Union[bool, object] = values.unset,
         direct_lending: Union[bool, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the UsAppToPersonInstance and return response metadata
@@ -1146,6 +1348,7 @@ class UsAppToPersonList(ListResource):
         :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
         :param opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
         :param opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
         :param help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
@@ -1155,6 +1358,8 @@ class UsAppToPersonList(ListResource):
         :param subscriber_opt_in: A boolean that specifies whether campaign has Subscriber Optin or not.
         :param age_gated: A boolean that specifies whether campaign is age gated or not.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+        :param privacy_policy_url: The URL of the privacy policy for the campaign.
+        :param terms_and_conditions_url: The URL of the terms and conditions for the campaign.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -1166,6 +1371,7 @@ class UsAppToPersonList(ListResource):
             us_app_to_person_usecase=us_app_to_person_usecase,
             has_embedded_links=has_embedded_links,
             has_embedded_phone=has_embedded_phone,
+            x_twilio_api_version=x_twilio_api_version,
             opt_in_message=opt_in_message,
             opt_out_message=opt_out_message,
             help_message=help_message,
@@ -1175,6 +1381,8 @@ class UsAppToPersonList(ListResource):
             subscriber_opt_in=subscriber_opt_in,
             age_gated=age_gated,
             direct_lending=direct_lending,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
         )
         instance = UsAppToPersonInstance(
             self._version,
@@ -1185,6 +1393,7 @@ class UsAppToPersonList(ListResource):
 
     def stream(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[UsAppToPersonInstance]:
@@ -1194,6 +1403,7 @@ class UsAppToPersonList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str x_twilio_api_version: The version of the Messaging API to use for this request
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1204,12 +1414,15 @@ class UsAppToPersonList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            x_twilio_api_version=x_twilio_api_version, page_size=limits["page_size"]
+        )
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[UsAppToPersonInstance]:
@@ -1219,6 +1432,7 @@ class UsAppToPersonList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str x_twilio_api_version: The version of the Messaging API to use for this request
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1229,12 +1443,15 @@ class UsAppToPersonList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            x_twilio_api_version=x_twilio_api_version, page_size=limits["page_size"]
+        )
 
         return self._version.stream_async(page, limits["limit"])
 
     def stream_with_http_info(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -1242,6 +1459,7 @@ class UsAppToPersonList(ListResource):
         Streams UsAppToPersonInstance and returns headers from first page
 
 
+        :param str x_twilio_api_version: The version of the Messaging API to use for this request
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1252,13 +1470,16 @@ class UsAppToPersonList(ListResource):
         :returns: tuple of (generator, status_code, headers) where generator yields instances
         """
         limits = self._version.read_limits(limit, page_size)
-        page_response = self.page_with_http_info(page_size=limits["page_size"])
+        page_response = self.page_with_http_info(
+            x_twilio_api_version=x_twilio_api_version, page_size=limits["page_size"]
+        )
 
         generator = self._version.stream(page_response.data, limits["limit"])
         return (generator, page_response.status_code, page_response.headers)
 
     async def stream_with_http_info_async(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -1266,6 +1487,7 @@ class UsAppToPersonList(ListResource):
         Asynchronously streams UsAppToPersonInstance and returns headers from first page
 
 
+        :param str x_twilio_api_version: The version of the Messaging API to use for this request
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1277,7 +1499,7 @@ class UsAppToPersonList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = await self.page_with_http_info_async(
-            page_size=limits["page_size"]
+            x_twilio_api_version=x_twilio_api_version, page_size=limits["page_size"]
         )
 
         generator = self._version.stream_async(page_response.data, limits["limit"])
@@ -1285,6 +1507,7 @@ class UsAppToPersonList(ListResource):
 
     def list(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UsAppToPersonInstance]:
@@ -1293,6 +1516,7 @@ class UsAppToPersonList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str x_twilio_api_version: The version of the Messaging API to use for this request
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1304,6 +1528,7 @@ class UsAppToPersonList(ListResource):
         """
         return list(
             self.stream(
+                x_twilio_api_version=x_twilio_api_version,
                 limit=limit,
                 page_size=page_size,
             )
@@ -1311,6 +1536,7 @@ class UsAppToPersonList(ListResource):
 
     async def list_async(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UsAppToPersonInstance]:
@@ -1319,6 +1545,7 @@ class UsAppToPersonList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str x_twilio_api_version: The version of the Messaging API to use for this request
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1331,6 +1558,7 @@ class UsAppToPersonList(ListResource):
         return [
             record
             async for record in await self.stream_async(
+                x_twilio_api_version=x_twilio_api_version,
                 limit=limit,
                 page_size=page_size,
             )
@@ -1338,6 +1566,7 @@ class UsAppToPersonList(ListResource):
 
     def list_with_http_info(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -1345,6 +1574,7 @@ class UsAppToPersonList(ListResource):
         Lists UsAppToPersonInstance and returns headers from first page
 
 
+        :param str x_twilio_api_version: The version of the Messaging API to use for this request
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1355,6 +1585,7 @@ class UsAppToPersonList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = self.stream_with_http_info(
+            x_twilio_api_version=x_twilio_api_version,
             limit=limit,
             page_size=page_size,
         )
@@ -1363,6 +1594,7 @@ class UsAppToPersonList(ListResource):
 
     async def list_with_http_info_async(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -1370,6 +1602,7 @@ class UsAppToPersonList(ListResource):
         Asynchronously lists UsAppToPersonInstance and returns headers from first page
 
 
+        :param str x_twilio_api_version: The version of the Messaging API to use for this request
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1380,6 +1613,7 @@ class UsAppToPersonList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = await self.stream_with_http_info_async(
+            x_twilio_api_version=x_twilio_api_version,
             limit=limit,
             page_size=page_size,
         )
@@ -1388,6 +1622,7 @@ class UsAppToPersonList(ListResource):
 
     def page(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1396,6 +1631,7 @@ class UsAppToPersonList(ListResource):
         Retrieve a single page of UsAppToPersonInstance records from the API.
         Request is executed immediately
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1404,13 +1640,19 @@ class UsAppToPersonList(ListResource):
         """
         data = values.of(
             {
+                "X-Twilio-Api-Version": x_twilio_api_version,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Api-Version": x_twilio_api_version,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Accept"] = "application/json"
 
@@ -1421,6 +1663,7 @@ class UsAppToPersonList(ListResource):
 
     async def page_async(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1429,6 +1672,7 @@ class UsAppToPersonList(ListResource):
         Asynchronously retrieve a single page of UsAppToPersonInstance records from the API.
         Request is executed immediately
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1437,13 +1681,19 @@ class UsAppToPersonList(ListResource):
         """
         data = values.of(
             {
+                "X-Twilio-Api-Version": x_twilio_api_version,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Api-Version": x_twilio_api_version,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Accept"] = "application/json"
 
@@ -1454,6 +1704,7 @@ class UsAppToPersonList(ListResource):
 
     def page_with_http_info(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1462,6 +1713,7 @@ class UsAppToPersonList(ListResource):
         Retrieve a single page with response metadata
 
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1470,13 +1722,19 @@ class UsAppToPersonList(ListResource):
         """
         data = values.of(
             {
+                "X-Twilio-Api-Version": x_twilio_api_version,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Api-Version": x_twilio_api_version,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Accept"] = "application/json"
 
@@ -1488,6 +1746,7 @@ class UsAppToPersonList(ListResource):
 
     async def page_with_http_info_async(
         self,
+        x_twilio_api_version: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1496,6 +1755,7 @@ class UsAppToPersonList(ListResource):
         Asynchronously retrieve a single page with response metadata
 
 
+        :param x_twilio_api_version: The version of the Messaging API to use for this request
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1504,13 +1764,19 @@ class UsAppToPersonList(ListResource):
         """
         data = values.of(
             {
+                "X-Twilio-Api-Version": x_twilio_api_version,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of(
+            {
+                "X-Twilio-Api-Version": x_twilio_api_version,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
 
         headers["Accept"] = "application/json"
 

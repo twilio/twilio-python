@@ -357,6 +357,8 @@ class TranscriptionList(ListResource):
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
         intelligence_service: Union[str, object] = values.unset,
+        conversation_configuration: Union[str, object] = values.unset,
+        conversation_id: Union[str, object] = values.unset,
         enable_provider_data: Union[bool, object] = values.unset,
     ) -> tuple:
         """
@@ -384,6 +386,8 @@ class TranscriptionList(ListResource):
                     enable_automatic_punctuation
                 ),
                 "IntelligenceService": intelligence_service,
+                "ConversationConfiguration": conversation_configuration,
+                "ConversationId": conversation_id,
                 "EnableProviderData": serialize.boolean_to_string(enable_provider_data),
             }
         )
@@ -413,6 +417,8 @@ class TranscriptionList(ListResource):
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
         intelligence_service: Union[str, object] = values.unset,
+        conversation_configuration: Union[str, object] = values.unset,
+        conversation_id: Union[str, object] = values.unset,
         enable_provider_data: Union[bool, object] = values.unset,
     ) -> TranscriptionInstance:
         """
@@ -432,6 +438,8 @@ class TranscriptionList(ListResource):
         :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
         :param enable_automatic_punctuation: The provider will add punctuation to recognition result
         :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
+        :param conversation_configuration: The ID of the Conversations Configuration for customizing conversation behavior in Intelligence Service
+        :param conversation_id: The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service
         :param enable_provider_data: Whether the callback includes raw provider data.
 
         :returns: The created TranscriptionInstance
@@ -451,6 +459,8 @@ class TranscriptionList(ListResource):
             hints=hints,
             enable_automatic_punctuation=enable_automatic_punctuation,
             intelligence_service=intelligence_service,
+            conversation_configuration=conversation_configuration,
+            conversation_id=conversation_id,
             enable_provider_data=enable_provider_data,
         )
         return TranscriptionInstance(
@@ -476,6 +486,8 @@ class TranscriptionList(ListResource):
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
         intelligence_service: Union[str, object] = values.unset,
+        conversation_configuration: Union[str, object] = values.unset,
+        conversation_id: Union[str, object] = values.unset,
         enable_provider_data: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
@@ -495,6 +507,8 @@ class TranscriptionList(ListResource):
         :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
         :param enable_automatic_punctuation: The provider will add punctuation to recognition result
         :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
+        :param conversation_configuration: The ID of the Conversations Configuration for customizing conversation behavior in Intelligence Service
+        :param conversation_id: The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service
         :param enable_provider_data: Whether the callback includes raw provider data.
 
         :returns: ApiResponse with instance, status code, and headers
@@ -514,6 +528,8 @@ class TranscriptionList(ListResource):
             hints=hints,
             enable_automatic_punctuation=enable_automatic_punctuation,
             intelligence_service=intelligence_service,
+            conversation_configuration=conversation_configuration,
+            conversation_id=conversation_id,
             enable_provider_data=enable_provider_data,
         )
         instance = TranscriptionInstance(
@@ -540,6 +556,8 @@ class TranscriptionList(ListResource):
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
         intelligence_service: Union[str, object] = values.unset,
+        conversation_configuration: Union[str, object] = values.unset,
+        conversation_id: Union[str, object] = values.unset,
         enable_provider_data: Union[bool, object] = values.unset,
     ) -> tuple:
         """
@@ -567,6 +585,8 @@ class TranscriptionList(ListResource):
                     enable_automatic_punctuation
                 ),
                 "IntelligenceService": intelligence_service,
+                "ConversationConfiguration": conversation_configuration,
+                "ConversationId": conversation_id,
                 "EnableProviderData": serialize.boolean_to_string(enable_provider_data),
             }
         )
@@ -596,6 +616,8 @@ class TranscriptionList(ListResource):
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
         intelligence_service: Union[str, object] = values.unset,
+        conversation_configuration: Union[str, object] = values.unset,
+        conversation_id: Union[str, object] = values.unset,
         enable_provider_data: Union[bool, object] = values.unset,
     ) -> TranscriptionInstance:
         """
@@ -615,6 +637,8 @@ class TranscriptionList(ListResource):
         :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
         :param enable_automatic_punctuation: The provider will add punctuation to recognition result
         :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
+        :param conversation_configuration: The ID of the Conversations Configuration for customizing conversation behavior in Intelligence Service
+        :param conversation_id: The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service
         :param enable_provider_data: Whether the callback includes raw provider data.
 
         :returns: The created TranscriptionInstance
@@ -634,6 +658,8 @@ class TranscriptionList(ListResource):
             hints=hints,
             enable_automatic_punctuation=enable_automatic_punctuation,
             intelligence_service=intelligence_service,
+            conversation_configuration=conversation_configuration,
+            conversation_id=conversation_id,
             enable_provider_data=enable_provider_data,
         )
         return TranscriptionInstance(
@@ -659,6 +685,8 @@ class TranscriptionList(ListResource):
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
         intelligence_service: Union[str, object] = values.unset,
+        conversation_configuration: Union[str, object] = values.unset,
+        conversation_id: Union[str, object] = values.unset,
         enable_provider_data: Union[bool, object] = values.unset,
     ) -> ApiResponse:
         """
@@ -678,6 +706,8 @@ class TranscriptionList(ListResource):
         :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
         :param enable_automatic_punctuation: The provider will add punctuation to recognition result
         :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
+        :param conversation_configuration: The ID of the Conversations Configuration for customizing conversation behavior in Intelligence Service
+        :param conversation_id: The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service
         :param enable_provider_data: Whether the callback includes raw provider data.
 
         :returns: ApiResponse with instance, status code, and headers
@@ -697,6 +727,8 @@ class TranscriptionList(ListResource):
             hints=hints,
             enable_automatic_punctuation=enable_automatic_punctuation,
             intelligence_service=intelligence_service,
+            conversation_configuration=conversation_configuration,
+            conversation_id=conversation_id,
             enable_provider_data=enable_provider_data,
         )
         instance = TranscriptionInstance(

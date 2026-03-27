@@ -36,9 +36,9 @@ class ApproveChallengeInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.id: Optional[str] = payload.get("id")
-            self.raw_id: Optional[str] = payload.get("raw_id")
+            self.raw_id: Optional[str] = payload.get("rawId")
             self.authenticator_attachment: Optional["ApproveChallengeInstance.str"] = (
-                payload.get("authenticator_attachment")
+                payload.get("authenticatorAttachment")
             )
             self.type: Optional["ApproveChallengeInstance.str"] = payload.get("type")
             self.response: Optional[
@@ -48,8 +48,8 @@ class ApproveChallengeInstance(InstanceResource):
         def to_dict(self):
             return {
                 "id": self.id,
-                "raw_id": self.raw_id,
-                "authenticator_attachment": self.authenticator_attachment,
+                "rawId": self.raw_id,
+                "authenticatorAttachment": self.authenticator_attachment,
                 "type": self.type,
                 "response": (
                     self.response.to_dict() if self.response is not None else None
@@ -66,17 +66,17 @@ class ApproveChallengeInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.authenticator_data: Optional[str] = payload.get("authenticator_data")
-            self.client_data_json: Optional[str] = payload.get("client_data_json")
+            self.authenticator_data: Optional[str] = payload.get("authenticatorData")
+            self.client_data_json: Optional[str] = payload.get("clientDataJSON")
             self.signature: Optional[str] = payload.get("signature")
-            self.user_handle: Optional[str] = payload.get("user_handle")
+            self.user_handle: Optional[str] = payload.get("userHandle")
 
         def to_dict(self):
             return {
-                "authenticator_data": self.authenticator_data,
-                "client_data_json": self.client_data_json,
+                "authenticatorData": self.authenticator_data,
+                "clientDataJSON": self.client_data_json,
                 "signature": self.signature,
-                "user_handle": self.user_handle,
+                "userHandle": self.user_handle,
             }
 
     """
@@ -123,12 +123,16 @@ class ApproveChallengeInstance(InstanceResource):
         self.expiration_date: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("expiration_date")
         )
-        self.status: Optional[str] = payload.get("status")
-        self.responded_reason: Optional[str] = payload.get("responded_reason")
+        self.status: Optional["ApproveChallengeInstance.str"] = payload.get("status")
+        self.responded_reason: Optional["ApproveChallengeInstance.str"] = payload.get(
+            "responded_reason"
+        )
         self.details: Optional[Dict[str, object]] = payload.get("details")
         self.hidden_details: Optional[Dict[str, object]] = payload.get("hidden_details")
         self.metadata: Optional[Dict[str, object]] = payload.get("metadata")
-        self.factor_type: Optional[str] = payload.get("factor_type")
+        self.factor_type: Optional["ApproveChallengeInstance.str"] = payload.get(
+            "factor_type"
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
@@ -160,9 +164,9 @@ class ApproveChallengeList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.id: Optional[str] = payload.get("id")
-            self.raw_id: Optional[str] = payload.get("raw_id")
+            self.raw_id: Optional[str] = payload.get("rawId")
             self.authenticator_attachment: Optional["ApproveChallengeInstance.str"] = (
-                payload.get("authenticator_attachment")
+                payload.get("authenticatorAttachment")
             )
             self.type: Optional["ApproveChallengeInstance.str"] = payload.get("type")
             self.response: Optional[
@@ -172,8 +176,8 @@ class ApproveChallengeList(ListResource):
         def to_dict(self):
             return {
                 "id": self.id,
-                "raw_id": self.raw_id,
-                "authenticator_attachment": self.authenticator_attachment,
+                "rawId": self.raw_id,
+                "authenticatorAttachment": self.authenticator_attachment,
                 "type": self.type,
                 "response": (
                     self.response.to_dict() if self.response is not None else None
@@ -190,17 +194,17 @@ class ApproveChallengeList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.authenticator_data: Optional[str] = payload.get("authenticator_data")
-            self.client_data_json: Optional[str] = payload.get("client_data_json")
+            self.authenticator_data: Optional[str] = payload.get("authenticatorData")
+            self.client_data_json: Optional[str] = payload.get("clientDataJSON")
             self.signature: Optional[str] = payload.get("signature")
-            self.user_handle: Optional[str] = payload.get("user_handle")
+            self.user_handle: Optional[str] = payload.get("userHandle")
 
         def to_dict(self):
             return {
-                "authenticator_data": self.authenticator_data,
-                "client_data_json": self.client_data_json,
+                "authenticatorData": self.authenticator_data,
+                "clientDataJSON": self.client_data_json,
                 "signature": self.signature,
-                "user_handle": self.user_handle,
+                "userHandle": self.user_handle,
             }
 
     def __init__(self, version: Version, service_sid: str):
