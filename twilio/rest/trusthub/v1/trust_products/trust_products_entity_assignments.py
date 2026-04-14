@@ -769,7 +769,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return TrustProductsEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def page_async(
@@ -807,7 +807,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return TrustProductsEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def page_with_http_info(
@@ -845,7 +845,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         page = TrustProductsEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -886,7 +886,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
             )
         )
         page = TrustProductsEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -901,7 +901,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TrustProductsEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def get_page_async(
@@ -917,7 +917,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TrustProductsEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def get(self, sid: str) -> TrustProductsEntityAssignmentsContext:

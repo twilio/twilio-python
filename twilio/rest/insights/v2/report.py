@@ -410,19 +410,19 @@ class ReportInstance(InstanceResource):
 
     class InsightsV2CreateAccountReportRequestTimeRange(object):
         """
-        :ivar start_time: Start time of the report
-        :ivar end_time: End time of the report
+        :ivar start_datetime: Start date time of the report
+        :ivar end_datetime: End date time of the report
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.start_time: Optional[datetime] = payload.get("start_time")
-            self.end_time: Optional[datetime] = payload.get("end_time")
+            self.start_datetime: Optional[datetime] = payload.get("start_datetime")
+            self.end_datetime: Optional[datetime] = payload.get("end_datetime")
 
         def to_dict(self):
             return {
-                "start_time": self.start_time,
-                "end_time": self.end_time,
+                "start_datetime": self.start_datetime,
+                "end_datetime": self.end_datetime,
             }
 
     class ReportFilter(object):
@@ -1177,19 +1177,19 @@ class ReportContext(InstanceContext):
 
     class InsightsV2CreateAccountReportRequestTimeRange(object):
         """
-        :ivar start_time: Start time of the report
-        :ivar end_time: End time of the report
+        :ivar start_datetime: Start date time of the report
+        :ivar end_datetime: End date time of the report
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.start_time: Optional[datetime] = payload.get("start_time")
-            self.end_time: Optional[datetime] = payload.get("end_time")
+            self.start_datetime: Optional[datetime] = payload.get("start_datetime")
+            self.end_datetime: Optional[datetime] = payload.get("end_datetime")
 
         def to_dict(self):
             return {
-                "start_time": self.start_time,
-                "end_time": self.end_time,
+                "start_datetime": self.start_datetime,
+                "end_datetime": self.end_datetime,
             }
 
     class ReportFilter(object):
@@ -1987,19 +1987,19 @@ class ReportList(ListResource):
 
     class InsightsV2CreateAccountReportRequestTimeRange(object):
         """
-        :ivar start_time: Start time of the report
-        :ivar end_time: End time of the report
+        :ivar start_datetime: Start date time of the report
+        :ivar end_datetime: End date time of the report
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.start_time: Optional[datetime] = payload.get("start_time")
-            self.end_time: Optional[datetime] = payload.get("end_time")
+            self.start_datetime: Optional[datetime] = payload.get("start_datetime")
+            self.end_datetime: Optional[datetime] = payload.get("end_datetime")
 
         def to_dict(self):
             return {
-                "start_time": self.start_time,
-                "end_time": self.end_time,
+                "start_datetime": self.start_datetime,
+                "end_datetime": self.end_datetime,
             }
 
     class ReportFilter(object):

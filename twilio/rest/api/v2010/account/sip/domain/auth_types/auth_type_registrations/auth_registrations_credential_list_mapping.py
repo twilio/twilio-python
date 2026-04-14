@@ -768,7 +768,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def page_async(
@@ -803,7 +803,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def page_with_http_info(
@@ -838,7 +838,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -876,7 +876,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             )
         )
         page = AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -891,7 +891,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def get_page_async(
@@ -907,7 +907,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def get(self, sid: str) -> AuthRegistrationsCredentialListMappingContext:

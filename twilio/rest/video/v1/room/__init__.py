@@ -35,9 +35,9 @@ class RoomInstance(InstanceResource):
         FAILED = "failed"
 
     class RoomType(object):
+        GROUP = "group"
         GO = "go"
         PEER_TO_PEER = "peer-to-peer"
-        GROUP = "group"
         GROUP_SMALL = "group-small"
 
     class VideoCodec(object):

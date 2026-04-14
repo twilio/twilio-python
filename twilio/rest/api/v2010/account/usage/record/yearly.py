@@ -470,7 +470,7 @@ class YearlyList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return YearlyPage(self._version, response, self._solution)
+        return YearlyPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -515,7 +515,7 @@ class YearlyList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return YearlyPage(self._version, response, self._solution)
+        return YearlyPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -560,7 +560,7 @@ class YearlyList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = YearlyPage(self._version, response, self._solution)
+        page = YearlyPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -608,7 +608,7 @@ class YearlyList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = YearlyPage(self._version, response, self._solution)
+        page = YearlyPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> YearlyPage:
@@ -621,7 +621,7 @@ class YearlyList(ListResource):
         :returns: Page of YearlyInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return YearlyPage(self._version, response, self._solution)
+        return YearlyPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> YearlyPage:
         """
@@ -633,7 +633,7 @@ class YearlyList(ListResource):
         :returns: Page of YearlyInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return YearlyPage(self._version, response, self._solution)
+        return YearlyPage(self._version, response, solution=self._solution)
 
     def __repr__(self) -> str:
         """

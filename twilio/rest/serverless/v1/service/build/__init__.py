@@ -797,7 +797,7 @@ class BuildList(ListResource):
         
 
         response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers)
-        return BuildPage(self._version, response, self._solution)
+        return BuildPage(self._version, response, solution=self._solution)
 
     async def page_async(self, 
       
@@ -830,7 +830,7 @@ class BuildList(ListResource):
         
 
         response = await self._version.page_async(method='GET', uri=self._uri, params=data, headers=headers)
-        return BuildPage(self._version, response, self._solution)
+        return BuildPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(self, 
         
@@ -863,7 +863,7 @@ class BuildList(ListResource):
         
 
         response, status_code, response_headers = self._version.page_with_response_info(method='GET', uri=self._uri, params=data, headers=headers)
-        page = BuildPage(self._version, response, self._solution)
+        page = BuildPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(self, 
@@ -897,7 +897,7 @@ class BuildList(ListResource):
         
 
         response, status_code, response_headers = await self._version.page_with_response_info_async(method='GET', uri=self._uri, params=data, headers=headers)
-        page = BuildPage(self._version, response, self._solution)
+        page = BuildPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> BuildPage:
@@ -913,7 +913,7 @@ class BuildList(ListResource):
             'GET',
             target_url
         )
-        return BuildPage(self._version, response, self._solution)
+        return BuildPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> BuildPage:
         """
@@ -928,7 +928,7 @@ class BuildList(ListResource):
             'GET',
             target_url
         )
-        return BuildPage(self._version, response, self._solution)
+        return BuildPage(self._version, response, solution=self._solution)
 
 
 

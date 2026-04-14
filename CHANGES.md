@@ -3,6 +3,119 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2026-04-14] Version 9.10.5
+---------------------------
+**Twiml**
+- Add `backgroundNoiseReduction`, `speechTimeout`, `deepgramSmartFormat`, `ignoreBackchannel`, `events` attributes to `<ConversationRelay>`
+
+**Api**
+- Enabled incoming phone numbers(IPN) public apis in stage-ie1
+
+**Data-ingress**
+- ## 2026-04-09
+- **Content updates**:
+- Added parameter(s) to `GetDataSync`: datasetId
+- ## 2026-04-09
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- Minor updates (formatting, metadata)
+- ## 2026-04-06
+- **Content updates**:
+- Added properties to `CloudAppSourceUpdate`: config
+- Added properties to `CloudAppDatasetUpdate`: schedule
+- Added properties to `WarehouseSourceUpdate`: config
+- Added properties to `WarehouseDatasetUpdate`: schedule
+- ## 2026-04-06
+- **Content updates**:
+- Updated description for `GetCloudAppPreviewResult`
+- Updated description for `GetWarehousePreviewResult`
+- Updated description for `GetDataSampleResult`
+- ## 2026-03-27
+- Add schema oneOf back without discriminator
+- ## 2026-03-26
+- Minor updates (formatting, metadata)
+- ## 2026-03-26
+- Added prod-us1 to supportedRealms for all endpoints
+- ## 2026-03-25
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- **Added 10 new path(s)**:
+- `/v1/DataSyncs` (ListDataSyncs, TriggerDataSync)
+- `/v1/DataSyncs/{SyncId}` (GetDataSync)
+- `/v1/CloudAppSources/{SourceId}/Objects` (ListCloudAppObjects)
+- `/v1/CloudAppSources/{SourceId}/Objects/{Name}/Properties` (ListCloudAppObjectProperties)
+- `/v1/CloudAppSources/{SourceId}/Objects/{Name}/Preview` (PreviewCloudAppObjectData)
+- `/v1/CloudAppSources/{SourceId}/Objects/{Name}/Preview/{OperationId}` (GetCloudAppPreviewResult)
+- `/v1/WarehouseSources/{SourceId}/Preview` (PreviewWarehouseData)
+- `/v1/WarehouseSources/{SourceId}/Preview/{OperationId}` (GetWarehousePreviewResult)
+- `/v1/DataSample` (TriggerDataSample)
+- `/v1/DataSample/{OperationId}` (GetDataSampleResult)
+- ## 2026-03-24
+- Minor updates (formatting, metadata)
+- ## 2026-03-24
+- Use `explode: true` for query params when getting by ids and limit max items to 25
+- Make schema description for `Schema` more specific by using oneOf without discriminator for now.
+
+**Insights**
+- Added Insights Domains endpoints under `/v3/InsightsDomains/*` (Query + Metadata) to provide a versioned, GA-ready namespace alongside existing `/preview` endpoints.
+
+**Mcp**
+- # API Changes
+- ## 2026-04-07
+- **Added 1 new path(s)**:
+- `/v1/docs` (InvokeDocsMcp)
+
+**Memory**
+- ## 2026-04-09
+- **Removed 2 path(s)**:
+- `/v1/Stores/{storeId}/Profiles/Import` (ListProfileImports, CreateProfilesImport)
+- `/v1/Stores/{storeId}/Profiles/Import/{importId}` (FetchProfileImport)
+- libraryVisibility: private, docsVisibility: private
+- ## 2026-04-08
+- **Content updates**:
+- Added 301 response for `GetProfile` and `GetProfileTraits`
+- Added canonical ID header to response for `GetProfile` and `GetProfileTraits`
+- Add 308 response for `PatchProfile`
+- ## 2026-04-07
+- Added `AGENT` and `UNKNOWN` values to `ParticipantType` enum
+- ## 2026-04-06
+- **Content updates**:
+- Added async operation support to `UpdateTraitGroup` 202 response (Operation-Id, Location, Retry-After headers; statusUrl in body)
+- Added async operation support to `CreateDataMapping`, `UpdateDataMapping`, `DeleteDataMapping` 202 responses (Operation-Id, Location, Retry-After headers; statusUrl in body)
+- ## 2026-03-30
+- **Content updates**:
+- Updated description for `FetchProfileMemory`
+- ## 2026-03-27
+- **Content updates**:
+- Updated schema description for `TraitGroupCore`
+- ## 2026-03-25
+- **Content updates**:
+- Removed properties from `TraitDefinition`: displayName
+- ## 2026-03-25
+- **Content updates**:
+- Updated description for `UpdateProfileTraits`
+- Updated description for `FetchIdentityResolutionSettings`
+- Updated description for `UpdateIdentityResolutionSettings`
+- Updated schema description for `IdentityResolutionSettingsCore`
+- Updated schema description for `TraitGroupCore`
+- Made all fields besides `idType` optional w/ defaults for schema `IdentifierConfig`
+- ## 2026-03-24
+- **Content updates**:
+- Added properties to `OperationStatus`: result
+
+
 [2026-03-24] Version 9.10.4
 ---------------------------
 **Data-ingress**

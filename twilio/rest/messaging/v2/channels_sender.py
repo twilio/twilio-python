@@ -30,7 +30,7 @@ class ChannelsSenderInstance(InstanceResource):
         :ivar verification_method: The verification method.
         :ivar verification_code: The verification code.
         :ivar voice_application_sid: The SID of the Twilio Voice application.
-        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
+        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, empty string to clear, or omit to preserve the existing value.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -537,7 +537,7 @@ class ChannelsSenderContext(InstanceContext):
         :ivar verification_method: The verification method.
         :ivar verification_code: The verification code.
         :ivar voice_application_sid: The SID of the Twilio Voice application.
-        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
+        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, empty string to clear, or omit to preserve the existing value.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1148,7 +1148,7 @@ class ChannelsSenderList(ListResource):
         :ivar verification_method: The verification method.
         :ivar verification_code: The verification code.
         :ivar voice_application_sid: The SID of the Twilio Voice application.
-        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
+        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, empty string to clear, or omit to preserve the existing value.
         """
 
         def __init__(self, payload: Dict[str, Any]):

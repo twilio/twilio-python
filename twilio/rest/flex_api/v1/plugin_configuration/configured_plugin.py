@@ -623,7 +623,7 @@ class ConfiguredPluginList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ConfiguredPluginPage(self._version, response, self._solution)
+        return ConfiguredPluginPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -664,7 +664,7 @@ class ConfiguredPluginList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ConfiguredPluginPage(self._version, response, self._solution)
+        return ConfiguredPluginPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -705,7 +705,7 @@ class ConfiguredPluginList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = ConfiguredPluginPage(self._version, response, self._solution)
+        page = ConfiguredPluginPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -749,7 +749,7 @@ class ConfiguredPluginList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = ConfiguredPluginPage(self._version, response, self._solution)
+        page = ConfiguredPluginPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ConfiguredPluginPage:
@@ -762,7 +762,7 @@ class ConfiguredPluginList(ListResource):
         :returns: Page of ConfiguredPluginInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ConfiguredPluginPage(self._version, response, self._solution)
+        return ConfiguredPluginPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> ConfiguredPluginPage:
         """
@@ -774,7 +774,7 @@ class ConfiguredPluginList(ListResource):
         :returns: Page of ConfiguredPluginInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ConfiguredPluginPage(self._version, response, self._solution)
+        return ConfiguredPluginPage(self._version, response, solution=self._solution)
 
     def get(self, plugin_sid: str) -> ConfiguredPluginContext:
         """

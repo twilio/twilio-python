@@ -535,7 +535,9 @@ class AuthorizedConnectAppList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return AuthorizedConnectAppPage(self._version, response, self._solution)
+        return AuthorizedConnectAppPage(
+            self._version, response, solution=self._solution
+        )
 
     async def page_async(
         self,
@@ -568,7 +570,9 @@ class AuthorizedConnectAppList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return AuthorizedConnectAppPage(self._version, response, self._solution)
+        return AuthorizedConnectAppPage(
+            self._version, response, solution=self._solution
+        )
 
     def page_with_http_info(
         self,
@@ -601,7 +605,9 @@ class AuthorizedConnectAppList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = AuthorizedConnectAppPage(self._version, response, self._solution)
+        page = AuthorizedConnectAppPage(
+            self._version, response, solution=self._solution
+        )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -637,7 +643,9 @@ class AuthorizedConnectAppList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = AuthorizedConnectAppPage(self._version, response, self._solution)
+        page = AuthorizedConnectAppPage(
+            self._version, response, solution=self._solution
+        )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> AuthorizedConnectAppPage:
@@ -650,7 +658,9 @@ class AuthorizedConnectAppList(ListResource):
         :returns: Page of AuthorizedConnectAppInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return AuthorizedConnectAppPage(self._version, response, self._solution)
+        return AuthorizedConnectAppPage(
+            self._version, response, solution=self._solution
+        )
 
     async def get_page_async(self, target_url: str) -> AuthorizedConnectAppPage:
         """
@@ -662,7 +672,9 @@ class AuthorizedConnectAppList(ListResource):
         :returns: Page of AuthorizedConnectAppInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AuthorizedConnectAppPage(self._version, response, self._solution)
+        return AuthorizedConnectAppPage(
+            self._version, response, solution=self._solution
+        )
 
     def get(self, connect_app_sid: str) -> AuthorizedConnectAppContext:
         """

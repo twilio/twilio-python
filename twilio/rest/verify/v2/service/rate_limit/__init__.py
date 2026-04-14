@@ -954,7 +954,7 @@ class RateLimitList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return RateLimitPage(self._version, response, self._solution)
+        return RateLimitPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -987,7 +987,7 @@ class RateLimitList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return RateLimitPage(self._version, response, self._solution)
+        return RateLimitPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1020,7 +1020,7 @@ class RateLimitList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = RateLimitPage(self._version, response, self._solution)
+        page = RateLimitPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1056,7 +1056,7 @@ class RateLimitList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = RateLimitPage(self._version, response, self._solution)
+        page = RateLimitPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> RateLimitPage:
@@ -1069,7 +1069,7 @@ class RateLimitList(ListResource):
         :returns: Page of RateLimitInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return RateLimitPage(self._version, response, self._solution)
+        return RateLimitPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> RateLimitPage:
         """
@@ -1081,7 +1081,7 @@ class RateLimitList(ListResource):
         :returns: Page of RateLimitInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return RateLimitPage(self._version, response, self._solution)
+        return RateLimitPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> RateLimitContext:
         """

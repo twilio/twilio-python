@@ -42,6 +42,7 @@ class ExecutionInstance(InstanceResource):
     :ivar status: 
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar initiated_by: The SID or identifier that triggered this Execution. For example, a Call SID if triggered by an incoming call, a Message SID if triggered by an incoming message, a Request SID if triggered by a REST API request, and so on.
     :ivar url: The absolute URL of the resource.
     :ivar links: The URLs of nested resources.
     """
@@ -73,6 +74,7 @@ class ExecutionInstance(InstanceResource):
         self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
+        self.initiated_by: Optional[str] = payload.get("initiated_by")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
@@ -753,6 +755,7 @@ class ExecutionList(ListResource):
 
     def stream(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -764,6 +767,7 @@ class ExecutionList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param &quot;ExecutionInstance.Status&quot; status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -777,6 +781,7 @@ class ExecutionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
+            status=status,
             date_created_from=date_created_from,
             date_created_to=date_created_to,
             page_size=limits["page_size"],
@@ -786,6 +791,7 @@ class ExecutionList(ListResource):
 
     async def stream_async(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -797,6 +803,7 @@ class ExecutionList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param &quot;ExecutionInstance.Status&quot; status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -810,6 +817,7 @@ class ExecutionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
+            status=status,
             date_created_from=date_created_from,
             date_created_to=date_created_to,
             page_size=limits["page_size"],
@@ -819,6 +827,7 @@ class ExecutionList(ListResource):
 
     def stream_with_http_info(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -828,6 +837,7 @@ class ExecutionList(ListResource):
         Streams ExecutionInstance and returns headers from first page
 
 
+        :param &quot;ExecutionInstance.Status&quot; status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -841,6 +851,7 @@ class ExecutionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = self.page_with_http_info(
+            status=status,
             date_created_from=date_created_from,
             date_created_to=date_created_to,
             page_size=limits["page_size"],
@@ -851,6 +862,7 @@ class ExecutionList(ListResource):
 
     async def stream_with_http_info_async(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -860,6 +872,7 @@ class ExecutionList(ListResource):
         Asynchronously streams ExecutionInstance and returns headers from first page
 
 
+        :param &quot;ExecutionInstance.Status&quot; status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -873,6 +886,7 @@ class ExecutionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = await self.page_with_http_info_async(
+            status=status,
             date_created_from=date_created_from,
             date_created_to=date_created_to,
             page_size=limits["page_size"],
@@ -883,6 +897,7 @@ class ExecutionList(ListResource):
 
     def list(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -893,6 +908,7 @@ class ExecutionList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param &quot;ExecutionInstance.Status&quot; status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -906,6 +922,7 @@ class ExecutionList(ListResource):
         """
         return list(
             self.stream(
+                status=status,
                 date_created_from=date_created_from,
                 date_created_to=date_created_to,
                 limit=limit,
@@ -915,6 +932,7 @@ class ExecutionList(ListResource):
 
     async def list_async(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -925,6 +943,7 @@ class ExecutionList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param &quot;ExecutionInstance.Status&quot; status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -939,6 +958,7 @@ class ExecutionList(ListResource):
         return [
             record
             async for record in await self.stream_async(
+                status=status,
                 date_created_from=date_created_from,
                 date_created_to=date_created_to,
                 limit=limit,
@@ -948,6 +968,7 @@ class ExecutionList(ListResource):
 
     def list_with_http_info(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -957,6 +978,7 @@ class ExecutionList(ListResource):
         Lists ExecutionInstance and returns headers from first page
 
 
+        :param &quot;ExecutionInstance.Status&quot; status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -969,6 +991,7 @@ class ExecutionList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = self.stream_with_http_info(
+            status=status,
             date_created_from=date_created_from,
             date_created_to=date_created_to,
             limit=limit,
@@ -979,6 +1002,7 @@ class ExecutionList(ListResource):
 
     async def list_with_http_info_async(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
@@ -988,6 +1012,7 @@ class ExecutionList(ListResource):
         Asynchronously lists ExecutionInstance and returns headers from first page
 
 
+        :param &quot;ExecutionInstance.Status&quot; status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -1000,6 +1025,7 @@ class ExecutionList(ListResource):
         :returns: ApiResponse with list of instances, status code, and headers
         """
         generator, status_code, headers = await self.stream_with_http_info_async(
+            status=status,
             date_created_from=date_created_from,
             date_created_to=date_created_to,
             limit=limit,
@@ -1010,6 +1036,7 @@ class ExecutionList(ListResource):
 
     def page(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -1020,6 +1047,7 @@ class ExecutionList(ListResource):
         Retrieve a single page of ExecutionInstance records from the API.
         Request is executed immediately
 
+        :param status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param page_token: PageToken provided by the API
@@ -1030,6 +1058,7 @@ class ExecutionList(ListResource):
         """
         data = values.of(
             {
+                "status": status,
                 "DateCreatedFrom": serialize.iso8601_datetime(date_created_from),
                 "DateCreatedTo": serialize.iso8601_datetime(date_created_to),
                 "PageToken": page_token,
@@ -1045,10 +1074,11 @@ class ExecutionList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ExecutionPage(self._version, response, self._solution)
+        return ExecutionPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -1059,6 +1089,7 @@ class ExecutionList(ListResource):
         Asynchronously retrieve a single page of ExecutionInstance records from the API.
         Request is executed immediately
 
+        :param status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param page_token: PageToken provided by the API
@@ -1069,6 +1100,7 @@ class ExecutionList(ListResource):
         """
         data = values.of(
             {
+                "status": status,
                 "DateCreatedFrom": serialize.iso8601_datetime(date_created_from),
                 "DateCreatedTo": serialize.iso8601_datetime(date_created_to),
                 "PageToken": page_token,
@@ -1084,10 +1116,11 @@ class ExecutionList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ExecutionPage(self._version, response, self._solution)
+        return ExecutionPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -1098,6 +1131,7 @@ class ExecutionList(ListResource):
         Retrieve a single page with response metadata
 
 
+        :param status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param page_token: PageToken provided by the API
@@ -1108,6 +1142,7 @@ class ExecutionList(ListResource):
         """
         data = values.of(
             {
+                "status": status,
                 "DateCreatedFrom": serialize.iso8601_datetime(date_created_from),
                 "DateCreatedTo": serialize.iso8601_datetime(date_created_to),
                 "PageToken": page_token,
@@ -1123,11 +1158,12 @@ class ExecutionList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = ExecutionPage(self._version, response, self._solution)
+        page = ExecutionPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
         self,
+        status: Union["ExecutionInstance.Status", object] = values.unset,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -1138,6 +1174,7 @@ class ExecutionList(ListResource):
         Asynchronously retrieve a single page with response metadata
 
 
+        :param status: Only show Execution resources with the given status. Can be: `active` or `ended`.
         :param date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param page_token: PageToken provided by the API
@@ -1148,6 +1185,7 @@ class ExecutionList(ListResource):
         """
         data = values.of(
             {
+                "status": status,
                 "DateCreatedFrom": serialize.iso8601_datetime(date_created_from),
                 "DateCreatedTo": serialize.iso8601_datetime(date_created_to),
                 "PageToken": page_token,
@@ -1165,7 +1203,7 @@ class ExecutionList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = ExecutionPage(self._version, response, self._solution)
+        page = ExecutionPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ExecutionPage:
@@ -1178,7 +1216,7 @@ class ExecutionList(ListResource):
         :returns: Page of ExecutionInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ExecutionPage(self._version, response, self._solution)
+        return ExecutionPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> ExecutionPage:
         """
@@ -1190,7 +1228,7 @@ class ExecutionList(ListResource):
         :returns: Page of ExecutionInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ExecutionPage(self._version, response, self._solution)
+        return ExecutionPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> ExecutionContext:
         """

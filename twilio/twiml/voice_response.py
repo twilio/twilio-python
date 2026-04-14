@@ -2927,6 +2927,11 @@ class Connect(TwiML):
         elevenlabs_text_normalization=None,
         interrupt_sensitivity=None,
         debug=None,
+        backgroundNoiseReduction=None,
+        speechTimeout=None,
+        deepgramSmartFormat=None,
+        ignoreBackchannel=None,
+        events=None,
         **kwargs
     ):
         """
@@ -2953,6 +2958,11 @@ class Connect(TwiML):
         :param elevenlabs_text_normalization: When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature
         :param interrupt_sensitivity: Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high
         :param debug: Multiple debug options to be used for troubleshooting
+        :param backgroundNoiseReduction: This parameters enables background noise filtering on the audio stream before it reaches the STT engine, improving transcription accuracy in noisy environments
+        :param speechTimeout: Set the duration of silence that indicates the end of speech
+        :param deepgramSmartFormat: This parameter enables Deepgram's smart formatting feature, which automatically applies punctuation, capitalization, and formatting (e.g. numbers, dates, currency) to transcripts
+        :param ignoreBackchannel: This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh") are ignored and will not interrupt the agent while it is speaking.
+        :param events: This parameter allows you to enable event subscriptions
         :param kwargs: additional attributes
 
         :returns: <ConversationRelay> element
@@ -2980,6 +2990,11 @@ class Connect(TwiML):
                 elevenlabs_text_normalization=elevenlabs_text_normalization,
                 interrupt_sensitivity=interrupt_sensitivity,
                 debug=debug,
+                backgroundNoiseReduction=backgroundNoiseReduction,
+                speechTimeout=speechTimeout,
+                deepgramSmartFormat=deepgramSmartFormat,
+                ignoreBackchannel=ignoreBackchannel,
+                events=events,
                 **kwargs
             )
         )

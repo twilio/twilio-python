@@ -855,7 +855,7 @@ class MachineToMachineList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return MachineToMachinePage(self._version, response, self._solution)
+        return MachineToMachinePage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -948,7 +948,7 @@ class MachineToMachineList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return MachineToMachinePage(self._version, response, self._solution)
+        return MachineToMachinePage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1041,7 +1041,7 @@ class MachineToMachineList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = MachineToMachinePage(self._version, response, self._solution)
+        page = MachineToMachinePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1137,7 +1137,7 @@ class MachineToMachineList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = MachineToMachinePage(self._version, response, self._solution)
+        page = MachineToMachinePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> MachineToMachinePage:
@@ -1150,7 +1150,7 @@ class MachineToMachineList(ListResource):
         :returns: Page of MachineToMachineInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return MachineToMachinePage(self._version, response, self._solution)
+        return MachineToMachinePage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> MachineToMachinePage:
         """
@@ -1162,7 +1162,7 @@ class MachineToMachineList(ListResource):
         :returns: Page of MachineToMachineInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return MachineToMachinePage(self._version, response, self._solution)
+        return MachineToMachinePage(self._version, response, solution=self._solution)
 
     def __repr__(self) -> str:
         """

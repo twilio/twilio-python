@@ -57,19 +57,19 @@ class InboundInstance(InstanceResource):
 
     class InsightsV2CreatePhoneNumbersReportRequestTimeRange(object):
         """
-        :ivar start_time: Start time of the report
-        :ivar end_time: End time of the report
+        :ivar start_datetime: Start date time of the report
+        :ivar end_datetime: End date time of the report
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.start_time: Optional[datetime] = payload.get("start_time")
-            self.end_time: Optional[datetime] = payload.get("end_time")
+            self.start_datetime: Optional[datetime] = payload.get("start_datetime")
+            self.end_datetime: Optional[datetime] = payload.get("end_datetime")
 
         def to_dict(self):
             return {
-                "start_time": self.start_time,
-                "end_time": self.end_time,
+                "start_datetime": self.start_datetime,
+                "end_datetime": self.end_datetime,
             }
 
     class PhoneNumberReportFilter(object):
@@ -276,19 +276,19 @@ class InboundContext(InstanceContext):
 
     class InsightsV2CreatePhoneNumbersReportRequestTimeRange(object):
         """
-        :ivar start_time: Start time of the report
-        :ivar end_time: End time of the report
+        :ivar start_datetime: Start date time of the report
+        :ivar end_datetime: End date time of the report
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.start_time: Optional[datetime] = payload.get("start_time")
-            self.end_time: Optional[datetime] = payload.get("end_time")
+            self.start_datetime: Optional[datetime] = payload.get("start_datetime")
+            self.end_datetime: Optional[datetime] = payload.get("end_datetime")
 
         def to_dict(self):
             return {
-                "start_time": self.start_time,
-                "end_time": self.end_time,
+                "start_datetime": self.start_datetime,
+                "end_datetime": self.end_datetime,
             }
 
     class PhoneNumberReportFilter(object):
@@ -535,19 +535,19 @@ class InboundList(ListResource):
 
     class InsightsV2CreatePhoneNumbersReportRequestTimeRange(object):
         """
-        :ivar start_time: Start time of the report
-        :ivar end_time: End time of the report
+        :ivar start_datetime: Start date time of the report
+        :ivar end_datetime: End date time of the report
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.start_time: Optional[datetime] = payload.get("start_time")
-            self.end_time: Optional[datetime] = payload.get("end_time")
+            self.start_datetime: Optional[datetime] = payload.get("start_datetime")
+            self.end_datetime: Optional[datetime] = payload.get("end_datetime")
 
         def to_dict(self):
             return {
-                "start_time": self.start_time,
-                "end_time": self.end_time,
+                "start_datetime": self.start_datetime,
+                "end_datetime": self.end_datetime,
             }
 
     class PhoneNumberReportFilter(object):
@@ -966,7 +966,7 @@ class InboundList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return InboundPage(self._version, response, self._solution)
+        return InboundPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -999,7 +999,7 @@ class InboundList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return InboundPage(self._version, response, self._solution)
+        return InboundPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1032,7 +1032,7 @@ class InboundList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = InboundPage(self._version, response, self._solution)
+        page = InboundPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1068,7 +1068,7 @@ class InboundList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = InboundPage(self._version, response, self._solution)
+        page = InboundPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> InboundPage:
@@ -1081,7 +1081,7 @@ class InboundList(ListResource):
         :returns: Page of InboundInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return InboundPage(self._version, response, self._solution)
+        return InboundPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> InboundPage:
         """
@@ -1093,7 +1093,7 @@ class InboundList(ListResource):
         :returns: Page of InboundInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return InboundPage(self._version, response, self._solution)
+        return InboundPage(self._version, response, solution=self._solution)
 
     def get(self, report_id: str) -> InboundContext:
         """

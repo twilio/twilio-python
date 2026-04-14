@@ -775,7 +775,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def page_async(
@@ -813,7 +813,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def page_with_http_info(
@@ -851,7 +851,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         page = CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -892,7 +892,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
             )
         )
         page = CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -907,7 +907,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def get_page_async(
@@ -923,7 +923,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def get(self, sid: str) -> CustomerProfilesEntityAssignmentsContext:

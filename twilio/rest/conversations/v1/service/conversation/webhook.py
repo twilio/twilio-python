@@ -1221,7 +1221,7 @@ class WebhookList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return WebhookPage(self._version, response, self._solution)
+        return WebhookPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -1254,7 +1254,7 @@ class WebhookList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return WebhookPage(self._version, response, self._solution)
+        return WebhookPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1287,7 +1287,7 @@ class WebhookList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = WebhookPage(self._version, response, self._solution)
+        page = WebhookPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1323,7 +1323,7 @@ class WebhookList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = WebhookPage(self._version, response, self._solution)
+        page = WebhookPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> WebhookPage:
@@ -1336,7 +1336,7 @@ class WebhookList(ListResource):
         :returns: Page of WebhookInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return WebhookPage(self._version, response, self._solution)
+        return WebhookPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> WebhookPage:
         """
@@ -1348,7 +1348,7 @@ class WebhookList(ListResource):
         :returns: Page of WebhookInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return WebhookPage(self._version, response, self._solution)
+        return WebhookPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> WebhookContext:
         """

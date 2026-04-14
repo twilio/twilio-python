@@ -330,7 +330,7 @@ class ChunkList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ChunkPage(self._version, response, self._solution)
+        return ChunkPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -363,7 +363,7 @@ class ChunkList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ChunkPage(self._version, response, self._solution)
+        return ChunkPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -396,7 +396,7 @@ class ChunkList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = ChunkPage(self._version, response, self._solution)
+        page = ChunkPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -432,7 +432,7 @@ class ChunkList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = ChunkPage(self._version, response, self._solution)
+        page = ChunkPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ChunkPage:
@@ -445,7 +445,7 @@ class ChunkList(ListResource):
         :returns: Page of ChunkInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ChunkPage(self._version, response, self._solution)
+        return ChunkPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> ChunkPage:
         """
@@ -457,7 +457,7 @@ class ChunkList(ListResource):
         :returns: Page of ChunkInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ChunkPage(self._version, response, self._solution)
+        return ChunkPage(self._version, response, solution=self._solution)
 
     def __repr__(self) -> str:
         """

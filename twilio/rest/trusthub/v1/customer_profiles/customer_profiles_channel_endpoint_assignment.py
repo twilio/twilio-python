@@ -830,7 +830,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return CustomerProfilesChannelEndpointAssignmentPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def page_async(
@@ -871,7 +871,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return CustomerProfilesChannelEndpointAssignmentPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def page_with_http_info(
@@ -912,7 +912,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         page = CustomerProfilesChannelEndpointAssignmentPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -956,7 +956,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
             )
         )
         page = CustomerProfilesChannelEndpointAssignmentPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -973,7 +973,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CustomerProfilesChannelEndpointAssignmentPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def get_page_async(
@@ -989,7 +989,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CustomerProfilesChannelEndpointAssignmentPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def get(self, sid: str) -> CustomerProfilesChannelEndpointAssignmentContext:

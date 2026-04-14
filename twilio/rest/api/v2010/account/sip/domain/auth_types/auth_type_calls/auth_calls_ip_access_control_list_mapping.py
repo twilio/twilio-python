@@ -774,7 +774,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def page_async(
@@ -809,7 +809,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def page_with_http_info(
@@ -844,7 +844,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -882,7 +882,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
             )
         )
         page = AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -897,7 +897,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def get_page_async(
@@ -913,7 +913,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def get(self, sid: str) -> AuthCallsIpAccessControlListMappingContext:

@@ -19,6 +19,7 @@ from twilio.rest.iam.v1.api_key import ApiKeyList
 from twilio.rest.iam.v1.get_api_keys import GetApiKeysList
 from twilio.rest.iam.v1.new_api_key import NewApiKeyList
 from twilio.rest.iam.v1.o_auth_app import OAuthAppList
+from twilio.rest.iam.v1.role_permission import RolePermissionList
 from twilio.rest.iam.v1.token import TokenList
 
 
@@ -35,6 +36,7 @@ class V1(Version):
         self._get_api_keys: Optional[GetApiKeysList] = None
         self._new_api_key: Optional[NewApiKeyList] = None
         self._o_auth_apps: Optional[OAuthAppList] = None
+        self._role_permission: Optional[RolePermissionList] = None
         self._token: Optional[TokenList] = None
 
     @property
@@ -60,6 +62,12 @@ class V1(Version):
         if self._o_auth_apps is None:
             self._o_auth_apps = OAuthAppList(self)
         return self._o_auth_apps
+
+    @property
+    def role_permission(self) -> RolePermissionList:
+        if self._role_permission is None:
+            self._role_permission = RolePermissionList(self)
+        return self._role_permission
 
     @property
     def token(self) -> TokenList:

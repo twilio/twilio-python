@@ -42,7 +42,6 @@ class NewChallengeInstance(InstanceResource):
             }
 
     """
-    :ivar options: An object that contains challenge options. Currently only used for `passkeys`.
     :ivar sid: A 34 character string that uniquely identifies this Challenge.
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar service_sid: The unique SID identifier of the Service.
@@ -61,12 +60,12 @@ class NewChallengeInstance(InstanceResource):
     :ivar factor_type: The Factor Type of this Challenge. Currently `push` and `totp` are supported.
     :ivar url: The URL of this resource.
     :ivar links: Contains a dictionary of URL links to nested resources of this Challenge.
+    :ivar options: An object that contains challenge options. Currently only used for `passkeys`.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str):
         super().__init__(version)
 
-        self.options: Optional[Dict[str, object]] = payload.get("options")
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
@@ -97,6 +96,7 @@ class NewChallengeInstance(InstanceResource):
         )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.options: Optional[Dict[str, object]] = payload.get("options")
 
         self._solution = {
             "service_sid": service_sid,

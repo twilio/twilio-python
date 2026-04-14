@@ -631,7 +631,7 @@ class OperatorResultList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return OperatorResultPage(self._version, response, self._solution)
+        return OperatorResultPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -667,7 +667,7 @@ class OperatorResultList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return OperatorResultPage(self._version, response, self._solution)
+        return OperatorResultPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -703,7 +703,7 @@ class OperatorResultList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = OperatorResultPage(self._version, response, self._solution)
+        page = OperatorResultPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -742,7 +742,7 @@ class OperatorResultList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = OperatorResultPage(self._version, response, self._solution)
+        page = OperatorResultPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> OperatorResultPage:
@@ -755,7 +755,7 @@ class OperatorResultList(ListResource):
         :returns: Page of OperatorResultInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return OperatorResultPage(self._version, response, self._solution)
+        return OperatorResultPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> OperatorResultPage:
         """
@@ -767,7 +767,7 @@ class OperatorResultList(ListResource):
         :returns: Page of OperatorResultInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return OperatorResultPage(self._version, response, self._solution)
+        return OperatorResultPage(self._version, response, solution=self._solution)
 
     def get(self, operator_sid: str) -> OperatorResultContext:
         """
