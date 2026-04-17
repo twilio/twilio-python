@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(chmod +x:*)",
+      "Bash(grep:*)",
+      "Bash(git diff:*)"
+    ]
+  }
+}
