@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import Mock
 
-import aiounittest
 from tests import IntegrationTestCase
 from tests.holodeck import Request
 from twilio.base.version import Version
@@ -791,7 +790,7 @@ class ResponseInfoIntegrationTestCase(IntegrationTestCase):
         self.assertIsInstance(headers, dict)
 
 
-class AsyncVersionTestCase(aiounittest.AsyncTestCase):
+class AsyncVersionTestCase(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         from tests.holodeck import AsyncHolodeck
         from twilio.rest import Client
