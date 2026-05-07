@@ -7,21 +7,4 @@ from twilio.rest.knowledge.v2.search import SearchList
 
 
 class Knowledge(KnowledgeBase):
-    @property
-    def knowledge(self) -> V1KnowledgeList:
-        return self.v1.knowledge
-
-    @property
-    def chunks(self) -> ChunkList:
-        return self.v2.chunks
-
-    @property
-    def knowledge_v2(self) -> V2KnowledgeList:
-        return self.v2.knowledge
-
-    @property
-    def knowledge_bases(self) -> KnowledgeBasisList:
-        return self.v2.knowledge_bases
-
-    def search(self, kb_id: str) -> SearchList:
-        return self.v2.search(kb_id)
+    pass
