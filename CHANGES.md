@@ -3,6 +3,11 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2026-05-07] Version 9.10.7
+---------------------------
+**Library - Chore**
+- [PR #922](https://github.com/twilio/twilio-python/pull/922): add init for knowledge. Thanks to [@kridai](https://github.com/kridai)!
+
 [2026-05-06] Version 9.10.6
 ---------------------------
 **Library - Chore**
