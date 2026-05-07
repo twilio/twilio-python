@@ -29,21 +29,35 @@ class V2(Version):
         :param domain: The Twilio.insights domain
         """
         super().__init__(domain, "v2")
-        self._inbound: Optional[InboundList] = None
-        self._outbound: Optional[OutboundList] = None
         self._reports: Optional[ReportList] = None
 
-    @property
-    def inbound(self) -> InboundList:
-        if self._inbound is None:
-            self._inbound = InboundList(self)
-        return self._inbound
+    def inbound(self, report_id: str, inbound_id: str = None):
+        """
+        Access the InboundList resource
 
-    @property
-    def outbound(self) -> OutboundList:
-        if self._outbound is None:
-            self._outbound = OutboundList(self)
-        return self._outbound
+        :param report_id: A unique Report Id.
+
+        :param inbound_id: Optional instance ID to directly access InboundContext
+        :returns: InboundList instance if inbound_id is None, otherwise InboundContext
+        """
+        list_instance = InboundList(self, report_id)
+        if inbound_id is not None:
+            return list_instance(inbound_id)
+        return list_instance
+
+    def outbound(self, report_id: str, outbound_id: str = None):
+        """
+        Access the OutboundList resource
+
+        :param report_id: A unique Report Id.
+
+        :param outbound_id: Optional instance ID to directly access OutboundContext
+        :returns: OutboundList instance if outbound_id is None, otherwise OutboundContext
+        """
+        list_instance = OutboundList(self, report_id)
+        if outbound_id is not None:
+            return list_instance(outbound_id)
+        return list_instance
 
     @property
     def reports(self) -> ReportList:

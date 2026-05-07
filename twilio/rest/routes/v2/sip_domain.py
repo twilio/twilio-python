@@ -58,6 +58,7 @@ class SipDomainInstance(InstanceResource):
         self._solution = {
             "sip_domain": sip_domain or self.sip_domain,
         }
+
         self._context: Optional[SipDomainContext] = None
 
     @property

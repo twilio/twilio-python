@@ -71,6 +71,7 @@ class AnonymizeInstance(InstanceResource):
             "room_sid": room_sid,
             "sid": sid,
         }
+
         self._context: Optional[AnonymizeContext] = None
 
     @property

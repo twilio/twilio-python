@@ -70,6 +70,7 @@ class AnnotationInstance(InstanceResource):
         self._solution = {
             "call_sid": call_sid,
         }
+
         self._context: Optional[AnnotationContext] = None
 
     @property

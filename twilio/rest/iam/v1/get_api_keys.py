@@ -63,6 +63,7 @@ class GetApiKeysPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return GetApiKeysInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -220,6 +221,7 @@ class GetApiKeysList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 account_sid=account_sid,
@@ -249,6 +251,7 @@ class GetApiKeysList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

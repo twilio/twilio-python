@@ -87,6 +87,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
             "workspace_sid": workspace_sid,
             "task_queue_sid": task_queue_sid,
         }
+
         self._context: Optional[TaskQueueRealTimeStatisticsContext] = None
 
     @property

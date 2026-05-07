@@ -77,6 +77,7 @@ class EsimProfileInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[EsimProfileContext] = None
 
     @property
@@ -265,6 +266,7 @@ class EsimProfilePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return EsimProfileInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -610,6 +612,7 @@ class EsimProfileList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 eid=eid,
@@ -645,6 +648,7 @@ class EsimProfileList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

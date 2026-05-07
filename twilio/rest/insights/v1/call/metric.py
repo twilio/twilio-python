@@ -86,6 +86,7 @@ class MetricPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return MetricInstance(
             self._version, payload, call_sid=self._solution["call_sid"]
         )
@@ -260,6 +261,7 @@ class MetricList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 edge=edge,
@@ -292,6 +294,7 @@ class MetricList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -401,7 +404,7 @@ class MetricList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return MetricPage(self._version, response, self._solution)
+        return MetricPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -440,7 +443,7 @@ class MetricList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return MetricPage(self._version, response, self._solution)
+        return MetricPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -479,7 +482,7 @@ class MetricList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = MetricPage(self._version, response, self._solution)
+        page = MetricPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -521,7 +524,7 @@ class MetricList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = MetricPage(self._version, response, self._solution)
+        page = MetricPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> MetricPage:
@@ -534,7 +537,7 @@ class MetricList(ListResource):
         :returns: Page of MetricInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return MetricPage(self._version, response, self._solution)
+        return MetricPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> MetricPage:
         """
@@ -546,7 +549,7 @@ class MetricList(ListResource):
         :returns: Page of MetricInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return MetricPage(self._version, response, self._solution)
+        return MetricPage(self._version, response, solution=self._solution)
 
     def __repr__(self) -> str:
         """

@@ -78,6 +78,7 @@ class VerificationAttemptInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[VerificationAttemptContext] = None
 
     @property
@@ -266,6 +267,7 @@ class VerificationAttemptPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return VerificationAttemptInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -537,6 +539,7 @@ class VerificationAttemptList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 date_created_after=date_created_after,
@@ -589,6 +592,7 @@ class VerificationAttemptList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

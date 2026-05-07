@@ -60,6 +60,7 @@ class JobInstance(InstanceResource):
         self._solution = {
             "job_sid": job_sid or self.job_sid,
         }
+
         self._context: Optional[JobContext] = None
 
     @property

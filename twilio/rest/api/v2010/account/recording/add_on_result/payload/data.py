@@ -45,6 +45,7 @@ class DataInstance(InstanceResource):
             "add_on_result_sid": add_on_result_sid,
             "payload_sid": payload_sid,
         }
+
         self._context: Optional[DataContext] = None
 
     @property

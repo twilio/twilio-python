@@ -45,6 +45,7 @@ class SupportingDocumentTypeInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[SupportingDocumentTypeContext] = None
 
     @property
@@ -235,6 +236,7 @@ class SupportingDocumentTypePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return SupportingDocumentTypeInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -378,6 +380,7 @@ class SupportingDocumentTypeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -404,6 +407,7 @@ class SupportingDocumentTypeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

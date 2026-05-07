@@ -270,6 +270,7 @@ class PortingPortInInstance(InstanceResource):
         self._solution = {
             "port_in_request_sid": port_in_request_sid or self.port_in_request_sid,
         }
+
         self._context: Optional[PortingPortInContext] = None
 
     @property

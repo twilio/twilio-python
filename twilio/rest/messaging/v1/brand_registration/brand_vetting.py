@@ -72,6 +72,7 @@ class BrandVettingInstance(InstanceResource):
             "brand_sid": brand_sid,
             "brand_vetting_sid": brand_vetting_sid or self.brand_vetting_sid,
         }
+
         self._context: Optional[BrandVettingContext] = None
 
     @property
@@ -271,6 +272,7 @@ class BrandVettingPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return BrandVettingInstance(
             self._version, payload, brand_sid=self._solution["brand_sid"]
         )
@@ -587,6 +589,7 @@ class BrandVettingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 vetting_provider=vetting_provider,
@@ -618,6 +621,7 @@ class BrandVettingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -723,7 +727,7 @@ class BrandVettingList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return BrandVettingPage(self._version, response, self._solution)
+        return BrandVettingPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -761,7 +765,7 @@ class BrandVettingList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return BrandVettingPage(self._version, response, self._solution)
+        return BrandVettingPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -799,7 +803,7 @@ class BrandVettingList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = BrandVettingPage(self._version, response, self._solution)
+        page = BrandVettingPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -840,7 +844,7 @@ class BrandVettingList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = BrandVettingPage(self._version, response, self._solution)
+        page = BrandVettingPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> BrandVettingPage:
@@ -853,7 +857,7 @@ class BrandVettingList(ListResource):
         :returns: Page of BrandVettingInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return BrandVettingPage(self._version, response, self._solution)
+        return BrandVettingPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> BrandVettingPage:
         """
@@ -865,7 +869,7 @@ class BrandVettingList(ListResource):
         :returns: Page of BrandVettingInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return BrandVettingPage(self._version, response, self._solution)
+        return BrandVettingPage(self._version, response, solution=self._solution)
 
     def get(self, brand_vetting_sid: str) -> BrandVettingContext:
         """

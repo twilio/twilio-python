@@ -53,6 +53,7 @@ class FunctionVersionContentInstance(InstanceResource):
             "function_sid": function_sid,
             "sid": sid,
         }
+
         self._context: Optional[FunctionVersionContentContext] = None
 
     @property

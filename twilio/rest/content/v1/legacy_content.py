@@ -75,6 +75,7 @@ class LegacyContentPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return LegacyContentInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -218,6 +219,7 @@ class LegacyContentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -244,6 +246,7 @@ class LegacyContentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

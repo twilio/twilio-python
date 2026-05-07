@@ -80,6 +80,7 @@ class AlertInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[AlertContext] = None
 
     @property
@@ -268,6 +269,7 @@ class AlertPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AlertInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -459,6 +461,7 @@ class AlertList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 log_level=log_level,
@@ -494,6 +497,7 @@ class AlertList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

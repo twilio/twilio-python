@@ -48,6 +48,7 @@ class RecordingInstance(InstanceResource):
         self._solution = {
             "trunk_sid": trunk_sid,
         }
+
         self._context: Optional[RecordingContext] = None
 
     @property

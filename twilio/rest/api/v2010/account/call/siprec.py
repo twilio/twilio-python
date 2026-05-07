@@ -71,6 +71,7 @@ class SiprecInstance(InstanceResource):
             "call_sid": call_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[SiprecContext] = None
 
     @property

@@ -69,6 +69,7 @@ class AssetVersionInstance(InstanceResource):
             "asset_sid": asset_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[AssetVersionContext] = None
 
     @property
@@ -273,6 +274,7 @@ class AssetVersionPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AssetVersionInstance(
             self._version,
             payload,
@@ -430,6 +432,7 @@ class AssetVersionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -456,6 +459,7 @@ class AssetVersionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -545,7 +549,7 @@ class AssetVersionList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return AssetVersionPage(self._version, response, self._solution)
+        return AssetVersionPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -578,7 +582,7 @@ class AssetVersionList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return AssetVersionPage(self._version, response, self._solution)
+        return AssetVersionPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -611,7 +615,7 @@ class AssetVersionList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = AssetVersionPage(self._version, response, self._solution)
+        page = AssetVersionPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -647,7 +651,7 @@ class AssetVersionList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = AssetVersionPage(self._version, response, self._solution)
+        page = AssetVersionPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> AssetVersionPage:
@@ -660,7 +664,7 @@ class AssetVersionList(ListResource):
         :returns: Page of AssetVersionInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return AssetVersionPage(self._version, response, self._solution)
+        return AssetVersionPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> AssetVersionPage:
         """
@@ -672,7 +676,7 @@ class AssetVersionList(ListResource):
         :returns: Page of AssetVersionInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AssetVersionPage(self._version, response, self._solution)
+        return AssetVersionPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> AssetVersionContext:
         """

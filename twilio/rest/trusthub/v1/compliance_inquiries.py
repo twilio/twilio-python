@@ -45,6 +45,7 @@ class ComplianceInquiriesInstance(InstanceResource):
         self._solution = {
             "customer_id": customer_id or self.customer_id,
         }
+
         self._context: Optional[ComplianceInquiriesContext] = None
 
     @property

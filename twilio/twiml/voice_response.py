@@ -42,6 +42,7 @@ class VoiceResponse(TwiML):
         record=None,
         trim=None,
         recording_status_callback=None,
+        recording_configuration_id=None,
         recording_status_callback_method=None,
         recording_status_callback_event=None,
         answer_on_bridge=None,
@@ -66,6 +67,7 @@ class VoiceResponse(TwiML):
         :param record: Record the call
         :param trim: Trim the recording
         :param recording_status_callback: Recording status callback URL
+        :param recording_configuration_id: Configuration for the recording
         :param recording_status_callback_method: Recording status callback URL method
         :param recording_status_callback_event: Recording status callback events
         :param answer_on_bridge: Preserve the ringing behavior of the inbound call until the Dialed call picks up
@@ -91,6 +93,7 @@ class VoiceResponse(TwiML):
                 record=record,
                 trim=trim,
                 recording_status_callback=recording_status_callback,
+                recording_configuration_id=recording_configuration_id,
                 recording_status_callback_method=recording_status_callback_method,
                 recording_status_callback_event=recording_status_callback_event,
                 answer_on_bridge=answer_on_bridge,
@@ -313,6 +316,7 @@ class VoiceResponse(TwiML):
         recording_status_callback_event=None,
         transcribe=None,
         transcribe_callback=None,
+        recording_configuration_id=None,
         **kwargs
     ):
         """
@@ -330,6 +334,7 @@ class VoiceResponse(TwiML):
         :param recording_status_callback_event: Recording status callback events
         :param transcribe: Transcribe the recording
         :param transcribe_callback: Transcribe callback URL
+        :param recording_configuration_id: Configuration for the recording
         :param kwargs: additional attributes
 
         :returns: <Record> element
@@ -348,6 +353,7 @@ class VoiceResponse(TwiML):
                 recording_status_callback_event=recording_status_callback_event,
                 transcribe=transcribe,
                 transcribe_callback=transcribe_callback,
+                recording_configuration_id=recording_configuration_id,
                 **kwargs
             )
         )
@@ -955,6 +961,7 @@ class Start(TwiML):
         trim=None,
         track=None,
         channels=None,
+        recording_configuration_id=None,
         **kwargs
     ):
         """
@@ -966,6 +973,7 @@ class Start(TwiML):
         :param trim: Trim the recording
         :param track: To indicate which audio track should be recorded
         :param channels: The recording channels for the final recording
+        :param recording_configuration_id: Configuration for the recording
         :param kwargs: additional attributes
 
         :returns: <Recording> element
@@ -978,6 +986,7 @@ class Start(TwiML):
                 trim=trim,
                 track=track,
                 channels=channels,
+                recording_configuration_id=recording_configuration_id,
                 **kwargs
             )
         )
@@ -2221,6 +2230,7 @@ class Dial(TwiML):
         wait_method=None,
         max_participants=None,
         record=None,
+        recording_configuration_id=None,
         region=None,
         coach=None,
         trim=None,
@@ -2247,6 +2257,7 @@ class Dial(TwiML):
         :param wait_method: Wait URL method
         :param max_participants: Maximum number of participants
         :param record: Record the conference
+        :param recording_configuration_id: Configuration for the recording
         :param region: Conference region
         :param coach: Call coach
         :param trim: Trim the conference recording
@@ -2274,6 +2285,7 @@ class Dial(TwiML):
                 wait_method=wait_method,
                 max_participants=max_participants,
                 record=record,
+                recording_configuration_id=recording_configuration_id,
                 region=region,
                 coach=coach,
                 trim=trim,
@@ -2927,6 +2939,11 @@ class Connect(TwiML):
         elevenlabs_text_normalization=None,
         interrupt_sensitivity=None,
         debug=None,
+        backgroundNoiseReduction=None,
+        speechTimeout=None,
+        deepgramSmartFormat=None,
+        ignoreBackchannel=None,
+        events=None,
         **kwargs
     ):
         """
@@ -2953,6 +2970,11 @@ class Connect(TwiML):
         :param elevenlabs_text_normalization: When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature
         :param interrupt_sensitivity: Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high
         :param debug: Multiple debug options to be used for troubleshooting
+        :param backgroundNoiseReduction: This parameters enables background noise filtering on the audio stream before it reaches the STT engine, improving transcription accuracy in noisy environments
+        :param speechTimeout: Set the duration of silence that indicates the end of speech
+        :param deepgramSmartFormat: This parameter enables Deepgram's smart formatting feature, which automatically applies punctuation, capitalization, and formatting (e.g. numbers, dates, currency) to transcripts
+        :param ignoreBackchannel: This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh") are ignored and will not interrupt the agent while it is speaking.
+        :param events: This parameter allows you to enable event subscriptions
         :param kwargs: additional attributes
 
         :returns: <ConversationRelay> element
@@ -2980,6 +3002,11 @@ class Connect(TwiML):
                 elevenlabs_text_normalization=elevenlabs_text_normalization,
                 interrupt_sensitivity=interrupt_sensitivity,
                 debug=debug,
+                backgroundNoiseReduction=backgroundNoiseReduction,
+                speechTimeout=speechTimeout,
+                deepgramSmartFormat=deepgramSmartFormat,
+                ignoreBackchannel=ignoreBackchannel,
+                events=events,
                 **kwargs
             )
         )

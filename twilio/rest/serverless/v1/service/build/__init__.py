@@ -26,7 +26,13 @@ from twilio.rest.serverless.v1.service.build.build_status import BuildStatusList
 
 
 
+
+
+
+
+
 class BuildInstance(InstanceResource):
+
 
 
     class Runtime(object):
@@ -77,10 +83,13 @@ class BuildInstance(InstanceResource):
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
         
+        
         self._solution = { 
             "service_sid": service_sid,
             "sid": sid or self.sid,
         }
+        
+        
         self._context: Optional[BuildContext] = None
 
     @property
@@ -185,6 +194,7 @@ class BuildInstance(InstanceResource):
         return '<Twilio.Serverless.V1.BuildInstance {}>'.format(context)
 
 class BuildContext(InstanceContext):
+
 
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
@@ -416,7 +426,9 @@ class BuildPage(Page):
 
         :param payload: Payload response from the API
         """
+        
         return BuildInstance(self._version, payload, service_sid=self._solution["service_sid"])
+        
 
     def __repr__(self) -> str:
         """
@@ -684,9 +696,10 @@ class BuildList(ListResource):
                           the default value of 50 records.  If no page_size is defined
                           but a limit is defined, list() will attempt to read the limit
                           with the most efficient page size, i.e. min(limit, 1000)
-
+        
         :returns: list that will contain up to limit results
         """
+
         return list(self.stream(
             limit=limit,
             page_size=page_size,
@@ -708,13 +721,15 @@ class BuildList(ListResource):
                           the default value of 50 records.  If no page_size is defined
                           but a limit is defined, list() will attempt to read the limit
                           with the most efficient page size, i.e. min(limit, 1000)
-
+        
         :returns: list that will contain up to limit results
         """
+
         return [record async for record in await self.stream_async(
             limit=limit,
             page_size=page_size,
         )]
+
 
     def list_with_http_info(self, 
         
@@ -797,7 +812,7 @@ class BuildList(ListResource):
         
 
         response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers)
-        return BuildPage(self._version, response, self._solution)
+        return BuildPage(self._version, response, solution=self._solution)
 
     async def page_async(self, 
       
@@ -830,7 +845,7 @@ class BuildList(ListResource):
         
 
         response = await self._version.page_async(method='GET', uri=self._uri, params=data, headers=headers)
-        return BuildPage(self._version, response, self._solution)
+        return BuildPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(self, 
         
@@ -863,7 +878,7 @@ class BuildList(ListResource):
         
 
         response, status_code, response_headers = self._version.page_with_response_info(method='GET', uri=self._uri, params=data, headers=headers)
-        page = BuildPage(self._version, response, self._solution)
+        page = BuildPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(self, 
@@ -897,7 +912,7 @@ class BuildList(ListResource):
         
 
         response, status_code, response_headers = await self._version.page_with_response_info_async(method='GET', uri=self._uri, params=data, headers=headers)
-        page = BuildPage(self._version, response, self._solution)
+        page = BuildPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> BuildPage:
@@ -913,7 +928,7 @@ class BuildList(ListResource):
             'GET',
             target_url
         )
-        return BuildPage(self._version, response, self._solution)
+        return BuildPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> BuildPage:
         """
@@ -928,7 +943,7 @@ class BuildList(ListResource):
             'GET',
             target_url
         )
-        return BuildPage(self._version, response, self._solution)
+        return BuildPage(self._version, response, solution=self._solution)
 
 
 
@@ -957,4 +972,5 @@ class BuildList(ListResource):
         :returns: Machine friendly representation
         """
         return '<Twilio.Serverless.V1.BuildList>'
+
 

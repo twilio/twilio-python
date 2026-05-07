@@ -60,6 +60,7 @@ class DomainConfigInstance(InstanceResource):
         self._solution = {
             "domain_sid": domain_sid or self.domain_sid,
         }
+
         self._context: Optional[DomainConfigContext] = None
 
     @property

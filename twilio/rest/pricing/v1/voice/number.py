@@ -48,6 +48,7 @@ class NumberInstance(InstanceResource):
         self._solution = {
             "number": number or self.number,
         }
+
         self._context: Optional[NumberContext] = None
 
     @property

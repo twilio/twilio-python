@@ -46,10 +46,10 @@ class EventInstance(InstanceResource):
     :ivar group: Event group.
     :ivar level: 
     :ivar name: Event name.
-    :ivar carrier_edge: Represents the connection between Twilio and our immediate carrier partners. The events here describe the call lifecycle as reported by Twilio's carrier media gateways.
-    :ivar sip_edge: Represents the Twilio media gateway for SIP interface and SIP trunking calls. The events here describe the call lifecycle as reported by Twilio's public media gateways.
-    :ivar sdk_edge: Represents the Voice SDK running locally in the browser or in the Android/iOS application. The events here are emitted by the Voice SDK in response to certain call progress events, network changes, or call quality conditions.
-    :ivar client_edge: Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio's Voice SDK media gateways.
+    :ivar carrier_edge: `object` Represents the connection between Twilio and our immediate carrier partners. The events here describe the call lifecycle as reported by Twilio's carrier media gateways. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
+    :ivar sip_edge: `object` Represents the Twilio media gateway for SIP interface and SIP trunking calls. The events here describe the call lifecycle as reported by Twilio's public media gateways. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
+    :ivar sdk_edge: `object` Represents the Voice SDK running locally in the browser or in the Android/iOS application. The events here are emitted by the Voice SDK in response to certain call progress events, network changes, or call quality conditions. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
+    :ivar client_edge: `object` Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio's Voice SDK media gateways. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
@@ -89,6 +89,7 @@ class EventPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return EventInstance(
             self._version, payload, call_sid=self._solution["call_sid"]
         )
@@ -251,6 +252,7 @@ class EventList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 edge=edge,
@@ -280,6 +282,7 @@ class EventList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -379,7 +382,7 @@ class EventList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return EventPage(self._version, response, self._solution)
+        return EventPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -415,7 +418,7 @@ class EventList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return EventPage(self._version, response, self._solution)
+        return EventPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -451,7 +454,7 @@ class EventList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = EventPage(self._version, response, self._solution)
+        page = EventPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -490,7 +493,7 @@ class EventList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = EventPage(self._version, response, self._solution)
+        page = EventPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> EventPage:
@@ -503,7 +506,7 @@ class EventList(ListResource):
         :returns: Page of EventInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return EventPage(self._version, response, self._solution)
+        return EventPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> EventPage:
         """
@@ -515,7 +518,7 @@ class EventList(ListResource):
         :returns: Page of EventInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return EventPage(self._version, response, self._solution)
+        return EventPage(self._version, response, solution=self._solution)
 
     def __repr__(self) -> str:
         """

@@ -29,6 +29,8 @@ class RoleAssignmentInstance(InstanceResource):
         :ivar role_sid: Twilio Role Sid representing assigned role
         :ivar scope: Twilio Sid representing scope of this assignment
         :ivar identity: Twilio Sid representing identity of this assignment
+        :ivar resource_type: The resource type for resource-level role assignments
+        :ivar resource_id: The resource id for resource-level role assignments
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -36,12 +38,16 @@ class RoleAssignmentInstance(InstanceResource):
             self.role_sid: Optional[str] = payload.get("role_sid")
             self.scope: Optional[str] = payload.get("scope")
             self.identity: Optional[str] = payload.get("identity")
+            self.resource_type: Optional[str] = payload.get("resource_type")
+            self.resource_id: Optional[str] = payload.get("resource_id")
 
         def to_dict(self):
             return {
                 "role_sid": self.role_sid,
                 "scope": self.scope,
                 "identity": self.identity,
+                "resource_type": self.resource_type,
+                "resource_id": self.resource_id,
             }
 
     """
@@ -49,6 +55,8 @@ class RoleAssignmentInstance(InstanceResource):
     :ivar role_sid: Twilio Role Sid representing assigned role
     :ivar scope: Twilio Sid representing identity of this assignment
     :ivar identity: Twilio Sid representing scope of this assignment
+    :ivar resource_type: The resource type for resource-level role assignments
+    :ivar resource_id: The resource id for resource-level role assignments
     :ivar code: Twilio-specific error code
     :ivar message: Error message
     :ivar more_info: Link to Error Code References
@@ -68,6 +76,8 @@ class RoleAssignmentInstance(InstanceResource):
         self.role_sid: Optional[str] = payload.get("role_sid")
         self.scope: Optional[str] = payload.get("scope")
         self.identity: Optional[str] = payload.get("identity")
+        self.resource_type: Optional[str] = payload.get("resource_type")
+        self.resource_id: Optional[str] = payload.get("resource_id")
         self.code: Optional[int] = payload.get("code")
         self.message: Optional[str] = payload.get("message")
         self.more_info: Optional[str] = payload.get("moreInfo")
@@ -77,6 +87,7 @@ class RoleAssignmentInstance(InstanceResource):
             "organization_sid": organization_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[RoleAssignmentContext] = None
 
     @property
@@ -150,6 +161,8 @@ class RoleAssignmentContext(InstanceContext):
         :ivar role_sid: Twilio Role Sid representing assigned role
         :ivar scope: Twilio Sid representing scope of this assignment
         :ivar identity: Twilio Sid representing identity of this assignment
+        :ivar resource_type: The resource type for resource-level role assignments
+        :ivar resource_id: The resource id for resource-level role assignments
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -157,12 +170,16 @@ class RoleAssignmentContext(InstanceContext):
             self.role_sid: Optional[str] = payload.get("role_sid")
             self.scope: Optional[str] = payload.get("scope")
             self.identity: Optional[str] = payload.get("identity")
+            self.resource_type: Optional[str] = payload.get("resource_type")
+            self.resource_id: Optional[str] = payload.get("resource_id")
 
         def to_dict(self):
             return {
                 "role_sid": self.role_sid,
                 "scope": self.scope,
                 "identity": self.identity,
+                "resource_type": self.resource_type,
+                "resource_id": self.resource_id,
             }
 
     def __init__(self, version: Version, organization_sid: str, sid: str):
@@ -274,6 +291,7 @@ class RoleAssignmentPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return RoleAssignmentInstance(
             self._version, payload, organization_sid=self._solution["organization_sid"]
         )
@@ -294,6 +312,8 @@ class RoleAssignmentList(ListResource):
         :ivar role_sid: Twilio Role Sid representing assigned role
         :ivar scope: Twilio Sid representing scope of this assignment
         :ivar identity: Twilio Sid representing identity of this assignment
+        :ivar resource_type: The resource type for resource-level role assignments
+        :ivar resource_id: The resource id for resource-level role assignments
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -301,12 +321,16 @@ class RoleAssignmentList(ListResource):
             self.role_sid: Optional[str] = payload.get("role_sid")
             self.scope: Optional[str] = payload.get("scope")
             self.identity: Optional[str] = payload.get("identity")
+            self.resource_type: Optional[str] = payload.get("resource_type")
+            self.resource_id: Optional[str] = payload.get("resource_id")
 
         def to_dict(self):
             return {
                 "role_sid": self.role_sid,
                 "scope": self.scope,
                 "identity": self.identity,
+                "resource_type": self.resource_type,
+                "resource_id": self.resource_id,
             }
 
     def __init__(self, version: Version, organization_sid: str):
@@ -447,6 +471,8 @@ class RoleAssignmentList(ListResource):
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[RoleAssignmentInstance]:
@@ -458,6 +484,8 @@ class RoleAssignmentList(ListResource):
 
         :param str identity:
         :param str scope:
+        :param str resource_type: Filter by resource type for resource-level role assignments
+        :param str resource_id: Filter by resource id for resource-level role assignments
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -468,7 +496,13 @@ class RoleAssignmentList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(identity=identity, scope=scope, page_size=limits["page_size"])
+        page = self.page(
+            identity=identity,
+            scope=scope,
+            resource_type=resource_type,
+            resource_id=resource_id,
+            page_size=limits["page_size"],
+        )
 
         return self._version.stream(page, limits["limit"])
 
@@ -476,6 +510,8 @@ class RoleAssignmentList(ListResource):
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[RoleAssignmentInstance]:
@@ -487,6 +523,8 @@ class RoleAssignmentList(ListResource):
 
         :param str identity:
         :param str scope:
+        :param str resource_type: Filter by resource type for resource-level role assignments
+        :param str resource_id: Filter by resource id for resource-level role assignments
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -498,7 +536,11 @@ class RoleAssignmentList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            identity=identity, scope=scope, page_size=limits["page_size"]
+            identity=identity,
+            scope=scope,
+            resource_type=resource_type,
+            resource_id=resource_id,
+            page_size=limits["page_size"],
         )
 
         return self._version.stream_async(page, limits["limit"])
@@ -507,6 +549,8 @@ class RoleAssignmentList(ListResource):
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -516,6 +560,8 @@ class RoleAssignmentList(ListResource):
 
         :param str identity:
         :param str scope:
+        :param str resource_type: Filter by resource type for resource-level role assignments
+        :param str resource_id: Filter by resource id for resource-level role assignments
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -527,7 +573,11 @@ class RoleAssignmentList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = self.page_with_http_info(
-            identity=identity, scope=scope, page_size=limits["page_size"]
+            identity=identity,
+            scope=scope,
+            resource_type=resource_type,
+            resource_id=resource_id,
+            page_size=limits["page_size"],
         )
 
         generator = self._version.stream(page_response.data, limits["limit"])
@@ -537,6 +587,8 @@ class RoleAssignmentList(ListResource):
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> tuple:
@@ -546,6 +598,8 @@ class RoleAssignmentList(ListResource):
 
         :param str identity:
         :param str scope:
+        :param str resource_type: Filter by resource type for resource-level role assignments
+        :param str resource_id: Filter by resource id for resource-level role assignments
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -557,7 +611,11 @@ class RoleAssignmentList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page_response = await self.page_with_http_info_async(
-            identity=identity, scope=scope, page_size=limits["page_size"]
+            identity=identity,
+            scope=scope,
+            resource_type=resource_type,
+            resource_id=resource_id,
+            page_size=limits["page_size"],
         )
 
         generator = self._version.stream_async(page_response.data, limits["limit"])
@@ -567,6 +625,8 @@ class RoleAssignmentList(ListResource):
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RoleAssignmentInstance]:
@@ -577,6 +637,8 @@ class RoleAssignmentList(ListResource):
 
         :param str identity:
         :param str scope:
+        :param str resource_type: Filter by resource type for resource-level role assignments
+        :param str resource_id: Filter by resource id for resource-level role assignments
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -586,10 +648,13 @@ class RoleAssignmentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 identity=identity,
                 scope=scope,
+                resource_type=resource_type,
+                resource_id=resource_id,
                 limit=limit,
                 page_size=page_size,
             )
@@ -599,6 +664,8 @@ class RoleAssignmentList(ListResource):
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RoleAssignmentInstance]:
@@ -609,6 +676,8 @@ class RoleAssignmentList(ListResource):
 
         :param str identity:
         :param str scope:
+        :param str resource_type: Filter by resource type for resource-level role assignments
+        :param str resource_id: Filter by resource id for resource-level role assignments
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -618,11 +687,14 @@ class RoleAssignmentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
                 identity=identity,
                 scope=scope,
+                resource_type=resource_type,
+                resource_id=resource_id,
                 limit=limit,
                 page_size=page_size,
             )
@@ -632,6 +704,8 @@ class RoleAssignmentList(ListResource):
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -641,6 +715,8 @@ class RoleAssignmentList(ListResource):
 
         :param str identity:
         :param str scope:
+        :param str resource_type: Filter by resource type for resource-level role assignments
+        :param str resource_id: Filter by resource id for resource-level role assignments
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -653,6 +729,8 @@ class RoleAssignmentList(ListResource):
         generator, status_code, headers = self.stream_with_http_info(
             identity=identity,
             scope=scope,
+            resource_type=resource_type,
+            resource_id=resource_id,
             limit=limit,
             page_size=page_size,
         )
@@ -663,6 +741,8 @@ class RoleAssignmentList(ListResource):
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ApiResponse:
@@ -672,6 +752,8 @@ class RoleAssignmentList(ListResource):
 
         :param str identity:
         :param str scope:
+        :param str resource_type: Filter by resource type for resource-level role assignments
+        :param str resource_id: Filter by resource id for resource-level role assignments
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -684,6 +766,8 @@ class RoleAssignmentList(ListResource):
         generator, status_code, headers = await self.stream_with_http_info_async(
             identity=identity,
             scope=scope,
+            resource_type=resource_type,
+            resource_id=resource_id,
             limit=limit,
             page_size=page_size,
         )
@@ -694,6 +778,8 @@ class RoleAssignmentList(ListResource):
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -704,6 +790,8 @@ class RoleAssignmentList(ListResource):
 
         :param identity:
         :param scope:
+        :param resource_type: Filter by resource type for resource-level role assignments
+        :param resource_id: Filter by resource id for resource-level role assignments
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -714,6 +802,8 @@ class RoleAssignmentList(ListResource):
             {
                 "Identity": identity,
                 "Scope": scope,
+                "ResourceType": resource_type,
+                "ResourceId": resource_id,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -727,12 +817,14 @@ class RoleAssignmentList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return RoleAssignmentPage(self._version, response, self._solution)
+        return RoleAssignmentPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -743,6 +835,8 @@ class RoleAssignmentList(ListResource):
 
         :param identity:
         :param scope:
+        :param resource_type: Filter by resource type for resource-level role assignments
+        :param resource_id: Filter by resource id for resource-level role assignments
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -753,6 +847,8 @@ class RoleAssignmentList(ListResource):
             {
                 "Identity": identity,
                 "Scope": scope,
+                "ResourceType": resource_type,
+                "ResourceId": resource_id,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -766,12 +862,14 @@ class RoleAssignmentList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return RoleAssignmentPage(self._version, response, self._solution)
+        return RoleAssignmentPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -782,6 +880,8 @@ class RoleAssignmentList(ListResource):
 
         :param identity:
         :param scope:
+        :param resource_type: Filter by resource type for resource-level role assignments
+        :param resource_id: Filter by resource id for resource-level role assignments
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -792,6 +892,8 @@ class RoleAssignmentList(ListResource):
             {
                 "Identity": identity,
                 "Scope": scope,
+                "ResourceType": resource_type,
+                "ResourceId": resource_id,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -805,13 +907,15 @@ class RoleAssignmentList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = RoleAssignmentPage(self._version, response, self._solution)
+        page = RoleAssignmentPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
         self,
         identity: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        resource_type: Union[str, object] = values.unset,
+        resource_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -822,6 +926,8 @@ class RoleAssignmentList(ListResource):
 
         :param identity:
         :param scope:
+        :param resource_type: Filter by resource type for resource-level role assignments
+        :param resource_id: Filter by resource id for resource-level role assignments
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -832,6 +938,8 @@ class RoleAssignmentList(ListResource):
             {
                 "Identity": identity,
                 "Scope": scope,
+                "ResourceType": resource_type,
+                "ResourceId": resource_id,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -847,7 +955,7 @@ class RoleAssignmentList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = RoleAssignmentPage(self._version, response, self._solution)
+        page = RoleAssignmentPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> RoleAssignmentPage:
@@ -860,7 +968,7 @@ class RoleAssignmentList(ListResource):
         :returns: Page of RoleAssignmentInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return RoleAssignmentPage(self._version, response, self._solution)
+        return RoleAssignmentPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> RoleAssignmentPage:
         """
@@ -872,7 +980,7 @@ class RoleAssignmentList(ListResource):
         :returns: Page of RoleAssignmentInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return RoleAssignmentPage(self._version, response, self._solution)
+        return RoleAssignmentPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> RoleAssignmentContext:
         """

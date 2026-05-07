@@ -75,6 +75,7 @@ class SimInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[SimContext] = None
 
     @property
@@ -622,6 +623,7 @@ class SimPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return SimInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -907,6 +909,7 @@ class SimList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 status=status,
@@ -942,6 +945,7 @@ class SimList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

@@ -89,6 +89,7 @@ class AllTimePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AllTimeInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
@@ -303,6 +304,7 @@ class AllTimeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 category=category,
@@ -341,6 +343,7 @@ class AllTimeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -470,7 +473,7 @@ class AllTimeList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return AllTimePage(self._version, response, self._solution)
+        return AllTimePage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -515,7 +518,7 @@ class AllTimeList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return AllTimePage(self._version, response, self._solution)
+        return AllTimePage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -560,7 +563,7 @@ class AllTimeList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = AllTimePage(self._version, response, self._solution)
+        page = AllTimePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -608,7 +611,7 @@ class AllTimeList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = AllTimePage(self._version, response, self._solution)
+        page = AllTimePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> AllTimePage:
@@ -621,7 +624,7 @@ class AllTimeList(ListResource):
         :returns: Page of AllTimeInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return AllTimePage(self._version, response, self._solution)
+        return AllTimePage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> AllTimePage:
         """
@@ -633,7 +636,7 @@ class AllTimeList(ListResource):
         :returns: Page of AllTimeInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AllTimePage(self._version, response, self._solution)
+        return AllTimePage(self._version, response, solution=self._solution)
 
     def __repr__(self) -> str:
         """

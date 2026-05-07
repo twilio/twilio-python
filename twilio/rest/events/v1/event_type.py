@@ -58,6 +58,7 @@ class EventTypeInstance(InstanceResource):
         self._solution = {
             "type": type or self.type,
         }
+
         self._context: Optional[EventTypeContext] = None
 
     @property
@@ -246,6 +247,7 @@ class EventTypePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return EventTypeInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -401,6 +403,7 @@ class EventTypeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 schema_id=schema_id,
@@ -430,6 +433,7 @@ class EventTypeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

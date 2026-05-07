@@ -68,6 +68,7 @@ class ComplianceRegistrationInquiriesInstance(InstanceResource):
         self._solution = {
             "registration_id": registration_id or self.registration_id,
         }
+
         self._context: Optional[ComplianceRegistrationInquiriesContext] = None
 
     @property

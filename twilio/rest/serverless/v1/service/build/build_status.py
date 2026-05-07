@@ -24,7 +24,13 @@ from twilio.base.version import Version
 
 
 
+
+
+
+
+
 class BuildStatusInstance(InstanceResource):
+
 
 
     class Status(object):
@@ -51,10 +57,13 @@ class BuildStatusInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
 
         
+        
         self._solution = { 
             "service_sid": service_sid,
             "sid": sid,
         }
+        
+        
         self._context: Optional[BuildStatusContext] = None
 
     @property
@@ -116,6 +125,7 @@ class BuildStatusInstance(InstanceResource):
         return '<Twilio.Serverless.V1.BuildStatusInstance {}>'.format(context)
 
 class BuildStatusContext(InstanceContext):
+
 
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
@@ -290,4 +300,5 @@ class BuildStatusList(ListResource):
         :returns: Machine friendly representation
         """
         return '<Twilio.Serverless.V1.BuildStatusList>'
+
 

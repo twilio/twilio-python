@@ -38,6 +38,7 @@ class EncryptedOperatorResultsInstance(InstanceResource):
         self._solution = {
             "transcript_sid": transcript_sid,
         }
+
         self._context: Optional[EncryptedOperatorResultsContext] = None
 
     @property

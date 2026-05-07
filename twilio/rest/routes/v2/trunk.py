@@ -58,6 +58,7 @@ class TrunkInstance(InstanceResource):
         self._solution = {
             "sip_trunk_domain": sip_trunk_domain or self.sip_trunk_domain,
         }
+
         self._context: Optional[TrunkContext] = None
 
     @property

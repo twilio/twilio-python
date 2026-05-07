@@ -97,6 +97,7 @@ class ReservationInstance(InstanceResource):
             "worker_sid": worker_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[ReservationContext] = None
 
     @property
@@ -2035,6 +2036,7 @@ class ReservationPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return ReservationInstance(
             self._version,
             payload,
@@ -2210,6 +2212,7 @@ class ReservationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 reservation_status=reservation_status,
@@ -2239,6 +2242,7 @@ class ReservationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -2338,7 +2342,7 @@ class ReservationList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ReservationPage(self._version, response, self._solution)
+        return ReservationPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -2374,7 +2378,7 @@ class ReservationList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ReservationPage(self._version, response, self._solution)
+        return ReservationPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -2410,7 +2414,7 @@ class ReservationList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = ReservationPage(self._version, response, self._solution)
+        page = ReservationPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -2449,7 +2453,7 @@ class ReservationList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = ReservationPage(self._version, response, self._solution)
+        page = ReservationPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ReservationPage:
@@ -2462,7 +2466,7 @@ class ReservationList(ListResource):
         :returns: Page of ReservationInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ReservationPage(self._version, response, self._solution)
+        return ReservationPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> ReservationPage:
         """
@@ -2474,7 +2478,7 @@ class ReservationList(ListResource):
         :returns: Page of ReservationInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ReservationPage(self._version, response, self._solution)
+        return ReservationPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> ReservationContext:
         """

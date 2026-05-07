@@ -68,6 +68,7 @@ class AccessTokenInstance(InstanceResource):
             "service_sid": service_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[AccessTokenContext] = None
 
     @property

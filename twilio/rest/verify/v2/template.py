@@ -58,6 +58,7 @@ class TemplatePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return TemplateInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -215,6 +216,7 @@ class TemplateList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 friendly_name=friendly_name,
@@ -244,6 +246,7 @@ class TemplateList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

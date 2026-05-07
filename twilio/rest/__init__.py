@@ -23,7 +23,6 @@ if TYPE_CHECKING:
     from twilio.rest.conversations import Conversations
     from twilio.rest.events import Events
     from twilio.rest.flex_api import FlexApi
-    from twilio.rest.flex_api import FlexApi
     from twilio.rest.frontline_api import FrontlineApi
     from twilio.rest.preview_iam import PreviewIam
     from twilio.rest.iam import Iam
@@ -34,6 +33,7 @@ if TYPE_CHECKING:
     from twilio.rest.knowledge import Knowledge
     from twilio.rest.lookups import Lookups
     from twilio.rest.marketplace import Marketplace
+    from twilio.rest.memory import Memory
     from twilio.rest.messaging import Messaging
     from twilio.rest.monitor import Monitor
     from twilio.rest.notify import Notify
@@ -138,7 +138,6 @@ class Client(ClientBase):
         self._conversations: Optional["Conversations"] = None
         self._events: Optional["Events"] = None
         self._flex_api: Optional["FlexApi"] = None
-        self._flex_api: Optional["FlexApi"] = None
         self._frontline_api: Optional["FrontlineApi"] = None
         self._preview_iam: Optional["PreviewIam"] = None
         self._iam: Optional["Iam"] = None
@@ -149,6 +148,7 @@ class Client(ClientBase):
         self._knowledge: Optional["Knowledge"] = None
         self._lookups: Optional["Lookups"] = None
         self._marketplace: Optional["Marketplace"] = None
+        self._memory: Optional["Memory"] = None
         self._messaging: Optional["Messaging"] = None
         self._monitor: Optional["Monitor"] = None
         self._notify: Optional["Notify"] = None
@@ -273,19 +273,6 @@ class Client(ClientBase):
 
             self._events = Events(self)
         return self._events
-
-    @property
-    def flex_api(self) -> "FlexApi":
-        """
-        Access the FlexApi Twilio Domain
-
-        :returns: FlexApi Twilio Domain
-        """
-        if self._flex_api is None:
-            from twilio.rest.flex_api import FlexApi
-
-            self._flex_api = FlexApi(self)
-        return self._flex_api
 
     @property
     def flex_api(self) -> "FlexApi":
@@ -429,6 +416,19 @@ class Client(ClientBase):
 
             self._marketplace = Marketplace(self)
         return self._marketplace
+
+    @property
+    def memory(self) -> "Memory":
+        """
+        Access the Memory Twilio Domain
+
+        :returns: Memory Twilio Domain
+        """
+        if self._memory is None:
+            from twilio.rest.memory import Memory
+
+            self._memory = Memory(self)
+        return self._memory
 
     @property
     def messaging(self) -> "Messaging":

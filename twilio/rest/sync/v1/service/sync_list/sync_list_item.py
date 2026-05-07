@@ -80,6 +80,7 @@ class SyncListItemInstance(InstanceResource):
             "list_sid": list_sid,
             "index": index or self.index,
         }
+
         self._context: Optional[SyncListItemContext] = None
 
     @property
@@ -744,6 +745,7 @@ class SyncListItemPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return SyncListItemInstance(
             self._version,
             payload,
@@ -1111,6 +1113,7 @@ class SyncListItemList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 order=order,
@@ -1146,6 +1149,7 @@ class SyncListItemList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -1265,7 +1269,7 @@ class SyncListItemList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return SyncListItemPage(self._version, response, self._solution)
+        return SyncListItemPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -1307,7 +1311,7 @@ class SyncListItemList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return SyncListItemPage(self._version, response, self._solution)
+        return SyncListItemPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1349,7 +1353,7 @@ class SyncListItemList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = SyncListItemPage(self._version, response, self._solution)
+        page = SyncListItemPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1394,7 +1398,7 @@ class SyncListItemList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = SyncListItemPage(self._version, response, self._solution)
+        page = SyncListItemPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> SyncListItemPage:
@@ -1407,7 +1411,7 @@ class SyncListItemList(ListResource):
         :returns: Page of SyncListItemInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SyncListItemPage(self._version, response, self._solution)
+        return SyncListItemPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> SyncListItemPage:
         """
@@ -1419,7 +1423,7 @@ class SyncListItemList(ListResource):
         :returns: Page of SyncListItemInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SyncListItemPage(self._version, response, self._solution)
+        return SyncListItemPage(self._version, response, solution=self._solution)
 
     def get(self, index: int) -> SyncListItemContext:
         """

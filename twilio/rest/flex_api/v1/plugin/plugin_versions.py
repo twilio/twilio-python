@@ -65,6 +65,7 @@ class PluginVersionsInstance(InstanceResource):
             "plugin_sid": plugin_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[PluginVersionsContext] = None
 
     @property
@@ -310,6 +311,7 @@ class PluginVersionsPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return PluginVersionsInstance(
             self._version, payload, plugin_sid=self._solution["plugin_sid"]
         )
@@ -345,7 +347,7 @@ class PluginVersionsList(ListResource):
 
     def _create(
         self,
-        version: str,
+        resource_version: str,
         plugin_url: str,
         flex_metadata: Union[str, object] = values.unset,
         changelog: Union[str, object] = values.unset,
@@ -362,7 +364,7 @@ class PluginVersionsList(ListResource):
 
         data = values.of(
             {
-                "Version": version,
+                "Version": resource_version,
                 "PluginUrl": plugin_url,
                 "Changelog": changelog,
                 "Private": serialize.boolean_to_string(private),
@@ -387,7 +389,7 @@ class PluginVersionsList(ListResource):
 
     def create(
         self,
-        version: str,
+        resource_version: str,
         plugin_url: str,
         flex_metadata: Union[str, object] = values.unset,
         changelog: Union[str, object] = values.unset,
@@ -398,7 +400,7 @@ class PluginVersionsList(ListResource):
         """
         Create the PluginVersionsInstance
 
-        :param version: The Flex Plugin Version's version.
+        :param resource_version: The Flex Plugin Version's version.
         :param plugin_url: The URL of the Flex Plugin Version bundle
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param changelog: The changelog of the Flex Plugin Version.
@@ -409,7 +411,7 @@ class PluginVersionsList(ListResource):
         :returns: The created PluginVersionsInstance
         """
         payload, _, _ = self._create(
-            version=version,
+            resource_version=resource_version,
             plugin_url=plugin_url,
             flex_metadata=flex_metadata,
             changelog=changelog,
@@ -423,7 +425,7 @@ class PluginVersionsList(ListResource):
 
     def create_with_http_info(
         self,
-        version: str,
+        resource_version: str,
         plugin_url: str,
         flex_metadata: Union[str, object] = values.unset,
         changelog: Union[str, object] = values.unset,
@@ -434,7 +436,7 @@ class PluginVersionsList(ListResource):
         """
         Create the PluginVersionsInstance and return response metadata
 
-        :param version: The Flex Plugin Version's version.
+        :param resource_version: The Flex Plugin Version's version.
         :param plugin_url: The URL of the Flex Plugin Version bundle
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param changelog: The changelog of the Flex Plugin Version.
@@ -445,7 +447,7 @@ class PluginVersionsList(ListResource):
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._create(
-            version=version,
+            resource_version=resource_version,
             plugin_url=plugin_url,
             flex_metadata=flex_metadata,
             changelog=changelog,
@@ -460,7 +462,7 @@ class PluginVersionsList(ListResource):
 
     async def _create_async(
         self,
-        version: str,
+        resource_version: str,
         plugin_url: str,
         flex_metadata: Union[str, object] = values.unset,
         changelog: Union[str, object] = values.unset,
@@ -477,7 +479,7 @@ class PluginVersionsList(ListResource):
 
         data = values.of(
             {
-                "Version": version,
+                "Version": resource_version,
                 "PluginUrl": plugin_url,
                 "Changelog": changelog,
                 "Private": serialize.boolean_to_string(private),
@@ -502,7 +504,7 @@ class PluginVersionsList(ListResource):
 
     async def create_async(
         self,
-        version: str,
+        resource_version: str,
         plugin_url: str,
         flex_metadata: Union[str, object] = values.unset,
         changelog: Union[str, object] = values.unset,
@@ -513,7 +515,7 @@ class PluginVersionsList(ListResource):
         """
         Asynchronously create the PluginVersionsInstance
 
-        :param version: The Flex Plugin Version's version.
+        :param resource_version: The Flex Plugin Version's version.
         :param plugin_url: The URL of the Flex Plugin Version bundle
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param changelog: The changelog of the Flex Plugin Version.
@@ -524,7 +526,7 @@ class PluginVersionsList(ListResource):
         :returns: The created PluginVersionsInstance
         """
         payload, _, _ = await self._create_async(
-            version=version,
+            resource_version=resource_version,
             plugin_url=plugin_url,
             flex_metadata=flex_metadata,
             changelog=changelog,
@@ -538,7 +540,7 @@ class PluginVersionsList(ListResource):
 
     async def create_with_http_info_async(
         self,
-        version: str,
+        resource_version: str,
         plugin_url: str,
         flex_metadata: Union[str, object] = values.unset,
         changelog: Union[str, object] = values.unset,
@@ -549,7 +551,7 @@ class PluginVersionsList(ListResource):
         """
         Asynchronously create the PluginVersionsInstance and return response metadata
 
-        :param version: The Flex Plugin Version's version.
+        :param resource_version: The Flex Plugin Version's version.
         :param plugin_url: The URL of the Flex Plugin Version bundle
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param changelog: The changelog of the Flex Plugin Version.
@@ -560,7 +562,7 @@ class PluginVersionsList(ListResource):
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._create_async(
-            version=version,
+            resource_version=resource_version,
             plugin_url=plugin_url,
             flex_metadata=flex_metadata,
             changelog=changelog,
@@ -706,6 +708,7 @@ class PluginVersionsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 flex_metadata=flex_metadata,
@@ -735,6 +738,7 @@ class PluginVersionsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -839,7 +843,7 @@ class PluginVersionsList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return PluginVersionsPage(self._version, response, self._solution)
+        return PluginVersionsPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -880,7 +884,7 @@ class PluginVersionsList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return PluginVersionsPage(self._version, response, self._solution)
+        return PluginVersionsPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -921,7 +925,7 @@ class PluginVersionsList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = PluginVersionsPage(self._version, response, self._solution)
+        page = PluginVersionsPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -965,7 +969,7 @@ class PluginVersionsList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = PluginVersionsPage(self._version, response, self._solution)
+        page = PluginVersionsPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> PluginVersionsPage:
@@ -978,7 +982,7 @@ class PluginVersionsList(ListResource):
         :returns: Page of PluginVersionsInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return PluginVersionsPage(self._version, response, self._solution)
+        return PluginVersionsPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> PluginVersionsPage:
         """
@@ -990,7 +994,7 @@ class PluginVersionsList(ListResource):
         :returns: Page of PluginVersionsInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return PluginVersionsPage(self._version, response, self._solution)
+        return PluginVersionsPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> PluginVersionsContext:
         """

@@ -45,6 +45,7 @@ class DomainValidateDnInstance(InstanceResource):
         self._solution = {
             "domain_sid": domain_sid or self.domain_sid,
         }
+
         self._context: Optional[DomainValidateDnContext] = None
 
     @property

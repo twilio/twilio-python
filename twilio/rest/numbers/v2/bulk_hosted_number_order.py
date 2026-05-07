@@ -70,6 +70,7 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         self._solution = {
             "bulk_hosting_sid": bulk_hosting_sid or self.bulk_hosting_sid,
         }
+
         self._context: Optional[BulkHostedNumberOrderContext] = None
 
     @property

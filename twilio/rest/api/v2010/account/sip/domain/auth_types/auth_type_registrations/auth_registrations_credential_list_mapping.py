@@ -57,6 +57,7 @@ class AuthRegistrationsCredentialListMappingInstance(InstanceResource):
             "domain_sid": domain_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[AuthRegistrationsCredentialListMappingContext] = None
 
     @property
@@ -371,6 +372,7 @@ class AuthRegistrationsCredentialListMappingPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AuthRegistrationsCredentialListMappingInstance(
             self._version,
             payload,
@@ -652,6 +654,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -678,6 +681,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -768,7 +772,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def page_async(
@@ -803,7 +807,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def page_with_http_info(
@@ -838,7 +842,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -876,7 +880,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             )
         )
         page = AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -891,7 +895,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def get_page_async(
@@ -907,7 +911,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AuthRegistrationsCredentialListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def get(self, sid: str) -> AuthRegistrationsCredentialListMappingContext:

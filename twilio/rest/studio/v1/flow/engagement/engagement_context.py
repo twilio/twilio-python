@@ -49,6 +49,7 @@ class EngagementContextInstance(InstanceResource):
             "flow_sid": flow_sid,
             "engagement_sid": engagement_sid,
         }
+
         self._context: Optional[EngagementContextContext] = None
 
     @property

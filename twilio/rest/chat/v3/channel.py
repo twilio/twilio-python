@@ -85,6 +85,7 @@ class ChannelInstance(InstanceResource):
             "service_sid": service_sid or self.service_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[ChannelContext] = None
 
     @property

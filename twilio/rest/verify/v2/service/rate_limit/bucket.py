@@ -65,6 +65,7 @@ class BucketInstance(InstanceResource):
             "rate_limit_sid": rate_limit_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[BucketContext] = None
 
     @property
@@ -597,6 +598,7 @@ class BucketPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return BucketInstance(
             self._version,
             payload,
@@ -876,6 +878,7 @@ class BucketList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -902,6 +905,7 @@ class BucketList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -991,7 +995,7 @@ class BucketList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return BucketPage(self._version, response, self._solution)
+        return BucketPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -1024,7 +1028,7 @@ class BucketList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return BucketPage(self._version, response, self._solution)
+        return BucketPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1057,7 +1061,7 @@ class BucketList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = BucketPage(self._version, response, self._solution)
+        page = BucketPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1093,7 +1097,7 @@ class BucketList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = BucketPage(self._version, response, self._solution)
+        page = BucketPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> BucketPage:
@@ -1106,7 +1110,7 @@ class BucketList(ListResource):
         :returns: Page of BucketInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return BucketPage(self._version, response, self._solution)
+        return BucketPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> BucketPage:
         """
@@ -1118,7 +1122,7 @@ class BucketList(ListResource):
         :returns: Page of BucketInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return BucketPage(self._version, response, self._solution)
+        return BucketPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> BucketContext:
         """

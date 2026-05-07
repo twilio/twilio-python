@@ -75,6 +75,7 @@ class BucketInstance(InstanceResource):
             "field": field or self.field,
             "bucket": bucket or self.bucket,
         }
+
         self._context: Optional[BucketContext] = None
 
     @property

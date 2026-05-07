@@ -52,6 +52,7 @@ class WorkflowStatisticsInstance(InstanceResource):
             "workspace_sid": workspace_sid,
             "workflow_sid": workflow_sid,
         }
+
         self._context: Optional[WorkflowStatisticsContext] = None
 
     @property

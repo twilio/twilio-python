@@ -75,6 +75,7 @@ class BundleCloneInstance(InstanceResource):
         self._solution = {
             "bundle_sid": bundle_sid or self.bundle_sid,
         }
+
         self._context: Optional[BundleCloneContext] = None
 
     @property

@@ -47,6 +47,7 @@ class ExportInstance(InstanceResource):
         self._solution = {
             "resource_type": resource_type or self.resource_type,
         }
+
         self._context: Optional[ExportContext] = None
 
     @property

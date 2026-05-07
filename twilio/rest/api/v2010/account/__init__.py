@@ -100,6 +100,7 @@ class AccountInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[AccountContext] = None
 
     @property
@@ -969,6 +970,7 @@ class AccountPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AccountInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -1242,6 +1244,7 @@ class AccountList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 friendly_name=friendly_name,
@@ -1274,6 +1277,7 @@ class AccountList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

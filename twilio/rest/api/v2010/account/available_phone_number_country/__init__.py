@@ -69,6 +69,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
             "account_sid": account_sid,
             "country_code": country_code or self.country_code,
         }
+
         self._context: Optional[AvailablePhoneNumberCountryContext] = None
 
     @property
@@ -422,6 +423,7 @@ class AvailablePhoneNumberCountryPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AvailablePhoneNumberCountryInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
@@ -574,6 +576,7 @@ class AvailablePhoneNumberCountryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -600,6 +603,7 @@ class AvailablePhoneNumberCountryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -689,7 +693,9 @@ class AvailablePhoneNumberCountryList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return AvailablePhoneNumberCountryPage(self._version, response, self._solution)
+        return AvailablePhoneNumberCountryPage(
+            self._version, response, solution=self._solution
+        )
 
     async def page_async(
         self,
@@ -722,7 +728,9 @@ class AvailablePhoneNumberCountryList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return AvailablePhoneNumberCountryPage(self._version, response, self._solution)
+        return AvailablePhoneNumberCountryPage(
+            self._version, response, solution=self._solution
+        )
 
     def page_with_http_info(
         self,
@@ -755,7 +763,9 @@ class AvailablePhoneNumberCountryList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = AvailablePhoneNumberCountryPage(self._version, response, self._solution)
+        page = AvailablePhoneNumberCountryPage(
+            self._version, response, solution=self._solution
+        )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -791,7 +801,9 @@ class AvailablePhoneNumberCountryList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = AvailablePhoneNumberCountryPage(self._version, response, self._solution)
+        page = AvailablePhoneNumberCountryPage(
+            self._version, response, solution=self._solution
+        )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> AvailablePhoneNumberCountryPage:
@@ -804,7 +816,9 @@ class AvailablePhoneNumberCountryList(ListResource):
         :returns: Page of AvailablePhoneNumberCountryInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return AvailablePhoneNumberCountryPage(self._version, response, self._solution)
+        return AvailablePhoneNumberCountryPage(
+            self._version, response, solution=self._solution
+        )
 
     async def get_page_async(self, target_url: str) -> AvailablePhoneNumberCountryPage:
         """
@@ -816,7 +830,9 @@ class AvailablePhoneNumberCountryList(ListResource):
         :returns: Page of AvailablePhoneNumberCountryInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AvailablePhoneNumberCountryPage(self._version, response, self._solution)
+        return AvailablePhoneNumberCountryPage(
+            self._version, response, solution=self._solution
+        )
 
     def get(self, country_code: str) -> AvailablePhoneNumberCountryContext:
         """

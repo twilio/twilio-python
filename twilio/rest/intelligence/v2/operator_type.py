@@ -96,6 +96,7 @@ class OperatorTypeInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[OperatorTypeContext] = None
 
     @property
@@ -284,6 +285,7 @@ class OperatorTypePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return OperatorTypeInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -441,6 +443,7 @@ class OperatorTypeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 language_code=language_code,
@@ -470,6 +473,7 @@ class OperatorTypeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

@@ -88,6 +88,7 @@ class BundleCopyPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return BundleCopyInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
@@ -352,6 +353,7 @@ class BundleCopyList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -378,6 +380,7 @@ class BundleCopyList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -467,7 +470,7 @@ class BundleCopyList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return BundleCopyPage(self._version, response, self._solution)
+        return BundleCopyPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -500,7 +503,7 @@ class BundleCopyList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return BundleCopyPage(self._version, response, self._solution)
+        return BundleCopyPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -533,7 +536,7 @@ class BundleCopyList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = BundleCopyPage(self._version, response, self._solution)
+        page = BundleCopyPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -569,7 +572,7 @@ class BundleCopyList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = BundleCopyPage(self._version, response, self._solution)
+        page = BundleCopyPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> BundleCopyPage:
@@ -582,7 +585,7 @@ class BundleCopyList(ListResource):
         :returns: Page of BundleCopyInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return BundleCopyPage(self._version, response, self._solution)
+        return BundleCopyPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> BundleCopyPage:
         """
@@ -594,7 +597,7 @@ class BundleCopyList(ListResource):
         :returns: Page of BundleCopyInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return BundleCopyPage(self._version, response, self._solution)
+        return BundleCopyPage(self._version, response, solution=self._solution)
 
     def __repr__(self) -> str:
         """

@@ -44,6 +44,7 @@ class LinkshorteningMessagingServiceDomainAssociationInstance(InstanceResource):
             "messaging_service_sid": messaging_service_sid
             or self.messaging_service_sid,
         }
+
         self._context: Optional[
             LinkshorteningMessagingServiceDomainAssociationContext
         ] = None

@@ -61,6 +61,7 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
             "messaging_service_sid": messaging_service_sid
             or self.messaging_service_sid,
         }
+
         self._context: Optional[DomainConfigMessagingServiceContext] = None
 
     @property

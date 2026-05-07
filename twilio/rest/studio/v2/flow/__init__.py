@@ -80,6 +80,7 @@ class FlowInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[FlowContext] = None
 
     @property
@@ -175,6 +176,7 @@ class FlowInstance(InstanceResource):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> "FlowInstance":
         """
         Update the FlowInstance
@@ -183,6 +185,7 @@ class FlowInstance(InstanceResource):
         :param friendly_name: The string that you assigned to describe the Flow.
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created or last updated the Flow.
 
         :returns: The updated FlowInstance
         """
@@ -191,6 +194,7 @@ class FlowInstance(InstanceResource):
             friendly_name=friendly_name,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
 
     async def update_async(
@@ -199,6 +203,7 @@ class FlowInstance(InstanceResource):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> "FlowInstance":
         """
         Asynchronous coroutine to update the FlowInstance
@@ -207,6 +212,7 @@ class FlowInstance(InstanceResource):
         :param friendly_name: The string that you assigned to describe the Flow.
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created or last updated the Flow.
 
         :returns: The updated FlowInstance
         """
@@ -215,6 +221,7 @@ class FlowInstance(InstanceResource):
             friendly_name=friendly_name,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
 
     def update_with_http_info(
@@ -223,6 +230,7 @@ class FlowInstance(InstanceResource):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the FlowInstance with HTTP info
@@ -231,6 +239,7 @@ class FlowInstance(InstanceResource):
         :param friendly_name: The string that you assigned to describe the Flow.
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created or last updated the Flow.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -239,6 +248,7 @@ class FlowInstance(InstanceResource):
             friendly_name=friendly_name,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
 
     async def update_with_http_info_async(
@@ -247,6 +257,7 @@ class FlowInstance(InstanceResource):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the FlowInstance with HTTP info
@@ -255,6 +266,7 @@ class FlowInstance(InstanceResource):
         :param friendly_name: The string that you assigned to describe the Flow.
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created or last updated the Flow.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -263,6 +275,7 @@ class FlowInstance(InstanceResource):
             friendly_name=friendly_name,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
 
     @property
@@ -481,6 +494,7 @@ class FlowContext(InstanceContext):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for update operation
@@ -495,6 +509,7 @@ class FlowContext(InstanceContext):
                 "FriendlyName": friendly_name,
                 "Definition": serialize.object(definition),
                 "CommitMessage": commit_message,
+                "AuthorSid": author_sid,
             }
         )
         headers = values.of({})
@@ -513,6 +528,7 @@ class FlowContext(InstanceContext):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> FlowInstance:
         """
         Update the FlowInstance
@@ -521,6 +537,7 @@ class FlowContext(InstanceContext):
         :param friendly_name: The string that you assigned to describe the Flow.
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created or last updated the Flow.
 
         :returns: The updated FlowInstance
         """
@@ -529,6 +546,7 @@ class FlowContext(InstanceContext):
             friendly_name=friendly_name,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
         return FlowInstance(self._version, payload, sid=self._solution["sid"])
 
@@ -538,6 +556,7 @@ class FlowContext(InstanceContext):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Update the FlowInstance and return response metadata
@@ -546,6 +565,7 @@ class FlowContext(InstanceContext):
         :param friendly_name: The string that you assigned to describe the Flow.
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created or last updated the Flow.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -554,6 +574,7 @@ class FlowContext(InstanceContext):
             friendly_name=friendly_name,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
         instance = FlowInstance(self._version, payload, sid=self._solution["sid"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -564,6 +585,7 @@ class FlowContext(InstanceContext):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for update operation
@@ -578,6 +600,7 @@ class FlowContext(InstanceContext):
                 "FriendlyName": friendly_name,
                 "Definition": serialize.object(definition),
                 "CommitMessage": commit_message,
+                "AuthorSid": author_sid,
             }
         )
         headers = values.of({})
@@ -596,6 +619,7 @@ class FlowContext(InstanceContext):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> FlowInstance:
         """
         Asynchronous coroutine to update the FlowInstance
@@ -604,6 +628,7 @@ class FlowContext(InstanceContext):
         :param friendly_name: The string that you assigned to describe the Flow.
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created or last updated the Flow.
 
         :returns: The updated FlowInstance
         """
@@ -612,6 +637,7 @@ class FlowContext(InstanceContext):
             friendly_name=friendly_name,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
         return FlowInstance(self._version, payload, sid=self._solution["sid"])
 
@@ -621,6 +647,7 @@ class FlowContext(InstanceContext):
         friendly_name: Union[str, object] = values.unset,
         definition: Union[object, object] = values.unset,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to update the FlowInstance and return response metadata
@@ -629,6 +656,7 @@ class FlowContext(InstanceContext):
         :param friendly_name: The string that you assigned to describe the Flow.
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created or last updated the Flow.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -637,6 +665,7 @@ class FlowContext(InstanceContext):
             friendly_name=friendly_name,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
         instance = FlowInstance(self._version, payload, sid=self._solution["sid"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -695,6 +724,7 @@ class FlowPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return FlowInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -725,6 +755,7 @@ class FlowList(ListResource):
         status: "FlowInstance.Status",
         definition: object,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -739,6 +770,7 @@ class FlowList(ListResource):
                 "Status": status,
                 "Definition": serialize.object(definition),
                 "CommitMessage": commit_message,
+                "AuthorSid": author_sid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -757,6 +789,7 @@ class FlowList(ListResource):
         status: "FlowInstance.Status",
         definition: object,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> FlowInstance:
         """
         Create the FlowInstance
@@ -765,6 +798,7 @@ class FlowList(ListResource):
         :param status:
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created the Flow.
 
         :returns: The created FlowInstance
         """
@@ -773,6 +807,7 @@ class FlowList(ListResource):
             status=status,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
         return FlowInstance(self._version, payload)
 
@@ -782,6 +817,7 @@ class FlowList(ListResource):
         status: "FlowInstance.Status",
         definition: object,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the FlowInstance and return response metadata
@@ -790,6 +826,7 @@ class FlowList(ListResource):
         :param status:
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created the Flow.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -798,6 +835,7 @@ class FlowList(ListResource):
             status=status,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
         instance = FlowInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -808,6 +846,7 @@ class FlowList(ListResource):
         status: "FlowInstance.Status",
         definition: object,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -822,6 +861,7 @@ class FlowList(ListResource):
                 "Status": status,
                 "Definition": serialize.object(definition),
                 "CommitMessage": commit_message,
+                "AuthorSid": author_sid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -840,6 +880,7 @@ class FlowList(ListResource):
         status: "FlowInstance.Status",
         definition: object,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> FlowInstance:
         """
         Asynchronously create the FlowInstance
@@ -848,6 +889,7 @@ class FlowList(ListResource):
         :param status:
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created the Flow.
 
         :returns: The created FlowInstance
         """
@@ -856,6 +898,7 @@ class FlowList(ListResource):
             status=status,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
         return FlowInstance(self._version, payload)
 
@@ -865,6 +908,7 @@ class FlowList(ListResource):
         status: "FlowInstance.Status",
         definition: object,
         commit_message: Union[str, object] = values.unset,
+        author_sid: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the FlowInstance and return response metadata
@@ -873,6 +917,7 @@ class FlowList(ListResource):
         :param status:
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
+        :param author_sid: The SID of the User that created the Flow.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -881,6 +926,7 @@ class FlowList(ListResource):
             status=status,
             definition=definition,
             commit_message=commit_message,
+            author_sid=author_sid,
         )
         instance = FlowInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -1004,6 +1050,7 @@ class FlowList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -1030,6 +1077,7 @@ class FlowList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

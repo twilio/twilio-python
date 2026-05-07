@@ -54,6 +54,7 @@ class AvailableAddOnInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[AvailableAddOnContext] = None
 
     @property
@@ -263,6 +264,7 @@ class AvailableAddOnPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AvailableAddOnInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -406,6 +408,7 @@ class AvailableAddOnList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -432,6 +435,7 @@ class AvailableAddOnList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

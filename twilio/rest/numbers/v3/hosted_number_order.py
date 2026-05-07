@@ -12,6 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
+from __future__ import annotations
+
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values

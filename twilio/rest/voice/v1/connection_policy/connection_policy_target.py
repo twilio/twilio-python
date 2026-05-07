@@ -67,6 +67,7 @@ class ConnectionPolicyTargetInstance(InstanceResource):
             "connection_policy_sid": connection_policy_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[ConnectionPolicyTargetContext] = None
 
     @property
@@ -678,6 +679,7 @@ class ConnectionPolicyTargetPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return ConnectionPolicyTargetInstance(
             self._version,
             payload,
@@ -1030,6 +1032,7 @@ class ConnectionPolicyTargetList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -1056,6 +1059,7 @@ class ConnectionPolicyTargetList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -1145,7 +1149,9 @@ class ConnectionPolicyTargetList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ConnectionPolicyTargetPage(self._version, response, self._solution)
+        return ConnectionPolicyTargetPage(
+            self._version, response, solution=self._solution
+        )
 
     async def page_async(
         self,
@@ -1178,7 +1184,9 @@ class ConnectionPolicyTargetList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ConnectionPolicyTargetPage(self._version, response, self._solution)
+        return ConnectionPolicyTargetPage(
+            self._version, response, solution=self._solution
+        )
 
     def page_with_http_info(
         self,
@@ -1211,7 +1219,9 @@ class ConnectionPolicyTargetList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = ConnectionPolicyTargetPage(self._version, response, self._solution)
+        page = ConnectionPolicyTargetPage(
+            self._version, response, solution=self._solution
+        )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1247,7 +1257,9 @@ class ConnectionPolicyTargetList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = ConnectionPolicyTargetPage(self._version, response, self._solution)
+        page = ConnectionPolicyTargetPage(
+            self._version, response, solution=self._solution
+        )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ConnectionPolicyTargetPage:
@@ -1260,7 +1272,9 @@ class ConnectionPolicyTargetList(ListResource):
         :returns: Page of ConnectionPolicyTargetInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ConnectionPolicyTargetPage(self._version, response, self._solution)
+        return ConnectionPolicyTargetPage(
+            self._version, response, solution=self._solution
+        )
 
     async def get_page_async(self, target_url: str) -> ConnectionPolicyTargetPage:
         """
@@ -1272,7 +1286,9 @@ class ConnectionPolicyTargetList(ListResource):
         :returns: Page of ConnectionPolicyTargetInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ConnectionPolicyTargetPage(self._version, response, self._solution)
+        return ConnectionPolicyTargetPage(
+            self._version, response, solution=self._solution
+        )
 
     def get(self, sid: str) -> ConnectionPolicyTargetContext:
         """

@@ -62,6 +62,7 @@ class PluginVersionArchiveInstance(InstanceResource):
             "plugin_sid": plugin_sid or self.plugin_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[PluginVersionArchiveContext] = None
 
     @property

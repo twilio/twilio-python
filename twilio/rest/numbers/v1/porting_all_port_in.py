@@ -68,6 +68,7 @@ class PortingAllPortInPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return PortingAllPortInInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -301,6 +302,7 @@ class PortingAllPortInList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 token=token,
@@ -345,6 +347,7 @@ class PortingAllPortInList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

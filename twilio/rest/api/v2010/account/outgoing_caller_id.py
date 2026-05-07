@@ -59,6 +59,7 @@ class OutgoingCallerIdInstance(InstanceResource):
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[OutgoingCallerIdContext] = None
 
     @property
@@ -540,6 +541,7 @@ class OutgoingCallerIdPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return OutgoingCallerIdInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
@@ -726,6 +728,7 @@ class OutgoingCallerIdList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 phone_number=phone_number,
@@ -758,6 +761,7 @@ class OutgoingCallerIdList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -867,7 +871,7 @@ class OutgoingCallerIdList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return OutgoingCallerIdPage(self._version, response, self._solution)
+        return OutgoingCallerIdPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -906,7 +910,7 @@ class OutgoingCallerIdList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return OutgoingCallerIdPage(self._version, response, self._solution)
+        return OutgoingCallerIdPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -945,7 +949,7 @@ class OutgoingCallerIdList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = OutgoingCallerIdPage(self._version, response, self._solution)
+        page = OutgoingCallerIdPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -987,7 +991,7 @@ class OutgoingCallerIdList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = OutgoingCallerIdPage(self._version, response, self._solution)
+        page = OutgoingCallerIdPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> OutgoingCallerIdPage:
@@ -1000,7 +1004,7 @@ class OutgoingCallerIdList(ListResource):
         :returns: Page of OutgoingCallerIdInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return OutgoingCallerIdPage(self._version, response, self._solution)
+        return OutgoingCallerIdPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> OutgoingCallerIdPage:
         """
@@ -1012,7 +1016,7 @@ class OutgoingCallerIdList(ListResource):
         :returns: Page of OutgoingCallerIdInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return OutgoingCallerIdPage(self._version, response, self._solution)
+        return OutgoingCallerIdPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> OutgoingCallerIdContext:
         """

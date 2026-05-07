@@ -50,6 +50,7 @@ class UsageInstance(InstanceResource):
         self._solution = {
             "sim_sid": sim_sid,
         }
+
         self._context: Optional[UsageContext] = None
 
     @property

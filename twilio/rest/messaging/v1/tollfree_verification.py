@@ -240,6 +240,7 @@ class TollfreeVerificationInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[TollfreeVerificationContext] = None
 
     @property
@@ -1750,6 +1751,7 @@ class TollfreeVerificationPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return TollfreeVerificationInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -2699,6 +2701,7 @@ class TollfreeVerificationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 tollfree_phone_number_sid=tollfree_phone_number_sid,
@@ -2740,6 +2743,7 @@ class TollfreeVerificationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

@@ -80,6 +80,7 @@ class AddressConfigurationInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[AddressConfigurationContext] = None
 
     @property
@@ -834,6 +835,7 @@ class AddressConfigurationPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AddressConfigurationInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -1315,6 +1317,7 @@ class AddressConfigurationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 type=type,
@@ -1344,6 +1347,7 @@ class AddressConfigurationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

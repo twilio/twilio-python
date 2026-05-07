@@ -66,6 +66,7 @@ class AssessmentsInstance(InstanceResource):
         self._solution = {
             "assessment_sid": assessment_sid or self.assessment_sid,
         }
+
         self._context: Optional[AssessmentsContext] = None
 
     @property
@@ -410,6 +411,7 @@ class AssessmentsPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AssessmentsInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -873,6 +875,7 @@ class AssessmentsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 authorization=authorization,
@@ -905,6 +908,7 @@ class AssessmentsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

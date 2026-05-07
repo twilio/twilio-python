@@ -49,6 +49,7 @@ class FormInstance(InstanceResource):
         self._solution = {
             "form_type": form_type or self.form_type,
         }
+
         self._context: Optional[FormContext] = None
 
     @property

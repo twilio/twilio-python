@@ -49,6 +49,7 @@ class ApiKeyInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[ApiKeyContext] = None
 
     @property

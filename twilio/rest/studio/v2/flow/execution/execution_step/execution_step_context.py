@@ -53,6 +53,7 @@ class ExecutionStepContextInstance(InstanceResource):
             "execution_sid": execution_sid,
             "step_sid": step_sid,
         }
+
         self._context: Optional[ExecutionStepContextContext] = None
 
     @property

@@ -56,6 +56,7 @@ class BulkEligibilityInstance(InstanceResource):
         self._solution = {
             "request_id": request_id or self.request_id,
         }
+
         self._context: Optional[BulkEligibilityContext] = None
 
     @property

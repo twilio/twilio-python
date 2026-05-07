@@ -161,6 +161,7 @@ class KnowledgeInstance(InstanceResource):
         self._solution = {
             "id": id or self.id,
         }
+
         self._context: Optional[KnowledgeContext] = None
 
     @property
@@ -778,6 +779,7 @@ class KnowledgePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return KnowledgeInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -1137,6 +1139,7 @@ class KnowledgeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 tags=tags,
@@ -1166,6 +1169,7 @@ class KnowledgeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

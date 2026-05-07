@@ -100,6 +100,7 @@ class SessionInstance(InstanceResource):
             "service_sid": service_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[SessionContext] = None
 
     @property
@@ -686,6 +687,7 @@ class SessionPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return SessionInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
@@ -1046,6 +1048,7 @@ class SessionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -1072,6 +1075,7 @@ class SessionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -1161,7 +1165,7 @@ class SessionList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return SessionPage(self._version, response, self._solution)
+        return SessionPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -1194,7 +1198,7 @@ class SessionList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return SessionPage(self._version, response, self._solution)
+        return SessionPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1227,7 +1231,7 @@ class SessionList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = SessionPage(self._version, response, self._solution)
+        page = SessionPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1263,7 +1267,7 @@ class SessionList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = SessionPage(self._version, response, self._solution)
+        page = SessionPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> SessionPage:
@@ -1276,7 +1280,7 @@ class SessionList(ListResource):
         :returns: Page of SessionInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SessionPage(self._version, response, self._solution)
+        return SessionPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> SessionPage:
         """
@@ -1288,7 +1292,7 @@ class SessionList(ListResource):
         :returns: Page of SessionInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SessionPage(self._version, response, self._solution)
+        return SessionPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> SessionContext:
         """

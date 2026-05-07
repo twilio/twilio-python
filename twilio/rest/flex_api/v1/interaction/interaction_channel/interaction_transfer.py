@@ -91,6 +91,7 @@ class InteractionTransferInstance(InstanceResource):
             "channel_sid": channel_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[InteractionTransferContext] = None
 
     @property

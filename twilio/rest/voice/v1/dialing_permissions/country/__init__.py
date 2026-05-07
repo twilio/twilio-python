@@ -62,6 +62,7 @@ class CountryInstance(InstanceResource):
         self._solution = {
             "iso_code": iso_code or self.iso_code,
         }
+
         self._context: Optional[CountryContext] = None
 
     @property
@@ -271,6 +272,7 @@ class CountryPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return CountryInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -504,6 +506,7 @@ class CountryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 iso_code=iso_code,
@@ -548,6 +551,7 @@ class CountryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

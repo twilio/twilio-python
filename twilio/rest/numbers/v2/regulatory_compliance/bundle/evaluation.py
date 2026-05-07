@@ -64,6 +64,7 @@ class EvaluationInstance(InstanceResource):
             "bundle_sid": bundle_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[EvaluationContext] = None
 
     @property
@@ -263,6 +264,7 @@ class EvaluationPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return EvaluationInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
@@ -497,6 +499,7 @@ class EvaluationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -523,6 +526,7 @@ class EvaluationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -612,7 +616,7 @@ class EvaluationList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return EvaluationPage(self._version, response, self._solution)
+        return EvaluationPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -645,7 +649,7 @@ class EvaluationList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return EvaluationPage(self._version, response, self._solution)
+        return EvaluationPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -678,7 +682,7 @@ class EvaluationList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = EvaluationPage(self._version, response, self._solution)
+        page = EvaluationPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -714,7 +718,7 @@ class EvaluationList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = EvaluationPage(self._version, response, self._solution)
+        page = EvaluationPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> EvaluationPage:
@@ -727,7 +731,7 @@ class EvaluationList(ListResource):
         :returns: Page of EvaluationInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return EvaluationPage(self._version, response, self._solution)
+        return EvaluationPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> EvaluationPage:
         """
@@ -739,7 +743,7 @@ class EvaluationList(ListResource):
         :returns: Page of EvaluationInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return EvaluationPage(self._version, response, self._solution)
+        return EvaluationPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> EvaluationContext:
         """

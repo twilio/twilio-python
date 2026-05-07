@@ -85,6 +85,7 @@ class LocalPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return LocalInstance(
             self._version,
             payload,
@@ -500,6 +501,7 @@ class LocalList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 area_code=area_code,
@@ -580,6 +582,7 @@ class LocalList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -855,7 +858,7 @@ class LocalList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return LocalPage(self._version, response, self._solution)
+        return LocalPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -948,7 +951,7 @@ class LocalList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return LocalPage(self._version, response, self._solution)
+        return LocalPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1041,7 +1044,7 @@ class LocalList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = LocalPage(self._version, response, self._solution)
+        page = LocalPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1137,7 +1140,7 @@ class LocalList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = LocalPage(self._version, response, self._solution)
+        page = LocalPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> LocalPage:
@@ -1150,7 +1153,7 @@ class LocalList(ListResource):
         :returns: Page of LocalInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return LocalPage(self._version, response, self._solution)
+        return LocalPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> LocalPage:
         """
@@ -1162,7 +1165,7 @@ class LocalList(ListResource):
         :returns: Page of LocalInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return LocalPage(self._version, response, self._solution)
+        return LocalPage(self._version, response, solution=self._solution)
 
     def __repr__(self) -> str:
         """

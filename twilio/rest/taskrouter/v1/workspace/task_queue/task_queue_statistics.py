@@ -52,6 +52,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
             "workspace_sid": workspace_sid,
             "task_queue_sid": task_queue_sid,
         }
+
         self._context: Optional[TaskQueueStatisticsContext] = None
 
     @property

@@ -98,6 +98,7 @@ class LookupOverrideInstance(InstanceResource):
             "field": field or self.field,
             "phone_number": phone_number or self.phone_number,
         }
+
         self._context: Optional[LookupOverrideContext] = None
 
     @property

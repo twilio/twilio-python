@@ -90,6 +90,7 @@ class ParticipantInstance(InstanceResource):
             "conference_sid": conference_sid,
             "call_sid": call_sid or self.call_sid,
         }
+
         self._context: Optional[ParticipantContext] = None
 
     @property
@@ -914,6 +915,7 @@ class ParticipantPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return ParticipantInstance(
             self._version,
             payload,
@@ -994,6 +996,7 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1066,6 +1069,7 @@ class ParticipantList(ListResource):
                 "CallerId": caller_id,
                 "CallReason": call_reason,
                 "RecordingTrack": recording_track,
+                "RecordingConfigurationId": recording_configuration_id,
                 "TimeLimit": time_limit,
                 "MachineDetection": machine_detection,
                 "MachineDetectionTimeout": machine_detection_timeout,
@@ -1132,6 +1136,7 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1186,6 +1191,7 @@ class ParticipantList(ListResource):
         :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
+        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
@@ -1240,6 +1246,7 @@ class ParticipantList(ListResource):
             caller_id=caller_id,
             call_reason=call_reason,
             recording_track=recording_track,
+            recording_configuration_id=recording_configuration_id,
             time_limit=time_limit,
             machine_detection=machine_detection,
             machine_detection_timeout=machine_detection_timeout,
@@ -1302,6 +1309,7 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1356,6 +1364,7 @@ class ParticipantList(ListResource):
         :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
+        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
@@ -1410,6 +1419,7 @@ class ParticipantList(ListResource):
             caller_id=caller_id,
             call_reason=call_reason,
             recording_track=recording_track,
+            recording_configuration_id=recording_configuration_id,
             time_limit=time_limit,
             machine_detection=machine_detection,
             machine_detection_timeout=machine_detection_timeout,
@@ -1473,6 +1483,7 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1545,6 +1556,7 @@ class ParticipantList(ListResource):
                 "CallerId": caller_id,
                 "CallReason": call_reason,
                 "RecordingTrack": recording_track,
+                "RecordingConfigurationId": recording_configuration_id,
                 "TimeLimit": time_limit,
                 "MachineDetection": machine_detection,
                 "MachineDetectionTimeout": machine_detection_timeout,
@@ -1611,6 +1623,7 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1665,6 +1678,7 @@ class ParticipantList(ListResource):
         :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
+        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
@@ -1719,6 +1733,7 @@ class ParticipantList(ListResource):
             caller_id=caller_id,
             call_reason=call_reason,
             recording_track=recording_track,
+            recording_configuration_id=recording_configuration_id,
             time_limit=time_limit,
             machine_detection=machine_detection,
             machine_detection_timeout=machine_detection_timeout,
@@ -1781,6 +1796,7 @@ class ParticipantList(ListResource):
         caller_id: Union[str, object] = values.unset,
         call_reason: Union[str, object] = values.unset,
         recording_track: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         time_limit: Union[int, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
         machine_detection_timeout: Union[int, object] = values.unset,
@@ -1835,6 +1851,7 @@ class ParticipantList(ListResource):
         :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
+        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
@@ -1889,6 +1906,7 @@ class ParticipantList(ListResource):
             caller_id=caller_id,
             call_reason=call_reason,
             recording_track=recording_track,
+            recording_configuration_id=recording_configuration_id,
             time_limit=time_limit,
             machine_detection=machine_detection,
             machine_detection_timeout=machine_detection_timeout,
@@ -2065,6 +2083,7 @@ class ParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 muted=muted,
@@ -2100,6 +2119,7 @@ class ParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -2219,7 +2239,7 @@ class ParticipantList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -2261,7 +2281,7 @@ class ParticipantList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -2303,7 +2323,7 @@ class ParticipantList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = ParticipantPage(self._version, response, self._solution)
+        page = ParticipantPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -2348,7 +2368,7 @@ class ParticipantList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = ParticipantPage(self._version, response, self._solution)
+        page = ParticipantPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ParticipantPage:
@@ -2361,7 +2381,7 @@ class ParticipantList(ListResource):
         :returns: Page of ParticipantInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> ParticipantPage:
         """
@@ -2373,7 +2393,7 @@ class ParticipantList(ListResource):
         :returns: Page of ParticipantInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, solution=self._solution)
 
     def get(self, call_sid: str) -> ParticipantContext:
         """

@@ -97,6 +97,7 @@ class RecordPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return RecordInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
@@ -320,6 +321,7 @@ class RecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 category=category,
@@ -358,6 +360,7 @@ class RecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -487,7 +490,7 @@ class RecordList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return RecordPage(self._version, response, self._solution)
+        return RecordPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -532,7 +535,7 @@ class RecordList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return RecordPage(self._version, response, self._solution)
+        return RecordPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -577,7 +580,7 @@ class RecordList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = RecordPage(self._version, response, self._solution)
+        page = RecordPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -625,7 +628,7 @@ class RecordList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = RecordPage(self._version, response, self._solution)
+        page = RecordPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> RecordPage:
@@ -638,7 +641,7 @@ class RecordList(ListResource):
         :returns: Page of RecordInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return RecordPage(self._version, response, self._solution)
+        return RecordPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> RecordPage:
         """
@@ -650,7 +653,7 @@ class RecordList(ListResource):
         :returns: Page of RecordInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return RecordPage(self._version, response, self._solution)
+        return RecordPage(self._version, response, solution=self._solution)
 
     @property
     def all_time(self) -> AllTimeList:

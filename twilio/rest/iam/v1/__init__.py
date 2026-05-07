@@ -19,6 +19,7 @@ from twilio.rest.iam.v1.api_key import ApiKeyList
 from twilio.rest.iam.v1.get_api_keys import GetApiKeysList
 from twilio.rest.iam.v1.new_api_key import NewApiKeyList
 from twilio.rest.iam.v1.o_auth_app import OAuthAppList
+from twilio.rest.iam.v1.role_permission import RolePermissionList
 from twilio.rest.iam.v1.token import TokenList
 
 
@@ -60,6 +61,20 @@ class V1(Version):
         if self._o_auth_apps is None:
             self._o_auth_apps = OAuthAppList(self)
         return self._o_auth_apps
+
+    def role_permission(self, role_sid: str, role_permission_id: str = None):
+        """
+        Access the RolePermissionList resource
+
+        :param role_sid: The SID of the Role for which Permissions will be fetched.
+
+        :param role_permission_id: Optional instance ID to directly access RolePermissionContext
+        :returns: RolePermissionList instance if role_permission_id is None, otherwise RolePermissionContext
+        """
+        list_instance = RolePermissionList(self, role_sid)
+        if role_permission_id is not None:
+            return list_instance(role_permission_id)
+        return list_instance
 
     @property
     def token(self) -> TokenList:

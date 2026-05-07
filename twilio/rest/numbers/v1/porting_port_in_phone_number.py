@@ -94,6 +94,7 @@ class PortingPortInPhoneNumberInstance(InstanceResource):
             "port_in_request_sid": port_in_request_sid or self.port_in_request_sid,
             "phone_number_sid": phone_number_sid or self.phone_number_sid,
         }
+
         self._context: Optional[PortingPortInPhoneNumberContext] = None
 
     @property

@@ -66,6 +66,7 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
         self._solution = {
             "workspace_sid": workspace_sid,
         }
+
         self._context: Optional[WorkspaceRealTimeStatisticsContext] = None
 
     @property

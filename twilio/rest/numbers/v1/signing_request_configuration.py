@@ -66,6 +66,7 @@ class SigningRequestConfigurationPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return SigningRequestConfigurationInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -327,6 +328,7 @@ class SigningRequestConfigurationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 country=country,
@@ -359,6 +361,7 @@ class SigningRequestConfigurationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

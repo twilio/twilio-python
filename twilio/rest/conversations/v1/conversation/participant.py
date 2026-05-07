@@ -78,6 +78,7 @@ class ParticipantInstance(InstanceResource):
             "conversation_sid": conversation_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[ParticipantContext] = None
 
     @property
@@ -947,6 +948,7 @@ class ParticipantPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return ParticipantInstance(
             self._version, payload, conversation_sid=self._solution["conversation_sid"]
         )
@@ -1373,6 +1375,7 @@ class ParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -1399,6 +1402,7 @@ class ParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -1488,7 +1492,7 @@ class ParticipantList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -1521,7 +1525,7 @@ class ParticipantList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1554,7 +1558,7 @@ class ParticipantList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = ParticipantPage(self._version, response, self._solution)
+        page = ParticipantPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1590,7 +1594,7 @@ class ParticipantList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = ParticipantPage(self._version, response, self._solution)
+        page = ParticipantPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ParticipantPage:
@@ -1603,7 +1607,7 @@ class ParticipantList(ListResource):
         :returns: Page of ParticipantInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> ParticipantPage:
         """
@@ -1615,7 +1619,7 @@ class ParticipantList(ListResource):
         :returns: Page of ParticipantInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> ParticipantContext:
         """

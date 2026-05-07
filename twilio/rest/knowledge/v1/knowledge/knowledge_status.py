@@ -43,6 +43,7 @@ class KnowledgeStatusInstance(InstanceResource):
         self._solution = {
             "id": id,
         }
+
         self._context: Optional[KnowledgeStatusContext] = None
 
     @property

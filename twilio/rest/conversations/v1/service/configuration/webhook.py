@@ -53,6 +53,7 @@ class WebhookInstance(InstanceResource):
         self._solution = {
             "chat_service_sid": chat_service_sid,
         }
+
         self._context: Optional[WebhookContext] = None
 
     @property

@@ -14,6 +14,7 @@ from typing import Optional
 from twilio.base.domain import Domain
 from twilio.rest import Client
 from twilio.rest.voice.v1 import V1
+from twilio.rest.voice.v3 import V3
 
 
 class VoiceBase(Domain):
@@ -26,6 +27,7 @@ class VoiceBase(Domain):
         """
         super().__init__(twilio, "https://voice.twilio.com")
         self._v1: Optional[V1] = None
+        self._v3: Optional[V3] = None
 
     @property
     def v1(self) -> V1:
@@ -35,6 +37,15 @@ class VoiceBase(Domain):
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
+
+    @property
+    def v3(self) -> V3:
+        """
+        :returns: Versions v3 of Voice
+        """
+        if self._v3 is None:
+            self._v3 = V3(self)
+        return self._v3
 
     def __repr__(self) -> str:
         """

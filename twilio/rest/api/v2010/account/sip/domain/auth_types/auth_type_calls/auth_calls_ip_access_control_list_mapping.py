@@ -57,6 +57,7 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
             "domain_sid": domain_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[AuthCallsIpAccessControlListMappingContext] = None
 
     @property
@@ -375,6 +376,7 @@ class AuthCallsIpAccessControlListMappingPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return AuthCallsIpAccessControlListMappingInstance(
             self._version,
             payload,
@@ -658,6 +660,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -684,6 +687,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -774,7 +778,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def page_async(
@@ -809,7 +813,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def page_with_http_info(
@@ -844,7 +848,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         page = AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -882,7 +886,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
             )
         )
         page = AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
@@ -897,7 +901,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     async def get_page_async(
@@ -913,7 +917,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AuthCallsIpAccessControlListMappingPage(
-            self._version, response, self._solution
+            self._version, response, solution=self._solution
         )
 
     def get(self, sid: str) -> AuthCallsIpAccessControlListMappingContext:

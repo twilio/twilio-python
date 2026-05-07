@@ -85,6 +85,7 @@ class UsageRecordPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return UsageRecordInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -346,6 +347,7 @@ class UsageRecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 sim=sim,
@@ -396,6 +398,7 @@ class UsageRecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

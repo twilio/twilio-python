@@ -58,6 +58,7 @@ class InsightsConversationsPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return InsightsConversationsInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -235,6 +236,7 @@ class InsightsConversationsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 authorization=authorization,
@@ -267,6 +269,7 @@ class InsightsConversationsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

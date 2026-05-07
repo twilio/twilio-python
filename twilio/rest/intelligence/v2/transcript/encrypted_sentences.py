@@ -38,6 +38,7 @@ class EncryptedSentencesInstance(InstanceResource):
         self._solution = {
             "transcript_sid": transcript_sid,
         }
+
         self._context: Optional[EncryptedSentencesContext] = None
 
     @property

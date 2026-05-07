@@ -72,6 +72,7 @@ class UserInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[UserContext] = None
 
     @property
@@ -765,6 +766,7 @@ class UserPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return UserInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -1110,6 +1112,7 @@ class UserList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -1136,6 +1139,7 @@ class UserList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

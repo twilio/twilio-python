@@ -88,6 +88,7 @@ class CommandInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[CommandContext] = None
 
     @property
@@ -380,6 +381,7 @@ class CommandPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return CommandInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -803,6 +805,7 @@ class CommandList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 sim=sim,
@@ -841,6 +844,7 @@ class CommandList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

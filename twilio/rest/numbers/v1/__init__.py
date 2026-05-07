@@ -48,7 +48,6 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._bulk_eligibilities: Optional[BulkEligibilityList] = None
         self._eligibilities: Optional[EligibilityList] = None
-        self._embedded_sessions: Optional[EmbeddedSessionList] = None
         self._porting_all_port_ins: Optional[PortingAllPortInList] = None
         self._porting_port_ins: Optional[PortingPortInList] = None
         self._porting_port_in_phone_number: Optional[PortingPortInPhoneNumberList] = (
@@ -79,11 +78,19 @@ class V1(Version):
             self._eligibilities = EligibilityList(self)
         return self._eligibilities
 
-    @property
-    def embedded_sessions(self) -> EmbeddedSessionList:
-        if self._embedded_sessions is None:
-            self._embedded_sessions = EmbeddedSessionList(self)
-        return self._embedded_sessions
+    def embedded_sessions(self, bundle_sid: str, embedded_session_id: str = None):
+        """
+        Access the EmbeddedSessionList resource
+
+        :param bundle_sid: The unique identifier of the registration (BU-prefixed).
+
+        :param embedded_session_id: Optional instance ID to directly access EmbeddedSessionContext
+        :returns: EmbeddedSessionList instance if embedded_session_id is None, otherwise EmbeddedSessionContext
+        """
+        list_instance = EmbeddedSessionList(self, bundle_sid)
+        if embedded_session_id is not None:
+            return list_instance(embedded_session_id)
+        return list_instance
 
     @property
     def porting_all_port_ins(self) -> PortingAllPortInList:

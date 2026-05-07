@@ -30,7 +30,7 @@ class ChannelsSenderInstance(InstanceResource):
         :ivar verification_method: The verification method.
         :ivar verification_code: The verification code.
         :ivar voice_application_sid: The SID of the Twilio Voice application.
-        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
+        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, empty string to clear, or omit to preserve the existing value.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -67,6 +67,7 @@ class ChannelsSenderInstance(InstanceResource):
         :ivar privacy_url: The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
         :ivar terms_of_service_url: The terms of service URL of the sender.
         :ivar accent_color: The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
+        :ivar use_case: The messaging use case type for the RCS sender. Allowed values are `PROMOTIONAL`, `TRANSACTIONAL`, `OTP`, `MULTI_USE`. Defaults to `MULTI_USE` if not provided. Cannot be modified after launch.
         :ivar vertical: The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
         :ivar websites: The websites of the sender.
         :ivar emails: The emails of the sender.
@@ -86,6 +87,9 @@ class ChannelsSenderInstance(InstanceResource):
                 "terms_of_service_url"
             )
             self.accent_color: Optional[str] = payload.get("accent_color")
+            self.use_case: Optional["ChannelsSenderInstance.str"] = payload.get(
+                "use_case"
+            )
             self.vertical: Optional[str] = payload.get("vertical")
             self.websites: Optional[Dict[str, object]] = payload.get("websites")
             self.emails: Optional[Dict[str, object]] = payload.get("emails")
@@ -104,6 +108,7 @@ class ChannelsSenderInstance(InstanceResource):
                 "privacy_url": self.privacy_url,
                 "terms_of_service_url": self.terms_of_service_url,
                 "accent_color": self.accent_color,
+                "use_case": self.use_case,
                 "vertical": self.vertical,
                 "websites": self.websites,
                 "emails": self.emails,
@@ -362,6 +367,7 @@ class ChannelsSenderInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[ChannelsSenderContext] = None
 
     @property
@@ -537,7 +543,7 @@ class ChannelsSenderContext(InstanceContext):
         :ivar verification_method: The verification method.
         :ivar verification_code: The verification code.
         :ivar voice_application_sid: The SID of the Twilio Voice application.
-        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
+        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, empty string to clear, or omit to preserve the existing value.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -574,6 +580,7 @@ class ChannelsSenderContext(InstanceContext):
         :ivar privacy_url: The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
         :ivar terms_of_service_url: The terms of service URL of the sender.
         :ivar accent_color: The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
+        :ivar use_case: The messaging use case type for the RCS sender. Allowed values are `PROMOTIONAL`, `TRANSACTIONAL`, `OTP`, `MULTI_USE`. Defaults to `MULTI_USE` if not provided. Cannot be modified after launch.
         :ivar vertical: The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
         :ivar websites: The websites of the sender.
         :ivar emails: The emails of the sender.
@@ -593,6 +600,9 @@ class ChannelsSenderContext(InstanceContext):
                 "terms_of_service_url"
             )
             self.accent_color: Optional[str] = payload.get("accent_color")
+            self.use_case: Optional["ChannelsSenderInstance.str"] = payload.get(
+                "use_case"
+            )
             self.vertical: Optional[str] = payload.get("vertical")
             self.websites: Optional[Dict[str, object]] = payload.get("websites")
             self.emails: Optional[Dict[str, object]] = payload.get("emails")
@@ -611,6 +621,7 @@ class ChannelsSenderContext(InstanceContext):
                 "privacy_url": self.privacy_url,
                 "terms_of_service_url": self.terms_of_service_url,
                 "accent_color": self.accent_color,
+                "use_case": self.use_case,
                 "vertical": self.vertical,
                 "websites": self.websites,
                 "emails": self.emails,
@@ -1129,6 +1140,7 @@ class ChannelsSenderPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return ChannelsSenderInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -1148,7 +1160,7 @@ class ChannelsSenderList(ListResource):
         :ivar verification_method: The verification method.
         :ivar verification_code: The verification code.
         :ivar voice_application_sid: The SID of the Twilio Voice application.
-        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
+        :ivar account_type: The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, empty string to clear, or omit to preserve the existing value.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1185,6 +1197,7 @@ class ChannelsSenderList(ListResource):
         :ivar privacy_url: The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
         :ivar terms_of_service_url: The terms of service URL of the sender.
         :ivar accent_color: The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
+        :ivar use_case: The messaging use case type for the RCS sender. Allowed values are `PROMOTIONAL`, `TRANSACTIONAL`, `OTP`, `MULTI_USE`. Defaults to `MULTI_USE` if not provided. Cannot be modified after launch.
         :ivar vertical: The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
         :ivar websites: The websites of the sender.
         :ivar emails: The emails of the sender.
@@ -1204,6 +1217,9 @@ class ChannelsSenderList(ListResource):
                 "terms_of_service_url"
             )
             self.accent_color: Optional[str] = payload.get("accent_color")
+            self.use_case: Optional["ChannelsSenderInstance.str"] = payload.get(
+                "use_case"
+            )
             self.vertical: Optional[str] = payload.get("vertical")
             self.websites: Optional[Dict[str, object]] = payload.get("websites")
             self.emails: Optional[Dict[str, object]] = payload.get("emails")
@@ -1222,6 +1238,7 @@ class ChannelsSenderList(ListResource):
                 "privacy_url": self.privacy_url,
                 "terms_of_service_url": self.terms_of_service_url,
                 "accent_color": self.accent_color,
+                "use_case": self.use_case,
                 "vertical": self.vertical,
                 "websites": self.websites,
                 "emails": self.emails,
@@ -1675,6 +1692,7 @@ class ChannelsSenderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 channel=channel,
@@ -1704,6 +1722,7 @@ class ChannelsSenderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

@@ -45,6 +45,7 @@ class CallInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[CallContext] = None
 
     @property

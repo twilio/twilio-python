@@ -50,6 +50,7 @@ class WorkerStatisticsInstance(InstanceResource):
             "workspace_sid": workspace_sid,
             "worker_sid": worker_sid,
         }
+
         self._context: Optional[WorkerStatisticsContext] = None
 
     @property

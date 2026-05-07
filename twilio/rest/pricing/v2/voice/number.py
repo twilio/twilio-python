@@ -55,6 +55,7 @@ class NumberInstance(InstanceResource):
         self._solution = {
             "destination_number": destination_number or self.destination_number,
         }
+
         self._context: Optional[NumberContext] = None
 
     @property

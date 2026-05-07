@@ -45,6 +45,7 @@ class OperatorAttachmentInstance(InstanceResource):
             "service_sid": service_sid or self.service_sid,
             "operator_sid": operator_sid or self.operator_sid,
         }
+
         self._context: Optional[OperatorAttachmentContext] = None
 
     @property

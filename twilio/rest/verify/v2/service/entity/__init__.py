@@ -64,6 +64,7 @@ class EntityInstance(InstanceResource):
             "service_sid": service_sid,
             "identity": identity or self.identity,
         }
+
         self._context: Optional[EntityContext] = None
 
     @property
@@ -429,6 +430,7 @@ class EntityPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return EntityInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
@@ -679,6 +681,7 @@ class EntityList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -705,6 +708,7 @@ class EntityList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -794,7 +798,7 @@ class EntityList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return EntityPage(self._version, response, self._solution)
+        return EntityPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -827,7 +831,7 @@ class EntityList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return EntityPage(self._version, response, self._solution)
+        return EntityPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -860,7 +864,7 @@ class EntityList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = EntityPage(self._version, response, self._solution)
+        page = EntityPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -896,7 +900,7 @@ class EntityList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = EntityPage(self._version, response, self._solution)
+        page = EntityPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> EntityPage:
@@ -909,7 +913,7 @@ class EntityList(ListResource):
         :returns: Page of EntityInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return EntityPage(self._version, response, self._solution)
+        return EntityPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> EntityPage:
         """
@@ -921,7 +925,7 @@ class EntityList(ListResource):
         :returns: Page of EntityInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return EntityPage(self._version, response, self._solution)
+        return EntityPage(self._version, response, solution=self._solution)
 
     def get(self, identity: str) -> EntityContext:
         """

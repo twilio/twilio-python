@@ -53,6 +53,7 @@ class StepContextInstance(InstanceResource):
             "engagement_sid": engagement_sid,
             "step_sid": step_sid,
         }
+
         self._context: Optional[StepContextContext] = None
 
     @property

@@ -89,6 +89,7 @@ class PaymentInstance(InstanceResource):
             "call_sid": call_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[PaymentContext] = None
 
     @property

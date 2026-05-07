@@ -40,6 +40,7 @@ class ApprovalFetchInstance(InstanceResource):
         self._solution = {
             "sid": sid,
         }
+
         self._context: Optional[ApprovalFetchContext] = None
 
     @property

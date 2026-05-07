@@ -131,6 +131,7 @@ class CallInstance(InstanceResource):
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[CallContext] = None
 
     @property
@@ -1046,6 +1047,7 @@ class CallPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return CallInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
@@ -1093,6 +1095,7 @@ class CallList(ListResource):
         recording_channels: Union[str, object] = values.unset,
         recording_status_callback: Union[str, object] = values.unset,
         recording_status_callback_method: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         sip_auth_username: Union[str, object] = values.unset,
         sip_auth_password: Union[str, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
@@ -1141,6 +1144,7 @@ class CallList(ListResource):
                 "RecordingChannels": recording_channels,
                 "RecordingStatusCallback": recording_status_callback,
                 "RecordingStatusCallbackMethod": recording_status_callback_method,
+                "RecordingConfigurationId": recording_configuration_id,
                 "SipAuthUsername": sip_auth_username,
                 "SipAuthPassword": sip_auth_password,
                 "MachineDetection": machine_detection,
@@ -1193,6 +1197,7 @@ class CallList(ListResource):
         recording_channels: Union[str, object] = values.unset,
         recording_status_callback: Union[str, object] = values.unset,
         recording_status_callback_method: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         sip_auth_username: Union[str, object] = values.unset,
         sip_auth_password: Union[str, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
@@ -1233,6 +1238,7 @@ class CallList(ListResource):
         :param recording_channels: The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
         :param recording_status_callback: The URL that we call when the recording is available to be accessed.
         :param recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param sip_auth_username: The username used to authenticate the caller making a SIP call.
         :param sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
@@ -1273,6 +1279,7 @@ class CallList(ListResource):
             recording_channels=recording_channels,
             recording_status_callback=recording_status_callback,
             recording_status_callback_method=recording_status_callback_method,
+            recording_configuration_id=recording_configuration_id,
             sip_auth_username=sip_auth_username,
             sip_auth_password=sip_auth_password,
             machine_detection=machine_detection,
@@ -1316,6 +1323,7 @@ class CallList(ListResource):
         recording_channels: Union[str, object] = values.unset,
         recording_status_callback: Union[str, object] = values.unset,
         recording_status_callback_method: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         sip_auth_username: Union[str, object] = values.unset,
         sip_auth_password: Union[str, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
@@ -1356,6 +1364,7 @@ class CallList(ListResource):
         :param recording_channels: The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
         :param recording_status_callback: The URL that we call when the recording is available to be accessed.
         :param recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param sip_auth_username: The username used to authenticate the caller making a SIP call.
         :param sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
@@ -1396,6 +1405,7 @@ class CallList(ListResource):
             recording_channels=recording_channels,
             recording_status_callback=recording_status_callback,
             recording_status_callback_method=recording_status_callback_method,
+            recording_configuration_id=recording_configuration_id,
             sip_auth_username=sip_auth_username,
             sip_auth_password=sip_auth_password,
             machine_detection=machine_detection,
@@ -1440,6 +1450,7 @@ class CallList(ListResource):
         recording_channels: Union[str, object] = values.unset,
         recording_status_callback: Union[str, object] = values.unset,
         recording_status_callback_method: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         sip_auth_username: Union[str, object] = values.unset,
         sip_auth_password: Union[str, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
@@ -1488,6 +1499,7 @@ class CallList(ListResource):
                 "RecordingChannels": recording_channels,
                 "RecordingStatusCallback": recording_status_callback,
                 "RecordingStatusCallbackMethod": recording_status_callback_method,
+                "RecordingConfigurationId": recording_configuration_id,
                 "SipAuthUsername": sip_auth_username,
                 "SipAuthPassword": sip_auth_password,
                 "MachineDetection": machine_detection,
@@ -1540,6 +1552,7 @@ class CallList(ListResource):
         recording_channels: Union[str, object] = values.unset,
         recording_status_callback: Union[str, object] = values.unset,
         recording_status_callback_method: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         sip_auth_username: Union[str, object] = values.unset,
         sip_auth_password: Union[str, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
@@ -1580,6 +1593,7 @@ class CallList(ListResource):
         :param recording_channels: The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
         :param recording_status_callback: The URL that we call when the recording is available to be accessed.
         :param recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param sip_auth_username: The username used to authenticate the caller making a SIP call.
         :param sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
@@ -1620,6 +1634,7 @@ class CallList(ListResource):
             recording_channels=recording_channels,
             recording_status_callback=recording_status_callback,
             recording_status_callback_method=recording_status_callback_method,
+            recording_configuration_id=recording_configuration_id,
             sip_auth_username=sip_auth_username,
             sip_auth_password=sip_auth_password,
             machine_detection=machine_detection,
@@ -1663,6 +1678,7 @@ class CallList(ListResource):
         recording_channels: Union[str, object] = values.unset,
         recording_status_callback: Union[str, object] = values.unset,
         recording_status_callback_method: Union[str, object] = values.unset,
+        recording_configuration_id: Union[str, object] = values.unset,
         sip_auth_username: Union[str, object] = values.unset,
         sip_auth_password: Union[str, object] = values.unset,
         machine_detection: Union[str, object] = values.unset,
@@ -1703,6 +1719,7 @@ class CallList(ListResource):
         :param recording_channels: The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
         :param recording_status_callback: The URL that we call when the recording is available to be accessed.
         :param recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param recording_configuration_id: The identifier of the configuration to be used when creating and processing the recording
         :param sip_auth_username: The username used to authenticate the caller making a SIP call.
         :param sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
         :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
@@ -1743,6 +1760,7 @@ class CallList(ListResource):
             recording_channels=recording_channels,
             recording_status_callback=recording_status_callback,
             recording_status_callback_method=recording_status_callback_method,
+            recording_configuration_id=recording_configuration_id,
             sip_auth_username=sip_auth_username,
             sip_auth_password=sip_auth_password,
             machine_detection=machine_detection,
@@ -2036,6 +2054,7 @@ class CallList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 to=to,
@@ -2092,6 +2111,7 @@ class CallList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -2281,7 +2301,7 @@ class CallList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return CallPage(self._version, response, self._solution)
+        return CallPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -2344,7 +2364,7 @@ class CallList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return CallPage(self._version, response, self._solution)
+        return CallPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -2407,7 +2427,7 @@ class CallList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = CallPage(self._version, response, self._solution)
+        page = CallPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -2473,7 +2493,7 @@ class CallList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = CallPage(self._version, response, self._solution)
+        page = CallPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> CallPage:
@@ -2486,7 +2506,7 @@ class CallList(ListResource):
         :returns: Page of CallInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return CallPage(self._version, response, self._solution)
+        return CallPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> CallPage:
         """
@@ -2498,7 +2518,7 @@ class CallList(ListResource):
         :returns: Page of CallInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CallPage(self._version, response, self._solution)
+        return CallPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> CallContext:
         """

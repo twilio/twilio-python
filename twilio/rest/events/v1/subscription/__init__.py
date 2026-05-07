@@ -57,6 +57,7 @@ class SubscriptionInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[SubscriptionContext] = None
 
     @property
@@ -534,6 +535,7 @@ class SubscriptionPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return SubscriptionInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -811,6 +813,7 @@ class SubscriptionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 sink_sid=sink_sid,
@@ -840,6 +843,7 @@ class SubscriptionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

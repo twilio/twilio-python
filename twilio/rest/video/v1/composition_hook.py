@@ -79,6 +79,7 @@ class CompositionHookInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[CompositionHookContext] = None
 
     @property
@@ -813,6 +814,7 @@ class CompositionHookPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return CompositionHookInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -1284,6 +1286,7 @@ class CompositionHookList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 enabled=enabled,
@@ -1322,6 +1325,7 @@ class CompositionHookList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

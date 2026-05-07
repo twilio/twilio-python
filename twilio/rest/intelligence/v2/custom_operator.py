@@ -75,6 +75,7 @@ class CustomOperatorInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[CustomOperatorContext] = None
 
     @property
@@ -605,6 +606,7 @@ class CustomOperatorPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return CustomOperatorInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -914,6 +916,7 @@ class CustomOperatorList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 availability=availability,
@@ -948,6 +951,7 @@ class CustomOperatorList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

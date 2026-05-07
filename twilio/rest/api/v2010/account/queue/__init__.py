@@ -68,6 +68,7 @@ class QueueInstance(InstanceResource):
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[QueueContext] = None
 
     @property
@@ -609,6 +610,7 @@ class QueuePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return QueueInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
@@ -883,6 +885,7 @@ class QueueList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -909,6 +912,7 @@ class QueueList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -998,7 +1002,7 @@ class QueueList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return QueuePage(self._version, response, self._solution)
+        return QueuePage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -1031,7 +1035,7 @@ class QueueList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return QueuePage(self._version, response, self._solution)
+        return QueuePage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1064,7 +1068,7 @@ class QueueList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = QueuePage(self._version, response, self._solution)
+        page = QueuePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1100,7 +1104,7 @@ class QueueList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = QueuePage(self._version, response, self._solution)
+        page = QueuePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> QueuePage:
@@ -1113,7 +1117,7 @@ class QueueList(ListResource):
         :returns: Page of QueueInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return QueuePage(self._version, response, self._solution)
+        return QueuePage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> QueuePage:
         """
@@ -1125,7 +1129,7 @@ class QueueList(ListResource):
         :returns: Page of QueueInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return QueuePage(self._version, response, self._solution)
+        return QueuePage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> QueueContext:
         """

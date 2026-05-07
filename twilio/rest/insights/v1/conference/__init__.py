@@ -164,6 +164,7 @@ class ConferenceInstance(InstanceResource):
         self._solution = {
             "conference_sid": conference_sid or self.conference_sid,
         }
+
         self._context: Optional[ConferenceContext] = None
 
     @property
@@ -373,6 +374,7 @@ class ConferencePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return ConferenceInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -662,6 +664,7 @@ class ConferenceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 conference_sid=conference_sid,
@@ -718,6 +721,7 @@ class ConferenceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

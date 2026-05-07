@@ -72,6 +72,7 @@ class SentencePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return SentenceInstance(
             self._version, payload, transcript_sid=self._solution["transcript_sid"]
         )
@@ -256,6 +257,7 @@ class SentenceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 redacted=redacted,
@@ -288,6 +290,7 @@ class SentenceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -397,7 +400,7 @@ class SentenceList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return SentencePage(self._version, response, self._solution)
+        return SentencePage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -436,7 +439,7 @@ class SentenceList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return SentencePage(self._version, response, self._solution)
+        return SentencePage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -475,7 +478,7 @@ class SentenceList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = SentencePage(self._version, response, self._solution)
+        page = SentencePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -517,7 +520,7 @@ class SentenceList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = SentencePage(self._version, response, self._solution)
+        page = SentencePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> SentencePage:
@@ -530,7 +533,7 @@ class SentenceList(ListResource):
         :returns: Page of SentenceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SentencePage(self._version, response, self._solution)
+        return SentencePage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> SentencePage:
         """
@@ -542,7 +545,7 @@ class SentenceList(ListResource):
         :returns: Page of SentenceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SentencePage(self._version, response, self._solution)
+        return SentencePage(self._version, response, solution=self._solution)
 
     def __repr__(self) -> str:
         """

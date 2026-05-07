@@ -75,6 +75,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
         self._solution = {
             "workspace_sid": workspace_sid,
         }
+
         self._context: Optional[WorkersCumulativeStatisticsContext] = None
 
     @property

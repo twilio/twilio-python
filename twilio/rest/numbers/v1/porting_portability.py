@@ -68,6 +68,7 @@ class PortingPortabilityInstance(InstanceResource):
         self._solution = {
             "phone_number": phone_number or self.phone_number,
         }
+
         self._context: Optional[PortingPortabilityContext] = None
 
     @property

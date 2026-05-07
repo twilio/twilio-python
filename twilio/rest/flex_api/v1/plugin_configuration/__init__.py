@@ -57,6 +57,7 @@ class PluginConfigurationInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[PluginConfigurationContext] = None
 
     @property
@@ -314,6 +315,7 @@ class PluginConfigurationPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return PluginConfigurationInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -645,6 +647,7 @@ class PluginConfigurationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 flex_metadata=flex_metadata,
@@ -674,6 +677,7 @@ class PluginConfigurationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

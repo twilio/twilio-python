@@ -74,6 +74,7 @@ class PrebuiltOperatorInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[PrebuiltOperatorContext] = None
 
     @property
@@ -262,6 +263,7 @@ class PrebuiltOperatorPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return PrebuiltOperatorInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -449,6 +451,7 @@ class PrebuiltOperatorList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 availability=availability,
@@ -483,6 +486,7 @@ class PrebuiltOperatorList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

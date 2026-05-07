@@ -46,6 +46,7 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         self._solution = {
             "category_sid": category_sid or self.category_sid,
         }
+
         self._context: Optional[InsightsQuestionnairesCategoryContext] = None
 
     @property
@@ -458,6 +459,7 @@ class InsightsQuestionnairesCategoryPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -737,6 +739,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 authorization=authorization,
@@ -766,6 +769,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

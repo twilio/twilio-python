@@ -73,6 +73,7 @@ class ContentAndApprovalsPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return ContentAndApprovalsInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -216,6 +217,7 @@ class ContentAndApprovalsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -242,6 +244,7 @@ class ContentAndApprovalsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

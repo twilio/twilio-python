@@ -73,6 +73,7 @@ class SyncListInstance(InstanceResource):
             "service_sid": service_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[SyncListContext] = None
 
     @property
@@ -633,6 +634,7 @@ class SyncListPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return SyncListInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
@@ -933,6 +935,7 @@ class SyncListList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -959,6 +962,7 @@ class SyncListList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -1048,7 +1052,7 @@ class SyncListList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return SyncListPage(self._version, response, self._solution)
+        return SyncListPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -1081,7 +1085,7 @@ class SyncListList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return SyncListPage(self._version, response, self._solution)
+        return SyncListPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1114,7 +1118,7 @@ class SyncListList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = SyncListPage(self._version, response, self._solution)
+        page = SyncListPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1150,7 +1154,7 @@ class SyncListList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = SyncListPage(self._version, response, self._solution)
+        page = SyncListPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> SyncListPage:
@@ -1163,7 +1167,7 @@ class SyncListList(ListResource):
         :returns: Page of SyncListInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SyncListPage(self._version, response, self._solution)
+        return SyncListPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> SyncListPage:
         """
@@ -1175,7 +1179,7 @@ class SyncListList(ListResource):
         :returns: Page of SyncListInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SyncListPage(self._version, response, self._solution)
+        return SyncListPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> SyncListContext:
         """

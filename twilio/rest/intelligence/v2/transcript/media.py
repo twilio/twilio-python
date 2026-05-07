@@ -42,6 +42,7 @@ class MediaInstance(InstanceResource):
         self._solution = {
             "sid": sid,
         }
+
         self._context: Optional[MediaContext] = None
 
     @property

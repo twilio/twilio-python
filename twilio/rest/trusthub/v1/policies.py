@@ -43,6 +43,7 @@ class PoliciesInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[PoliciesContext] = None
 
     @property
@@ -231,6 +232,7 @@ class PoliciesPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return PoliciesInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -374,6 +376,7 @@ class PoliciesList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -400,6 +403,7 @@ class PoliciesList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

@@ -74,6 +74,7 @@ class FlexUserInstance(InstanceResource):
             "instance_sid": instance_sid or self.instance_sid,
             "flex_user_sid": flex_user_sid or self.flex_user_sid,
         }
+
         self._context: Optional[FlexUserContext] = None
 
     @property

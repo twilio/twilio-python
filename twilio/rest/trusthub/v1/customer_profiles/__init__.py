@@ -85,6 +85,7 @@ class CustomerProfilesInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[CustomerProfilesContext] = None
 
     @property
@@ -726,6 +727,7 @@ class CustomerProfilesPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return CustomerProfilesInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -1083,6 +1085,7 @@ class CustomerProfilesList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 status=status,
@@ -1118,6 +1121,7 @@ class CustomerProfilesList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

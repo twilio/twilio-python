@@ -77,18 +77,18 @@ class CallSummariesInstance(InstanceResource):
     :ivar end_time: The time at which the Call was ended, given in ISO 8601 format.
     :ivar duration: Duration between when the call was initiated and the call was ended
     :ivar connect_duration: Duration between when the call was answered and when it ended
-    :ivar _from: The calling party.
-    :ivar to: The called party.
-    :ivar carrier_edge: Contains metrics and properties for the Twilio media gateway of a PSTN call.
-    :ivar client_edge: Contains metrics and properties for the Twilio media gateway of a Client call.
-    :ivar sdk_edge: Contains metrics and properties for the SDK sensor library for Client calls.
-    :ivar sip_edge: Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
+    :ivar _from: `object` The calling party. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#tofrom-object) for the object properties.
+    :ivar to: `object` The called party. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#tofrom-object) for the object properties.
+    :ivar carrier_edge: `object` Contains metrics and properties for the Twilio media gateway of a PSTN call. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
+    :ivar client_edge: `object` Contains metrics and properties for the Twilio media gateway of a Client call. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
+    :ivar sdk_edge: `object` Contains metrics and properties for the SDK sensor library for Client calls. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
+    :ivar sip_edge: `object` Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
     :ivar tags: Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
     :ivar url: The URL of this resource.
-    :ivar attributes: Attributes capturing call-flow-specific details.
-    :ivar properties: Contains edge-agnostic call-level details.
-    :ivar trust: Contains trusted communications details including Branded Call and verified caller ID.
-    :ivar annotation: 
+    :ivar attributes: `object` Attributes capturing call-flow-specific details. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#attributes-object) for the object properties.
+    :ivar properties: `object` Contains edge-agnostic call-level details. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#properties-object) for the object properties.
+    :ivar trust: `object` Contains trusted communications details including Branded Call and verified caller ID. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#trust-object) for the object properties.
+    :ivar annotation: `object` Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#annotation-object) for the object properties.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -152,6 +152,7 @@ class CallSummariesPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return CallSummariesInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -815,6 +816,7 @@ class CallSummariesList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 from_=from_,
@@ -951,6 +953,7 @@ class CallSummariesList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

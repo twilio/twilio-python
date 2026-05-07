@@ -51,6 +51,7 @@ class SchemaInstance(InstanceResource):
         self._solution = {
             "id": id or self.id,
         }
+
         self._context: Optional[SchemaContext] = None
 
     @property

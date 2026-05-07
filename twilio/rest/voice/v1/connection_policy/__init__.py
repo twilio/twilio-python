@@ -57,6 +57,7 @@ class ConnectionPolicyInstance(InstanceResource):
         self._solution = {
             "sid": sid or self.sid,
         }
+
         self._context: Optional[ConnectionPolicyContext] = None
 
     @property
@@ -538,6 +539,7 @@ class ConnectionPolicyPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return ConnectionPolicyInstance(self._version, payload)
 
     def __repr__(self) -> str:
@@ -785,6 +787,7 @@ class ConnectionPolicyList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 limit=limit,
@@ -811,6 +814,7 @@ class ConnectionPolicyList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(

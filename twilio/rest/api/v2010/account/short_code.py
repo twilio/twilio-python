@@ -69,6 +69,7 @@ class ShortCodeInstance(InstanceResource):
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[ShortCodeContext] = None
 
     @property
@@ -604,6 +605,7 @@ class ShortCodePage(Page):
 
         :param payload: Payload response from the API
         """
+
         return ShortCodeInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
@@ -790,6 +792,7 @@ class ShortCodeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 friendly_name=friendly_name,
@@ -822,6 +825,7 @@ class ShortCodeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -931,7 +935,7 @@ class ShortCodeList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ShortCodePage(self._version, response, self._solution)
+        return ShortCodePage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -970,7 +974,7 @@ class ShortCodeList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return ShortCodePage(self._version, response, self._solution)
+        return ShortCodePage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -1009,7 +1013,7 @@ class ShortCodeList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = ShortCodePage(self._version, response, self._solution)
+        page = ShortCodePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -1051,7 +1055,7 @@ class ShortCodeList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = ShortCodePage(self._version, response, self._solution)
+        page = ShortCodePage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ShortCodePage:
@@ -1064,7 +1068,7 @@ class ShortCodeList(ListResource):
         :returns: Page of ShortCodeInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ShortCodePage(self._version, response, self._solution)
+        return ShortCodePage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> ShortCodePage:
         """
@@ -1076,7 +1080,7 @@ class ShortCodeList(ListResource):
         :returns: Page of ShortCodeInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ShortCodePage(self._version, response, self._solution)
+        return ShortCodePage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> ShortCodeContext:
         """

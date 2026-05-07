@@ -79,6 +79,7 @@ class UserBindingInstance(InstanceResource):
             "user_sid": user_sid,
             "sid": sid or self.sid,
         }
+
         self._context: Optional[UserBindingContext] = None
 
     @property
@@ -387,6 +388,7 @@ class UserBindingPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return UserBindingInstance(
             self._version,
             payload,
@@ -568,6 +570,7 @@ class UserBindingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 binding_type=binding_type,
@@ -599,6 +602,7 @@ class UserBindingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -704,7 +708,7 @@ class UserBindingList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return UserBindingPage(self._version, response, self._solution)
+        return UserBindingPage(self._version, response, solution=self._solution)
 
     async def page_async(
         self,
@@ -742,7 +746,7 @@ class UserBindingList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return UserBindingPage(self._version, response, self._solution)
+        return UserBindingPage(self._version, response, solution=self._solution)
 
     def page_with_http_info(
         self,
@@ -780,7 +784,7 @@ class UserBindingList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = UserBindingPage(self._version, response, self._solution)
+        page = UserBindingPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -821,7 +825,7 @@ class UserBindingList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = UserBindingPage(self._version, response, self._solution)
+        page = UserBindingPage(self._version, response, solution=self._solution)
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> UserBindingPage:
@@ -834,7 +838,7 @@ class UserBindingList(ListResource):
         :returns: Page of UserBindingInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return UserBindingPage(self._version, response, self._solution)
+        return UserBindingPage(self._version, response, solution=self._solution)
 
     async def get_page_async(self, target_url: str) -> UserBindingPage:
         """
@@ -846,7 +850,7 @@ class UserBindingList(ListResource):
         :returns: Page of UserBindingInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return UserBindingPage(self._version, response, self._solution)
+        return UserBindingPage(self._version, response, solution=self._solution)
 
     def get(self, sid: str) -> UserBindingContext:
         """

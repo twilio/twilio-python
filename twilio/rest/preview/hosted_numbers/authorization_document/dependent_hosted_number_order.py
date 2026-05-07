@@ -136,6 +136,7 @@ class DependentHostedNumberOrderPage(Page):
 
         :param payload: Payload response from the API
         """
+
         return DependentHostedNumberOrderInstance(
             self._version,
             payload,
@@ -376,6 +377,7 @@ class DependentHostedNumberOrderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return list(
             self.stream(
                 status=status,
@@ -419,6 +421,7 @@ class DependentHostedNumberOrderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
+
         return [
             record
             async for record in await self.stream_async(
@@ -564,7 +567,9 @@ class DependentHostedNumberOrderList(ListResource):
         response = self._version.page(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return DependentHostedNumberOrderPage(self._version, response, self._solution)
+        return DependentHostedNumberOrderPage(
+            self._version, response, solution=self._solution
+        )
 
     async def page_async(
         self,
@@ -614,7 +619,9 @@ class DependentHostedNumberOrderList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        return DependentHostedNumberOrderPage(self._version, response, self._solution)
+        return DependentHostedNumberOrderPage(
+            self._version, response, solution=self._solution
+        )
 
     def page_with_http_info(
         self,
@@ -664,7 +671,9 @@ class DependentHostedNumberOrderList(ListResource):
         response, status_code, response_headers = self._version.page_with_response_info(
             method="GET", uri=self._uri, params=data, headers=headers
         )
-        page = DependentHostedNumberOrderPage(self._version, response, self._solution)
+        page = DependentHostedNumberOrderPage(
+            self._version, response, solution=self._solution
+        )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     async def page_with_http_info_async(
@@ -717,7 +726,9 @@ class DependentHostedNumberOrderList(ListResource):
                 method="GET", uri=self._uri, params=data, headers=headers
             )
         )
-        page = DependentHostedNumberOrderPage(self._version, response, self._solution)
+        page = DependentHostedNumberOrderPage(
+            self._version, response, solution=self._solution
+        )
         return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> DependentHostedNumberOrderPage:
@@ -730,7 +741,9 @@ class DependentHostedNumberOrderList(ListResource):
         :returns: Page of DependentHostedNumberOrderInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return DependentHostedNumberOrderPage(self._version, response, self._solution)
+        return DependentHostedNumberOrderPage(
+            self._version, response, solution=self._solution
+        )
 
     async def get_page_async(self, target_url: str) -> DependentHostedNumberOrderPage:
         """
@@ -742,7 +755,9 @@ class DependentHostedNumberOrderList(ListResource):
         :returns: Page of DependentHostedNumberOrderInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return DependentHostedNumberOrderPage(self._version, response, self._solution)
+        return DependentHostedNumberOrderPage(
+            self._version, response, solution=self._solution
+        )
 
     def __repr__(self) -> str:
         """
