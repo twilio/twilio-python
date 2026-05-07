@@ -382,6 +382,50 @@ class Version(object):
         payload = self._parse_update(method, uri, response)
         return payload, response.status_code, dict(response.headers or {})
 
+    def patch_with_response_info(
+            self,
+            method: str,
+            uri: str,
+            params: Optional[Dict[str, object]] = None,
+            data: Optional[Dict[str, object]] = None,
+            headers: Optional[Dict[str, str]] = None,
+            auth: Optional[Tuple[str, str]] = None,
+            timeout: Optional[float] = None,
+            allow_redirects: bool = False,
+    ) -> Tuple[Any, int, Dict[str, str]]:
+        return self.update_with_response_info(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+
+    async def patch_with_response_info_async(
+            self,
+            method: str,
+            uri: str,
+            params: Optional[Dict[str, object]] = None,
+            data: Optional[Dict[str, object]] = None,
+            headers: Optional[Dict[str, str]] = None,
+            auth: Optional[Tuple[str, str]] = None,
+            timeout: Optional[float] = None,
+            allow_redirects: bool = False,
+    ) -> Tuple[Any, int, Dict[str, str]]:
+        return await self.update_with_response_info_async(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+
     def _parse_delete(self, method: str, uri: str, response: Response) -> Any:
         """
         Parses delete response. Returns response body as dict if present, otherwise True.
