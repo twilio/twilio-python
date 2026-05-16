@@ -1,0 +1,13 @@
+from twilio.rest import Client
+
+account_sid = 'ACa47edbd4ceeac7540c53ea922ac6dcf2'
+auth_token = 'TU_AUTH_TOKEN_REAL'
+client = Client(account_sid, auth_token)
+
+message = client.messages.create(
+    from_='whatsapp:+14155238886',
+    body='Hola 👋, esta es una prueba desde el bot con Python y Twilio 😎',
+    to='whatsapp:+5213322631883'
+)
+
+print(message.sid)
