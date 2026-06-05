@@ -81,9 +81,21 @@ class TestRegionEdgeClients(unittest.TestCase):
 class TestUserAgentClients(unittest.TestCase):
     def setUp(self):
         self.client = Client("username", "password")
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.text = ""
+        mock_response.headers = {}
+        self.client.http_client.session = Mock()
+        self.client.http_client.session.prepare_request = Mock(
+            side_effect=lambda r: r
+        )
+        self.client.http_client.session.merge_environment_settings = Mock(
+            return_value={}
+        )
+        self.client.http_client.session.send = Mock(return_value=mock_response)
 
     def tearDown(self):
-        self.client.http_client.session.close()
+        pass
 
     def test_set_default_user_agent(self):
         self.client.request("GET", "https://api.twilio.com/")
