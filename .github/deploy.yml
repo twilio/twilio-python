@@ -1,0 +1,84 @@
+name: Test and Deploy to PyPI
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+env:
+  ARTIFACTORY_URL: ${{ vars.ARTIFACTORY_URL }}
+
+jobs:
+  test:
+    name: Test - Python ${{ matrix.python-version }}
+    runs-on: ${{ github.repository_owner == 'twilio-internal' && 'ubuntu-x64' || 'ubuntu-latest' }}
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Authenticate with Artifactory
+        uses: ./.github/actions/artifactory-oidc
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install virtualenv --upgrade
+          make install test-install
+
+      - name: Run tests
+        run: make test-with-coverage
+
+  deploy:
+    name: Publish to PyPI
+    needs: [test]
+    runs-on: ${{ github.repository_owner == 'twilio-internal' && 'ubuntu-x64' || 'ubuntu-latest' }}
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate with Artifactory
+        uses: ./.github/actions/artifactory-oidc
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate tag matches package version
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          # Strip leading 'v' if present
+          VERSION="${TAG#v}"
+          PKG_VERSION=$(python setup.py --version)
+          if [ "$VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::Tag $TAG does not match setup.py version $PKG_VERSION"
+            exit 1
+          fi
+
+      - name: Build package
+        run: |
+          pip install build
+          python -m build
+
+      - name: Verify package
+        run: |
+          pip install twine
+          twine check dist/*
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@v1
