@@ -14,7 +14,7 @@ env:
 jobs:
   test:
     name: Test - Python ${{ matrix.python-version }}
-    runs-on: ${{ github.repository_owner == 'twilio-internal' && 'ubuntu-x64' || 'ubuntu-latest' }}
+    runs-on: ${{ github.repository_owner == 'twilio' && 'ubuntu-latest' || 'ubuntu-x64' }}
     timeout-minutes: 20
     permissions:
       contents: read
@@ -46,7 +46,7 @@ jobs:
   deploy-dry-run:
     name: Deploy (Dry Run - NO Publish)
     needs: [test]
-    runs-on: ${{ github.repository_owner == 'twilio-internal' && 'ubuntu-x64' || 'ubuntu-latest' }}
+    runs-on: ${{ github.repository_owner == 'twilio' && 'ubuntu-latest' || 'ubuntu-x64' }}
     environment: pypi
     permissions:
       contents: read
