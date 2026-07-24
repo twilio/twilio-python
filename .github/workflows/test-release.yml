@@ -1,4 +1,4 @@
-name: Test Release (Dry Run)
+name: Test and Release
 
 on:
   workflow_dispatch:
@@ -44,8 +44,8 @@ jobs:
       - name: Run tests
         run: make test-with-coverage
 
-  deploy-dry-run:
-    name: Deploy (Dry Run - NO Publish)
+  deploy:
+    name: Build and Publish to PyPI
     needs: [test]
     runs-on: ${{ 'ubuntu-x64' }}
     #runs-on: ${{ github.repository_owner == 'twilio' && 'ubuntu-latest' || 'ubuntu-x64' }}
@@ -67,11 +67,19 @@ jobs:
       - name: Install setuptools
         run: pip install setuptools
 
-      - name: Validate version in setup.py
+      - name: Validate tag matches package version
         run: |
           PKG_VERSION=$(python setup.py --version)
           echo "Package version: $PKG_VERSION"
           echo "PKG_VERSION=$PKG_VERSION" >> "$GITHUB_ENV"
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF#refs/tags/}"
+            VERSION="${TAG#v}"
+            if [ "$VERSION" != "$PKG_VERSION" ]; then
+              echo "::error::Tag $TAG does not match setup.py version $PKG_VERSION"
+              exit 1
+            fi
+          fi
 
       - name: Build package
         run: |
@@ -89,7 +97,11 @@ jobs:
           ls -lh dist/
           echo ""
           echo "Package version: $PKG_VERSION"
-          echo ""
-          echo "--- DRY RUN COMPLETE ---"
-          echo "To publish for real, create a GitHub Release with a matching tag"
-          echo "and use the deploy.yml workflow."
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@f8f40c50f8a38deb44a60a2a2d2f2a9e5b2f7b16 # v1
+
+      - name: Summary
+        run: |
+          echo "--- RELEASE COMPLETE ---"
+          echo "Published version $PKG_VERSION to PyPI"
