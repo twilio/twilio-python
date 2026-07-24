@@ -1,5 +1,4 @@
 name: Test and Release
-
 on:
   workflow_dispatch:
     inputs:
@@ -105,3 +104,4 @@ jobs:
         run: |
           echo "--- RELEASE COMPLETE ---"
           echo "Published version $PKG_VERSION to PyPI"
+
