@@ -84,4 +84,4 @@ jobs:
           twine check dist/*
 
       - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@f8f40c50f8a38deb44a60a2a2d2f2a9e5b2f7b16 # v1
+        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1
