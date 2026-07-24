@@ -1,17 +1,27 @@
-name: Test and Deploy to PyPI
+name: Twilio Public release-pypi
 
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
 
 env:
   ARTIFACTORY_URL: ${{ vars.ARTIFACTORY_URL }}
 
 jobs:
+  lockfile-hygiene:
+    runs-on: ubuntu-x64
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: twilio/sdk-actions/uv-lockfile-hygiene@23b656b843d2a3461cf38e4fd466c07a822d5fc0 # v1
+        with:
+          clean-room: 'false'
+
   test:
     name: Test - Python ${{ matrix.python-version }}
-    runs-on: ${{ github.repository_owner == 'twilio-internal' && 'ubuntu-x64' || 'ubuntu-latest' }}
+    needs: [lockfile-hygiene]
+    runs-on: ubuntu-x64
+    if: github.repository_owner == 'twilio'
     timeout-minutes: 20
     permissions:
       contents: read
@@ -21,12 +31,14 @@ jobs:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
 
-      - name: Authenticate with Artifactory
-        uses: ./.github/actions/artifactory-oidc
+      - name: Artifactory OIDC Auth
+        uses: twilio/sdk-actions/artifactory-oidc@23b656b843d2a3461cf38e4fd466c07a822d5fc0 # v1
+        with:
+          ecosystem: python
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
@@ -43,17 +55,25 @@ jobs:
   deploy:
     name: Publish to PyPI
     needs: [test]
-    runs-on: ${{ github.repository_owner == 'twilio-internal' && 'ubuntu-x64' || 'ubuntu-latest' }}
+    runs-on: ubuntu-x64
+    if: success() && github.ref_type == 'tag' && github.repository_owner == 'twilio'
     environment: production
     permissions:
-      contents: read
+      contents: write          # required for creating GitHub Release
       id-token: write
       attestations: write
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - name: Authenticate with Artifactory
-        uses: ./.github/actions/artifactory-oidc
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "${{ github.ref_name }}" --generate-notes
+
+      - name: Artifactory OIDC Auth
+        uses: twilio/sdk-actions/artifactory-oidc@23b656b843d2a3461cf38e4fd466c07a822d5fc0 # v1
+        with:
+          ecosystem: python
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
@@ -62,12 +82,17 @@ jobs:
       - name: Install setuptools
         run: pip install setuptools
 
-      - name: Validate tag matches package version
+      - name: Validate tag format and version match
         run: |
           TAG="${GITHUB_REF#refs/tags/}"
-          # Strip leading 'v' if present
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+            echo "::error::Release tag must be in the form v1.2.3 (got '$TAG')"
+            exit 1
+          fi
           VERSION="${TAG#v}"
           PKG_VERSION=$(python setup.py --version)
+          echo "Package version: $PKG_VERSION"
+          echo "PKG_VERSION=$PKG_VERSION" >> "$GITHUB_ENV"
           if [ "$VERSION" != "$PKG_VERSION" ]; then
             echo "::error::Tag $TAG does not match setup.py version $PKG_VERSION"
             exit 1
@@ -85,3 +110,7 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1
+
+      - name: Summary
+        run: |
+          echo "Published version $PKG_VERSION to PyPI"
