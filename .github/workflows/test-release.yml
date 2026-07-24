@@ -49,7 +49,7 @@ jobs:
     needs: [test]
     runs-on: ${{ 'ubuntu-x64' }}
     #runs-on: ${{ github.repository_owner == 'twilio' && 'ubuntu-latest' || 'ubuntu-x64' }}
-    environment: pypi
+    environment: production
     permissions:
       contents: read
       id-token: write

@@ -44,7 +44,7 @@ jobs:
     name: Publish to PyPI
     needs: [test]
     runs-on: ${{ github.repository_owner == 'twilio-internal' && 'ubuntu-x64' || 'ubuntu-latest' }}
-    environment: pypi
+    environment: production
     permissions:
       contents: read
       id-token: write
