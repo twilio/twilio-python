@@ -64,6 +64,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install setuptools
+        run: pip install setuptools
+
       - name: Validate version in setup.py
         run: |
           PKG_VERSION=$(python setup.py --version)
