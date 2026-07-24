@@ -59,6 +59,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install setuptools
+        run: pip install setuptools
+
       - name: Validate tag matches package version
         run: |
           TAG="${GITHUB_REF#refs/tags/}"
