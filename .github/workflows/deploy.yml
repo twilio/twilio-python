@@ -48,6 +48,7 @@ jobs:
         run: |
           pip install virtualenv --upgrade
           make install test-install
+          make prettier
 
       - name: Run tests
         run: make test-with-coverage
@@ -64,11 +65,6 @@ jobs:
       attestations: write
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-
-      - name: Create GitHub Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create "${{ github.ref_name }}" --generate-notes
 
       - name: Artifactory OIDC Auth
         uses: twilio/sdk-actions/artifactory-oidc@23b656b843d2a3461cf38e4fd466c07a822d5fc0 # v1
@@ -97,6 +93,14 @@ jobs:
             echo "::error::Tag $TAG does not match setup.py version $PKG_VERSION"
             exit 1
           fi
+
+      - name: Get tagged version
+        run: echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: sendgrid/dx-automator/actions/release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build package
         run: |
