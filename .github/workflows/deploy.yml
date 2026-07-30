@@ -94,13 +94,10 @@ jobs:
             exit 1
           fi
 
-      - name: Get tagged version
-        run: echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
       - name: Create GitHub Release
-        uses: sendgrid/dx-automator/actions/release@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "${{ github.ref_name }}" --generate-notes
 
       - name: Build package
         run: |
