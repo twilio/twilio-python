@@ -777,6 +777,9 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, "Unable to create record")
 
+        if not response.text:
+            return {}
+
         return json.loads(response.text)
 
     def create(
