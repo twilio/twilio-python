@@ -1,9 +1,18 @@
-name: Twilio Public release-pypi
+name: CI
 
 on:
+  pull_request:
+    branches: [main]
   push:
-    tags:
-      - 'v*'
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      python-version:
+        description: "Python version to test with (or 'all' for full matrix)"
+        required: false
+        default: "all"
+  schedule:
+    - cron: '30 3 * * 1'  # Monday 9AM IST
 
 env:
   ARTIFACTORY_URL: ${{ vars.ARTIFACTORY_URL }}
@@ -22,14 +31,15 @@ jobs:
     needs: [lockfile-hygiene]
     runs-on: ubuntu-x64
     if: github.repository_owner == 'twilio'
-    timeout-minutes: 20
+    # make docs takes ~15mins
+    timeout-minutes: 30
     permissions:
       contents: read
       id-token: write
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ${{ (github.event_name == 'schedule' || github.event.inputs.python-version == 'all') && fromJson('["3.8","3.9","3.10","3.11","3.12","3.13"]') || fromJson(format('["{0}"]', github.event.inputs.python-version || '3.12')) }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
@@ -53,16 +63,29 @@ jobs:
       - name: Run tests
         run: make test-with-coverage
 
-  deploy:
-    name: Publish to PyPI
+      - name: Run cluster tests
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY }}
+          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          ASSISTANT_ID: ${{ secrets.ASSISTANT_ID }}
+        run: make cluster-test
+
+      - name: Verify docs generation
+        run: make docs
+
+  deploy-dry-run:
+    name: Release Readiness Check - Build artifact
     needs: [test]
     runs-on: ubuntu-x64
-    if: success() && github.ref_type == 'tag' && github.repository_owner == 'twilio'
-    environment: production
+    if: github.repository_owner == 'twilio' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
     permissions:
-      contents: write          # required for creating GitHub Release
+      contents: read
       id-token: write
-      attestations: write
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
@@ -78,29 +101,15 @@ jobs:
       - name: Install setuptools
         run: pip install setuptools
 
-      - name: Validate tag format and version match
+      - name: Validate version format
         run: |
-          TAG="${GITHUB_REF#refs/tags/}"
-          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
-            echo "::error::Release tag must be in the form v1.2.3 (got '$TAG')"
-            exit 1
-          fi
-          VERSION="${TAG#v}"
           PKG_VERSION=$(python setup.py --version)
           echo "Package version: $PKG_VERSION"
           echo "PKG_VERSION=$PKG_VERSION" >> "$GITHUB_ENV"
-          if [ "$VERSION" != "$PKG_VERSION" ]; then
-            echo "::error::Tag $TAG does not match setup.py version $PKG_VERSION"
+          if [[ ! "$PKG_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+            echo "::error::setup.py version must follow semver (got '$PKG_VERSION')"
             exit 1
           fi
-
-      - name: Get tagged version
-        run: echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
-      - name: Create GitHub Release
-        uses: sendgrid/dx-automator/actions/release@08b601b726671445abc798ed59881766ec8fefc6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build package
         run: |
@@ -112,9 +121,15 @@ jobs:
           pip install twine
           twine check dist/*
 
-      - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1
-
-      - name: Summary
+      - name: List built artifacts
         run: |
-          echo "Published version $PKG_VERSION to PyPI"
+          echo "Built artifacts:"
+          ls -lh dist/
+          echo ""
+          echo "Package version: $PKG_VERSION"
+
+      - name: Dry run summary
+        run: |
+          echo "--- DRY RUN COMPLETE ---"
+          echo "All pre-release steps passed for version $PKG_VERSION"
+
