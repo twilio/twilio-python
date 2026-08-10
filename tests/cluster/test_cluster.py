@@ -12,7 +12,6 @@ class ClusterTest(unittest.TestCase):
         self.api_key = os.environ["TWILIO_API_KEY"]
         self.api_secret = os.environ["TWILIO_API_SECRET"]
         self.account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-        self.assistant_id = os.environ["ASSISTANT_ID"]
         self.client = Client(
             username=self.api_key,
             password=self.api_secret,
