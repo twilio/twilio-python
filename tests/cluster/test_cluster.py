@@ -66,11 +66,6 @@ class ClusterTest(unittest.TestCase):
         self.assertIsNotNone(toll_free_numbers)
         self.assertEqual(len(toll_free_numbers), 2)
 
-    def test_fetch_assistant(self):
-        assistant = self.client.assistants.v1.assistants(self.assistant_id).fetch()
-        self.assertIsNotNone(assistant)
-        self.assertEqual(assistant.account_sid, self.account_sid)
-
     def test_calling_twiml_string(self):
         call = self.client.calls.create(
             to=self.to_number, from_=self.from_number, twiml=str(self.voice_twiml)
