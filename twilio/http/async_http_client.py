@@ -1,14 +1,36 @@
 import logging
 from typing import Dict, Optional, Tuple
 
-from aiohttp import BasicAuth, ClientSession
+from aiohttp import ClientSession
 from aiohttp_retry import ExponentialRetry, RetryClient
 
 from twilio.http import AsyncHttpClient
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response
 
+try:
+    from aiohttp import encode_basic_auth as _aiohttp_encode_basic_auth
+except ImportError:
+    from aiohttp import BasicAuth
+
+    def _aiohttp_encode_basic_auth(
+        login: str, password: str = "", encoding: str = "utf-8"
+    ) -> str:
+        """Encode Basic Auth credentials on aiohttp versions before 3.14."""
+        return BasicAuth(login=login, password=password, encoding=encoding).encode()
+
+
 _logger = logging.getLogger("twilio.async_http_client")
+
+
+def _validate_basic_auth(login: str, password: str) -> None:
+    """Validate Basic Auth credentials using aiohttp's legacy rules."""
+    if login is None:
+        raise ValueError("None is not allowed as login value")
+    if password is None:
+        raise ValueError("None is not allowed as password value")
+    if ":" in login:
+        raise ValueError('A ":" is not allowed in login (RFC 1945#section-11.1)')
 
 
 class AsyncTwilioHttpClient(AsyncHttpClient):
@@ -79,17 +101,28 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         if timeout is not None and timeout <= 0:
             raise ValueError(timeout)
 
-        basic_auth = None
+        request_headers = headers
         if auth is not None:
-            basic_auth = BasicAuth(login=auth[0], password=auth[1])
+            _validate_basic_auth(auth[0], auth[1])
+            if headers is not None and any(
+                name.lower() == "authorization" for name in headers
+            ):
+                raise ValueError(
+                    "Cannot combine AUTHORIZATION header "
+                    "with AUTH argument or credentials encoded in URL"
+                )
+            authorization = _aiohttp_encode_basic_auth(
+                auth[0], auth[1], encoding="latin1"
+            )
+            request_headers = headers.copy() if headers is not None else {}
+            request_headers["Authorization"] = authorization
 
         kwargs = {
             "method": method.upper(),
             "url": url,
             "params": params,
             "data": data,
-            "headers": headers,
-            "auth": basic_auth,
+            "headers": request_headers,
             "timeout": timeout,
             "allow_redirects": allow_redirects,
         }
@@ -104,7 +137,7 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         else:
             session = ClientSession()
             temp = True
-        self._test_only_last_request = TwilioRequest(**kwargs)
+        self._test_only_last_request = TwilioRequest(auth=None, **kwargs)
         response = await session.request(**kwargs)
         self.log_response(response.status, response)
         self._test_only_last_response = Response(
