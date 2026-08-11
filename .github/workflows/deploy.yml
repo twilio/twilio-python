@@ -3,7 +3,7 @@ name: Twilio Public release-pypi
 on:
   push:
     tags:
-      - 'v*'
+      - '*'
 
 env:
   ARTIFACTORY_URL: ${{ vars.ARTIFACTORY_URL }}
