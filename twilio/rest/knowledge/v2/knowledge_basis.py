@@ -27,7 +27,6 @@ from twilio.base.token_pagination import TokenPagination
 
 class KnowledgeBasisInstance(InstanceResource):
     """
-    :ivar message:
     :ivar display_name: Provides a unique and addressable name to be assigned to this Knowledge Base. This name is assigned by the developer and can be used in addition to the ID. It is intended to be human-readable and unique within the account.
     :ivar description: A human readable description of this resource, up to 128 characters.
     :ivar id: The unique identifier for the Knowledge Base
@@ -35,6 +34,7 @@ class KnowledgeBasisInstance(InstanceResource):
     :ivar created_at: The ISO 8601 timestamp when the Knowledge Base was created.
     :ivar updated_at: The ISO 8601 timestamp when the Knowledge Base was last updated.
     :ivar version: The current version number of the Knowledge Base. Incremented on each successful mutable update.
+    :ivar message:
     :ivar status_url: URI to check operation status.
     """
 
@@ -43,7 +43,6 @@ class KnowledgeBasisInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.message: Optional[str] = payload.get("message")
         self.display_name: Optional[str] = payload.get("displayName")
         self.description: Optional[str] = payload.get("description")
         self.id: Optional[str] = payload.get("id")
@@ -55,6 +54,7 @@ class KnowledgeBasisInstance(InstanceResource):
             payload.get("updatedAt")
         )
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
+        self.message: Optional[str] = payload.get("message")
         self.status_url: Optional[str] = payload.get("statusUrl")
 
         # Only set _solution if path params are provided (not None)

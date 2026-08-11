@@ -29,6 +29,10 @@ class ChunkInstance(InstanceResource):
     """
     :ivar content: The chunk content.
     :ivar created_at: The date and time in GMT when the Chunk was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar chunk_index: 0-based position of this chunk within its source document for a single ingestion run.
+    :ivar document_title: Human-readable title of the source document. Web: HTML <title> from the crawled page. File: filename from Unstructured metadata. Text: knowledge name from the knowledge source.
+    :ivar document_url: Specific page URL this chunk was crawled from. Web sources only; null for File and Text sources.
+    :ivar document_number: Physical page number (1-based). PDF sources only; omitted for all other source types.
     """
 
     def __init__(
@@ -39,6 +43,12 @@ class ChunkInstance(InstanceResource):
         self.content: Optional[str] = payload.get("content")
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("createdAt")
+        )
+        self.chunk_index: Optional[int] = deserialize.integer(payload.get("chunkIndex"))
+        self.document_title: Optional[str] = payload.get("documentTitle")
+        self.document_url: Optional[str] = payload.get("documentUrl")
+        self.document_number: Optional[int] = deserialize.integer(
+            payload.get("documentNumber")
         )
 
         # Only set _solution if path params are provided (not None)

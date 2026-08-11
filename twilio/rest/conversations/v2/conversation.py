@@ -26,22 +26,49 @@ from twilio.base.token_pagination import TokenPagination
 
 
 class ConversationInstance(InstanceResource):
+
+    class ConversationsV2Channel(object):
+        VOICE = "VOICE"
+        SMS = "SMS"
+        RCS = "RCS"
+        WHATSAPP = "WHATSAPP"
+        CHAT = "CHAT"
+
+    class ConversationsV2ConversationGroupingType(object):
+        GROUP_BY_PROFILE = "GROUP_BY_PROFILE"
+        GROUP_BY_PARTICIPANT_ADDRESSES = "GROUP_BY_PARTICIPANT_ADDRESSES"
+        GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE = (
+            "GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE"
+        )
+
+    class ConversationsV2ConversationStatus(object):
+        ACTIVE = "ACTIVE"
+        INACTIVE = "INACTIVE"
+        CLOSED = "CLOSED"
+
+    class ConversationsV2ParticipantType(object):
+        HUMAN_AGENT = "HUMAN_AGENT"
+        CUSTOMER = "CUSTOMER"
+        AI_AGENT = "AI_AGENT"
+        AGENT = "AGENT"
+        UNKNOWN = "UNKNOWN"
+
     """
     :ivar id: Conversation ID.
     :ivar account_id: Account ID.
     :ivar configuration_id: Configuration ID.
-    :ivar status: Conversation status.
+    :ivar status: 
     :ivar name: Conversation name.
     :ivar created_at: Timestamp when this Conversation was created.
     :ivar updated_at: Timestamp when this Conversation was last updated.
-    :ivar configuration:
+    :ivar configuration: 
     :ivar participants: Participants in this Conversation.
     :ivar status_url: URL to poll for operation status.
-    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
+    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
     """
 
     def __init__(
-        self, version: Version, payload: ResponseResource, sid: Optional[str] = None
+        self, version: Version, payload: ResponseResource, id: Optional[str] = None
     ):
         super().__init__(version)
 
@@ -62,9 +89,9 @@ class ConversationInstance(InstanceResource):
         self.related: Optional[Dict[str, str]] = payload.get("related")
 
         # Only set _solution if path params are provided (not None)
-        if sid is not None:
+        if id is not None:
             self._solution = {
-                "sid": sid,
+                "id": id,
             }
 
         self._context: Optional[ConversationContext] = None
@@ -80,7 +107,7 @@ class ConversationInstance(InstanceResource):
         if self._context is None:
             self._context = ConversationContext(
                 self._version,
-                sid=self._solution["sid"],
+                id=self._solution["id"],
             )
         return self._context
 
@@ -288,20 +315,20 @@ class ConversationInstance(InstanceResource):
 
 class ConversationContext(InstanceContext):
 
-    def __init__(self, version: Version, sid: str):
+    def __init__(self, version: Version, id: str):
         """
         Initialize the ConversationContext
 
         :param version: Version that contains the resource
-        :param sid:
+        :param id:
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "sid": sid,
+            "id": id,
         }
-        self._uri = "/Conversations/{sid}".format(**self._solution)
+        self._uri = "/Conversations/{id}".format(**self._solution)
 
     def _delete(self, idempotency_key: Union[str, object] = values.unset) -> tuple:
         """
@@ -426,7 +453,7 @@ class ConversationContext(InstanceContext):
         return ConversationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
 
     def fetch_with_http_info(self) -> ApiResponse:
@@ -440,7 +467,7 @@ class ConversationContext(InstanceContext):
         instance = ConversationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -471,7 +498,7 @@ class ConversationContext(InstanceContext):
         return ConversationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
@@ -485,7 +512,7 @@ class ConversationContext(InstanceContext):
         instance = ConversationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -529,7 +556,7 @@ class ConversationContext(InstanceContext):
         payload, _, _ = self._patch(
             patch_conversation_by_id_request=patch_conversation_by_id_request
         )
-        return ConversationInstance(self._version, payload, sid=self._solution["sid"])
+        return ConversationInstance(self._version, payload, id=self._solution["id"])
 
     def patch_with_http_info(
         self,
@@ -547,9 +574,7 @@ class ConversationContext(InstanceContext):
         payload, status_code, headers = self._patch(
             patch_conversation_by_id_request=patch_conversation_by_id_request
         )
-        instance = ConversationInstance(
-            self._version, payload, sid=self._solution["sid"]
-        )
+        instance = ConversationInstance(self._version, payload, id=self._solution["id"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     async def _patch_async(
@@ -592,7 +617,7 @@ class ConversationContext(InstanceContext):
         payload, _, _ = await self._patch_async(
             patch_conversation_by_id_request=patch_conversation_by_id_request
         )
-        return ConversationInstance(self._version, payload, sid=self._solution["sid"])
+        return ConversationInstance(self._version, payload, id=self._solution["id"])
 
     async def patch_with_http_info_async(
         self,
@@ -610,9 +635,7 @@ class ConversationContext(InstanceContext):
         payload, status_code, headers = await self._patch_async(
             patch_conversation_by_id_request=patch_conversation_by_id_request
         )
-        instance = ConversationInstance(
-            self._version, payload, sid=self._solution["sid"]
-        )
+        instance = ConversationInstance(self._version, payload, id=self._solution["id"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def _update(
@@ -655,7 +678,7 @@ class ConversationContext(InstanceContext):
         payload, _, _ = self._update(
             update_conversation_by_id_request=update_conversation_by_id_request
         )
-        return ConversationInstance(self._version, payload, sid=self._solution["sid"])
+        return ConversationInstance(self._version, payload, id=self._solution["id"])
 
     def update_with_http_info(
         self,
@@ -673,9 +696,7 @@ class ConversationContext(InstanceContext):
         payload, status_code, headers = self._update(
             update_conversation_by_id_request=update_conversation_by_id_request
         )
-        instance = ConversationInstance(
-            self._version, payload, sid=self._solution["sid"]
-        )
+        instance = ConversationInstance(self._version, payload, id=self._solution["id"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     async def _update_async(
@@ -718,7 +739,7 @@ class ConversationContext(InstanceContext):
         payload, _, _ = await self._update_async(
             update_conversation_by_id_request=update_conversation_by_id_request
         )
-        return ConversationInstance(self._version, payload, sid=self._solution["sid"])
+        return ConversationInstance(self._version, payload, id=self._solution["id"])
 
     async def update_with_http_info_async(
         self,
@@ -736,9 +757,7 @@ class ConversationContext(InstanceContext):
         payload, status_code, headers = await self._update_async(
             update_conversation_by_id_request=update_conversation_by_id_request
         )
-        instance = ConversationInstance(
-            self._version, payload, sid=self._solution["sid"]
-        )
+        instance = ConversationInstance(self._version, payload, id=self._solution["id"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
@@ -775,20 +794,20 @@ class ConversationList(ListResource):
 
     class ConversationsV2Address(object):
         """
-        :ivar channel: The channel for Communication.
+        :ivar channel:
         :ivar address: The address value formatted according to channel type: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") - CHAT: Customer-defined string identifier
         :ivar channel_id: Channel-specific ID for correlating Communications.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channel: Optional[str] = payload.get("channel")
+            self.channel: Optional[ConversationsV2Channel] = payload.get("channel")
             self.address: Optional[str] = payload.get("address")
             self.channel_id: Optional[str] = payload.get("channelId")
 
         def to_dict(self):
             return {
-                "channel": self.channel,
+                "channel": self.channel.to_dict() if self.channel is not None else None,
                 "address": self.address,
                 "channelId": self.channel_id,
             }
@@ -908,7 +927,7 @@ class ConversationList(ListResource):
 
     class CreateConversationWithConfigRequestParticipantsAddresses(object):
         """
-        :ivar channel:
+        :ivar channel: Channel type for a Communication address.
         :ivar address:
         :ivar channel_id:
         """
@@ -929,7 +948,7 @@ class ConversationList(ListResource):
     class PatchConversationByIdRequest(object):
         """
         :ivar name: The name of the Conversation.
-        :ivar status: The state of the Conversation.
+        :ivar status: Lifecycle status of a Conversation.
         :ivar configuration:
         """
 
@@ -978,7 +997,7 @@ class ConversationList(ListResource):
     class UpdateConversationByIdRequest(object):
         """
         :ivar name: The name of the Conversation.
-        :ivar status: The state of the Conversation.
+        :ivar status: Lifecycle status of a Conversation.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1588,21 +1607,21 @@ class ConversationList(ListResource):
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConversationPage(self._version, response)
 
-    def get(self, sid: str) -> ConversationContext:
+    def get(self, id: str) -> ConversationContext:
         """
         Constructs a ConversationContext
 
-        :param sid:
+        :param id:
         """
-        return ConversationContext(self._version, sid=sid)
+        return ConversationContext(self._version, id=id)
 
-    def __call__(self, sid: str) -> ConversationContext:
+    def __call__(self, id: str) -> ConversationContext:
         """
         Constructs a ConversationContext
 
-        :param sid:
+        :param id:
         """
-        return ConversationContext(self._version, sid=sid)
+        return ConversationContext(self._version, id=id)
 
     def __repr__(self) -> str:
         """

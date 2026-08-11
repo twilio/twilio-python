@@ -325,8 +325,8 @@ class ConversationList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str page_token: Token for pagination
-        :param datetime created_at_before: Filter by Conversations created before this timestamp.
-        :param datetime created_at_after: Filter by Conversations created after this timestamp.
+        :param datetime created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param datetime created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param str status: Filter by Conversation status.
         :param str channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param List[str] channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -379,8 +379,8 @@ class ConversationList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str page_token: Token for pagination
-        :param datetime created_at_before: Filter by Conversations created before this timestamp.
-        :param datetime created_at_after: Filter by Conversations created after this timestamp.
+        :param datetime created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param datetime created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param str status: Filter by Conversation status.
         :param str channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param List[str] channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -431,8 +431,8 @@ class ConversationList(ListResource):
 
 
         :param str page_token: Token for pagination
-        :param datetime created_at_before: Filter by Conversations created before this timestamp.
-        :param datetime created_at_after: Filter by Conversations created after this timestamp.
+        :param datetime created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param datetime created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param str status: Filter by Conversation status.
         :param str channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param List[str] channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -484,8 +484,8 @@ class ConversationList(ListResource):
 
 
         :param str page_token: Token for pagination
-        :param datetime created_at_before: Filter by Conversations created before this timestamp.
-        :param datetime created_at_after: Filter by Conversations created after this timestamp.
+        :param datetime created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param datetime created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param str status: Filter by Conversation status.
         :param str channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param List[str] channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -538,8 +538,8 @@ class ConversationList(ListResource):
         memory before returning.
 
         :param str page_token: Token for pagination
-        :param datetime created_at_before: Filter by Conversations created before this timestamp.
-        :param datetime created_at_after: Filter by Conversations created after this timestamp.
+        :param datetime created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param datetime created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param str status: Filter by Conversation status.
         :param str channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param List[str] channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -592,8 +592,8 @@ class ConversationList(ListResource):
         memory before returning.
 
         :param str page_token: Token for pagination
-        :param datetime created_at_before: Filter by Conversations created before this timestamp.
-        :param datetime created_at_after: Filter by Conversations created after this timestamp.
+        :param datetime created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param datetime created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param str status: Filter by Conversation status.
         :param str channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param List[str] channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -646,8 +646,8 @@ class ConversationList(ListResource):
 
 
         :param str page_token: Token for pagination
-        :param datetime created_at_before: Filter by Conversations created before this timestamp.
-        :param datetime created_at_after: Filter by Conversations created after this timestamp.
+        :param datetime created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param datetime created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param str status: Filter by Conversation status.
         :param str channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param List[str] channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -698,8 +698,8 @@ class ConversationList(ListResource):
 
 
         :param str page_token: Token for pagination
-        :param datetime created_at_before: Filter by Conversations created before this timestamp.
-        :param datetime created_at_after: Filter by Conversations created after this timestamp.
+        :param datetime created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param datetime created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param str status: Filter by Conversation status.
         :param str channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param List[str] channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -750,8 +750,8 @@ class ConversationList(ListResource):
 
         :param page_size: The maximum number of resources to return
         :param page_token: Token for pagination
-        :param created_at_before: Filter by Conversations created before this timestamp.
-        :param created_at_after: Filter by Conversations created after this timestamp.
+        :param created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param status: Filter by Conversation status.
         :param channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -805,8 +805,8 @@ class ConversationList(ListResource):
 
         :param page_size: The maximum number of resources to return
         :param page_token: Token for pagination
-        :param created_at_before: Filter by Conversations created before this timestamp.
-        :param created_at_after: Filter by Conversations created after this timestamp.
+        :param created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param status: Filter by Conversation status.
         :param channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -860,8 +860,8 @@ class ConversationList(ListResource):
 
 
         :param page_token: Token for pagination
-        :param created_at_before: Filter by Conversations created before this timestamp.
-        :param created_at_after: Filter by Conversations created after this timestamp.
+        :param created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param status: Filter by Conversation status.
         :param channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).
@@ -922,8 +922,8 @@ class ConversationList(ListResource):
 
 
         :param page_token: Token for pagination
-        :param created_at_before: Filter by Conversations created before this timestamp.
-        :param created_at_after: Filter by Conversations created after this timestamp.
+        :param created_at_before: Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+        :param created_at_after: Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
         :param status: Filter by Conversation status.
         :param channel_id: Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
         :param channels: Filters Conversations that include one or more of the specified communication channels (`OR` match).

@@ -838,6 +838,7 @@ class ContentInstance(InstanceResource):
         COPY_CODE = "COPY_CODE"
         VOICE_CALL = "VOICE_CALL"
         VOICE_CALL_REQUEST = "VOICE_CALL_REQUEST"
+        REQUEST_CONTACT_INFO = "REQUEST_CONTACT_INFO"
 
     class CardActionType(object):
         URL = "URL"

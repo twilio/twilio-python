@@ -50,6 +50,7 @@ class EventInstance(InstanceResource):
     :ivar sip_edge: `object` Represents the Twilio media gateway for SIP interface and SIP trunking calls. The events here describe the call lifecycle as reported by Twilio's public media gateways. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
     :ivar sdk_edge: `object` Represents the Voice SDK running locally in the browser or in the Android/iOS application. The events here are emitted by the Voice SDK in response to certain call progress events, network changes, or call quality conditions. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
     :ivar client_edge: `object` Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio's Voice SDK media gateways. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
+    :ivar conversation_relay_data: 
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
@@ -66,6 +67,9 @@ class EventInstance(InstanceResource):
         self.sip_edge: Optional[Dict[str, object]] = payload.get("sip_edge")
         self.sdk_edge: Optional[Dict[str, object]] = payload.get("sdk_edge")
         self.client_edge: Optional[Dict[str, object]] = payload.get("client_edge")
+        self.conversation_relay_data: Optional[str] = payload.get(
+            "conversation_relay_data"
+        )
 
         self._solution = {
             "call_sid": call_sid,

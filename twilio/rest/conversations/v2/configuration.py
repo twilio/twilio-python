@@ -26,35 +26,45 @@ from twilio.base.token_pagination import TokenPagination
 
 
 class ConfigurationInstance(InstanceResource):
+
+    class ConversationsV2ConversationGroupingType(object):
+        GROUP_BY_PROFILE = "GROUP_BY_PROFILE"
+        GROUP_BY_PARTICIPANT_ADDRESSES = "GROUP_BY_PARTICIPANT_ADDRESSES"
+        GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE = (
+            "GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE"
+        )
+
     """
+    :ivar status_url: URL to poll for operation status.
+    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
     :ivar id: Configuration ID.
     :ivar display_name: A human-readable name for the configuration. Limited to 32 characters.
     :ivar description: Human-readable description for the Configuration. Allows spaces and special characters, typically limited to a paragraph of text. This serves as a descriptive field rather than just a name.
-    :ivar conversation_grouping_type: Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+    :ivar conversation_grouping_type: 
     :ivar memory_store_id: Memory Store ID for Profile resolution.
     :ivar channel_settings: Channel-specific configuration settings by channel type. Keys should be valid channel types (`VOICE`, `SMS`, `RCS`, `WHATSAPP`, `CHAT`).
     :ivar status_callbacks: List of default webhook configurations applied to Conversations under this Configuration.
     :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
     :ivar memory_extraction_enabled: Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
-    :ivar conversations_v1_bridge:
+    :ivar conversations_v1_bridge: 
     :ivar created_at: Timestamp when this Configuration was created.
     :ivar updated_at: Timestamp when this Configuration was last updated.
     :ivar version: Version number used for optimistic locking.
-    :ivar status_url: URL to poll for operation status.
-    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
     """
 
     def __init__(
-        self, version: Version, payload: ResponseResource, sid: Optional[str] = None
+        self, version: Version, payload: ResponseResource, id: Optional[str] = None
     ):
         super().__init__(version)
 
+        self.status_url: Optional[str] = payload.get("statusUrl")
+        self.related: Optional[Dict[str, str]] = payload.get("related")
         self.id: Optional[str] = payload.get("id")
         self.display_name: Optional[str] = payload.get("displayName")
         self.description: Optional[str] = payload.get("description")
-        self.conversation_grouping_type: Optional["ConfigurationInstance.str"] = (
-            payload.get("conversationGroupingType")
-        )
+        self.conversation_grouping_type: Optional[
+            "ConfigurationInstance.ConversationsV2ConversationGroupingType"
+        ] = payload.get("conversationGroupingType")
         self.memory_store_id: Optional[str] = payload.get("memoryStoreId")
         self.channel_settings: Optional[Dict[str, ConversationsV2ChannelSetting]] = (
             payload.get("channelSettings")
@@ -78,13 +88,11 @@ class ConfigurationInstance(InstanceResource):
             payload.get("updatedAt")
         )
         self.version: Optional[int] = payload.get("version")
-        self.status_url: Optional[str] = payload.get("statusUrl")
-        self.related: Optional[Dict[str, str]] = payload.get("related")
 
         # Only set _solution if path params are provided (not None)
-        if sid is not None:
+        if id is not None:
             self._solution = {
-                "sid": sid,
+                "id": id,
             }
 
         self._context: Optional[ConfigurationContext] = None
@@ -100,7 +108,7 @@ class ConfigurationInstance(InstanceResource):
         if self._context is None:
             self._context = ConfigurationContext(
                 self._version,
-                sid=self._solution["sid"],
+                id=self._solution["id"],
             )
         return self._context
 
@@ -286,20 +294,20 @@ class ConfigurationInstance(InstanceResource):
 
 class ConfigurationContext(InstanceContext):
 
-    def __init__(self, version: Version, sid: str):
+    def __init__(self, version: Version, id: str):
         """
         Initialize the ConfigurationContext
 
         :param version: Version that contains the resource
-        :param sid:
+        :param id:
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "sid": sid,
+            "id": id,
         }
-        self._uri = "/ControlPlane/Configurations/{sid}".format(**self._solution)
+        self._uri = "/ControlPlane/Configurations/{id}".format(**self._solution)
 
     def _delete(self, idempotency_key: Union[str, object] = values.unset) -> tuple:
         """
@@ -424,7 +432,7 @@ class ConfigurationContext(InstanceContext):
         return ConfigurationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
 
     def fetch_with_http_info(self) -> ApiResponse:
@@ -438,7 +446,7 @@ class ConfigurationContext(InstanceContext):
         instance = ConfigurationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -469,7 +477,7 @@ class ConfigurationContext(InstanceContext):
         return ConfigurationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
@@ -483,7 +491,7 @@ class ConfigurationContext(InstanceContext):
         instance = ConfigurationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -537,7 +545,7 @@ class ConfigurationContext(InstanceContext):
             idempotency_key=idempotency_key,
             update_configuration_request=update_configuration_request,
         )
-        return ConfigurationInstance(self._version, payload, sid=self._solution["sid"])
+        return ConfigurationInstance(self._version, payload, id=self._solution["id"])
 
     def update_with_http_info(
         self,
@@ -559,7 +567,7 @@ class ConfigurationContext(InstanceContext):
             update_configuration_request=update_configuration_request,
         )
         instance = ConfigurationInstance(
-            self._version, payload, sid=self._solution["sid"]
+            self._version, payload, id=self._solution["id"]
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -613,7 +621,7 @@ class ConfigurationContext(InstanceContext):
             idempotency_key=idempotency_key,
             update_configuration_request=update_configuration_request,
         )
-        return ConfigurationInstance(self._version, payload, sid=self._solution["sid"])
+        return ConfigurationInstance(self._version, payload, id=self._solution["id"])
 
     async def update_with_http_info_async(
         self,
@@ -635,7 +643,7 @@ class ConfigurationContext(InstanceContext):
             update_configuration_request=update_configuration_request,
         )
         instance = ConfigurationInstance(
-            self._version, payload, sid=self._solution["sid"]
+            self._version, payload, id=self._solution["id"]
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -772,12 +780,13 @@ class ConfigurationList(ListResource):
         """
         :ivar display_name: A human-readable name for the configuration. Limited to 32 characters.
         :ivar description: Human-readable description for the configuration.
-        :ivar conversation_grouping_type: The strategy Conversation Orchestrator uses to assign communications to conversations.
+        :ivar conversation_grouping_type: Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
         :ivar memory_store_id: The memory store ID that Conversation Orchestrator uses for profile resolution.
         :ivar channel_settings:
         :ivar status_callbacks: A list of webhook configurations.
         :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
         :ivar memory_extraction_enabled: Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
+        :ivar conversations_v1_bridge:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -800,6 +809,9 @@ class ConfigurationList(ListResource):
             self.memory_extraction_enabled: Optional[bool] = payload.get(
                 "memoryExtractionEnabled"
             )
+            self.conversations_v1_bridge: Optional[
+                ConfigurationList.CreateConfigurationRequestConversationsV1Bridge
+            ] = payload.get("conversationsV1Bridge")
 
         def to_dict(self):
             return {
@@ -822,6 +834,11 @@ class ConfigurationList(ListResource):
                 ),
                 "intelligenceConfigurationIds": self.intelligence_configuration_ids,
                 "memoryExtractionEnabled": self.memory_extraction_enabled,
+                "conversationsV1Bridge": (
+                    self.conversations_v1_bridge.to_dict()
+                    if self.conversations_v1_bridge is not None
+                    else None
+                ),
             }
 
     class CreateConfigurationRequestChannelSettingsValue(object):
@@ -890,6 +907,20 @@ class ConfigurationList(ListResource):
                 "closed": self.closed,
             }
 
+    class CreateConfigurationRequestConversationsV1Bridge(object):
+        """
+        :ivar service_id: The Conversations V1 Service SID (IS prefix). One configuration per V1 Service SID.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.service_id: Optional[str] = payload.get("serviceId")
+
+        def to_dict(self):
+            return {
+                "serviceId": self.service_id,
+            }
+
     class CreateConfigurationRequestStatusCallbacks(object):
         """
         :ivar url: The destination URL for webhooks.
@@ -911,12 +942,13 @@ class ConfigurationList(ListResource):
         """
         :ivar display_name: A human-readable name for the configuration. Limited to 32 characters.
         :ivar description: Human-readable description for the configuration.
-        :ivar conversation_grouping_type: The strategy Conversation Orchestrator uses to assign communications to conversations.
+        :ivar conversation_grouping_type: Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
         :ivar memory_store_id: The Memory Store ID for profile resolution.
         :ivar channel_settings:
         :ivar status_callbacks:
         :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
         :ivar memory_extraction_enabled: Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
+        :ivar conversations_v1_bridge:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -939,6 +971,9 @@ class ConfigurationList(ListResource):
             self.memory_extraction_enabled: Optional[bool] = payload.get(
                 "memoryExtractionEnabled"
             )
+            self.conversations_v1_bridge: Optional[
+                ConfigurationList.CreateConfigurationRequestConversationsV1Bridge
+            ] = payload.get("conversationsV1Bridge")
 
         def to_dict(self):
             return {
@@ -961,6 +996,11 @@ class ConfigurationList(ListResource):
                 ),
                 "intelligenceConfigurationIds": self.intelligence_configuration_ids,
                 "memoryExtractionEnabled": self.memory_extraction_enabled,
+                "conversationsV1Bridge": (
+                    self.conversations_v1_bridge.to_dict()
+                    if self.conversations_v1_bridge is not None
+                    else None
+                ),
             }
 
     class UpdateConfigurationRequestChannelSettingsValue(object):
@@ -1630,21 +1670,21 @@ class ConfigurationList(ListResource):
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConfigurationPage(self._version, response)
 
-    def get(self, sid: str) -> ConfigurationContext:
+    def get(self, id: str) -> ConfigurationContext:
         """
         Constructs a ConfigurationContext
 
-        :param sid:
+        :param id:
         """
-        return ConfigurationContext(self._version, sid=sid)
+        return ConfigurationContext(self._version, id=id)
 
-    def __call__(self, sid: str) -> ConfigurationContext:
+    def __call__(self, id: str) -> ConfigurationContext:
         """
         Constructs a ConfigurationContext
 
-        :param sid:
+        :param id:
         """
-        return ConfigurationContext(self._version, sid=sid)
+        return ConfigurationContext(self._version, id=id)
 
     def __repr__(self) -> str:
         """

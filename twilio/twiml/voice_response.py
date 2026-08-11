@@ -52,6 +52,7 @@ class VoiceResponse(TwiML):
         refer_url=None,
         refer_method=None,
         events=None,
+        passports=None,
         **kwargs
     ):
         """
@@ -77,6 +78,7 @@ class VoiceResponse(TwiML):
         :param refer_url: Webhook that will receive future SIP REFER requests
         :param refer_method: The HTTP method to use for the refer Webhook
         :param events: Subscription to events
+        :param passports: Base64-encoded comma-separated identity passports (e.g. shaken, div)
         :param kwargs: additional attributes
 
         :returns: <Dial> element
@@ -103,6 +105,7 @@ class VoiceResponse(TwiML):
                 refer_url=refer_url,
                 refer_method=refer_method,
                 events=events,
+                passports=passports,
                 **kwargs
             )
         )
@@ -3011,86 +3014,6 @@ class Connect(TwiML):
             )
         )
 
-    def assistant(
-        self,
-        id=None,
-        language=None,
-        tts_language=None,
-        transcription_language=None,
-        tts_provider=None,
-        voice=None,
-        transcription_provider=None,
-        speech_model=None,
-        profanity_filter=None,
-        dtmf_detection=None,
-        welcome_greeting=None,
-        partial_prompts=None,
-        welcome_greeting_interruptible=None,
-        interruptible=None,
-        preemptible=None,
-        hints=None,
-        intelligence_service=None,
-        report_input_during_agent_speech=None,
-        elevenlabs_text_normalization=None,
-        interrupt_sensitivity=None,
-        debug=None,
-        **kwargs
-    ):
-        """
-        Create a <Assistant> element
-
-        :param id: The assistant ID of the AI Assistant
-        :param language: Language to be used for both text-to-speech and transcription
-        :param tts_language: Language to be used for text-to-speech
-        :param transcription_language: Language to be used for transcription
-        :param tts_provider: Provider to be used for text-to-speech
-        :param voice: Voice to be used for text-to-speech
-        :param transcription_provider: Provider to be used for transcription
-        :param speech_model: Speech model to be used for transcription
-        :param profanity_filter: Whether profanities should be filtered out of the speech transcription
-        :param dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
-        :param welcome_greeting: The sentence to be played automatically when the session is connected
-        :param partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
-        :param welcome_greeting_interruptible: "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting
-        :param interruptible: Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech
-        :param preemptible: Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media
-        :param hints: Phrases to help better accuracy in speech recognition of these pharases
-        :param intelligence_service: The Conversational Intelligence Service id or unique name to be used for the session
-        :param report_input_during_agent_speech: Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled
-        :param elevenlabs_text_normalization: When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature
-        :param interrupt_sensitivity: Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high
-        :param debug: Multiple debug options to be used for troubleshooting
-        :param kwargs: additional attributes
-
-        :returns: <Assistant> element
-        """
-        return self.nest(
-            Assistant(
-                id=id,
-                language=language,
-                tts_language=tts_language,
-                transcription_language=transcription_language,
-                tts_provider=tts_provider,
-                voice=voice,
-                transcription_provider=transcription_provider,
-                speech_model=speech_model,
-                profanity_filter=profanity_filter,
-                dtmf_detection=dtmf_detection,
-                welcome_greeting=welcome_greeting,
-                partial_prompts=partial_prompts,
-                welcome_greeting_interruptible=welcome_greeting_interruptible,
-                interruptible=interruptible,
-                preemptible=preemptible,
-                hints=hints,
-                intelligence_service=intelligence_service,
-                report_input_during_agent_speech=report_input_during_agent_speech,
-                elevenlabs_text_normalization=elevenlabs_text_normalization,
-                interrupt_sensitivity=interrupt_sensitivity,
-                debug=debug,
-                **kwargs
-            )
-        )
-
     def ai_session(self, ai_connector=None, ai_session_configuration=None, **kwargs):
         """
         Create a <AiSession> element
@@ -3146,12 +3069,12 @@ class AiSession(TwiML):
         self.name = "AiSession"
 
 
-class Assistant(TwiML):
-    """<Assistant> TwiML Noun"""
+class ConversationRelay(TwiML):
+    """<ConversationRelay> TwiML Noun"""
 
     def __init__(self, **kwargs):
-        super(Assistant, self).__init__(**kwargs)
-        self.name = "Assistant"
+        super(ConversationRelay, self).__init__(**kwargs)
+        self.name = "ConversationRelay"
 
     def language(
         self,
@@ -3204,58 +3127,6 @@ class Language(TwiML):
     def __init__(self, **kwargs):
         super(Language, self).__init__(**kwargs)
         self.name = "Language"
-
-
-class ConversationRelay(TwiML):
-    """<ConversationRelay> TwiML Noun"""
-
-    def __init__(self, **kwargs):
-        super(ConversationRelay, self).__init__(**kwargs)
-        self.name = "ConversationRelay"
-
-    def language(
-        self,
-        code=None,
-        tts_provider=None,
-        voice=None,
-        transcription_provider=None,
-        speech_model=None,
-        **kwargs
-    ):
-        """
-        Create a <Language> element
-
-        :param code: Language code of this language setting is for
-        :param tts_provider: Provider to be used for text-to-speech of this language
-        :param voice: Voice to be used for text-to-speech of this language
-        :param transcription_provider: Provider to be used for transcription of this language
-        :param speech_model: Speech model to be used for transcription of this language
-        :param kwargs: additional attributes
-
-        :returns: <Language> element
-        """
-        return self.nest(
-            Language(
-                code=code,
-                tts_provider=tts_provider,
-                voice=voice,
-                transcription_provider=transcription_provider,
-                speech_model=speech_model,
-                **kwargs
-            )
-        )
-
-    def parameter(self, name=None, value=None, **kwargs):
-        """
-        Create a <Parameter> element
-
-        :param name: The name of the custom parameter
-        :param value: The value of the custom parameter
-        :param kwargs: additional attributes
-
-        :returns: <Parameter> element
-        """
-        return self.nest(Parameter(name=name, value=value, **kwargs))
 
 
 class Conversation(TwiML):

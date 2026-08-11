@@ -228,8 +228,8 @@ class MessageInstance(InstanceResource):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -263,8 +263,8 @@ class MessageInstance(InstanceResource):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -298,8 +298,8 @@ class MessageInstance(InstanceResource):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -333,8 +333,8 @@ class MessageInstance(InstanceResource):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -668,8 +668,8 @@ class MessageContext(InstanceContext):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -709,8 +709,8 @@ class MessageContext(InstanceContext):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -799,8 +799,8 @@ class MessageContext(InstanceContext):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -840,8 +840,8 @@ class MessageContext(InstanceContext):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -1000,8 +1000,8 @@ class MessageList(ListResource):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
         :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
@@ -1047,8 +1047,8 @@ class MessageList(ListResource):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
         :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
@@ -1145,8 +1145,8 @@ class MessageList(ListResource):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
         :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
@@ -1192,8 +1192,8 @@ class MessageList(ListResource):
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param date_created: The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+        :param date_updated: The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
         :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.

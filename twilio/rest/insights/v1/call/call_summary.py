@@ -24,6 +24,12 @@ from twilio.base.version import Version
 
 class CallSummaryInstance(InstanceResource):
 
+    class CallSummaryCrelaySessionState(object):
+        UNKNOWN = "unknown"
+        FAILURE = "failure"
+        ENDED = "ended"
+        HUNG_UP = "hung_up"
+
     class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
@@ -78,6 +84,7 @@ class CallSummaryInstance(InstanceResource):
     :ivar properties: `object` Contains edge-agnostic call-level details. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#properties-object) for the object properties.
     :ivar trust: `object` Contains trusted communications details including Branded Call and verified caller ID. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#trust-object) for the object properties.
     :ivar annotation: `object` Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#annotation-object) for the object properties.
+    :ivar agent_session_summaries: `object` List of session summaries for conversation relay. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#conversation-relay-object) for the object properties.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
@@ -122,6 +129,9 @@ class CallSummaryInstance(InstanceResource):
         self.properties: Optional[Dict[str, object]] = payload.get("properties")
         self.trust: Optional[Dict[str, object]] = payload.get("trust")
         self.annotation: Optional[Dict[str, object]] = payload.get("annotation")
+        self.agent_session_summaries: Optional[List[str]] = payload.get(
+            "agent_session_summaries"
+        )
 
         self._solution = {
             "call_sid": call_sid,

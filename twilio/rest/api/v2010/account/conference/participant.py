@@ -1007,8 +1007,17 @@ class ParticipantList(ListResource):
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
+        passports: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
         caller_display_name: Union[str, object] = values.unset,
+        emergency_caller_position: Union[str, object] = values.unset,
+        emergency_caller_location: Union[str, object] = values.unset,
+        emergency_name: Union[str, object] = values.unset,
+        emergency_address: Union[str, object] = values.unset,
+        emergency_zip_code: Union[str, object] = values.unset,
+        emergency_city: Union[str, object] = values.unset,
+        emergency_state: Union[str, object] = values.unset,
+        emergency_country: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -1080,8 +1089,17 @@ class ParticipantList(ListResource):
                 "AmdStatusCallbackMethod": amd_status_callback_method,
                 "Trim": trim,
                 "CallToken": call_token,
+                "Passports": passports,
                 "ClientNotificationUrl": client_notification_url,
                 "CallerDisplayName": caller_display_name,
+                "EmergencyCallerPosition": emergency_caller_position,
+                "EmergencyCallerLocation": emergency_caller_location,
+                "EmergencyName": emergency_name,
+                "EmergencyAddress": emergency_address,
+                "EmergencyZipCode": emergency_zip_code,
+                "EmergencyCity": emergency_city,
+                "EmergencyState": emergency_state,
+                "EmergencyCountry": emergency_country,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -1147,8 +1165,17 @@ class ParticipantList(ListResource):
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
+        passports: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
         caller_display_name: Union[str, object] = values.unset,
+        emergency_caller_position: Union[str, object] = values.unset,
+        emergency_caller_location: Union[str, object] = values.unset,
+        emergency_name: Union[str, object] = values.unset,
+        emergency_address: Union[str, object] = values.unset,
+        emergency_zip_code: Union[str, object] = values.unset,
+        emergency_city: Union[str, object] = values.unset,
+        emergency_state: Union[str, object] = values.unset,
+        emergency_country: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Create the ParticipantInstance
@@ -1202,8 +1229,17 @@ class ParticipantList(ListResource):
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+        :param passports: The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string
         :param client_notification_url: The URL that we should use to deliver `push call notification`.
         :param caller_display_name: The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
+        :param emergency_caller_position: The emergency caller's GPS coordinates in decimal degrees format. Format: \\\"latitude longitude\\\" (space-separated) - Latitude: decimal degrees, range -90.0 to +90.0 (negative for South, positive for North) - Longitude: decimal degrees, range -180.0 to +180.0 (negative for West, positive for East) - Precision: up to 6 decimal places recommended for meter-level accuracy  Note: If the value exceeds 150 characters, only the first 150 characters will be used.
+        :param emergency_caller_location: The emergency caller's physical location description within a building or facility.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_name: The emergency caller's organization or entity name.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_address: The emergency caller's street address including street number and street name.  Note: If the value exceeds 60 characters, only the first 60 characters will be used.
+        :param emergency_zip_code: The emergency caller's postal code or ZIP code.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_city: The emergency caller's city or municipality name. Should be the official city name as recognized by local authorities. Used in combination with state and country for emergency call routing.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_state: The emergency caller's state or province.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_country: The emergency caller's country. Currently supported US and CA only.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
 
         :returns: The created ParticipantInstance
         """
@@ -1257,8 +1293,17 @@ class ParticipantList(ListResource):
             amd_status_callback_method=amd_status_callback_method,
             trim=trim,
             call_token=call_token,
+            passports=passports,
             client_notification_url=client_notification_url,
             caller_display_name=caller_display_name,
+            emergency_caller_position=emergency_caller_position,
+            emergency_caller_location=emergency_caller_location,
+            emergency_name=emergency_name,
+            emergency_address=emergency_address,
+            emergency_zip_code=emergency_zip_code,
+            emergency_city=emergency_city,
+            emergency_state=emergency_state,
+            emergency_country=emergency_country,
         )
         return ParticipantInstance(
             self._version,
@@ -1320,8 +1365,17 @@ class ParticipantList(ListResource):
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
+        passports: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
         caller_display_name: Union[str, object] = values.unset,
+        emergency_caller_position: Union[str, object] = values.unset,
+        emergency_caller_location: Union[str, object] = values.unset,
+        emergency_name: Union[str, object] = values.unset,
+        emergency_address: Union[str, object] = values.unset,
+        emergency_zip_code: Union[str, object] = values.unset,
+        emergency_city: Union[str, object] = values.unset,
+        emergency_state: Union[str, object] = values.unset,
+        emergency_country: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the ParticipantInstance and return response metadata
@@ -1375,8 +1429,17 @@ class ParticipantList(ListResource):
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+        :param passports: The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string
         :param client_notification_url: The URL that we should use to deliver `push call notification`.
         :param caller_display_name: The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
+        :param emergency_caller_position: The emergency caller's GPS coordinates in decimal degrees format. Format: \\\"latitude longitude\\\" (space-separated) - Latitude: decimal degrees, range -90.0 to +90.0 (negative for South, positive for North) - Longitude: decimal degrees, range -180.0 to +180.0 (negative for West, positive for East) - Precision: up to 6 decimal places recommended for meter-level accuracy  Note: If the value exceeds 150 characters, only the first 150 characters will be used.
+        :param emergency_caller_location: The emergency caller's physical location description within a building or facility.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_name: The emergency caller's organization or entity name.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_address: The emergency caller's street address including street number and street name.  Note: If the value exceeds 60 characters, only the first 60 characters will be used.
+        :param emergency_zip_code: The emergency caller's postal code or ZIP code.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_city: The emergency caller's city or municipality name. Should be the official city name as recognized by local authorities. Used in combination with state and country for emergency call routing.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_state: The emergency caller's state or province.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_country: The emergency caller's country. Currently supported US and CA only.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -1430,8 +1493,17 @@ class ParticipantList(ListResource):
             amd_status_callback_method=amd_status_callback_method,
             trim=trim,
             call_token=call_token,
+            passports=passports,
             client_notification_url=client_notification_url,
             caller_display_name=caller_display_name,
+            emergency_caller_position=emergency_caller_position,
+            emergency_caller_location=emergency_caller_location,
+            emergency_name=emergency_name,
+            emergency_address=emergency_address,
+            emergency_zip_code=emergency_zip_code,
+            emergency_city=emergency_city,
+            emergency_state=emergency_state,
+            emergency_country=emergency_country,
         )
         instance = ParticipantInstance(
             self._version,
@@ -1494,8 +1566,17 @@ class ParticipantList(ListResource):
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
+        passports: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
         caller_display_name: Union[str, object] = values.unset,
+        emergency_caller_position: Union[str, object] = values.unset,
+        emergency_caller_location: Union[str, object] = values.unset,
+        emergency_name: Union[str, object] = values.unset,
+        emergency_address: Union[str, object] = values.unset,
+        emergency_zip_code: Union[str, object] = values.unset,
+        emergency_city: Union[str, object] = values.unset,
+        emergency_state: Union[str, object] = values.unset,
+        emergency_country: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -1567,8 +1648,17 @@ class ParticipantList(ListResource):
                 "AmdStatusCallbackMethod": amd_status_callback_method,
                 "Trim": trim,
                 "CallToken": call_token,
+                "Passports": passports,
                 "ClientNotificationUrl": client_notification_url,
                 "CallerDisplayName": caller_display_name,
+                "EmergencyCallerPosition": emergency_caller_position,
+                "EmergencyCallerLocation": emergency_caller_location,
+                "EmergencyName": emergency_name,
+                "EmergencyAddress": emergency_address,
+                "EmergencyZipCode": emergency_zip_code,
+                "EmergencyCity": emergency_city,
+                "EmergencyState": emergency_state,
+                "EmergencyCountry": emergency_country,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -1634,8 +1724,17 @@ class ParticipantList(ListResource):
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
+        passports: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
         caller_display_name: Union[str, object] = values.unset,
+        emergency_caller_position: Union[str, object] = values.unset,
+        emergency_caller_location: Union[str, object] = values.unset,
+        emergency_name: Union[str, object] = values.unset,
+        emergency_address: Union[str, object] = values.unset,
+        emergency_zip_code: Union[str, object] = values.unset,
+        emergency_city: Union[str, object] = values.unset,
+        emergency_state: Union[str, object] = values.unset,
+        emergency_country: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Asynchronously create the ParticipantInstance
@@ -1689,8 +1788,17 @@ class ParticipantList(ListResource):
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+        :param passports: The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string
         :param client_notification_url: The URL that we should use to deliver `push call notification`.
         :param caller_display_name: The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
+        :param emergency_caller_position: The emergency caller's GPS coordinates in decimal degrees format. Format: \\\"latitude longitude\\\" (space-separated) - Latitude: decimal degrees, range -90.0 to +90.0 (negative for South, positive for North) - Longitude: decimal degrees, range -180.0 to +180.0 (negative for West, positive for East) - Precision: up to 6 decimal places recommended for meter-level accuracy  Note: If the value exceeds 150 characters, only the first 150 characters will be used.
+        :param emergency_caller_location: The emergency caller's physical location description within a building or facility.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_name: The emergency caller's organization or entity name.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_address: The emergency caller's street address including street number and street name.  Note: If the value exceeds 60 characters, only the first 60 characters will be used.
+        :param emergency_zip_code: The emergency caller's postal code or ZIP code.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_city: The emergency caller's city or municipality name. Should be the official city name as recognized by local authorities. Used in combination with state and country for emergency call routing.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_state: The emergency caller's state or province.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_country: The emergency caller's country. Currently supported US and CA only.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
 
         :returns: The created ParticipantInstance
         """
@@ -1744,8 +1852,17 @@ class ParticipantList(ListResource):
             amd_status_callback_method=amd_status_callback_method,
             trim=trim,
             call_token=call_token,
+            passports=passports,
             client_notification_url=client_notification_url,
             caller_display_name=caller_display_name,
+            emergency_caller_position=emergency_caller_position,
+            emergency_caller_location=emergency_caller_location,
+            emergency_name=emergency_name,
+            emergency_address=emergency_address,
+            emergency_zip_code=emergency_zip_code,
+            emergency_city=emergency_city,
+            emergency_state=emergency_state,
+            emergency_country=emergency_country,
         )
         return ParticipantInstance(
             self._version,
@@ -1807,8 +1924,17 @@ class ParticipantList(ListResource):
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
         call_token: Union[str, object] = values.unset,
+        passports: Union[str, object] = values.unset,
         client_notification_url: Union[str, object] = values.unset,
         caller_display_name: Union[str, object] = values.unset,
+        emergency_caller_position: Union[str, object] = values.unset,
+        emergency_caller_location: Union[str, object] = values.unset,
+        emergency_name: Union[str, object] = values.unset,
+        emergency_address: Union[str, object] = values.unset,
+        emergency_zip_code: Union[str, object] = values.unset,
+        emergency_city: Union[str, object] = values.unset,
+        emergency_state: Union[str, object] = values.unset,
+        emergency_country: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the ParticipantInstance and return response metadata
@@ -1862,8 +1988,17 @@ class ParticipantList(ListResource):
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+        :param passports: The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string
         :param client_notification_url: The URL that we should use to deliver `push call notification`.
         :param caller_display_name: The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
+        :param emergency_caller_position: The emergency caller's GPS coordinates in decimal degrees format. Format: \\\"latitude longitude\\\" (space-separated) - Latitude: decimal degrees, range -90.0 to +90.0 (negative for South, positive for North) - Longitude: decimal degrees, range -180.0 to +180.0 (negative for West, positive for East) - Precision: up to 6 decimal places recommended for meter-level accuracy  Note: If the value exceeds 150 characters, only the first 150 characters will be used.
+        :param emergency_caller_location: The emergency caller's physical location description within a building or facility.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_name: The emergency caller's organization or entity name.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_address: The emergency caller's street address including street number and street name.  Note: If the value exceeds 60 characters, only the first 60 characters will be used.
+        :param emergency_zip_code: The emergency caller's postal code or ZIP code.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_city: The emergency caller's city or municipality name. Should be the official city name as recognized by local authorities. Used in combination with state and country for emergency call routing.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_state: The emergency caller's state or province.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+        :param emergency_country: The emergency caller's country. Currently supported US and CA only.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -1917,8 +2052,17 @@ class ParticipantList(ListResource):
             amd_status_callback_method=amd_status_callback_method,
             trim=trim,
             call_token=call_token,
+            passports=passports,
             client_notification_url=client_notification_url,
             caller_display_name=caller_display_name,
+            emergency_caller_position=emergency_caller_position,
+            emergency_caller_location=emergency_caller_location,
+            emergency_name=emergency_name,
+            emergency_address=emergency_address,
+            emergency_zip_code=emergency_zip_code,
+            emergency_city=emergency_city,
+            emergency_state=emergency_state,
+            emergency_country=emergency_country,
         )
         instance = ParticipantInstance(
             self._version,

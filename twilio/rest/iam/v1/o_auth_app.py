@@ -31,6 +31,7 @@ class OAuthAppInstance(InstanceResource):
         :ivar owner_sid:
         :ivar description:
         :ivar client_sid:
+        :ivar token_endpoint_auth_method: Determines how the client authenticates. Account OAuth apps on v1 only support 'client_secret_basic'. For PKCE (none), use the v2 API.
         :ivar policy:
         :ivar access_token_ttl:
         """
@@ -42,6 +43,9 @@ class OAuthAppInstance(InstanceResource):
             self.owner_sid: Optional[str] = payload.get("owner_sid")
             self.description: Optional[str] = payload.get("description")
             self.client_sid: Optional[str] = payload.get("client_sid")
+            self.token_endpoint_auth_method: Optional["OAuthAppInstance.str"] = (
+                payload.get("token_endpoint_auth_method")
+            )
             self.policy: Optional[
                 OAuthAppList.IamV1OrganizationVendoroauthappPolicy
             ] = payload.get("policy")
@@ -54,6 +58,7 @@ class OAuthAppInstance(InstanceResource):
                 "owner_sid": self.owner_sid,
                 "description": self.description,
                 "client_sid": self.client_sid,
+                "token_endpoint_auth_method": self.token_endpoint_auth_method,
                 "policy": self.policy.to_dict() if self.policy is not None else None,
                 "access_token_ttl": self.access_token_ttl,
             }
@@ -127,6 +132,7 @@ class OAuthAppInstance(InstanceResource):
     :ivar description: 
     :ivar date_created: 
     :ivar created_by: 
+    :ivar creator_sid: The unique identifier (SID) of the user who created this OAuth app.
     :ivar secret: 
     :ivar status: 
     :ivar policy: 
@@ -149,6 +155,7 @@ class OAuthAppInstance(InstanceResource):
             payload.get("date_created")
         )
         self.created_by: Optional[str] = payload.get("created_by")
+        self.creator_sid: Optional[str] = payload.get("creator_sid")
         self.secret: Optional[str] = payload.get("secret")
         self.status: Optional[str] = payload.get("status")
         self.policy: Optional[str] = payload.get("policy")
@@ -295,6 +302,7 @@ class OAuthAppContext(InstanceContext):
         :ivar owner_sid:
         :ivar description:
         :ivar client_sid:
+        :ivar token_endpoint_auth_method: Determines how the client authenticates. Account OAuth apps on v1 only support 'client_secret_basic'. For PKCE (none), use the v2 API.
         :ivar policy:
         :ivar access_token_ttl:
         """
@@ -306,6 +314,9 @@ class OAuthAppContext(InstanceContext):
             self.owner_sid: Optional[str] = payload.get("owner_sid")
             self.description: Optional[str] = payload.get("description")
             self.client_sid: Optional[str] = payload.get("client_sid")
+            self.token_endpoint_auth_method: Optional["OAuthAppInstance.str"] = (
+                payload.get("token_endpoint_auth_method")
+            )
             self.policy: Optional[
                 OAuthAppList.IamV1OrganizationVendoroauthappPolicy
             ] = payload.get("policy")
@@ -318,6 +329,7 @@ class OAuthAppContext(InstanceContext):
                 "owner_sid": self.owner_sid,
                 "description": self.description,
                 "client_sid": self.client_sid,
+                "token_endpoint_auth_method": self.token_endpoint_auth_method,
                 "policy": self.policy.to_dict() if self.policy is not None else None,
                 "access_token_ttl": self.access_token_ttl,
             }
@@ -600,6 +612,7 @@ class OAuthAppList(ListResource):
         :ivar owner_sid:
         :ivar description:
         :ivar client_sid:
+        :ivar token_endpoint_auth_method: Determines how the client authenticates. Account OAuth apps on v1 only support 'client_secret_basic'. For PKCE (none), use the v2 API.
         :ivar policy:
         :ivar access_token_ttl:
         """
@@ -611,6 +624,9 @@ class OAuthAppList(ListResource):
             self.owner_sid: Optional[str] = payload.get("owner_sid")
             self.description: Optional[str] = payload.get("description")
             self.client_sid: Optional[str] = payload.get("client_sid")
+            self.token_endpoint_auth_method: Optional["OAuthAppInstance.str"] = (
+                payload.get("token_endpoint_auth_method")
+            )
             self.policy: Optional[
                 OAuthAppList.IamV1OrganizationVendoroauthappPolicy
             ] = payload.get("policy")
@@ -623,6 +639,7 @@ class OAuthAppList(ListResource):
                 "owner_sid": self.owner_sid,
                 "description": self.description,
                 "client_sid": self.client_sid,
+                "token_endpoint_auth_method": self.token_endpoint_auth_method,
                 "policy": self.policy.to_dict() if self.policy is not None else None,
                 "access_token_ttl": self.access_token_ttl,
             }

@@ -169,6 +169,7 @@ class ChannelsSenderInstance(InstanceResource):
     class MessagingV2ChannelsSenderRequestsCreate(object):
         """
         :ivar sender_id: The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
+        :ivar friendly_name: Optional display label for the sender in the Twilio Console.
         :ivar configuration:
         :ivar webhook:
         :ivar profile:
@@ -177,6 +178,7 @@ class ChannelsSenderInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.sender_id: Optional[str] = payload.get("sender_id")
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
             ] = payload.get("configuration")
@@ -190,6 +192,7 @@ class ChannelsSenderInstance(InstanceResource):
         def to_dict(self):
             return {
                 "sender_id": self.sender_id,
+                "friendly_name": self.friendly_name,
                 "configuration": (
                     self.configuration.to_dict()
                     if self.configuration is not None
@@ -201,6 +204,7 @@ class ChannelsSenderInstance(InstanceResource):
 
     class MessagingV2ChannelsSenderRequestsUpdate(object):
         """
+        :ivar friendly_name: Optional display label for the sender in the Twilio Console.
         :ivar configuration:
         :ivar webhook:
         :ivar profile:
@@ -208,6 +212,7 @@ class ChannelsSenderInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
             ] = payload.get("configuration")
@@ -220,6 +225,7 @@ class ChannelsSenderInstance(InstanceResource):
 
         def to_dict(self):
             return {
+                "friendly_name": self.friendly_name,
                 "configuration": (
                     self.configuration.to_dict()
                     if self.configuration is not None
@@ -339,6 +345,7 @@ class ChannelsSenderInstance(InstanceResource):
     :ivar sid: The SID of the sender.
     :ivar status: 
     :ivar sender_id: The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
+    :ivar friendly_name: Optional display label for the sender in the Twilio Console.
     :ivar configuration: 
     :ivar webhook: 
     :ivar profile: 
@@ -356,6 +363,7 @@ class ChannelsSenderInstance(InstanceResource):
         self.sid: Optional[str] = payload.get("sid")
         self.status: Optional["ChannelsSenderInstance.Status"] = payload.get("status")
         self.sender_id: Optional[str] = payload.get("sender_id")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.configuration: Optional[str] = payload.get("configuration")
         self.webhook: Optional[str] = payload.get("webhook")
         self.profile: Optional[str] = payload.get("profile")
@@ -682,6 +690,7 @@ class ChannelsSenderContext(InstanceContext):
     class MessagingV2ChannelsSenderRequestsCreate(object):
         """
         :ivar sender_id: The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
+        :ivar friendly_name: Optional display label for the sender in the Twilio Console.
         :ivar configuration:
         :ivar webhook:
         :ivar profile:
@@ -690,6 +699,7 @@ class ChannelsSenderContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.sender_id: Optional[str] = payload.get("sender_id")
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
             ] = payload.get("configuration")
@@ -703,6 +713,7 @@ class ChannelsSenderContext(InstanceContext):
         def to_dict(self):
             return {
                 "sender_id": self.sender_id,
+                "friendly_name": self.friendly_name,
                 "configuration": (
                     self.configuration.to_dict()
                     if self.configuration is not None
@@ -714,6 +725,7 @@ class ChannelsSenderContext(InstanceContext):
 
     class MessagingV2ChannelsSenderRequestsUpdate(object):
         """
+        :ivar friendly_name: Optional display label for the sender in the Twilio Console.
         :ivar configuration:
         :ivar webhook:
         :ivar profile:
@@ -721,6 +733,7 @@ class ChannelsSenderContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
             ] = payload.get("configuration")
@@ -733,6 +746,7 @@ class ChannelsSenderContext(InstanceContext):
 
         def to_dict(self):
             return {
+                "friendly_name": self.friendly_name,
                 "configuration": (
                     self.configuration.to_dict()
                     if self.configuration is not None
@@ -1299,6 +1313,7 @@ class ChannelsSenderList(ListResource):
     class MessagingV2ChannelsSenderRequestsCreate(object):
         """
         :ivar sender_id: The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
+        :ivar friendly_name: Optional display label for the sender in the Twilio Console.
         :ivar configuration:
         :ivar webhook:
         :ivar profile:
@@ -1307,6 +1322,7 @@ class ChannelsSenderList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.sender_id: Optional[str] = payload.get("sender_id")
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
             ] = payload.get("configuration")
@@ -1320,6 +1336,7 @@ class ChannelsSenderList(ListResource):
         def to_dict(self):
             return {
                 "sender_id": self.sender_id,
+                "friendly_name": self.friendly_name,
                 "configuration": (
                     self.configuration.to_dict()
                     if self.configuration is not None
@@ -1331,6 +1348,7 @@ class ChannelsSenderList(ListResource):
 
     class MessagingV2ChannelsSenderRequestsUpdate(object):
         """
+        :ivar friendly_name: Optional display label for the sender in the Twilio Console.
         :ivar configuration:
         :ivar webhook:
         :ivar profile:
@@ -1338,6 +1356,7 @@ class ChannelsSenderList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
             ] = payload.get("configuration")
@@ -1350,6 +1369,7 @@ class ChannelsSenderList(ListResource):
 
         def to_dict(self):
             return {
+                "friendly_name": self.friendly_name,
                 "configuration": (
                     self.configuration.to_dict()
                     if self.configuration is not None

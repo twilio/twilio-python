@@ -61,6 +61,8 @@ class AuthorizeList(ListResource):
         redirect_uri: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
         state: Union[str, object] = values.unset,
+        code_challenge: Union[str, object] = values.unset,
+        code_challenge_method: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for fetch operation
@@ -79,6 +81,8 @@ class AuthorizeList(ListResource):
                 "redirect_uri": redirect_uri,
                 "scope": scope,
                 "state": state,
+                "code_challenge": code_challenge,
+                "code_challenge_method": code_challenge_method,
             }
         )
 
@@ -93,11 +97,13 @@ class AuthorizeList(ListResource):
         redirect_uri: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
         state: Union[str, object] = values.unset,
+        code_challenge: Union[str, object] = values.unset,
+        code_challenge_method: Union[str, object] = values.unset,
     ) -> AuthorizeInstance:
         """
         Fetch the AuthorizeInstance
 
-        :param response_type: :param client_id: :param redirect_uri: :param scope: :param state:
+        :param response_type: :param client_id: :param redirect_uri: :param scope: :param state: :param code_challenge: :param code_challenge_method:
         :returns: The fetched AuthorizeInstance
         """
         payload, _, _ = self._fetch(
@@ -106,6 +112,8 @@ class AuthorizeList(ListResource):
             redirect_uri=redirect_uri,
             scope=scope,
             state=state,
+            code_challenge=code_challenge,
+            code_challenge_method=code_challenge_method,
         )
         return AuthorizeInstance(self._version, payload)
 
@@ -116,11 +124,13 @@ class AuthorizeList(ListResource):
         redirect_uri: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
         state: Union[str, object] = values.unset,
+        code_challenge: Union[str, object] = values.unset,
+        code_challenge_method: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Fetch the AuthorizeInstance and return response metadata
 
-        :param response_type: :param client_id: :param redirect_uri: :param scope: :param state:
+        :param response_type: :param client_id: :param redirect_uri: :param scope: :param state: :param code_challenge: :param code_challenge_method:
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._fetch(
@@ -129,6 +139,8 @@ class AuthorizeList(ListResource):
             redirect_uri=redirect_uri,
             scope=scope,
             state=state,
+            code_challenge=code_challenge,
+            code_challenge_method=code_challenge_method,
         )
         instance = AuthorizeInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -140,6 +152,8 @@ class AuthorizeList(ListResource):
         redirect_uri: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
         state: Union[str, object] = values.unset,
+        code_challenge: Union[str, object] = values.unset,
+        code_challenge_method: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for fetch operation
@@ -158,6 +172,8 @@ class AuthorizeList(ListResource):
                 "redirect_uri": redirect_uri,
                 "scope": scope,
                 "state": state,
+                "code_challenge": code_challenge,
+                "code_challenge_method": code_challenge_method,
             }
         )
 
@@ -172,11 +188,13 @@ class AuthorizeList(ListResource):
         redirect_uri: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
         state: Union[str, object] = values.unset,
+        code_challenge: Union[str, object] = values.unset,
+        code_challenge_method: Union[str, object] = values.unset,
     ) -> AuthorizeInstance:
         """
         Asynchronously fetch the AuthorizeInstance
 
-        :param response_type: :param client_id: :param redirect_uri: :param scope: :param state:
+        :param response_type: :param client_id: :param redirect_uri: :param scope: :param state: :param code_challenge: :param code_challenge_method:
         :returns: The fetched AuthorizeInstance
         """
         payload, _, _ = await self._fetch_async(
@@ -185,6 +203,8 @@ class AuthorizeList(ListResource):
             redirect_uri=redirect_uri,
             scope=scope,
             state=state,
+            code_challenge=code_challenge,
+            code_challenge_method=code_challenge_method,
         )
         return AuthorizeInstance(self._version, payload)
 
@@ -195,11 +215,13 @@ class AuthorizeList(ListResource):
         redirect_uri: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
         state: Union[str, object] = values.unset,
+        code_challenge: Union[str, object] = values.unset,
+        code_challenge_method: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously fetch the AuthorizeInstance and return response metadata
 
-        :param response_type: :param client_id: :param redirect_uri: :param scope: :param state:
+        :param response_type: :param client_id: :param redirect_uri: :param scope: :param state: :param code_challenge: :param code_challenge_method:
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._fetch_async(
@@ -208,6 +230,8 @@ class AuthorizeList(ListResource):
             redirect_uri=redirect_uri,
             scope=scope,
             state=state,
+            code_challenge=code_challenge,
+            code_challenge_method=code_challenge_method,
         )
         instance = AuthorizeInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)

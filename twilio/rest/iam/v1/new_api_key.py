@@ -23,10 +23,6 @@ from twilio.base.version import Version
 
 
 class NewApiKeyInstance(InstanceResource):
-
-    class Keytype(object):
-        RESTRICTED = "restricted"
-
     """
     :ivar sid: The unique string that that we created to identify the NewKey resource. You will use this as the basic-auth `user` when authenticating to the API.
     :ivar friendly_name: The string that you assigned to describe the resource.
@@ -77,7 +73,7 @@ class NewApiKeyList(ListResource):
         self,
         account_sid: str,
         friendly_name: Union[str, object] = values.unset,
-        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        key_type: Union[str, object] = values.unset,
         policy: Union[object, object] = values.unset,
     ) -> tuple:
         """
@@ -109,7 +105,7 @@ class NewApiKeyList(ListResource):
         self,
         account_sid: str,
         friendly_name: Union[str, object] = values.unset,
-        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        key_type: Union[str, object] = values.unset,
         policy: Union[object, object] = values.unset,
     ) -> NewApiKeyInstance:
         """
@@ -117,7 +113,7 @@ class NewApiKeyList(ListResource):
 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param key_type:
+        :param key_type: The \\\\`KeyType\\\\` form parameter is used to specify the type of key you want to create.  **Default Behavior**: If \\\\`KeyType\\\\` is not specified, the API will generate a standard key.  **Restricted Key**: If \\\\`KeyType\\\\` is set to \\\\`restricted\\\\`, the API will create a new restricted key. In this case, a policy object is required to define the permissions.
         :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
 
         :returns: The created NewApiKeyInstance
@@ -134,7 +130,7 @@ class NewApiKeyList(ListResource):
         self,
         account_sid: str,
         friendly_name: Union[str, object] = values.unset,
-        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        key_type: Union[str, object] = values.unset,
         policy: Union[object, object] = values.unset,
     ) -> ApiResponse:
         """
@@ -142,7 +138,7 @@ class NewApiKeyList(ListResource):
 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param key_type:
+        :param key_type: The \\\\`KeyType\\\\` form parameter is used to specify the type of key you want to create.  **Default Behavior**: If \\\\`KeyType\\\\` is not specified, the API will generate a standard key.  **Restricted Key**: If \\\\`KeyType\\\\` is set to \\\\`restricted\\\\`, the API will create a new restricted key. In this case, a policy object is required to define the permissions.
         :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
 
         :returns: ApiResponse with instance, status code, and headers
@@ -160,7 +156,7 @@ class NewApiKeyList(ListResource):
         self,
         account_sid: str,
         friendly_name: Union[str, object] = values.unset,
-        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        key_type: Union[str, object] = values.unset,
         policy: Union[object, object] = values.unset,
     ) -> tuple:
         """
@@ -192,7 +188,7 @@ class NewApiKeyList(ListResource):
         self,
         account_sid: str,
         friendly_name: Union[str, object] = values.unset,
-        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        key_type: Union[str, object] = values.unset,
         policy: Union[object, object] = values.unset,
     ) -> NewApiKeyInstance:
         """
@@ -200,7 +196,7 @@ class NewApiKeyList(ListResource):
 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param key_type:
+        :param key_type: The \\\\`KeyType\\\\` form parameter is used to specify the type of key you want to create.  **Default Behavior**: If \\\\`KeyType\\\\` is not specified, the API will generate a standard key.  **Restricted Key**: If \\\\`KeyType\\\\` is set to \\\\`restricted\\\\`, the API will create a new restricted key. In this case, a policy object is required to define the permissions.
         :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
 
         :returns: The created NewApiKeyInstance
@@ -217,7 +213,7 @@ class NewApiKeyList(ListResource):
         self,
         account_sid: str,
         friendly_name: Union[str, object] = values.unset,
-        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        key_type: Union[str, object] = values.unset,
         policy: Union[object, object] = values.unset,
     ) -> ApiResponse:
         """
@@ -225,7 +221,7 @@ class NewApiKeyList(ListResource):
 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param key_type:
+        :param key_type: The \\\\`KeyType\\\\` form parameter is used to specify the type of key you want to create.  **Default Behavior**: If \\\\`KeyType\\\\` is not specified, the API will generate a standard key.  **Restricted Key**: If \\\\`KeyType\\\\` is set to \\\\`restricted\\\\`, the API will create a new restricted key. In this case, a policy object is required to define the permissions.
         :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
 
         :returns: ApiResponse with instance, status code, and headers

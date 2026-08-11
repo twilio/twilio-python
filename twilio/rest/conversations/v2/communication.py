@@ -26,12 +26,27 @@ from twilio.base.token_pagination import TokenPagination
 
 
 class CommunicationInstance(InstanceResource):
+
+    class ConversationsV2Channel(object):
+        VOICE = "VOICE"
+        SMS = "SMS"
+        RCS = "RCS"
+        WHATSAPP = "WHATSAPP"
+        CHAT = "CHAT"
+
+    class ConversationsV2RecipientDeliveryStatus(object):
+        INITIATED = "INITIATED"
+        IN_PROGRESS = "IN_PROGRESS"
+        DELIVERED = "DELIVERED"
+        COMPLETED = "COMPLETED"
+        FAILED = "FAILED"
+
     """
     :ivar id: Communication ID.
     :ivar conversation_id: Conversation ID.
     :ivar account_id: Account ID.
-    :ivar author:
-    :ivar content:
+    :ivar author: 
+    :ivar content: 
     :ivar channel_id: Channel-specific reference ID.
     :ivar resource_id: External resource identifier for this Communication (e.g. MessageSid for SMS/RCS/WhatsApp, TranscriptionSid + MessageIndex for Voice). When set, used for Communication deduplication/uniqueness within a Conversation.
     :ivar recipients: Communication recipients.
@@ -44,8 +59,8 @@ class CommunicationInstance(InstanceResource):
         self,
         version: Version,
         payload: Dict[str, Any],
-        conversation_sid: str,
-        sid: Optional[str] = None,
+        conversation_id: str,
+        id: Optional[str] = None,
     ):
         super().__init__(version)
 
@@ -68,10 +83,10 @@ class CommunicationInstance(InstanceResource):
         )
 
         # Only set _solution if path params are provided (not None)
-        if conversation_sid is not None or sid is not None:
+        if conversation_id is not None or id is not None:
             self._solution = {
-                "conversation_sid": conversation_sid,
-                "sid": sid,
+                "conversation_id": conversation_id,
+                "id": id,
             }
 
         self._context: Optional[CommunicationContext] = None
@@ -87,8 +102,8 @@ class CommunicationInstance(InstanceResource):
         if self._context is None:
             self._context = CommunicationContext(
                 self._version,
-                conversation_sid=self._solution["conversation_sid"],
-                sid=self._solution["sid"],
+                conversation_id=self._solution["conversation_id"],
+                id=self._solution["id"],
             )
         return self._context
 
@@ -140,22 +155,22 @@ class CommunicationInstance(InstanceResource):
 
 class CommunicationContext(InstanceContext):
 
-    def __init__(self, version: Version, conversation_sid: str, sid: str):
+    def __init__(self, version: Version, conversation_id: str, id: str):
         """
         Initialize the CommunicationContext
 
         :param version: Version that contains the resource
-        :param conversation_sid:
-        :param sid:
+        :param conversation_id:
+        :param id:
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "conversation_sid": conversation_sid,
-            "sid": sid,
+            "conversation_id": conversation_id,
+            "id": id,
         }
-        self._uri = "/Conversations/{conversation_sid}/Communications/{sid}".format(
+        self._uri = "/Conversations/{conversation_id}/Communications/{id}".format(
             **self._solution
         )
 
@@ -186,8 +201,8 @@ class CommunicationContext(InstanceContext):
         return CommunicationInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
 
     def fetch_with_http_info(self) -> ApiResponse:
@@ -201,8 +216,8 @@ class CommunicationContext(InstanceContext):
         instance = CommunicationInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -233,8 +248,8 @@ class CommunicationContext(InstanceContext):
         return CommunicationInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
@@ -248,8 +263,8 @@ class CommunicationContext(InstanceContext):
         instance = CommunicationInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -273,7 +288,7 @@ class CommunicationPage(TokenPagination):
         """
 
         return CommunicationInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
 
     def __repr__(self) -> str:
@@ -362,6 +377,7 @@ class CommunicationList(ListResource):
         :ivar content:
         :ivar channel_id:
         :ivar recipients:
+        :ivar occurred_at: Timestamp when this Communication occurred. If omitted, the server uses the current time.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -374,8 +390,11 @@ class CommunicationList(ListResource):
             ] = payload.get("content")
             self.channel_id: Optional[str] = payload.get("channelId")
             self.recipients: Optional[
-                List[CommunicationList.CreateCommunicationInConversationRequestAuthor]
+                List[
+                    CommunicationList.CreateCommunicationInConversationRequestRecipients
+                ]
             ] = payload.get("recipients")
+            self.occurred_at: Optional[datetime] = payload.get("occurredAt")
 
         def to_dict(self):
             return {
@@ -387,12 +406,13 @@ class CommunicationList(ListResource):
                     if self.recipients is not None
                     else None
                 ),
+                "occurredAt": self.occurred_at,
             }
 
     class CreateCommunicationInConversationRequestAuthor(object):
         """
         :ivar address:
-        :ivar channel:
+        :ivar channel: Channel type for a Communication address.
         :ivar participant_id:
         """
 
@@ -435,21 +455,41 @@ class CommunicationList(ListResource):
                 ),
             }
 
-    def __init__(self, version: Version, conversation_sid: str):
+    class CreateCommunicationInConversationRequestRecipients(object):
+        """
+        :ivar address:
+        :ivar channel: Channel type for a Communication address.
+        :ivar participant_id:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.address: Optional[str] = payload.get("address")
+            self.channel: Optional["CommunicationInstance.str"] = payload.get("channel")
+            self.participant_id: Optional[str] = payload.get("participantId")
+
+        def to_dict(self):
+            return {
+                "address": self.address,
+                "channel": self.channel,
+                "participantId": self.participant_id,
+            }
+
+    def __init__(self, version: Version, conversation_id: str):
         """
         Initialize the CommunicationList
 
         :param version: Version that contains the resource
-        :param conversation_sid:
+        :param conversation_id:
 
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "conversation_sid": conversation_sid,
+            "conversation_id": conversation_id,
         }
-        self._uri = "/Conversations/{conversation_sid}/Communications".format(
+        self._uri = "/Conversations/{conversation_id}/Communications".format(
             **self._solution
         )
 
@@ -494,7 +534,7 @@ class CommunicationList(ListResource):
             create_communication_in_conversation_request=create_communication_in_conversation_request
         )
         return CommunicationInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
 
     def create_with_http_info(
@@ -514,7 +554,7 @@ class CommunicationList(ListResource):
             create_communication_in_conversation_request=create_communication_in_conversation_request
         )
         instance = CommunicationInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -559,7 +599,7 @@ class CommunicationList(ListResource):
             create_communication_in_conversation_request=create_communication_in_conversation_request
         )
         return CommunicationInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
 
     async def create_with_http_info_async(
@@ -579,7 +619,7 @@ class CommunicationList(ListResource):
             create_communication_in_conversation_request=create_communication_in_conversation_request
         )
         instance = CommunicationInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -1008,24 +1048,24 @@ class CommunicationList(ListResource):
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CommunicationPage(self._version, response, solution=self._solution)
 
-    def get(self, sid: str) -> CommunicationContext:
+    def get(self, id: str) -> CommunicationContext:
         """
         Constructs a CommunicationContext
 
-        :param sid:
+        :param id:
         """
         return CommunicationContext(
-            self._version, conversation_sid=self._solution["conversation_sid"], sid=sid
+            self._version, conversation_id=self._solution["conversation_id"], id=id
         )
 
-    def __call__(self, sid: str) -> CommunicationContext:
+    def __call__(self, id: str) -> CommunicationContext:
         """
         Constructs a CommunicationContext
 
-        :param sid:
+        :param id:
         """
         return CommunicationContext(
-            self._version, conversation_sid=self._solution["conversation_sid"], sid=sid
+            self._version, conversation_id=self._solution["conversation_id"], id=id
         )
 
     def __repr__(self) -> str:

@@ -19,6 +19,7 @@ from twilio.rest.intelligence.v3.configuration import ConfigurationList
 from twilio.rest.intelligence.v3.conversation import ConversationList
 from twilio.rest.intelligence.v3.operator import OperatorList
 from twilio.rest.intelligence.v3.operator_result import OperatorResultList
+from twilio.rest.intelligence.v3.rule_execution import RuleExecutionList
 from twilio.rest.intelligence.v3.version import VersionList
 
 
@@ -35,6 +36,7 @@ class V3(Version):
         self._conversations: Optional[ConversationList] = None
         self._operators: Optional[OperatorList] = None
         self._operator_results: Optional[OperatorResultList] = None
+        self._rule_executions: Optional[RuleExecutionList] = None
 
     @property
     def configurations(self) -> ConfigurationList:
@@ -59,6 +61,12 @@ class V3(Version):
         if self._operator_results is None:
             self._operator_results = OperatorResultList(self)
         return self._operator_results
+
+    @property
+    def rule_executions(self) -> RuleExecutionList:
+        if self._rule_executions is None:
+            self._rule_executions = RuleExecutionList(self)
+        return self._rule_executions
 
     def versions(self, id: str, version_id: str = None):
         """

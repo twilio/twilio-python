@@ -73,6 +73,7 @@ class TokenList(ListResource):
         audience: Union[str, object] = values.unset,
         refresh_token: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        code_verifier: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -91,6 +92,7 @@ class TokenList(ListResource):
                 "audience": audience,
                 "refresh_token": refresh_token,
                 "scope": scope,
+                "code_verifier": code_verifier,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -120,6 +122,7 @@ class TokenList(ListResource):
         audience: Union[str, object] = values.unset,
         refresh_token: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        code_verifier: Union[str, object] = values.unset,
     ) -> TokenInstance:
         """
         Create the TokenInstance
@@ -133,6 +136,7 @@ class TokenList(ListResource):
         :param audience: The targeted audience uri
         :param refresh_token: JWT token related to refresh access token.
         :param scope: The scope of token
+        :param code_verifier: The PKCE code verifier used to generate the code_challenge in the authorization request.
 
         :returns: The created TokenInstance
         """
@@ -146,6 +150,7 @@ class TokenList(ListResource):
             audience=audience,
             refresh_token=refresh_token,
             scope=scope,
+            code_verifier=code_verifier,
         )
         return TokenInstance(self._version, payload)
 
@@ -160,6 +165,7 @@ class TokenList(ListResource):
         audience: Union[str, object] = values.unset,
         refresh_token: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        code_verifier: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Create the TokenInstance and return response metadata
@@ -173,6 +179,7 @@ class TokenList(ListResource):
         :param audience: The targeted audience uri
         :param refresh_token: JWT token related to refresh access token.
         :param scope: The scope of token
+        :param code_verifier: The PKCE code verifier used to generate the code_challenge in the authorization request.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -186,6 +193,7 @@ class TokenList(ListResource):
             audience=audience,
             refresh_token=refresh_token,
             scope=scope,
+            code_verifier=code_verifier,
         )
         instance = TokenInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
@@ -201,6 +209,7 @@ class TokenList(ListResource):
         audience: Union[str, object] = values.unset,
         refresh_token: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        code_verifier: Union[str, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -219,6 +228,7 @@ class TokenList(ListResource):
                 "audience": audience,
                 "refresh_token": refresh_token,
                 "scope": scope,
+                "code_verifier": code_verifier,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -248,6 +258,7 @@ class TokenList(ListResource):
         audience: Union[str, object] = values.unset,
         refresh_token: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        code_verifier: Union[str, object] = values.unset,
     ) -> TokenInstance:
         """
         Asynchronously create the TokenInstance
@@ -261,6 +272,7 @@ class TokenList(ListResource):
         :param audience: The targeted audience uri
         :param refresh_token: JWT token related to refresh access token.
         :param scope: The scope of token
+        :param code_verifier: The PKCE code verifier used to generate the code_challenge in the authorization request.
 
         :returns: The created TokenInstance
         """
@@ -274,6 +286,7 @@ class TokenList(ListResource):
             audience=audience,
             refresh_token=refresh_token,
             scope=scope,
+            code_verifier=code_verifier,
         )
         return TokenInstance(self._version, payload)
 
@@ -288,6 +301,7 @@ class TokenList(ListResource):
         audience: Union[str, object] = values.unset,
         refresh_token: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
+        code_verifier: Union[str, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronously create the TokenInstance and return response metadata
@@ -301,6 +315,7 @@ class TokenList(ListResource):
         :param audience: The targeted audience uri
         :param refresh_token: JWT token related to refresh access token.
         :param scope: The scope of token
+        :param code_verifier: The PKCE code verifier used to generate the code_challenge in the authorization request.
 
         :returns: ApiResponse with instance, status code, and headers
         """
@@ -314,6 +329,7 @@ class TokenList(ListResource):
             audience=audience,
             refresh_token=refresh_token,
             scope=scope,
+            code_verifier=code_verifier,
         )
         instance = TokenInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
