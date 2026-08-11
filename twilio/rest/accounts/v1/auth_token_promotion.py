@@ -13,8 +13,8 @@ r"""
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
-from twilio.base import deserialize, values
+from typing import Any, Dict, Optional, Union
+from twilio.base import deserialize, serialize, values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -60,41 +60,61 @@ class AuthTokenPromotionInstance(InstanceResource):
             )
         return self._context
 
-    def update(self) -> "AuthTokenPromotionInstance":
+    def update(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> "AuthTokenPromotionInstance":
         """
         Update the AuthTokenPromotionInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: The updated AuthTokenPromotionInstance
         """
-        return self._proxy.update()
+        return self._proxy.update(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    async def update_async(self) -> "AuthTokenPromotionInstance":
+    async def update_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> "AuthTokenPromotionInstance":
         """
         Asynchronous coroutine to update the AuthTokenPromotionInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: The updated AuthTokenPromotionInstance
         """
-        return await self._proxy.update_async()
+        return await self._proxy.update_async(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    def update_with_http_info(self) -> ApiResponse:
+    def update_with_http_info(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Update the AuthTokenPromotionInstance with HTTP info
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return self._proxy.update_with_http_info()
+        return self._proxy.update_with_http_info(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    async def update_with_http_info_async(self) -> ApiResponse:
+    async def update_with_http_info_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to update the AuthTokenPromotionInstance with HTTP info
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return await self._proxy.update_with_http_info_async()
+        return await self._proxy.update_with_http_info_async(
+            suppress_email_notification=suppress_email_notification,
+        )
 
     def __repr__(self) -> str:
         """
@@ -118,7 +138,9 @@ class AuthTokenPromotionContext(InstanceContext):
 
         self._uri = "/AuthTokens/Promote"
 
-    def _update(self) -> tuple:
+    def _update(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> tuple:
         """
         Internal helper for update operation
 
@@ -126,8 +148,16 @@ class AuthTokenPromotionContext(InstanceContext):
             tuple: (payload, status_code, headers)
         """
 
-        data = values.of({})
+        data = values.of(
+            {
+                "SuppressEmailNotification": serialize.boolean_to_string(
+                    suppress_email_notification
+                ),
+            }
+        )
         headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
 
         headers["Accept"] = "application/json"
 
@@ -135,28 +165,40 @@ class AuthTokenPromotionContext(InstanceContext):
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-    def update(self) -> AuthTokenPromotionInstance:
+    def update(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> AuthTokenPromotionInstance:
         """
         Update the AuthTokenPromotionInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: The updated AuthTokenPromotionInstance
         """
-        payload, _, _ = self._update()
+        payload, _, _ = self._update(
+            suppress_email_notification=suppress_email_notification
+        )
         return AuthTokenPromotionInstance(self._version, payload)
 
-    def update_with_http_info(self) -> ApiResponse:
+    def update_with_http_info(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Update the AuthTokenPromotionInstance and return response metadata
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._update()
+        payload, status_code, headers = self._update(
+            suppress_email_notification=suppress_email_notification
+        )
         instance = AuthTokenPromotionInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _update_async(self) -> tuple:
+    async def _update_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> tuple:
         """
         Internal async helper for update operation
 
@@ -164,8 +206,16 @@ class AuthTokenPromotionContext(InstanceContext):
             tuple: (payload, status_code, headers)
         """
 
-        data = values.of({})
+        data = values.of(
+            {
+                "SuppressEmailNotification": serialize.boolean_to_string(
+                    suppress_email_notification
+                ),
+            }
+        )
         headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
 
         headers["Accept"] = "application/json"
 
@@ -173,24 +223,34 @@ class AuthTokenPromotionContext(InstanceContext):
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-    async def update_async(self) -> AuthTokenPromotionInstance:
+    async def update_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> AuthTokenPromotionInstance:
         """
         Asynchronous coroutine to update the AuthTokenPromotionInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: The updated AuthTokenPromotionInstance
         """
-        payload, _, _ = await self._update_async()
+        payload, _, _ = await self._update_async(
+            suppress_email_notification=suppress_email_notification
+        )
         return AuthTokenPromotionInstance(self._version, payload)
 
-    async def update_with_http_info_async(self) -> ApiResponse:
+    async def update_with_http_info_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to update the AuthTokenPromotionInstance and return response metadata
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._update_async()
+        payload, status_code, headers = await self._update_async(
+            suppress_email_notification=suppress_email_notification
+        )
         instance = AuthTokenPromotionInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 

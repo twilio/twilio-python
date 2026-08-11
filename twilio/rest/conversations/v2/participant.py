@@ -26,14 +26,29 @@ from twilio.base.token_pagination import TokenPagination
 
 
 class ParticipantInstance(InstanceResource):
+
+    class ConversationsV2Channel(object):
+        VOICE = "VOICE"
+        SMS = "SMS"
+        RCS = "RCS"
+        WHATSAPP = "WHATSAPP"
+        CHAT = "CHAT"
+
+    class ConversationsV2ParticipantType(object):
+        HUMAN_AGENT = "HUMAN_AGENT"
+        CUSTOMER = "CUSTOMER"
+        AI_AGENT = "AI_AGENT"
+        AGENT = "AGENT"
+        UNKNOWN = "UNKNOWN"
+
     """
     :ivar id: Participant ID.
     :ivar conversation_id: Conversation ID.
     :ivar account_id: Account ID.
     :ivar name: Participant display name.
-    :ivar type: Type of Participant in the Conversation.
+    :ivar type: 
     :ivar profile_id: Profile ID. Note: This field is only resolved for `CUSTOMER` participant types, not for `HUMAN_AGENT` or `AI_AGENT` participants.
-    :ivar addresses: Communication addresses for this Participant. Address format varies by channel: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - EMAIL: Email address (such as \"user@example.com\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\")
+    :ivar addresses: Communication addresses for this Participant. Address format varies by channel: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - EMAIL: Email address (such as \"user@example.com\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") 
     :ivar created_at: Timestamp when this Participant was created.
     :ivar updated_at: Timestamp when this Participant was last updated.
     """
@@ -42,8 +57,8 @@ class ParticipantInstance(InstanceResource):
         self,
         version: Version,
         payload: Dict[str, Any],
-        conversation_sid: str,
-        sid: Optional[str] = None,
+        conversation_id: str,
+        id: Optional[str] = None,
     ):
         super().__init__(version)
 
@@ -62,10 +77,10 @@ class ParticipantInstance(InstanceResource):
         )
 
         # Only set _solution if path params are provided (not None)
-        if conversation_sid is not None or sid is not None:
+        if conversation_id is not None or id is not None:
             self._solution = {
-                "conversation_sid": conversation_sid,
-                "sid": sid,
+                "conversation_id": conversation_id,
+                "id": id,
             }
 
         self._context: Optional[ParticipantContext] = None
@@ -81,8 +96,8 @@ class ParticipantInstance(InstanceResource):
         if self._context is None:
             self._context = ParticipantContext(
                 self._version,
-                conversation_sid=self._solution["conversation_sid"],
-                sid=self._solution["sid"],
+                conversation_id=self._solution["conversation_id"],
+                id=self._solution["id"],
             )
         return self._context
 
@@ -202,22 +217,22 @@ class ParticipantInstance(InstanceResource):
 
 class ParticipantContext(InstanceContext):
 
-    def __init__(self, version: Version, conversation_sid: str, sid: str):
+    def __init__(self, version: Version, conversation_id: str, id: str):
         """
         Initialize the ParticipantContext
 
         :param version: Version that contains the resource
-        :param conversation_sid:
-        :param sid:
+        :param conversation_id:
+        :param id:
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "conversation_sid": conversation_sid,
-            "sid": sid,
+            "conversation_id": conversation_id,
+            "id": id,
         }
-        self._uri = "/Conversations/{conversation_sid}/Participants/{sid}".format(
+        self._uri = "/Conversations/{conversation_id}/Participants/{id}".format(
             **self._solution
         )
 
@@ -248,8 +263,8 @@ class ParticipantContext(InstanceContext):
         return ParticipantInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
 
     def fetch_with_http_info(self) -> ApiResponse:
@@ -263,8 +278,8 @@ class ParticipantContext(InstanceContext):
         instance = ParticipantInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -295,8 +310,8 @@ class ParticipantContext(InstanceContext):
         return ParticipantInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
@@ -310,8 +325,8 @@ class ParticipantContext(InstanceContext):
         instance = ParticipantInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -358,8 +373,8 @@ class ParticipantContext(InstanceContext):
         return ParticipantInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
 
     def update_with_http_info(
@@ -381,8 +396,8 @@ class ParticipantContext(InstanceContext):
         instance = ParticipantInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -429,8 +444,8 @@ class ParticipantContext(InstanceContext):
         return ParticipantInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
 
     async def update_with_http_info_async(
@@ -452,8 +467,8 @@ class ParticipantContext(InstanceContext):
         instance = ParticipantInstance(
             self._version,
             payload,
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            conversation_id=self._solution["conversation_id"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -477,7 +492,7 @@ class ParticipantPage(TokenPagination):
         """
 
         return ParticipantInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
 
     def __repr__(self) -> str:
@@ -491,45 +506,16 @@ class ParticipantPage(TokenPagination):
 
 class ParticipantList(ListResource):
 
-    class CreateParticipantInConversationRequest(object):
+    class CreateConversationWithConfigRequestParticipantsAddresses(object):
         """
-        :ivar name:
-        :ivar type:
-        :ivar profile_id:
-        :ivar addresses:
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.name: Optional[str] = payload.get("name")
-            self.type: Optional["ParticipantInstance.str"] = payload.get("type")
-            self.profile_id: Optional[str] = payload.get("profileId")
-            self.addresses: Optional[
-                List[ParticipantList.CreateParticipantInConversationRequestAddresses]
-            ] = payload.get("addresses")
-
-        def to_dict(self):
-            return {
-                "name": self.name,
-                "type": self.type,
-                "profileId": self.profile_id,
-                "addresses": (
-                    [addresses.to_dict() for addresses in self.addresses]
-                    if self.addresses is not None
-                    else None
-                ),
-            }
-
-    class CreateParticipantInConversationRequestAddresses(object):
-        """
-        :ivar channel:
+        :ivar channel: Channel type for a Communication address.
         :ivar address:
         :ivar channel_id:
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channel: Optional["ParticipantInstance.str"] = payload.get("channel")
+            self.channel: Optional["ConversationInstance.str"] = payload.get("channel")
             self.address: Optional[str] = payload.get("address")
             self.channel_id: Optional[str] = payload.get("channelId")
 
@@ -540,10 +526,10 @@ class ParticipantList(ListResource):
                 "channelId": self.channel_id,
             }
 
-    class UpdateParticipantInConversationRequest(object):
+    class CreateParticipantInConversationRequest(object):
         """
         :ivar name:
-        :ivar type:
+        :ivar type: Type of Participant in the Conversation.
         :ivar profile_id:
         :ivar addresses:
         """
@@ -554,7 +540,9 @@ class ParticipantList(ListResource):
             self.type: Optional["ParticipantInstance.str"] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profileId")
             self.addresses: Optional[
-                List[ParticipantList.CreateParticipantInConversationRequestAddresses]
+                List[
+                    ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses
+                ]
             ] = payload.get("addresses")
 
         def to_dict(self):
@@ -569,21 +557,52 @@ class ParticipantList(ListResource):
                 ),
             }
 
-    def __init__(self, version: Version, conversation_sid: str):
+    class UpdateParticipantInConversationRequest(object):
+        """
+        :ivar name:
+        :ivar type: Type of Participant in the Conversation.
+        :ivar profile_id:
+        :ivar addresses:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.name: Optional[str] = payload.get("name")
+            self.type: Optional["ParticipantInstance.str"] = payload.get("type")
+            self.profile_id: Optional[str] = payload.get("profileId")
+            self.addresses: Optional[
+                List[
+                    ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses
+                ]
+            ] = payload.get("addresses")
+
+        def to_dict(self):
+            return {
+                "name": self.name,
+                "type": self.type,
+                "profileId": self.profile_id,
+                "addresses": (
+                    [addresses.to_dict() for addresses in self.addresses]
+                    if self.addresses is not None
+                    else None
+                ),
+            }
+
+    def __init__(self, version: Version, conversation_id: str):
         """
         Initialize the ParticipantList
 
         :param version: Version that contains the resource
-        :param conversation_sid:
+        :param conversation_id:
 
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "conversation_sid": conversation_sid,
+            "conversation_id": conversation_id,
         }
-        self._uri = "/Conversations/{conversation_sid}/Participants".format(
+        self._uri = "/Conversations/{conversation_id}/Participants".format(
             **self._solution
         )
 
@@ -628,7 +647,7 @@ class ParticipantList(ListResource):
             create_participant_in_conversation_request=create_participant_in_conversation_request
         )
         return ParticipantInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
 
     def create_with_http_info(
@@ -648,7 +667,7 @@ class ParticipantList(ListResource):
             create_participant_in_conversation_request=create_participant_in_conversation_request
         )
         instance = ParticipantInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -693,7 +712,7 @@ class ParticipantList(ListResource):
             create_participant_in_conversation_request=create_participant_in_conversation_request
         )
         return ParticipantInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
 
     async def create_with_http_info_async(
@@ -713,7 +732,7 @@ class ParticipantList(ListResource):
             create_participant_in_conversation_request=create_participant_in_conversation_request
         )
         instance = ParticipantInstance(
-            self._version, payload, conversation_sid=self._solution["conversation_sid"]
+            self._version, payload, conversation_id=self._solution["conversation_id"]
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -1108,24 +1127,24 @@ class ParticipantList(ListResource):
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, solution=self._solution)
 
-    def get(self, sid: str) -> ParticipantContext:
+    def get(self, id: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
-        :param sid:
+        :param id:
         """
         return ParticipantContext(
-            self._version, conversation_sid=self._solution["conversation_sid"], sid=sid
+            self._version, conversation_id=self._solution["conversation_id"], id=id
         )
 
-    def __call__(self, sid: str) -> ParticipantContext:
+    def __call__(self, id: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
-        :param sid:
+        :param id:
         """
         return ParticipantContext(
-            self._version, conversation_sid=self._solution["conversation_sid"], sid=sid
+            self._version, conversation_id=self._solution["conversation_id"], id=id
         )
 
     def __repr__(self) -> str:

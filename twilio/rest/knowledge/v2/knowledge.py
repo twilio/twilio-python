@@ -30,7 +30,6 @@ class KnowledgeInstance(InstanceResource):
     class SupportedFileMimeType(object):
         TEXT_CSV = "text/csv"
         TEXT_MARKDOWN = "text/markdown"
-        TEXT_MDX = "text/mdx"
         APPLICATION_PDF = "application/pdf"
         TEXT_TAB_SEPARATED_VALUES = "text/tab-separated-values"
         TEXT_PLAIN = "text/plain"
@@ -652,7 +651,7 @@ class KnowledgeList(ListResource):
         :ivar file_name: Name of the file to be uploaded
         :ivar file_size: Expected size of the file in bytes
         :ivar mime_type:
-        :ivar import_url: Presigned S3 URL for file upload (when status is SCHEDULED) or the permanent S3 location after upload completes. Use PUT method to upload the file to this URL when status is SCHEDULED.
+        :ivar import_url: Presigned S3 URL for file upload (when status is SCHEDULED).  Use PUT method to upload the file to this URL when status is SCHEDULED.
         :ivar upload_expiration: Expiration time of the presigned upload URL in ISO 8601 format (only present when status is SCHEDULED)
         """
 

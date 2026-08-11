@@ -70,13 +70,17 @@ class OperatorInstance(InstanceResource):
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
         self.author: Optional["OperatorInstance.OperatorAuthor"] = payload.get("author")
         self.prompt: Optional[str] = payload.get("prompt")
-        self.output_format: Optional["OperatorInstance.str"] = payload.get(
-            "outputFormat"
+        self.output_format: Optional["OperatorInstance.OperatorOutputFormat"] = (
+            payload.get("outputFormat")
         )
         self.output_schema: Optional[Dict[str, object]] = payload.get("outputSchema")
-        self.training_examples: Optional[List[str]] = payload.get("trainingExamples")
-        self.context: Optional[str] = payload.get("context")
-        self.parameters: Optional[Dict[str, str]] = payload.get("parameters")
+        self.training_examples: Optional[List[OperatorList.OperatorTrainingExample]] = (
+            payload.get("trainingExamples")
+        )
+        self.context: Optional[OperatorList.OperatorContext] = payload.get("context")
+        self.parameters: Optional[Dict[str, OperatorParameter]] = payload.get(
+            "parameters"
+        )
 
         # Only set _solution if path params are provided (not None)
         if id is not None:

@@ -85,8 +85,10 @@ class V2(Version):
         :param search_id: Optional instance ID to directly access SearchContext
         :returns: SearchList instance if search_id is None, otherwise SearchContext
         """
-        list_instance = SearchList(self)
-        return list_instance(kb_id)
+        list_instance = SearchList(self, kb_id)
+        if search_id is not None:
+            return list_instance(search_id)
+        return list_instance
 
     def __repr__(self) -> str:
         """

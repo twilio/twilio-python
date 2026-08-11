@@ -15,6 +15,16 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
+from twilio.rest.trusthub.v1.a2_p_brand_registration import A2PBrandRegistrationList
+from twilio.rest.trusthub.v1.a2_p_brand_registration_embedded_session import (
+    A2PBrandRegistrationEmbeddedSessionList,
+)
+from twilio.rest.trusthub.v1.a2_p_campaign_registration import (
+    A2PCampaignRegistrationList,
+)
+from twilio.rest.trusthub.v1.a2_p_campaign_registration_embedded_session import (
+    A2PCampaignRegistrationEmbeddedSessionList,
+)
 from twilio.rest.trusthub.v1.compliance_inquiries import ComplianceInquiriesList
 from twilio.rest.trusthub.v1.compliance_registration_inquiries import (
     ComplianceRegistrationInquiriesList,
@@ -23,12 +33,18 @@ from twilio.rest.trusthub.v1.compliance_tollfree_inquiries import (
     ComplianceTollfreeInquiriesList,
 )
 from twilio.rest.trusthub.v1.customer_profiles import CustomerProfilesList
+from twilio.rest.trusthub.v1.customer_profiles_provisional_copy import (
+    CustomerProfilesProvisionalCopyList,
+)
 from twilio.rest.trusthub.v1.end_user import EndUserList
 from twilio.rest.trusthub.v1.end_user_type import EndUserTypeList
 from twilio.rest.trusthub.v1.policies import PoliciesList
 from twilio.rest.trusthub.v1.supporting_document import SupportingDocumentList
 from twilio.rest.trusthub.v1.supporting_document_type import SupportingDocumentTypeList
 from twilio.rest.trusthub.v1.trust_products import TrustProductsList
+from twilio.rest.trusthub.v1.trust_products_provisional_copy import (
+    TrustProductsProvisionalCopyList,
+)
 
 
 class V1(Version):
@@ -40,6 +56,8 @@ class V1(Version):
         :param domain: The Twilio.trusthub domain
         """
         super().__init__(domain, "v1")
+        self._a2_p_brand_registrations: Optional[A2PBrandRegistrationList] = None
+        self._a2_p_campaign_registrations: Optional[A2PCampaignRegistrationList] = None
         self._compliance_inquiries: Optional[ComplianceInquiriesList] = None
         self._compliance_registration_inquiries: Optional[
             ComplianceRegistrationInquiriesList
@@ -48,12 +66,62 @@ class V1(Version):
             ComplianceTollfreeInquiriesList
         ] = None
         self._customer_profiles: Optional[CustomerProfilesList] = None
+        self._customer_profiles_provisional_copy: Optional[
+            CustomerProfilesProvisionalCopyList
+        ] = None
         self._end_users: Optional[EndUserList] = None
         self._end_user_types: Optional[EndUserTypeList] = None
         self._policies: Optional[PoliciesList] = None
         self._supporting_documents: Optional[SupportingDocumentList] = None
         self._supporting_document_types: Optional[SupportingDocumentTypeList] = None
         self._trust_products: Optional[TrustProductsList] = None
+        self._trust_products_provisional_copy: Optional[
+            TrustProductsProvisionalCopyList
+        ] = None
+
+    @property
+    def a2_p_brand_registrations(self) -> A2PBrandRegistrationList:
+        if self._a2_p_brand_registrations is None:
+            self._a2_p_brand_registrations = A2PBrandRegistrationList(self)
+        return self._a2_p_brand_registrations
+
+    def a2_p_brand_registration_embedded_sessions(
+        self, id: str, a2p_brand_registration_embedded_session_id: str = None
+    ):
+        """
+        Access the A2PBrandRegistrationEmbeddedSessionList resource
+
+        :param id: The unique identifier for the A2P Brand Registration.
+
+        :param a2p_brand_registration_embedded_session_id: Optional instance ID to directly access A2PBrandRegistrationEmbeddedSessionContext
+        :returns: A2PBrandRegistrationEmbeddedSessionList instance if a2p_brand_registration_embedded_session_id is None, otherwise A2PBrandRegistrationEmbeddedSessionContext
+        """
+        list_instance = A2PBrandRegistrationEmbeddedSessionList(self, id)
+        if a2p_brand_registration_embedded_session_id is not None:
+            return list_instance(a2p_brand_registration_embedded_session_id)
+        return list_instance
+
+    @property
+    def a2_p_campaign_registrations(self) -> A2PCampaignRegistrationList:
+        if self._a2_p_campaign_registrations is None:
+            self._a2_p_campaign_registrations = A2PCampaignRegistrationList(self)
+        return self._a2_p_campaign_registrations
+
+    def a2_p_campaign_registration_embedded_sessions(
+        self, id: str, a2p_campaign_registration_embedded_session_id: str = None
+    ):
+        """
+        Access the A2PCampaignRegistrationEmbeddedSessionList resource
+
+        :param id: The unique identifier for the A2P Campaign Registration. This can be either an A2P Campaign Registration ID (formatted &#x60;tri1.us1.account.AC.../registration.BU...&#x60;) returned from the Initialize Campaign endpoint, or a Messaging Service SID (&#x60;MG...&#x60;) for campaigns created outside the embeddable.
+
+        :param a2p_campaign_registration_embedded_session_id: Optional instance ID to directly access A2PCampaignRegistrationEmbeddedSessionContext
+        :returns: A2PCampaignRegistrationEmbeddedSessionList instance if a2p_campaign_registration_embedded_session_id is None, otherwise A2PCampaignRegistrationEmbeddedSessionContext
+        """
+        list_instance = A2PCampaignRegistrationEmbeddedSessionList(self, id)
+        if a2p_campaign_registration_embedded_session_id is not None:
+            return list_instance(a2p_campaign_registration_embedded_session_id)
+        return list_instance
 
     @property
     def compliance_inquiries(self) -> ComplianceInquiriesList:
@@ -80,6 +148,14 @@ class V1(Version):
         if self._customer_profiles is None:
             self._customer_profiles = CustomerProfilesList(self)
         return self._customer_profiles
+
+    @property
+    def customer_profiles_provisional_copy(self) -> CustomerProfilesProvisionalCopyList:
+        if self._customer_profiles_provisional_copy is None:
+            self._customer_profiles_provisional_copy = (
+                CustomerProfilesProvisionalCopyList(self)
+            )
+        return self._customer_profiles_provisional_copy
 
     @property
     def end_users(self) -> EndUserList:
@@ -116,6 +192,14 @@ class V1(Version):
         if self._trust_products is None:
             self._trust_products = TrustProductsList(self)
         return self._trust_products
+
+    @property
+    def trust_products_provisional_copy(self) -> TrustProductsProvisionalCopyList:
+        if self._trust_products_provisional_copy is None:
+            self._trust_products_provisional_copy = TrustProductsProvisionalCopyList(
+                self
+            )
+        return self._trust_products_provisional_copy
 
     def __repr__(self) -> str:
         """

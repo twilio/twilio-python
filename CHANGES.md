@@ -3,6 +3,234 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2026-08-11] Version 9.11.0
+---------------------------
+**Library - Fix**
+- [PR #929](https://github.com/twilio/twilio-python/pull/929): mock HTTP session in TestUserAgentClients to avoid live network calls. Thanks to [@shrutiburman](https://github.com/shrutiburman)!
+
+**Twiml**
+- Remove `<Assistant>` noun from `<Connect>` verb as part of the AI Assistants deprecation **(breaking change)**
+- Add `passports` attribute to `<Dial>` verb for SHAKEN/STIR passport passthrough
+
+**Accounts**
+- Add `SuppressEmailNotification` parameter to the Secondary Auth Token and Auth Token promotion endpoints. Set it to `true` to suppress the email notification sent to account owners and administrators. Defaults to `false`, preserving existing behavior.
+- Add SMS Pumping Protection GET and POST API
+
+**Ai**
+- Removing ai workbench apis
+
+**Api**
+- Add missing `uri` property to the `twiml_session` resource
+
+**Data-ingress**
+- ## 2026-08-07
+- **Removed 1 API path**:
+- `/v1/DataQuery` (Realtime DataQuery)
+- ## 2026-07-07
+- **Added 1 new API path  (data plane)**:
+- `/v1/DataQuery` (Realtime DataQuery)
+- ## 2026-06-17
+- **Content updates**:
+- Added properties to `OAuthJWTBearerCredentials`: privateKey, privateKeyPassphrase
+- ## 2026-06-12
+- **Added 16 new path(s)**:
+- `/v1/DataSyncs/{syncId}` (FetchDataSync)
+- `/v1/CloudAppSources/{sourceId}/Objects` (ListCloudAppObjects)
+- `/v1/WarehouseSources/{sourceId}/Preview` (CreateWarehousePreview)
+- `/v1/WarehouseSources/{sourceId}/Preview/{operationId}` (FetchWarehousePreview)
+- `/v1/DataSample/{operationId}` (FetchDataSample)
+- `/v1/ControlPlane/CloudAppSources/{sourceId}` (FetchCloudAppSource, PatchCloudAppSource, DeleteCloudAppSource)
+- `/v1/ControlPlane/CloudAppSources/{sourceId}/Datasets` (ListCloudAppDatasets, CreateCloudAppDataset)
+- `/v1/ControlPlane/CloudAppSources/{sourceId}/Datasets/{datasetId}` (FetchCloudAppDataset, PatchCloudAppDataset, DeleteCloudAppDataset)
+- `/v1/ControlPlane/WarehouseSources/{sourceId}` (FetchWarehouseSource, PatchWarehouseSource, DeleteWarehouseSource)
+- `/v1/ControlPlane/WarehouseSources/{sourceId}/Datasets` (ListWarehouseDatasets, CreateWarehouseDataset)
+- ...and 6 more paths
+- **Removed 16 path(s)**:
+- `/v1/DataSyncs/{SyncId}` (FetchDataSync)
+- `/v1/CloudAppSources/{SourceId}/Objects` (ListCloudAppObjects)
+- `/v1/WarehouseSources/{SourceId}/Preview` (CreateWarehousePreview)
+- `/v1/WarehouseSources/{SourceId}/Preview/{OperationId}` (FetchWarehousePreview)
+- `/v1/DataSample/{OperationId}` (FetchDataSample)
+- `/v1/ControlPlane/CloudAppSources/{SourceId}` (FetchCloudAppSource, PatchCloudAppSource, DeleteCloudAppSource)
+- `/v1/ControlPlane/CloudAppSources/{SourceId}/Datasets` (ListCloudAppDatasets, CreateCloudAppDataset)
+- `/v1/ControlPlane/CloudAppSources/{SourceId}/Datasets/{DatasetId}` (FetchCloudAppDataset, PatchCloudAppDataset, DeleteCloudAppDataset)
+- `/v1/ControlPlane/WarehouseSources/{SourceId}` (FetchWarehouseSource, PatchWarehouseSource, DeleteWarehouseSource)
+- `/v1/ControlPlane/WarehouseSources/{SourceId}/Datasets` (ListWarehouseDatasets, CreateWarehouseDataset)
+- ...and 6 more paths
+- ## 2026-06-11
+- **Added 3 new Signal API path(s) for public exposure (data plane)**:
+- `/v1/EventSources/{sourceId}/Signals` (ListSignals)
+- `/v1/EventSources/{sourceId}/Signals/{signalKey}` (GetSignalBySignalKey)
+- `/v1/EventSources/{sourceId}/SignalStats` (ListSignalStats)
+- **Added new Signal API schemas**:
+- Signal, SignalListResponse, HourlyStats, SignalStatsResponse
+- ## 2026-05-26
+- **Added 12 new path(s) for public exposure**:
+- `/v1/ControlPlane/EventSources` (CreateEventSource, ListEventSources)
+- `/v1/ControlPlane/EventSources/{SourceId}` (FetchEventSource, PatchEventSource, DeleteEventSource)
+- `/v1/ControlPlane/EventSources/{SourceId}/WriteKeys` (CreateWriteKey, ListWriteKeys)
+- `/v1/ControlPlane/EventSources/{SourceId}/WriteKeys/{WriteKey}` (DeleteWriteKey)
+- `/v1/ControlPlane/EventSources/{SourceId}/Datasets` (CreateEventSourceDataset, ListEventSourceDatasets)
+- `/v1/ControlPlane/EventSources/{SourceId}/Datasets/{DatasetId}` (FetchEventSourceDataset, PatchEventSourceDataset, DeleteEventSourceDataset)
+- `/v1/ControlPlane/EventSources/{SourceId}/EventSchemas` (CreateEventSchema, ListEventSchemas)
+- `/v1/ControlPlane/EventSources/{SourceId}/EventSchemas/{SchemaId}` (FetchEventSchema, PatchEventSchema, DeleteEventSchema)
+- `/v1/ControlPlane/AutoInstrumentationRule` (CreateAutoInstrumentationRule, ListAutoInstrumentationRules)
+- `/v1/ControlPlane/AutoInstrumentationRule/{AutoInstrumentationRuleId}` (FetchAutoInstrumentationRule, PatchAutoInstrumentationRule, DeleteAutoInstrumentationRule)
+- `/v1/ControlPlane/AutoInstrumentationRule/{AutoInstrumentationRuleId}/Versions` (ListAutoInstrumentationRuleVersions)
+- `/v1/ControlPlane/AutoInstrumentationRule/{AutoInstrumentationRuleId}/Versions/{Version}` (FetchAutoInstrumentationRuleVersion)
+- **Added new schemas**:
+- EventSource, EventSourceCreate, EventSourceUpdate
+- WriteKey, WriteKeyCreate
+- EventSourceDataset, EventSourceDatasetCreate, EventSourceDatasetUpdate
+- EventSchema, EventSchemaCreate, EventSchemaUpdate, EventSchemaField, EventSchemaProperty
+- AutoInstrumentationRule, AutoInstrumentationRuleCreate, AutoInstrumentationRuleUpdate
+- AutoInstrumentationRuleVersion, AutoInstrumentationRuleVersionsResponse
+- ## 2026-06-12
+- **Added 16 new path(s)**:
+- `/v1/DataSyncs/{syncId}` (FetchDataSync)
+- `/v1/CloudAppSources/{sourceId}/Objects` (ListCloudAppObjects)
+- `/v1/WarehouseSources/{sourceId}/Preview` (CreateWarehousePreview)
+- `/v1/WarehouseSources/{sourceId}/Preview/{operationId}` (FetchWarehousePreview)
+- `/v1/DataSample/{operationId}` (FetchDataSample)
+- `/v1/ControlPlane/CloudAppSources/{sourceId}` (FetchCloudAppSource, PatchCloudAppSource, DeleteCloudAppSource)
+- `/v1/ControlPlane/CloudAppSources/{sourceId}/Datasets` (ListCloudAppDatasets, CreateCloudAppDataset)
+- `/v1/ControlPlane/CloudAppSources/{sourceId}/Datasets/{datasetId}` (FetchCloudAppDataset, PatchCloudAppDataset, DeleteCloudAppDataset)
+- `/v1/ControlPlane/WarehouseSources/{sourceId}` (FetchWarehouseSource, PatchWarehouseSource, DeleteWarehouseSource)
+- `/v1/ControlPlane/WarehouseSources/{sourceId}/Datasets` (ListWarehouseDatasets, CreateWarehouseDataset)
+- ...and 6 more paths
+- **Removed 16 path(s)**:
+- `/v1/DataSyncs/{SyncId}` (FetchDataSync)
+- `/v1/CloudAppSources/{SourceId}/Objects` (ListCloudAppObjects)
+- `/v1/WarehouseSources/{SourceId}/Preview` (CreateWarehousePreview)
+- `/v1/WarehouseSources/{SourceId}/Preview/{OperationId}` (FetchWarehousePreview)
+- `/v1/DataSample/{OperationId}` (FetchDataSample)
+- `/v1/ControlPlane/CloudAppSources/{SourceId}` (FetchCloudAppSource, PatchCloudAppSource, DeleteCloudAppSource)
+- `/v1/ControlPlane/CloudAppSources/{SourceId}/Datasets` (ListCloudAppDatasets, CreateCloudAppDataset)
+- `/v1/ControlPlane/CloudAppSources/{SourceId}/Datasets/{DatasetId}` (FetchCloudAppDataset, PatchCloudAppDataset, DeleteCloudAppDataset)
+- `/v1/ControlPlane/WarehouseSources/{SourceId}` (FetchWarehouseSource, PatchWarehouseSource, DeleteWarehouseSource)
+- `/v1/ControlPlane/WarehouseSources/{SourceId}/Datasets` (ListWarehouseDatasets, CreateWarehouseDataset)
+- ...and 6 more paths
+
+**Deletions**
+- # API Changes
+- ## 2026-06-23
+- Initial public Rest Proxy registration for the User Data Deletions API
+- (`POST` / `GET /v1/UserDataDeletions`, `GET /v1/UserDataDeletions/{deletionId}`,
+- `GET /v1/Operations/{operationId}`).
+- A single request may mix identifier formats: E.164 phone numbers, email
+- addresses, and profile IDs.
+
+**Destinations**
+- # API Changes
+- ## 2026-08-07
+- **Content updates**:
+- Updated summary for `ListDestinationSupportedEventTypes`
+- ## 2026-08-07
+- **Content updates**:
+- Updated summary for `ListDestinationSupportedEventTypes`
+- ## 2026-08-07
+- **Added 3 new path(s)**:
+- `/v1/Catalog/DestinationSupportedEventTypes` (ListDestinationSupportedEventTypes)
+- `/v1/ControlPlane/Subscriptions/{subscriptionId}/EventTypes` (ListSubscribedEvents, CreateSubscribedEvent)
+- `/v1/ControlPlane/Subscriptions/{subscriptionId}/EventTypes/{eventType}` (GetSubscribedEvent, UpdateSubscribedEvent, DeleteSubscribedEvent)
+- **Removed 3 path(s)**:
+- `/v1/ControlPlane/Subscriptions/{subscriptionId}/SubscribedEvents` (ListSubscribedEvents, CreateSubscribedEvent)
+- `/v1/ControlPlane/Subscriptions/{subscriptionId}/SubscribedEvents/{eventType}` (GetSubscribedEvent, UpdateSubscribedEvent, DeleteSubscribedEvent)
+- `/v1/Catalog/DestinationEventTypes` (ListDestinationEventTypes)
+- ## 2026-08-04
+- Minor updates (formatting, metadata)
+- ## 2026-08-04
+- Minor updates (formatting, metadata)
+- ## 2026-08-04
+- Minor updates (formatting, metadata)
+- ## 2026-08-04
+- Minor updates (formatting, metadata)
+- ## 2026-08-04
+- **Content updates**:
+- Added properties to `SubscriptionResponse`: eventTypes
+- ## 2026-08-03
+- **Content updates**:
+- Added properties to `DestinationType`: documentationUrl, maturity, tier, categories
+- ## 2026-07-27
+- Minor updates (formatting, metadata)
+- ## 2026-07-23
+- **Content updates**:
+- `meta` is now a required property in the response of `ListDestinations`, `ListSubscriptions`, and `ListSubscribedEvents`
+- `CreateSubscribedEvent` request body schema consolidated onto `SubscribedEventInput` (previously `SubscribedEventCreate`, a duplicate schema)
+- Added response examples for `ListDestinations`, `ListSubscriptions`, and `ListSubscribedEvents`
+- ## 2026-07-23
+- **Added 1 new path(s)**:
+- `/v1/Catalog/DestinationEventTypes` (ListDestinationEventTypes)
+- ## 2026-07-22
+- **Content updates**:
+- Added parameter(s) to `ListDestinations`: namePrefix
+- Updated description for `UpdateSubscription`
+- Added properties to `SubscriptionUpdate`: eventTypes
+- ## 2026-07-16
+- Initial release with 9 paths and 18 operations
+
+**Events**
+- Add `stage-ie1` realm support for EventTypes and Schemas endpoints (datataps-catalog)
+
+**Memory**
+- ## 2026-08-10
+- Removed `Events` endpoints from the spec, as they were hidden, never implemented, and are not part of the public API
+- ## 2026-08-07
+- **New functionality**:
+- Added `pageSize`, `pageToken`, and `orderBy` query parameters to `ListProfileImportsV2`, plus a `meta` object in its response, to support pagination.
+- **Content updates**:
+- Updated the `ListProfileImportsV2` description to document the new pagination behavior.
+- Corrected the example presigned upload URL on `CreateProfilesImportV2` to match the real S3 bucket naming convention.
+- Corrected the `meta.key` example on `ListProfileTraits`'s response (was `profiles`, now `traits`) to accurately describe which response field it points to.
+- ## 2026-08-07
+- **Content updates**:
+- Updated `matchingRules` description in `IdentityResolutionSettingsCore` to remove compound `AND` rule documentation
+- ## 2026-07-30
+- **Content updates**:
+- Increased the maximum value for the Twilio error `code` from `99999` to `999999`
+- ## 2026-07-28
+- **Content updates**:
+- Updated the `pageSize` description on the pagination `Meta` schema to clarify it reflects the number of items actually returned, not the requested or default page size.
+- ## 2026-07-13
+- **Content updates**:
+- Renamed `ListProfiles` response schema references from `ProfileID`/`ProfilesMeta` to `IdentityProfileID`/`IdentityProfilesMeta` (new `IdentityProfilesMeta` schema added; `ProfileID`/`ProfilesMeta` retained for other operations).
+- ## 2026-07-08
+- **Content updates**:
+- Updated description for `CreateDataMappingSuggestion`
+- Updated description for `FetchDataMappingSuggestion`
+- ## 2026-07-06
+- **Added 2 new path(s)**:
+- `/v1/ControlPlane/Stores/{storeId}/DataMappings/Suggestions` (ListDataMappingSuggestions, CreateDataMappingSuggestion)
+- `/v1/ControlPlane/Stores/{storeId}/DataMappings/Suggestions/{suggestionId}` (FetchDataMappingSuggestion)
+- ## 2026-06-26
+- **Content updates**:
+- Minor updates (formatting, metadata)
+- Updated x-twilio location parameter from `instance` to `list` for all endpoints that don't end with a /{param}
+- Updated description for `UpdateProfileTraits`
+- Updated summary for `UpdateProfileTraits`
+- Removed properties from `MappingTraitItem`: fieldName
+- Removed `additionalProperties` from `allof` schemas since it isn't supported and causes invalid lint errors on example blocks.
+- matruity ga and libraryVisibility public
+- ## 2026-06-24
+- **Content updates**:
+- Add ConversationID as an optional query parameter for ListObservations and ListConversationSummaries
+- ## 2026-05-01
+- **Content updates**:
+- Updated description & summary for `UpdateProfileTraits`
+- Updated description for `FetchIdentityResolutionSettings`
+- Removed properties from `MappingTraitItem`: fieldName
+- Updated patch Observations to not require `occurredAt`, `content`, or `source`
+- ## 2026-04-28
+- **Content updates**:
+- Updated description for `UpdateProfileTraits`
+- Updated summary for `UpdateProfileTraits`
+- Added properties to `TraitDefinition`: validationRule
+- Removed properties from `MappingTraitItem`: fieldName
+
+**Messaging_admin**
+- Add Intelligent Alerts endpoints at `/v1/Messaging/IntelligentAlertsEvents/*`, routing to intelligent-alerts-api via messaging-monkey-backend. Account SID is a required query parameter (`accountSid`) on all three endpoints.
+
+
 [2026-05-07] Version 9.10.9
 ---------------------------
 **Conversations**

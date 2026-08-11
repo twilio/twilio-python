@@ -13,8 +13,8 @@ r"""
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
-from twilio.base import deserialize, values
+from typing import Any, Dict, Optional, Union
+from twilio.base import deserialize, serialize, values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -60,77 +60,117 @@ class SecondaryAuthTokenInstance(InstanceResource):
             )
         return self._context
 
-    def create(self) -> "SecondaryAuthTokenInstance":
+    def create(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> "SecondaryAuthTokenInstance":
         """
         Create the SecondaryAuthTokenInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: The created SecondaryAuthTokenInstance
         """
-        return self._proxy.create()
+        return self._proxy.create(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    async def create_async(self) -> "SecondaryAuthTokenInstance":
+    async def create_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> "SecondaryAuthTokenInstance":
         """
         Asynchronous coroutine to create the SecondaryAuthTokenInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: The created SecondaryAuthTokenInstance
         """
-        return await self._proxy.create_async()
+        return await self._proxy.create_async(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    def create_with_http_info(self) -> ApiResponse:
+    def create_with_http_info(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Create the SecondaryAuthTokenInstance with HTTP info
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return self._proxy.create_with_http_info()
+        return self._proxy.create_with_http_info(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    async def create_with_http_info_async(self) -> ApiResponse:
+    async def create_with_http_info_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to create the SecondaryAuthTokenInstance with HTTP info
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        return await self._proxy.create_with_http_info_async()
+        return await self._proxy.create_with_http_info_async(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    def delete(self) -> bool:
+    def delete(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> bool:
         """
         Deletes the SecondaryAuthTokenInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._proxy.delete()
+        return self._proxy.delete(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    async def delete_async(self) -> bool:
+    async def delete_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the SecondaryAuthTokenInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._proxy.delete_async()
+        return await self._proxy.delete_async(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    def delete_with_http_info(self) -> ApiResponse:
+    def delete_with_http_info(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Deletes the SecondaryAuthTokenInstance with HTTP info
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with success boolean, status code, and headers
         """
-        return self._proxy.delete_with_http_info()
+        return self._proxy.delete_with_http_info(
+            suppress_email_notification=suppress_email_notification,
+        )
 
-    async def delete_with_http_info_async(self) -> ApiResponse:
+    async def delete_with_http_info_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine that deletes the SecondaryAuthTokenInstance with HTTP info
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with success boolean, status code, and headers
         """
-        return await self._proxy.delete_with_http_info_async()
+        return await self._proxy.delete_with_http_info_async(
+            suppress_email_notification=suppress_email_notification,
+        )
 
     def __repr__(self) -> str:
         """
@@ -154,7 +194,9 @@ class SecondaryAuthTokenContext(InstanceContext):
 
         self._uri = "/AuthTokens/Secondary"
 
-    def _create(self) -> tuple:
+    def _create(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> tuple:
         """
         Internal helper for create operation
 
@@ -162,8 +204,16 @@ class SecondaryAuthTokenContext(InstanceContext):
             tuple: (payload, status_code, headers)
         """
 
-        data = values.of({})
+        data = values.of(
+            {
+                "SuppressEmailNotification": serialize.boolean_to_string(
+                    suppress_email_notification
+                ),
+            }
+        )
         headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
 
         headers["Accept"] = "application/json"
 
@@ -171,28 +221,40 @@ class SecondaryAuthTokenContext(InstanceContext):
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-    def create(self) -> SecondaryAuthTokenInstance:
+    def create(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> SecondaryAuthTokenInstance:
         """
         Create the SecondaryAuthTokenInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: The created SecondaryAuthTokenInstance
         """
-        payload, _, _ = self._create()
+        payload, _, _ = self._create(
+            suppress_email_notification=suppress_email_notification
+        )
         return SecondaryAuthTokenInstance(self._version, payload)
 
-    def create_with_http_info(self) -> ApiResponse:
+    def create_with_http_info(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Create the SecondaryAuthTokenInstance and return response metadata
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._create()
+        payload, status_code, headers = self._create(
+            suppress_email_notification=suppress_email_notification
+        )
         instance = SecondaryAuthTokenInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _create_async(self) -> tuple:
+    async def _create_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> tuple:
         """
         Internal async helper for create operation
 
@@ -200,8 +262,16 @@ class SecondaryAuthTokenContext(InstanceContext):
             tuple: (payload, status_code, headers)
         """
 
-        data = values.of({})
+        data = values.of(
+            {
+                "SuppressEmailNotification": serialize.boolean_to_string(
+                    suppress_email_notification
+                ),
+            }
+        )
         headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
 
         headers["Accept"] = "application/json"
 
@@ -209,28 +279,40 @@ class SecondaryAuthTokenContext(InstanceContext):
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-    async def create_async(self) -> SecondaryAuthTokenInstance:
+    async def create_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> SecondaryAuthTokenInstance:
         """
         Asynchronous coroutine to create the SecondaryAuthTokenInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: The created SecondaryAuthTokenInstance
         """
-        payload, _, _ = await self._create_async()
+        payload, _, _ = await self._create_async(
+            suppress_email_notification=suppress_email_notification
+        )
         return SecondaryAuthTokenInstance(self._version, payload)
 
-    async def create_with_http_info_async(self) -> ApiResponse:
+    async def create_with_http_info_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine to create the SecondaryAuthTokenInstance and return response metadata
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._create_async()
+        payload, status_code, headers = await self._create_async(
+            suppress_email_notification=suppress_email_notification
+        )
         instance = SecondaryAuthTokenInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    def _delete(self) -> tuple:
+    def _delete(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> tuple:
         """
         Internal helper for delete operation
 
@@ -240,31 +322,51 @@ class SecondaryAuthTokenContext(InstanceContext):
 
         headers = values.of({})
 
-        return self._version.delete_with_response_info(
-            method="DELETE", uri=self._uri, headers=headers
+        params = values.of(
+            {
+                "SuppressEmailNotification": serialize.boolean_to_string(
+                    suppress_email_notification
+                ),
+            }
         )
 
-    def delete(self) -> bool:
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers, params=params
+        )
+
+    def delete(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> bool:
         """
         Deletes the SecondaryAuthTokenInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: True if delete succeeds, False otherwise
         """
-        success, _, _ = self._delete()
+        success, _, _ = self._delete(
+            suppress_email_notification=suppress_email_notification
+        )
         return success
 
-    def delete_with_http_info(self) -> ApiResponse:
+    def delete_with_http_info(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Deletes the SecondaryAuthTokenInstance and return response metadata
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with success boolean, status code, and headers
         """
-        success, status_code, headers = self._delete()
+        success, status_code, headers = self._delete(
+            suppress_email_notification=suppress_email_notification
+        )
         return ApiResponse(data=success, status_code=status_code, headers=headers)
 
-    async def _delete_async(self) -> tuple:
+    async def _delete_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> tuple:
         """
         Internal async helper for delete operation
 
@@ -274,28 +376,46 @@ class SecondaryAuthTokenContext(InstanceContext):
 
         headers = values.of({})
 
-        return await self._version.delete_with_response_info_async(
-            method="DELETE", uri=self._uri, headers=headers
+        params = values.of(
+            {
+                "SuppressEmailNotification": serialize.boolean_to_string(
+                    suppress_email_notification
+                ),
+            }
         )
 
-    async def delete_async(self) -> bool:
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers, params=params
+        )
+
+    async def delete_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the SecondaryAuthTokenInstance
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: True if delete succeeds, False otherwise
         """
-        success, _, _ = await self._delete_async()
+        success, _, _ = await self._delete_async(
+            suppress_email_notification=suppress_email_notification
+        )
         return success
 
-    async def delete_with_http_info_async(self) -> ApiResponse:
+    async def delete_with_http_info_async(
+        self, suppress_email_notification: Union[bool, object] = values.unset
+    ) -> ApiResponse:
         """
         Asynchronous coroutine that deletes the SecondaryAuthTokenInstance and return response metadata
 
+        :param suppress_email_notification: Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
         :returns: ApiResponse with success boolean, status code, and headers
         """
-        success, status_code, headers = await self._delete_async()
+        success, status_code, headers = await self._delete_async(
+            suppress_email_notification=suppress_email_notification
+        )
         return ApiResponse(data=success, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:

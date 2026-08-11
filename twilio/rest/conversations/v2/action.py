@@ -25,12 +25,25 @@ from twilio.base.version import Version
 
 
 class ActionInstance(InstanceResource):
+
+    class ConversationsV2ActionStatus(object):
+        PENDING = "PENDING"
+        COMPLETED = "COMPLETED"
+        FAILED = "FAILED"
+
+    class ConversationsV2Channel(object):
+        VOICE = "VOICE"
+        SMS = "SMS"
+        RCS = "RCS"
+        WHATSAPP = "WHATSAPP"
+        CHAT = "CHAT"
+
     """
     :ivar id: Unique identifier for this Action.
     :ivar type: The type of action. Accepted values: SEND_MESSAGE.
-    :ivar status: Current status of the Action. - PENDING: Action accepted, awaiting downstream confirmation - COMPLETED: Downstream backend confirmed the action - FAILED: Downstream backend reported a failure
+    :ivar status: 
     :ivar conversation_id: The conversation this action belongs to.
-    :ivar related: Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED)
+    :ivar related: Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED) 
     :ivar created_at: Timestamp when the action was created.
     :ivar updated_at: Timestamp when the action was last updated.
     :ivar completed_at: Timestamp when the action reached a terminal status.
@@ -285,14 +298,16 @@ class ActionList(ListResource):
         """
         :ivar participant_id: Participant ID to resolve address from.
         :ivar address: Explicit address formatted according to channel type.
-        :ivar channel: Channel type for address resolution.
+        :ivar channel:
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
             self.participant_id: Optional[str] = payload.get("participantId")
             self.address: Optional[str] = payload.get("address")
-            self.channel: Optional["ActionInstance.str"] = payload.get("channel")
+            self.channel: Optional["ActionInstance.ConversationsV2Channel"] = (
+                payload.get("channel")
+            )
 
         def to_dict(self):
             return {

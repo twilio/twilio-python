@@ -25,18 +25,24 @@ from twilio.base.version import Version
 
 
 class OperationInstance(InstanceResource):
+
+    class ConversationsV2OperationStatusValue(object):
+        PENDING = "PENDING"
+        COMPLETED = "COMPLETED"
+        FAILED = "FAILED"
+
     """
     :ivar operation_id: Unique identifier for the long-running operation.
-    :ivar status: Current status of the operation.
+    :ivar status: 
     :ivar created_at: Timestamp when the operation was created.
     :ivar completed_at: Timestamp when the operation completed. Only present for completed or failed operations.
     :ivar status_url: URL to poll for operation status.
-    :ivar error:
-    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
+    :ivar error: 
+    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
     """
 
     def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
     ):
         super().__init__(version)
 
@@ -53,9 +59,9 @@ class OperationInstance(InstanceResource):
         self.related: Optional[Dict[str, str]] = payload.get("related")
 
         # Only set _solution if path params are provided (not None)
-        if sid is not None:
+        if id is not None:
             self._solution = {
-                "sid": sid,
+                "id": id,
             }
 
         self._context: Optional[OperationContext] = None
@@ -71,7 +77,7 @@ class OperationInstance(InstanceResource):
         if self._context is None:
             self._context = OperationContext(
                 self._version,
-                sid=self._solution["sid"],
+                id=self._solution["id"],
             )
         return self._context
 
@@ -123,20 +129,20 @@ class OperationInstance(InstanceResource):
 
 class OperationContext(InstanceContext):
 
-    def __init__(self, version: Version, sid: str):
+    def __init__(self, version: Version, id: str):
         """
         Initialize the OperationContext
 
         :param version: Version that contains the resource
-        :param sid:
+        :param id:
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "sid": sid,
+            "id": id,
         }
-        self._uri = "/ControlPlane/Operations/{sid}".format(**self._solution)
+        self._uri = "/ControlPlane/Operations/{id}".format(**self._solution)
 
     def _fetch(self) -> tuple:
         """
@@ -165,7 +171,7 @@ class OperationContext(InstanceContext):
         return OperationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
 
     def fetch_with_http_info(self) -> ApiResponse:
@@ -179,7 +185,7 @@ class OperationContext(InstanceContext):
         instance = OperationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -210,7 +216,7 @@ class OperationContext(InstanceContext):
         return OperationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
@@ -224,7 +230,7 @@ class OperationContext(InstanceContext):
         instance = OperationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            id=self._solution["id"],
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
@@ -249,21 +255,21 @@ class OperationList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, sid: str) -> OperationContext:
+    def get(self, id: str) -> OperationContext:
         """
         Constructs a OperationContext
 
-        :param sid:
+        :param id:
         """
-        return OperationContext(self._version, sid=sid)
+        return OperationContext(self._version, id=id)
 
-    def __call__(self, sid: str) -> OperationContext:
+    def __call__(self, id: str) -> OperationContext:
         """
         Constructs a OperationContext
 
-        :param sid:
+        :param id:
         """
-        return OperationContext(self._version, sid=sid)
+        return OperationContext(self._version, id=id)
 
     def __repr__(self) -> str:
         """

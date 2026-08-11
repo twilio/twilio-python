@@ -50,16 +50,16 @@ class V2(Version):
             return list_instance(action_id)
         return list_instance
 
-    def communications(self, conversation_sid: str, communication_id: str = None):
+    def communications(self, conversation_id: str, communication_id: str = None):
         """
         Access the CommunicationList resource
 
-        :param conversation_sid:
+        :param conversation_id:
 
         :param communication_id: Optional instance ID to directly access CommunicationContext
         :returns: CommunicationList instance if communication_id is None, otherwise CommunicationContext
         """
-        list_instance = CommunicationList(self, conversation_sid)
+        list_instance = CommunicationList(self, conversation_id)
         if communication_id is not None:
             return list_instance(communication_id)
         return list_instance
@@ -82,16 +82,16 @@ class V2(Version):
             self._operations = OperationList(self)
         return self._operations
 
-    def participants(self, conversation_sid: str, participant_id: str = None):
+    def participants(self, conversation_id: str, participant_id: str = None):
         """
         Access the ParticipantList resource
 
-        :param conversation_sid:
+        :param conversation_id:
 
         :param participant_id: Optional instance ID to directly access ParticipantContext
         :returns: ParticipantList instance if participant_id is None, otherwise ParticipantContext
         """
-        list_instance = ParticipantList(self, conversation_sid)
+        list_instance = ParticipantList(self, conversation_id)
         if participant_id is not None:
             return list_instance(participant_id)
         return list_instance

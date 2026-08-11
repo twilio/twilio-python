@@ -17,7 +17,7 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -28,9 +28,7 @@ class SearchInstance(InstanceResource):
     :ivar chunks:
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], kb_id: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], kb_id: str):
         super().__init__(version)
 
         self.chunks: Optional[List[str]] = payload.get("chunks")
@@ -40,79 +38,6 @@ class SearchInstance(InstanceResource):
             self._solution = {
                 "kb_id": kb_id,
             }
-
-        self._context: Optional[SearchContext] = None
-
-    @property
-    def _proxy(self) -> "SearchContext":
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: SearchContext for this SearchInstance
-        """
-        if self._context is None:
-            self._context = SearchContext(
-                self._version,
-                kb_id=self._solution["kb_id"],
-            )
-        return self._context
-
-    def create(
-        self, knowledge_search: Union[KnowledgeSearch, object] = values.unset
-    ) -> "SearchInstance":
-        """
-        Create the SearchInstance
-
-        :param knowledge_search:
-
-        :returns: The created SearchInstance
-        """
-        return self._proxy.create(
-            knowledge_search=knowledge_search,
-        )
-
-    async def create_async(
-        self, knowledge_search: Union[KnowledgeSearch, object] = values.unset
-    ) -> "SearchInstance":
-        """
-        Asynchronous coroutine to create the SearchInstance
-
-        :param knowledge_search:
-
-        :returns: The created SearchInstance
-        """
-        return await self._proxy.create_async(
-            knowledge_search=knowledge_search,
-        )
-
-    def create_with_http_info(
-        self, knowledge_search: Union[KnowledgeSearch, object] = values.unset
-    ) -> ApiResponse:
-        """
-        Create the SearchInstance with HTTP info
-
-        :param knowledge_search:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        return self._proxy.create_with_http_info(
-            knowledge_search=knowledge_search,
-        )
-
-    async def create_with_http_info_async(
-        self, knowledge_search: Union[KnowledgeSearch, object] = values.unset
-    ) -> ApiResponse:
-        """
-        Asynchronous coroutine to create the SearchInstance with HTTP info
-
-        :param knowledge_search:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        return await self._proxy.create_with_http_info_async(
-            knowledge_search=knowledge_search,
-        )
 
     def __repr__(self) -> str:
         """
@@ -124,14 +49,35 @@ class SearchInstance(InstanceResource):
         return "<Twilio.Knowledge.V2.SearchInstance {}>".format(context)
 
 
-class SearchContext(InstanceContext):
+class SearchList(ListResource):
+
+    class KnowledgeSearch(object):
+        """
+        :ivar query: The query to search the knowledge source.
+        :ivar top: The top K results to return.
+        :ivar knowledge_ids: The list of knowledge IDs to search.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.query: Optional[str] = payload.get("query")
+            self.top: Optional[int] = payload.get("top")
+            self.knowledge_ids: Optional[List[str]] = payload.get("knowledgeIds")
+
+        def to_dict(self):
+            return {
+                "query": self.query,
+                "top": self.top,
+                "knowledgeIds": self.knowledge_ids,
+            }
 
     def __init__(self, version: Version, kb_id: str):
         """
-        Initialize the SearchContext
+        Initialize the SearchList
 
         :param version: Version that contains the resource
         :param kb_id: A unique Knowledge Base ID using Twilio Type ID (TTID) format
+
         """
         super().__init__(version)
 
@@ -152,7 +98,7 @@ class SearchContext(InstanceContext):
         """
         data = knowledge_search.to_dict()
 
-        headers = values.of({})
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Content-Type"] = "application/json"
 
@@ -200,7 +146,7 @@ class SearchContext(InstanceContext):
         """
         data = knowledge_search.to_dict()
 
-        headers = values.of({})
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Content-Type"] = "application/json"
 
@@ -214,7 +160,7 @@ class SearchContext(InstanceContext):
         self, knowledge_search: Union[KnowledgeSearch, object] = values.unset
     ) -> SearchInstance:
         """
-        Asynchronous coroutine to create the SearchInstance
+        Asynchronously create the SearchInstance
 
         :param knowledge_search:
 
@@ -227,7 +173,7 @@ class SearchContext(InstanceContext):
         self, knowledge_search: Union[KnowledgeSearch, object] = values.unset
     ) -> ApiResponse:
         """
-        Asynchronous coroutine to create the SearchInstance and return response metadata
+        Asynchronously create the SearchInstance and return response metadata
 
         :param knowledge_search:
 
@@ -238,63 +184,6 @@ class SearchContext(InstanceContext):
         )
         instance = SearchInstance(self._version, payload, kb_id=self._solution["kb_id"])
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Knowledge.V2.SearchContext {}>".format(context)
-
-
-class SearchList(ListResource):
-
-    class KnowledgeSearch(object):
-        """
-        :ivar query: The query to search the knowledge source.
-        :ivar top: The top K results to return.
-        :ivar knowledge_ids: The list of knowledge IDs to search.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.query: Optional[str] = payload.get("query")
-            self.top: Optional[int] = payload.get("top")
-            self.knowledge_ids: Optional[List[str]] = payload.get("knowledgeIds")
-
-        def to_dict(self):
-            return {
-                "query": self.query,
-                "top": self.top,
-                "knowledgeIds": self.knowledge_ids,
-            }
-
-    def __init__(self, version: Version):
-        """
-        Initialize the SearchList
-
-        :param version: Version that contains the resource
-
-        """
-        super().__init__(version)
-
-    def get(self, kb_id: str) -> SearchContext:
-        """
-        Constructs a SearchContext
-
-        :param kb_id: A unique Knowledge Base ID using Twilio Type ID (TTID) format
-        """
-        return SearchContext(self._version, kb_id=kb_id)
-
-    def __call__(self, kb_id: str) -> SearchContext:
-        """
-        Constructs a SearchContext
-
-        :param kb_id: A unique Knowledge Base ID using Twilio Type ID (TTID) format
-        """
-        return SearchContext(self._version, kb_id=kb_id)
 
     def __repr__(self) -> str:
         """

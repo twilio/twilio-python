@@ -25,11 +25,11 @@ class TypingIndicatorInstance(InstanceResource):
 
     class TypingIndicatorRequest(object):
         """
-        :ivar channel: The messaging channel. Must be \"APPLE\".
+        :ivar channel: The messaging channel. Must be \"RCS\".
         :ivar message_id: The SID of a recent inbound message from the recipient. Must be an SM or MM SID format.
-        :ivar _from: The Apple Messages for Business identifier of the sender (business).
-        :ivar to: The Apple Messages for Business identifier of the recipient (customer).
-        :ivar event: The type of typing event. \"START\" indicates the agent began typing, \"END\" indicates the agent stopped typing. Defaults to \"START\".
+        :ivar _from: The RCS agent identifier of the sender (business).
+        :ivar to: The RCS recipient identifier in E.164 format prefixed with \"rcs:\".
+        :ivar event: The type of typing event. Currently only \"START\" is supported for RCS, indicating the agent began typing. Defaults to \"START\".
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -74,11 +74,11 @@ class TypingIndicatorList(ListResource):
 
     class TypingIndicatorRequest(object):
         """
-        :ivar channel: The messaging channel. Must be \"APPLE\".
+        :ivar channel: The messaging channel. Must be \"RCS\".
         :ivar message_id: The SID of a recent inbound message from the recipient. Must be an SM or MM SID format.
-        :ivar _from: The Apple Messages for Business identifier of the sender (business).
-        :ivar to: The Apple Messages for Business identifier of the recipient (customer).
-        :ivar event: The type of typing event. \"START\" indicates the agent began typing, \"END\" indicates the agent stopped typing. Defaults to \"START\".
+        :ivar _from: The RCS agent identifier of the sender (business).
+        :ivar to: The RCS recipient identifier in E.164 format prefixed with \"rcs:\".
+        :ivar event: The type of typing event. Currently only \"START\" is supported for RCS, indicating the agent began typing. Defaults to \"START\".
         """
 
         def __init__(self, payload: Dict[str, Any]):
