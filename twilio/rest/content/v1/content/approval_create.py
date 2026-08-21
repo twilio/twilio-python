@@ -27,17 +27,20 @@ class ApprovalCreateInstance(InstanceResource):
         """
         :ivar name: Name of the template.
         :ivar category: A WhatsApp recognized template category.
+        :ivar send_ttl_seconds: Time-to-live in seconds for attempting to send a message with this Content
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
             self.category: Optional[str] = payload.get("category")
+            self.send_ttl_seconds: Optional[int] = payload.get("send_ttl_seconds")
 
         def to_dict(self):
             return {
                 "name": self.name,
                 "category": self.category,
+                "send_ttl_seconds": self.send_ttl_seconds,
             }
 
     """
@@ -47,6 +50,7 @@ class ApprovalCreateInstance(InstanceResource):
     :ivar status: 
     :ivar rejection_reason: 
     :ivar allow_category_change: 
+    :ivar send_ttl_seconds: Time-to-live in seconds for attempting to send a message with this Content
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], content_sid: str):
@@ -60,6 +64,7 @@ class ApprovalCreateInstance(InstanceResource):
         self.allow_category_change: Optional[bool] = payload.get(
             "allow_category_change"
         )
+        self.send_ttl_seconds: Optional[int] = payload.get("send_ttl_seconds")
 
         self._solution = {
             "content_sid": content_sid,
@@ -81,17 +86,20 @@ class ApprovalCreateList(ListResource):
         """
         :ivar name: Name of the template.
         :ivar category: A WhatsApp recognized template category.
+        :ivar send_ttl_seconds: Time-to-live in seconds for attempting to send a message with this Content
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
             self.category: Optional[str] = payload.get("category")
+            self.send_ttl_seconds: Optional[int] = payload.get("send_ttl_seconds")
 
         def to_dict(self):
             return {
                 "name": self.name,
                 "category": self.category,
+                "send_ttl_seconds": self.send_ttl_seconds,
             }
 
     def __init__(self, version: Version, content_sid: str):
