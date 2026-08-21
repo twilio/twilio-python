@@ -3,6 +3,38 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2026-08-21] Version 9.11.1
+---------------------------
+**Library - Fix**
+- [PR #954](https://github.com/twilio/twilio-python/pull/954): Fix tag validation regex in deploy.yml. Thanks to [@kridai](https://github.com/kridai)!
+
+**Destinations**
+- ## 2026-08-12
+- Minor updates (formatting, metadata)
+- ## 2026-08-12
+- **Content updates**:
+- Added properties to `DestinationType`: releaseStatus
+- Removed properties from `DestinationType`: maturity
+
+**Memory**
+- No path changes (updated metadata only)
+- `DataMappingType` gains `INGRESS`, `DATASET_CLOUDAPP`, and `DATASET_WAREHOUSE`.
+- `CSV` and `DATASET` remain valid and unchanged; they are deprecated aliases and
+- will be removed in a follow-up change.
+- `DataMappingFromTypes` gains three `oneOf` members and three discriminator keys:
+- `DataMappingFromIngress` (renames `DataMappingFromCSV`),
+- `DataMappingFromCloudAppDataSet` and `DataMappingFromWarehouseDataSet`
+- (both split from `DataMappingFromDataSet`, distinguishing a cloud-app-backed
+- TDI dataset from a warehouse-backed one).
+- Additive and backwards compatible: existing `CSV` and `DATASET` payloads are
+- unaffected.
+- ## 2026-08-10
+
+**Voice**
+- ## 2026-08-05
+- Added GET /v3/Transcriptions to list and filter transcriptions (status, sourceId, languageCode, createdAfter/createdBefore) with pageSize/pageToken pagination. createdAfter is inclusive and createdBefore exclusive. Returns 422 (error code 17535) when a sourceId's historical item count exceeds the service scan cap
+
+
 [2026-08-11] Version 9.11.0
 ---------------------------
 **Library - Fix**
