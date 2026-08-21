@@ -19,6 +19,7 @@ from twilio.rest.numbers.v2.application import ApplicationList
 from twilio.rest.numbers.v2.authorization_document import AuthorizationDocumentList
 from twilio.rest.numbers.v2.bulk_hosted_number_order import BulkHostedNumberOrderList
 from twilio.rest.numbers.v2.bundle_clone import BundleCloneList
+from twilio.rest.numbers.v2.caller_id import CallerIdList
 from twilio.rest.numbers.v2.hosted_number_order import HostedNumberOrderList
 from twilio.rest.numbers.v2.regulatory_compliance import RegulatoryComplianceList
 
@@ -36,6 +37,7 @@ class V2(Version):
         self._authorization_documents: Optional[AuthorizationDocumentList] = None
         self._bulk_hosted_number_orders: Optional[BulkHostedNumberOrderList] = None
         self._bundle_clone: Optional[BundleCloneList] = None
+        self._caller_ids: Optional[CallerIdList] = None
         self._hosted_number_orders: Optional[HostedNumberOrderList] = None
         self._regulatory_compliance: Optional[RegulatoryComplianceList] = None
 
@@ -62,6 +64,12 @@ class V2(Version):
         if self._bundle_clone is None:
             self._bundle_clone = BundleCloneList(self)
         return self._bundle_clone
+
+    @property
+    def caller_ids(self) -> CallerIdList:
+        if self._caller_ids is None:
+            self._caller_ids = CallerIdList(self)
+        return self._caller_ids
 
     @property
     def hosted_number_orders(self) -> HostedNumberOrderList:

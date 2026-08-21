@@ -34,6 +34,10 @@ from twilio.rest.numbers.v1.sender_id_registration import SenderIdRegistrationLi
 from twilio.rest.numbers.v1.signing_request_configuration import (
     SigningRequestConfigurationList,
 )
+from twilio.rest.numbers.v1.sms_verification import SmsVerificationList
+from twilio.rest.numbers.v1.sms_verification_check import SmsVerificationCheckList
+from twilio.rest.numbers.v1.voice_verification import VoiceVerificationList
+from twilio.rest.numbers.v1.voice_verification_check import VoiceVerificationCheckList
 from twilio.rest.numbers.v1.webhook import WebhookList
 
 
@@ -64,6 +68,10 @@ class V1(Version):
         self._signing_request_configurations: Optional[
             SigningRequestConfigurationList
         ] = None
+        self._sms_verifications: Optional[SmsVerificationList] = None
+        self._sms_verification_checks: Optional[SmsVerificationCheckList] = None
+        self._voice_verifications: Optional[VoiceVerificationList] = None
+        self._voice_verification_checks: Optional[VoiceVerificationCheckList] = None
         self._webhook: Optional[WebhookList] = None
 
     @property
@@ -143,6 +151,30 @@ class V1(Version):
         if self._signing_request_configurations is None:
             self._signing_request_configurations = SigningRequestConfigurationList(self)
         return self._signing_request_configurations
+
+    @property
+    def sms_verifications(self) -> SmsVerificationList:
+        if self._sms_verifications is None:
+            self._sms_verifications = SmsVerificationList(self)
+        return self._sms_verifications
+
+    @property
+    def sms_verification_checks(self) -> SmsVerificationCheckList:
+        if self._sms_verification_checks is None:
+            self._sms_verification_checks = SmsVerificationCheckList(self)
+        return self._sms_verification_checks
+
+    @property
+    def voice_verifications(self) -> VoiceVerificationList:
+        if self._voice_verifications is None:
+            self._voice_verifications = VoiceVerificationList(self)
+        return self._voice_verifications
+
+    @property
+    def voice_verification_checks(self) -> VoiceVerificationCheckList:
+        if self._voice_verification_checks is None:
+            self._voice_verification_checks = VoiceVerificationCheckList(self)
+        return self._voice_verification_checks
 
     @property
     def webhook(self) -> WebhookList:
