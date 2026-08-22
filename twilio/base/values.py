@@ -10,4 +10,4 @@ def of(d: Dict[str, object]) -> Dict[str, object]:
     :param d: A dict to strip.
     :return A dict with unset values removed.
     """
-    return {k: v for k, v in d.items() if v != unset}
+    return {k: v for k, v in d.items() if v is not unset}
