@@ -17,7 +17,6 @@ from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.insights.v3.metadata import MetadataList
 from twilio.rest.insights.v3.query import QueryList
-from twilio.rest.insights.v3.query_job import QueryJobList
 
 
 class V3(Version):
@@ -31,7 +30,6 @@ class V3(Version):
         super().__init__(domain, "v3")
         self._metadata: Optional[MetadataList] = None
         self._query: Optional[QueryList] = None
-        self._query_jobs: Optional[QueryJobList] = None
 
     @property
     def metadata(self) -> MetadataList:
@@ -44,12 +42,6 @@ class V3(Version):
         if self._query is None:
             self._query = QueryList(self)
         return self._query
-
-    @property
-    def query_jobs(self) -> QueryJobList:
-        if self._query_jobs is None:
-            self._query_jobs = QueryJobList(self)
-        return self._query_jobs
 
     def __repr__(self) -> str:
         """

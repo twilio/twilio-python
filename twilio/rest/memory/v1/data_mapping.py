@@ -30,6 +30,9 @@ class DataMappingInstance(InstanceResource):
     class DataMappingType(object):
         CSV = "CSV"
         DATASET = "DATASET"
+        INGRESS = "INGRESS"
+        DATASET_CLOUDAPP = "DATASET_CLOUDAPP"
+        DATASET_WAREHOUSE = "DATASET_WAREHOUSE"
 
     """
     :ivar message: 
@@ -652,7 +655,7 @@ class DataMappingList(ListResource):
     class DataMappingFromTypes(object):
         """
         :ivar type: The source data type, which determines the source of the data and the required configuration parameters.
-        :ivar columns: The list of CSV column names that serve as the source fields.
+        :ivar columns: The list of ingress column names that serve as the source fields.
         :ivar dataset_id: The unique identifier of the TDI dataset to connect.
         """
 
