@@ -37,7 +37,13 @@ class NewFactorInstance(InstanceResource):
             self.identity: Optional[str] = payload.get("identity")
             self.config: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfig
-            ] = payload.get("config")
+            ] = (
+                NewFactorList.CreateNewPasskeysFactorRequestConfig(
+                    payload.get("config")
+                )
+                if payload.get("config") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -58,7 +64,13 @@ class NewFactorInstance(InstanceResource):
 
             self.relying_party: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty
-            ] = payload.get("relying_party")
+            ] = (
+                NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty(
+                    payload.get("relying_party")
+                )
+                if payload.get("relying_party") is not None
+                else None
+            )
             self.authenticator_attachment: Optional["NewFactorInstance.str"] = (
                 payload.get("authenticator_attachment")
             )
@@ -171,7 +183,13 @@ class NewFactorList(ListResource):
             self.identity: Optional[str] = payload.get("identity")
             self.config: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfig
-            ] = payload.get("config")
+            ] = (
+                NewFactorList.CreateNewPasskeysFactorRequestConfig(
+                    payload.get("config")
+                )
+                if payload.get("config") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -192,7 +210,13 @@ class NewFactorList(ListResource):
 
             self.relying_party: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty
-            ] = payload.get("relying_party")
+            ] = (
+                NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty(
+                    payload.get("relying_party")
+                )
+                if payload.get("relying_party") is not None
+                else None
+            )
             self.authenticator_attachment: Optional["NewFactorInstance.str"] = (
                 payload.get("authenticator_attachment")
             )

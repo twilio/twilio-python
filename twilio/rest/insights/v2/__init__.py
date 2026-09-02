@@ -16,7 +16,9 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.insights.v2.inbound import InboundList
+from twilio.rest.insights.v2.inbound_report import InboundReportList
 from twilio.rest.insights.v2.outbound import OutboundList
+from twilio.rest.insights.v2.outbound_report import OutboundReportList
 from twilio.rest.insights.v2.report import ReportList
 
 
@@ -29,6 +31,8 @@ class V2(Version):
         :param domain: The Twilio.insights domain
         """
         super().__init__(domain, "v2")
+        self._inbound_reports: Optional[InboundReportList] = None
+        self._outbound_reports: Optional[OutboundReportList] = None
         self._reports: Optional[ReportList] = None
 
     def inbound(self, report_id: str, inbound_id: str = None):
@@ -45,6 +49,12 @@ class V2(Version):
             return list_instance(inbound_id)
         return list_instance
 
+    @property
+    def inbound_reports(self) -> InboundReportList:
+        if self._inbound_reports is None:
+            self._inbound_reports = InboundReportList(self)
+        return self._inbound_reports
+
     def outbound(self, report_id: str, outbound_id: str = None):
         """
         Access the OutboundList resource
@@ -58,6 +68,12 @@ class V2(Version):
         if outbound_id is not None:
             return list_instance(outbound_id)
         return list_instance
+
+    @property
+    def outbound_reports(self) -> OutboundReportList:
+        if self._outbound_reports is None:
+            self._outbound_reports = OutboundReportList(self)
+        return self._outbound_reports
 
     @property
     def reports(self) -> ReportList:

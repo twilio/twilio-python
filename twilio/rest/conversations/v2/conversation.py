@@ -33,6 +33,7 @@ class ConversationInstance(InstanceResource):
         RCS = "RCS"
         WHATSAPP = "WHATSAPP"
         CHAT = "CHAT"
+        VIDEO = "VIDEO"
 
     class ConversationsV2ConversationGroupingType(object):
         GROUP_BY_PROFILE = "GROUP_BY_PROFILE"
@@ -801,7 +802,11 @@ class ConversationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channel: Optional[ConversationsV2Channel] = payload.get("channel")
+            self.channel: Optional[ConversationsV2Channel] = (
+                ConversationsV2Channel(payload.get("channel"))
+                if payload.get("channel") is not None
+                else None
+            )
             self.address: Optional[str] = payload.get("address")
             self.channel_id: Optional[str] = payload.get("channelId")
 
@@ -857,10 +862,29 @@ class ConversationList(ListResource):
             self.name: Optional[str] = payload.get("name")
             self.configuration: Optional[
                 ConversationList.CreateConversationWithConfigRequestConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ConversationList.CreateConversationWithConfigRequestConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
             self.participants: Optional[
                 List[ConversationList.CreateConversationWithConfigRequestParticipants]
-            ] = payload.get("participants")
+            ] = (
+                [
+                    (
+                        ConversationList.CreateConversationWithConfigRequestParticipants(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("participants")
+                ]
+                if payload.get("participants") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -911,7 +935,20 @@ class ConversationList(ListResource):
                 List[
                     ConversationList.CreateConversationWithConfigRequestParticipantsAddresses
                 ]
-            ] = payload.get("addresses")
+            ] = (
+                [
+                    (
+                        ConversationList.CreateConversationWithConfigRequestParticipantsAddresses(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("addresses")
+                ]
+                if payload.get("addresses") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -958,7 +995,13 @@ class ConversationList(ListResource):
             self.status: Optional["ConversationInstance.str"] = payload.get("status")
             self.configuration: Optional[
                 ConversationList.PatchConversationByIdRequestConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ConversationList.PatchConversationByIdRequestConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -980,7 +1023,18 @@ class ConversationList(ListResource):
 
             self.status_callbacks: Optional[
                 List[ConversationList.ConversationsV2StatusCallbackConfig]
-            ] = payload.get("statusCallbacks")
+            ] = (
+                [
+                    (
+                        ConversationList.ConversationsV2StatusCallbackConfig(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("statusCallbacks")
+                ]
+                if payload.get("statusCallbacks") is not None
+                else None
+            )
 
         def to_dict(self):
             return {

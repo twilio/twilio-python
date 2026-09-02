@@ -707,11 +707,18 @@ class ConfigurationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.status_timeouts: Optional[ConversationsV2StatusTimeouts] = payload.get(
-                "statusTimeouts"
+            self.status_timeouts: Optional[ConversationsV2StatusTimeouts] = (
+                ConversationsV2StatusTimeouts(payload.get("statusTimeouts"))
+                if payload.get("statusTimeouts") is not None
+                else None
             )
             self.capture_rules: Optional[List[ConversationsV2CaptureRule]] = (
-                payload.get("captureRules")
+                [
+                    ConversationsV2CaptureRule(item) if isinstance(item, dict) else item
+                    for item in payload.get("captureRules")
+                ]
+                if payload.get("captureRules") is not None
+                else None
             )
 
         def to_dict(self):
@@ -802,7 +809,20 @@ class ConfigurationList(ListResource):
             ] = payload.get("channelSettings")
             self.status_callbacks: Optional[
                 List[ConfigurationList.CreateConfigurationRequestStatusCallbacks]
-            ] = payload.get("statusCallbacks")
+            ] = (
+                [
+                    (
+                        ConfigurationList.CreateConfigurationRequestStatusCallbacks(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("statusCallbacks")
+                ]
+                if payload.get("statusCallbacks") is not None
+                else None
+            )
             self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
                 "intelligenceConfigurationIds"
             )
@@ -811,7 +831,13 @@ class ConfigurationList(ListResource):
             )
             self.conversations_v1_bridge: Optional[
                 ConfigurationList.CreateConfigurationRequestConversationsV1Bridge
-            ] = payload.get("conversationsV1Bridge")
+            ] = (
+                ConfigurationList.CreateConfigurationRequestConversationsV1Bridge(
+                    payload.get("conversationsV1Bridge")
+                )
+                if payload.get("conversationsV1Bridge") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -851,10 +877,27 @@ class ConfigurationList(ListResource):
 
             self.status_timeouts: Optional[
                 CreateConfigurationRequestChannelSettingsValueStatusTimeouts
-            ] = payload.get("statusTimeouts")
+            ] = (
+                CreateConfigurationRequestChannelSettingsValueStatusTimeouts(
+                    payload.get("statusTimeouts")
+                )
+                if payload.get("statusTimeouts") is not None
+                else None
+            )
             self.capture_rules: Optional[
                 List[CreateConfigurationRequestChannelSettingsValueCaptureRules]
-            ] = payload.get("captureRules")
+            ] = (
+                [
+                    (
+                        CreateConfigurationRequestChannelSettingsValueCaptureRules(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("captureRules")
+                ]
+                if payload.get("captureRules") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -964,7 +1007,20 @@ class ConfigurationList(ListResource):
             ] = payload.get("channelSettings")
             self.status_callbacks: Optional[
                 List[ConfigurationList.UpdateConfigurationRequestStatusCallbacks]
-            ] = payload.get("statusCallbacks")
+            ] = (
+                [
+                    (
+                        ConfigurationList.UpdateConfigurationRequestStatusCallbacks(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("statusCallbacks")
+                ]
+                if payload.get("statusCallbacks") is not None
+                else None
+            )
             self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
                 "intelligenceConfigurationIds"
             )
@@ -973,7 +1029,13 @@ class ConfigurationList(ListResource):
             )
             self.conversations_v1_bridge: Optional[
                 ConfigurationList.CreateConfigurationRequestConversationsV1Bridge
-            ] = payload.get("conversationsV1Bridge")
+            ] = (
+                ConfigurationList.CreateConfigurationRequestConversationsV1Bridge(
+                    payload.get("conversationsV1Bridge")
+                )
+                if payload.get("conversationsV1Bridge") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1013,10 +1075,27 @@ class ConfigurationList(ListResource):
 
             self.status_timeouts: Optional[
                 UpdateConfigurationRequestChannelSettingsValueStatusTimeouts
-            ] = payload.get("statusTimeouts")
+            ] = (
+                UpdateConfigurationRequestChannelSettingsValueStatusTimeouts(
+                    payload.get("statusTimeouts")
+                )
+                if payload.get("statusTimeouts") is not None
+                else None
+            )
             self.capture_rules: Optional[
                 List[UpdateConfigurationRequestChannelSettingsValueCaptureRules]
-            ] = payload.get("captureRules")
+            ] = (
+                [
+                    (
+                        UpdateConfigurationRequestChannelSettingsValueCaptureRules(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("captureRules")
+                ]
+                if payload.get("captureRules") is not None
+                else None
+            )
 
         def to_dict(self):
             return {

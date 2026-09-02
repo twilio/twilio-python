@@ -43,7 +43,13 @@ class ApproveChallengeInstance(InstanceResource):
             self.type: Optional["ApproveChallengeInstance.str"] = payload.get("type")
             self.response: Optional[
                 ApproveChallengeList.ApprovePasskeysChallengeRequestResponse
-            ] = payload.get("response")
+            ] = (
+                ApproveChallengeList.ApprovePasskeysChallengeRequestResponse(
+                    payload.get("response")
+                )
+                if payload.get("response") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -171,7 +177,13 @@ class ApproveChallengeList(ListResource):
             self.type: Optional["ApproveChallengeInstance.str"] = payload.get("type")
             self.response: Optional[
                 ApproveChallengeList.ApprovePasskeysChallengeRequestResponse
-            ] = payload.get("response")
+            ] = (
+                ApproveChallengeList.ApprovePasskeysChallengeRequestResponse(
+                    payload.get("response")
+                )
+                if payload.get("response") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
