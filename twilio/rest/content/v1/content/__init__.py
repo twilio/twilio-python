@@ -152,8 +152,13 @@ class ContentInstance(InstanceResource):
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[str] = payload.get("media")
-            self.actions: Optional[List[ContentList.CarouselAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CarouselAction]] = (
+                [
+                    ContentList.CarouselAction(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -210,7 +215,11 @@ class ContentInstance(InstanceResource):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
-            self.types: Optional[ContentList.Types] = payload.get("types")
+            self.types: Optional[ContentList.Types] = (
+                ContentList.Types(payload.get("types"))
+                if payload.get("types") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -233,7 +242,11 @@ class ContentInstance(InstanceResource):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
-            self.types: Optional[ContentList.Types] = payload.get("types")
+            self.types: Optional[ContentList.Types] = (
+                ContentList.Types(payload.get("types"))
+                if payload.get("types") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -258,8 +271,17 @@ class ContentInstance(InstanceResource):
             self.next_page_id: Optional[str] = payload.get("next_page_id")
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
-            self.layout: Optional[List[ContentList.FlowsPageComponent]] = payload.get(
-                "layout"
+            self.layout: Optional[List[ContentList.FlowsPageComponent]] = (
+                [
+                    (
+                        ContentList.FlowsPageComponent(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("layout")
+                ]
+                if payload.get("layout") is not None
+                else None
             )
 
         def to_dict(self):
@@ -343,8 +365,17 @@ class ContentInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
-            self.actions: Optional[List[ContentList.CallToActionAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CallToActionAction]] = (
+                [
+                    (
+                        ContentList.CallToActionAction(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -370,8 +401,13 @@ class ContentInstance(InstanceResource):
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.media: Optional[List[str]] = payload.get("media")
-            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CardAction]] = (
+                [
+                    ContentList.CardAction(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -395,7 +431,14 @@ class ContentInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
-            self.cards: Optional[List[ContentList.CarouselCard]] = payload.get("cards")
+            self.cards: Optional[List[ContentList.CarouselCard]] = (
+                [
+                    ContentList.CarouselCard(item) if isinstance(item, dict) else item
+                    for item in payload.get("cards")
+                ]
+                if payload.get("cards") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -423,7 +466,14 @@ class ContentInstance(InstanceResource):
             self.body: Optional[str] = payload.get("body")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.id: Optional[str] = payload.get("id")
-            self.items: Optional[List[ContentList.CatalogItem]] = payload.get("items")
+            self.items: Optional[List[ContentList.CatalogItem]] = (
+                [
+                    ContentList.CatalogItem(item) if isinstance(item, dict) else item
+                    for item in payload.get("items")
+                ]
+                if payload.get("items") is not None
+                else None
+            )
             self.dynamic_items: Optional[str] = payload.get("dynamic_items")
 
         def to_dict(self):
@@ -456,7 +506,14 @@ class ContentInstance(InstanceResource):
             self.button_text: Optional[str] = payload.get("button_text")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.media_url: Optional[str] = payload.get("media_url")
-            self.pages: Optional[List[ContentList.FlowsPage]] = payload.get("pages")
+            self.pages: Optional[List[ContentList.FlowsPage]] = (
+                [
+                    ContentList.FlowsPage(item) if isinstance(item, dict) else item
+                    for item in payload.get("pages")
+                ]
+                if payload.get("pages") is not None
+                else None
+            )
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
@@ -484,7 +541,14 @@ class ContentInstance(InstanceResource):
 
             self.body: Optional[str] = payload.get("body")
             self.button: Optional[str] = payload.get("button")
-            self.items: Optional[List[ContentList.ListItem]] = payload.get("items")
+            self.items: Optional[List[ContentList.ListItem]] = (
+                [
+                    ContentList.ListItem(item) if isinstance(item, dict) else item
+                    for item in payload.get("items")
+                ]
+                if payload.get("items") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -549,8 +613,17 @@ class ContentInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
-            self.actions: Optional[List[ContentList.QuickReplyAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.QuickReplyAction]] = (
+                [
+                    (
+                        ContentList.QuickReplyAction(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -617,47 +690,79 @@ class ContentInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.twilio_text: Optional[ContentList.TwilioText] = payload.get(
-                "twilio/text"
+            self.twilio_text: Optional[ContentList.TwilioText] = (
+                ContentList.TwilioText(payload.get("twilio/text"))
+                if payload.get("twilio/text") is not None
+                else None
             )
-            self.twilio_media: Optional[ContentList.TwilioMedia] = payload.get(
-                "twilio/media"
+            self.twilio_media: Optional[ContentList.TwilioMedia] = (
+                ContentList.TwilioMedia(payload.get("twilio/media"))
+                if payload.get("twilio/media") is not None
+                else None
             )
-            self.twilio_location: Optional[ContentList.TwilioLocation] = payload.get(
-                "twilio/location"
+            self.twilio_location: Optional[ContentList.TwilioLocation] = (
+                ContentList.TwilioLocation(payload.get("twilio/location"))
+                if payload.get("twilio/location") is not None
+                else None
             )
             self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
-                payload.get("twilio/list-picker")
+                ContentList.TwilioListPicker(payload.get("twilio/list-picker"))
+                if payload.get("twilio/list-picker") is not None
+                else None
             )
             self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
-                payload.get("twilio/call-to-action")
+                ContentList.TwilioCallToAction(payload.get("twilio/call-to-action"))
+                if payload.get("twilio/call-to-action") is not None
+                else None
             )
             self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
-                payload.get("twilio/quick-reply")
+                ContentList.TwilioQuickReply(payload.get("twilio/quick-reply"))
+                if payload.get("twilio/quick-reply") is not None
+                else None
             )
-            self.twilio_card: Optional[ContentList.TwilioCard] = payload.get(
-                "twilio/card"
+            self.twilio_card: Optional[ContentList.TwilioCard] = (
+                ContentList.TwilioCard(payload.get("twilio/card"))
+                if payload.get("twilio/card") is not None
+                else None
             )
-            self.twilio_catalog: Optional[ContentList.TwilioCatalog] = payload.get(
-                "twilio/catalog"
+            self.twilio_catalog: Optional[ContentList.TwilioCatalog] = (
+                ContentList.TwilioCatalog(payload.get("twilio/catalog"))
+                if payload.get("twilio/catalog") is not None
+                else None
             )
-            self.twilio_carousel: Optional[ContentList.TwilioCarousel] = payload.get(
-                "twilio/carousel"
+            self.twilio_carousel: Optional[ContentList.TwilioCarousel] = (
+                ContentList.TwilioCarousel(payload.get("twilio/carousel"))
+                if payload.get("twilio/carousel") is not None
+                else None
             )
-            self.twilio_flows: Optional[ContentList.TwilioFlows] = payload.get(
-                "twilio/flows"
+            self.twilio_flows: Optional[ContentList.TwilioFlows] = (
+                ContentList.TwilioFlows(payload.get("twilio/flows"))
+                if payload.get("twilio/flows") is not None
+                else None
             )
-            self.twilio_schedule: Optional[ContentList.TwilioSchedule] = payload.get(
-                "twilio/schedule"
+            self.twilio_schedule: Optional[ContentList.TwilioSchedule] = (
+                ContentList.TwilioSchedule(payload.get("twilio/schedule"))
+                if payload.get("twilio/schedule") is not None
+                else None
             )
-            self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
-                "whatsapp/card"
+            self.whatsapp_card: Optional[ContentList.WhatsappCard] = (
+                ContentList.WhatsappCard(payload.get("whatsapp/card"))
+                if payload.get("whatsapp/card") is not None
+                else None
             )
             self.whatsapp_authentication: Optional[
                 ContentList.WhatsappAuthentication
-            ] = payload.get("whatsapp/authentication")
-            self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = payload.get(
-                "whatsapp/flows"
+            ] = (
+                ContentList.WhatsappAuthentication(
+                    payload.get("whatsapp/authentication")
+                )
+                if payload.get("whatsapp/authentication") is not None
+                else None
+            )
+            self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = (
+                ContentList.WhatsappFlows(payload.get("whatsapp/flows"))
+                if payload.get("whatsapp/flows") is not None
+                else None
             )
 
         def to_dict(self):
@@ -746,7 +851,16 @@ class ContentInstance(InstanceResource):
                 "code_expiration_minutes"
             )
             self.actions: Optional[List[ContentList.AuthenticationAction]] = (
-                payload.get("actions")
+                [
+                    (
+                        ContentList.AuthenticationAction(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -775,8 +889,13 @@ class ContentInstance(InstanceResource):
             self.footer: Optional[str] = payload.get("footer")
             self.media: Optional[List[str]] = payload.get("media")
             self.header_text: Optional[str] = payload.get("header_text")
-            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CardAction]] = (
+                [
+                    ContentList.CardAction(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1192,8 +1311,13 @@ class ContentContext(InstanceContext):
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[str] = payload.get("media")
-            self.actions: Optional[List[ContentList.CarouselAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CarouselAction]] = (
+                [
+                    ContentList.CarouselAction(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1250,7 +1374,11 @@ class ContentContext(InstanceContext):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
-            self.types: Optional[ContentList.Types] = payload.get("types")
+            self.types: Optional[ContentList.Types] = (
+                ContentList.Types(payload.get("types"))
+                if payload.get("types") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1273,7 +1401,11 @@ class ContentContext(InstanceContext):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
-            self.types: Optional[ContentList.Types] = payload.get("types")
+            self.types: Optional[ContentList.Types] = (
+                ContentList.Types(payload.get("types"))
+                if payload.get("types") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1298,8 +1430,17 @@ class ContentContext(InstanceContext):
             self.next_page_id: Optional[str] = payload.get("next_page_id")
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
-            self.layout: Optional[List[ContentList.FlowsPageComponent]] = payload.get(
-                "layout"
+            self.layout: Optional[List[ContentList.FlowsPageComponent]] = (
+                [
+                    (
+                        ContentList.FlowsPageComponent(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("layout")
+                ]
+                if payload.get("layout") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1383,8 +1524,17 @@ class ContentContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
-            self.actions: Optional[List[ContentList.CallToActionAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CallToActionAction]] = (
+                [
+                    (
+                        ContentList.CallToActionAction(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1410,8 +1560,13 @@ class ContentContext(InstanceContext):
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.media: Optional[List[str]] = payload.get("media")
-            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CardAction]] = (
+                [
+                    ContentList.CardAction(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1435,7 +1590,14 @@ class ContentContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
-            self.cards: Optional[List[ContentList.CarouselCard]] = payload.get("cards")
+            self.cards: Optional[List[ContentList.CarouselCard]] = (
+                [
+                    ContentList.CarouselCard(item) if isinstance(item, dict) else item
+                    for item in payload.get("cards")
+                ]
+                if payload.get("cards") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1463,7 +1625,14 @@ class ContentContext(InstanceContext):
             self.body: Optional[str] = payload.get("body")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.id: Optional[str] = payload.get("id")
-            self.items: Optional[List[ContentList.CatalogItem]] = payload.get("items")
+            self.items: Optional[List[ContentList.CatalogItem]] = (
+                [
+                    ContentList.CatalogItem(item) if isinstance(item, dict) else item
+                    for item in payload.get("items")
+                ]
+                if payload.get("items") is not None
+                else None
+            )
             self.dynamic_items: Optional[str] = payload.get("dynamic_items")
 
         def to_dict(self):
@@ -1496,7 +1665,14 @@ class ContentContext(InstanceContext):
             self.button_text: Optional[str] = payload.get("button_text")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.media_url: Optional[str] = payload.get("media_url")
-            self.pages: Optional[List[ContentList.FlowsPage]] = payload.get("pages")
+            self.pages: Optional[List[ContentList.FlowsPage]] = (
+                [
+                    ContentList.FlowsPage(item) if isinstance(item, dict) else item
+                    for item in payload.get("pages")
+                ]
+                if payload.get("pages") is not None
+                else None
+            )
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
@@ -1524,7 +1700,14 @@ class ContentContext(InstanceContext):
 
             self.body: Optional[str] = payload.get("body")
             self.button: Optional[str] = payload.get("button")
-            self.items: Optional[List[ContentList.ListItem]] = payload.get("items")
+            self.items: Optional[List[ContentList.ListItem]] = (
+                [
+                    ContentList.ListItem(item) if isinstance(item, dict) else item
+                    for item in payload.get("items")
+                ]
+                if payload.get("items") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1589,8 +1772,17 @@ class ContentContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
-            self.actions: Optional[List[ContentList.QuickReplyAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.QuickReplyAction]] = (
+                [
+                    (
+                        ContentList.QuickReplyAction(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1657,47 +1849,79 @@ class ContentContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.twilio_text: Optional[ContentList.TwilioText] = payload.get(
-                "twilio/text"
+            self.twilio_text: Optional[ContentList.TwilioText] = (
+                ContentList.TwilioText(payload.get("twilio/text"))
+                if payload.get("twilio/text") is not None
+                else None
             )
-            self.twilio_media: Optional[ContentList.TwilioMedia] = payload.get(
-                "twilio/media"
+            self.twilio_media: Optional[ContentList.TwilioMedia] = (
+                ContentList.TwilioMedia(payload.get("twilio/media"))
+                if payload.get("twilio/media") is not None
+                else None
             )
-            self.twilio_location: Optional[ContentList.TwilioLocation] = payload.get(
-                "twilio/location"
+            self.twilio_location: Optional[ContentList.TwilioLocation] = (
+                ContentList.TwilioLocation(payload.get("twilio/location"))
+                if payload.get("twilio/location") is not None
+                else None
             )
             self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
-                payload.get("twilio/list-picker")
+                ContentList.TwilioListPicker(payload.get("twilio/list-picker"))
+                if payload.get("twilio/list-picker") is not None
+                else None
             )
             self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
-                payload.get("twilio/call-to-action")
+                ContentList.TwilioCallToAction(payload.get("twilio/call-to-action"))
+                if payload.get("twilio/call-to-action") is not None
+                else None
             )
             self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
-                payload.get("twilio/quick-reply")
+                ContentList.TwilioQuickReply(payload.get("twilio/quick-reply"))
+                if payload.get("twilio/quick-reply") is not None
+                else None
             )
-            self.twilio_card: Optional[ContentList.TwilioCard] = payload.get(
-                "twilio/card"
+            self.twilio_card: Optional[ContentList.TwilioCard] = (
+                ContentList.TwilioCard(payload.get("twilio/card"))
+                if payload.get("twilio/card") is not None
+                else None
             )
-            self.twilio_catalog: Optional[ContentList.TwilioCatalog] = payload.get(
-                "twilio/catalog"
+            self.twilio_catalog: Optional[ContentList.TwilioCatalog] = (
+                ContentList.TwilioCatalog(payload.get("twilio/catalog"))
+                if payload.get("twilio/catalog") is not None
+                else None
             )
-            self.twilio_carousel: Optional[ContentList.TwilioCarousel] = payload.get(
-                "twilio/carousel"
+            self.twilio_carousel: Optional[ContentList.TwilioCarousel] = (
+                ContentList.TwilioCarousel(payload.get("twilio/carousel"))
+                if payload.get("twilio/carousel") is not None
+                else None
             )
-            self.twilio_flows: Optional[ContentList.TwilioFlows] = payload.get(
-                "twilio/flows"
+            self.twilio_flows: Optional[ContentList.TwilioFlows] = (
+                ContentList.TwilioFlows(payload.get("twilio/flows"))
+                if payload.get("twilio/flows") is not None
+                else None
             )
-            self.twilio_schedule: Optional[ContentList.TwilioSchedule] = payload.get(
-                "twilio/schedule"
+            self.twilio_schedule: Optional[ContentList.TwilioSchedule] = (
+                ContentList.TwilioSchedule(payload.get("twilio/schedule"))
+                if payload.get("twilio/schedule") is not None
+                else None
             )
-            self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
-                "whatsapp/card"
+            self.whatsapp_card: Optional[ContentList.WhatsappCard] = (
+                ContentList.WhatsappCard(payload.get("whatsapp/card"))
+                if payload.get("whatsapp/card") is not None
+                else None
             )
             self.whatsapp_authentication: Optional[
                 ContentList.WhatsappAuthentication
-            ] = payload.get("whatsapp/authentication")
-            self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = payload.get(
-                "whatsapp/flows"
+            ] = (
+                ContentList.WhatsappAuthentication(
+                    payload.get("whatsapp/authentication")
+                )
+                if payload.get("whatsapp/authentication") is not None
+                else None
+            )
+            self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = (
+                ContentList.WhatsappFlows(payload.get("whatsapp/flows"))
+                if payload.get("whatsapp/flows") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1786,7 +2010,16 @@ class ContentContext(InstanceContext):
                 "code_expiration_minutes"
             )
             self.actions: Optional[List[ContentList.AuthenticationAction]] = (
-                payload.get("actions")
+                [
+                    (
+                        ContentList.AuthenticationAction(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1815,8 +2048,13 @@ class ContentContext(InstanceContext):
             self.footer: Optional[str] = payload.get("footer")
             self.media: Optional[List[str]] = payload.get("media")
             self.header_text: Optional[str] = payload.get("header_text")
-            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CardAction]] = (
+                [
+                    ContentList.CardAction(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2324,8 +2562,13 @@ class ContentList(ListResource):
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[str] = payload.get("media")
-            self.actions: Optional[List[ContentList.CarouselAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CarouselAction]] = (
+                [
+                    ContentList.CarouselAction(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2382,7 +2625,11 @@ class ContentList(ListResource):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
-            self.types: Optional[ContentList.Types] = payload.get("types")
+            self.types: Optional[ContentList.Types] = (
+                ContentList.Types(payload.get("types"))
+                if payload.get("types") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -2405,7 +2652,11 @@ class ContentList(ListResource):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
-            self.types: Optional[ContentList.Types] = payload.get("types")
+            self.types: Optional[ContentList.Types] = (
+                ContentList.Types(payload.get("types"))
+                if payload.get("types") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -2430,8 +2681,17 @@ class ContentList(ListResource):
             self.next_page_id: Optional[str] = payload.get("next_page_id")
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
-            self.layout: Optional[List[ContentList.FlowsPageComponent]] = payload.get(
-                "layout"
+            self.layout: Optional[List[ContentList.FlowsPageComponent]] = (
+                [
+                    (
+                        ContentList.FlowsPageComponent(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("layout")
+                ]
+                if payload.get("layout") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2515,8 +2775,17 @@ class ContentList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
-            self.actions: Optional[List[ContentList.CallToActionAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CallToActionAction]] = (
+                [
+                    (
+                        ContentList.CallToActionAction(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2542,8 +2811,13 @@ class ContentList(ListResource):
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.media: Optional[List[str]] = payload.get("media")
-            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CardAction]] = (
+                [
+                    ContentList.CardAction(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2567,7 +2841,14 @@ class ContentList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
-            self.cards: Optional[List[ContentList.CarouselCard]] = payload.get("cards")
+            self.cards: Optional[List[ContentList.CarouselCard]] = (
+                [
+                    ContentList.CarouselCard(item) if isinstance(item, dict) else item
+                    for item in payload.get("cards")
+                ]
+                if payload.get("cards") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -2595,7 +2876,14 @@ class ContentList(ListResource):
             self.body: Optional[str] = payload.get("body")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.id: Optional[str] = payload.get("id")
-            self.items: Optional[List[ContentList.CatalogItem]] = payload.get("items")
+            self.items: Optional[List[ContentList.CatalogItem]] = (
+                [
+                    ContentList.CatalogItem(item) if isinstance(item, dict) else item
+                    for item in payload.get("items")
+                ]
+                if payload.get("items") is not None
+                else None
+            )
             self.dynamic_items: Optional[str] = payload.get("dynamic_items")
 
         def to_dict(self):
@@ -2628,7 +2916,14 @@ class ContentList(ListResource):
             self.button_text: Optional[str] = payload.get("button_text")
             self.subtitle: Optional[str] = payload.get("subtitle")
             self.media_url: Optional[str] = payload.get("media_url")
-            self.pages: Optional[List[ContentList.FlowsPage]] = payload.get("pages")
+            self.pages: Optional[List[ContentList.FlowsPage]] = (
+                [
+                    ContentList.FlowsPage(item) if isinstance(item, dict) else item
+                    for item in payload.get("pages")
+                ]
+                if payload.get("pages") is not None
+                else None
+            )
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
@@ -2656,7 +2951,14 @@ class ContentList(ListResource):
 
             self.body: Optional[str] = payload.get("body")
             self.button: Optional[str] = payload.get("button")
-            self.items: Optional[List[ContentList.ListItem]] = payload.get("items")
+            self.items: Optional[List[ContentList.ListItem]] = (
+                [
+                    ContentList.ListItem(item) if isinstance(item, dict) else item
+                    for item in payload.get("items")
+                ]
+                if payload.get("items") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -2721,8 +3023,17 @@ class ContentList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
-            self.actions: Optional[List[ContentList.QuickReplyAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.QuickReplyAction]] = (
+                [
+                    (
+                        ContentList.QuickReplyAction(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2789,47 +3100,79 @@ class ContentList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.twilio_text: Optional[ContentList.TwilioText] = payload.get(
-                "twilio/text"
+            self.twilio_text: Optional[ContentList.TwilioText] = (
+                ContentList.TwilioText(payload.get("twilio/text"))
+                if payload.get("twilio/text") is not None
+                else None
             )
-            self.twilio_media: Optional[ContentList.TwilioMedia] = payload.get(
-                "twilio/media"
+            self.twilio_media: Optional[ContentList.TwilioMedia] = (
+                ContentList.TwilioMedia(payload.get("twilio/media"))
+                if payload.get("twilio/media") is not None
+                else None
             )
-            self.twilio_location: Optional[ContentList.TwilioLocation] = payload.get(
-                "twilio/location"
+            self.twilio_location: Optional[ContentList.TwilioLocation] = (
+                ContentList.TwilioLocation(payload.get("twilio/location"))
+                if payload.get("twilio/location") is not None
+                else None
             )
             self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
-                payload.get("twilio/list-picker")
+                ContentList.TwilioListPicker(payload.get("twilio/list-picker"))
+                if payload.get("twilio/list-picker") is not None
+                else None
             )
             self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
-                payload.get("twilio/call-to-action")
+                ContentList.TwilioCallToAction(payload.get("twilio/call-to-action"))
+                if payload.get("twilio/call-to-action") is not None
+                else None
             )
             self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
-                payload.get("twilio/quick-reply")
+                ContentList.TwilioQuickReply(payload.get("twilio/quick-reply"))
+                if payload.get("twilio/quick-reply") is not None
+                else None
             )
-            self.twilio_card: Optional[ContentList.TwilioCard] = payload.get(
-                "twilio/card"
+            self.twilio_card: Optional[ContentList.TwilioCard] = (
+                ContentList.TwilioCard(payload.get("twilio/card"))
+                if payload.get("twilio/card") is not None
+                else None
             )
-            self.twilio_catalog: Optional[ContentList.TwilioCatalog] = payload.get(
-                "twilio/catalog"
+            self.twilio_catalog: Optional[ContentList.TwilioCatalog] = (
+                ContentList.TwilioCatalog(payload.get("twilio/catalog"))
+                if payload.get("twilio/catalog") is not None
+                else None
             )
-            self.twilio_carousel: Optional[ContentList.TwilioCarousel] = payload.get(
-                "twilio/carousel"
+            self.twilio_carousel: Optional[ContentList.TwilioCarousel] = (
+                ContentList.TwilioCarousel(payload.get("twilio/carousel"))
+                if payload.get("twilio/carousel") is not None
+                else None
             )
-            self.twilio_flows: Optional[ContentList.TwilioFlows] = payload.get(
-                "twilio/flows"
+            self.twilio_flows: Optional[ContentList.TwilioFlows] = (
+                ContentList.TwilioFlows(payload.get("twilio/flows"))
+                if payload.get("twilio/flows") is not None
+                else None
             )
-            self.twilio_schedule: Optional[ContentList.TwilioSchedule] = payload.get(
-                "twilio/schedule"
+            self.twilio_schedule: Optional[ContentList.TwilioSchedule] = (
+                ContentList.TwilioSchedule(payload.get("twilio/schedule"))
+                if payload.get("twilio/schedule") is not None
+                else None
             )
-            self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
-                "whatsapp/card"
+            self.whatsapp_card: Optional[ContentList.WhatsappCard] = (
+                ContentList.WhatsappCard(payload.get("whatsapp/card"))
+                if payload.get("whatsapp/card") is not None
+                else None
             )
             self.whatsapp_authentication: Optional[
                 ContentList.WhatsappAuthentication
-            ] = payload.get("whatsapp/authentication")
-            self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = payload.get(
-                "whatsapp/flows"
+            ] = (
+                ContentList.WhatsappAuthentication(
+                    payload.get("whatsapp/authentication")
+                )
+                if payload.get("whatsapp/authentication") is not None
+                else None
+            )
+            self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = (
+                ContentList.WhatsappFlows(payload.get("whatsapp/flows"))
+                if payload.get("whatsapp/flows") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2918,7 +3261,16 @@ class ContentList(ListResource):
                 "code_expiration_minutes"
             )
             self.actions: Optional[List[ContentList.AuthenticationAction]] = (
-                payload.get("actions")
+                [
+                    (
+                        ContentList.AuthenticationAction(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2947,8 +3299,13 @@ class ContentList(ListResource):
             self.footer: Optional[str] = payload.get("footer")
             self.media: Optional[List[str]] = payload.get("media")
             self.header_text: Optional[str] = payload.get("header_text")
-            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ContentList.CardAction]] = (
+                [
+                    ContentList.CardAction(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
 
         def to_dict(self):

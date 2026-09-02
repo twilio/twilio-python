@@ -43,7 +43,13 @@ class NewVerifyFactorInstance(InstanceResource):
             self.type: Optional["NewVerifyFactorInstance.str"] = payload.get("type")
             self.response: Optional[
                 NewVerifyFactorList.VerifyPasskeysFactorRequestResponse
-            ] = payload.get("response")
+            ] = (
+                NewVerifyFactorList.VerifyPasskeysFactorRequestResponse(
+                    payload.get("response")
+                )
+                if payload.get("response") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -150,7 +156,13 @@ class NewVerifyFactorList(ListResource):
             self.type: Optional["NewVerifyFactorInstance.str"] = payload.get("type")
             self.response: Optional[
                 NewVerifyFactorList.VerifyPasskeysFactorRequestResponse
-            ] = payload.get("response")
+            ] = (
+                NewVerifyFactorList.VerifyPasskeysFactorRequestResponse(
+                    payload.get("response")
+                )
+                if payload.get("response") is not None
+                else None
+            )
 
         def to_dict(self):
             return {

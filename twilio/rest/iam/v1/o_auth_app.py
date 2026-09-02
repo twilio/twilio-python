@@ -48,7 +48,13 @@ class OAuthAppInstance(InstanceResource):
             )
             self.policy: Optional[
                 OAuthAppList.IamV1OrganizationVendoroauthappPolicy
-            ] = payload.get("policy")
+            ] = (
+                OAuthAppList.IamV1OrganizationVendoroauthappPolicy(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
         def to_dict(self):
@@ -79,7 +85,13 @@ class OAuthAppInstance(InstanceResource):
             self.description: Optional[str] = payload.get("description")
             self.policy: Optional[
                 OAuthAppList.IamV1OrganizationVendorOauthAppUpdateRequestPolicy
-            ] = payload.get("policy")
+            ] = (
+                OAuthAppList.IamV1OrganizationVendorOauthAppUpdateRequestPolicy(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
         def to_dict(self):
@@ -319,7 +331,13 @@ class OAuthAppContext(InstanceContext):
             )
             self.policy: Optional[
                 OAuthAppList.IamV1OrganizationVendoroauthappPolicy
-            ] = payload.get("policy")
+            ] = (
+                OAuthAppList.IamV1OrganizationVendoroauthappPolicy(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
         def to_dict(self):
@@ -350,7 +368,13 @@ class OAuthAppContext(InstanceContext):
             self.description: Optional[str] = payload.get("description")
             self.policy: Optional[
                 OAuthAppList.IamV1OrganizationVendorOauthAppUpdateRequestPolicy
-            ] = payload.get("policy")
+            ] = (
+                OAuthAppList.IamV1OrganizationVendorOauthAppUpdateRequestPolicy(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
         def to_dict(self):
@@ -629,7 +653,13 @@ class OAuthAppList(ListResource):
             )
             self.policy: Optional[
                 OAuthAppList.IamV1OrganizationVendoroauthappPolicy
-            ] = payload.get("policy")
+            ] = (
+                OAuthAppList.IamV1OrganizationVendoroauthappPolicy(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
         def to_dict(self):
@@ -660,7 +690,13 @@ class OAuthAppList(ListResource):
             self.description: Optional[str] = payload.get("description")
             self.policy: Optional[
                 OAuthAppList.IamV1OrganizationVendorOauthAppUpdateRequestPolicy
-            ] = payload.get("policy")
+            ] = (
+                OAuthAppList.IamV1OrganizationVendorOauthAppUpdateRequestPolicy(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
         def to_dict(self):

@@ -64,8 +64,8 @@ class TokenList(ListResource):
 
     def _create(
         self,
+        grant_type: str,
         account_sid: Union[str, object] = values.unset,
-        grant_type: Union[str, object] = values.unset,
         client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
@@ -113,8 +113,8 @@ class TokenList(ListResource):
 
     def create(
         self,
+        grant_type: str,
         account_sid: Union[str, object] = values.unset,
-        grant_type: Union[str, object] = values.unset,
         client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
@@ -127,8 +127,8 @@ class TokenList(ListResource):
         """
         Create the TokenInstance
 
-        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
+        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param client_id: A 34 character string that uniquely identifies this OAuth App.
         :param client_secret: The credential for confidential OAuth App.
         :param code: JWT token related to the authorization code grant type.
@@ -141,8 +141,8 @@ class TokenList(ListResource):
         :returns: The created TokenInstance
         """
         payload, _, _ = self._create(
-            account_sid=account_sid,
             grant_type=grant_type,
+            account_sid=account_sid,
             client_id=client_id,
             client_secret=client_secret,
             code=code,
@@ -156,8 +156,8 @@ class TokenList(ListResource):
 
     def create_with_http_info(
         self,
+        grant_type: str,
         account_sid: Union[str, object] = values.unset,
-        grant_type: Union[str, object] = values.unset,
         client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
@@ -170,8 +170,8 @@ class TokenList(ListResource):
         """
         Create the TokenInstance and return response metadata
 
-        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
+        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param client_id: A 34 character string that uniquely identifies this OAuth App.
         :param client_secret: The credential for confidential OAuth App.
         :param code: JWT token related to the authorization code grant type.
@@ -184,8 +184,8 @@ class TokenList(ListResource):
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._create(
-            account_sid=account_sid,
             grant_type=grant_type,
+            account_sid=account_sid,
             client_id=client_id,
             client_secret=client_secret,
             code=code,
@@ -200,8 +200,8 @@ class TokenList(ListResource):
 
     async def _create_async(
         self,
+        grant_type: str,
         account_sid: Union[str, object] = values.unset,
-        grant_type: Union[str, object] = values.unset,
         client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
@@ -249,8 +249,8 @@ class TokenList(ListResource):
 
     async def create_async(
         self,
+        grant_type: str,
         account_sid: Union[str, object] = values.unset,
-        grant_type: Union[str, object] = values.unset,
         client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
@@ -263,8 +263,8 @@ class TokenList(ListResource):
         """
         Asynchronously create the TokenInstance
 
-        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
+        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param client_id: A 34 character string that uniquely identifies this OAuth App.
         :param client_secret: The credential for confidential OAuth App.
         :param code: JWT token related to the authorization code grant type.
@@ -277,8 +277,8 @@ class TokenList(ListResource):
         :returns: The created TokenInstance
         """
         payload, _, _ = await self._create_async(
-            account_sid=account_sid,
             grant_type=grant_type,
+            account_sid=account_sid,
             client_id=client_id,
             client_secret=client_secret,
             code=code,
@@ -292,8 +292,8 @@ class TokenList(ListResource):
 
     async def create_with_http_info_async(
         self,
+        grant_type: str,
         account_sid: Union[str, object] = values.unset,
-        grant_type: Union[str, object] = values.unset,
         client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
@@ -306,8 +306,8 @@ class TokenList(ListResource):
         """
         Asynchronously create the TokenInstance and return response metadata
 
-        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
+        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param client_id: A 34 character string that uniquely identifies this OAuth App.
         :param client_secret: The credential for confidential OAuth App.
         :param code: JWT token related to the authorization code grant type.
@@ -320,8 +320,8 @@ class TokenList(ListResource):
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._create_async(
-            account_sid=account_sid,
             grant_type=grant_type,
+            account_sid=account_sid,
             client_id=client_id,
             client_secret=client_secret,
             code=code,

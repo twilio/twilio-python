@@ -3,6 +3,183 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2026-09-02] Version 9.11.1
+---------------------------
+**Library - Fix**
+- [PR #954](https://github.com/twilio/twilio-python/pull/954): Fix tag validation regex in deploy.yml. Thanks to [@kridai](https://github.com/kridai)!
+
+**Audiences**
+- ## 2026-09-01
+- Backticked brace- and angle-bracket-bearing tokens in descriptions for MDX safety.
+- Updated a prose reference to the renamed `FetchCohortSnapshot` operation.
+- ## 2026-08-26
+- **Removed 5 path(s)**:
+- `/preview/Audiences` (AdminListAudiences)
+- `/preview/Audiences/{audienceId}` (AdminGetAudience)
+- `/preview/Snapshots` (AdminListSnapshots)
+- `/preview/Snapshots/{snapshotId}` (AdminGetSnapshot)
+- `/preview/Operations/{operationId}` (AdminGetOperation)
+- ## 2026-08-25
+- Minor updates (formatting, metadata)
+- ## 2026-08-24
+- **Added 1 new path(s)**:
+- `/preview/Snapshots/{cohortSnapshotId}/Operations` (AdminListSnapshotOperations)
+- **Removed 1 path(s)**:
+- `/preview/Snapshots/{snapshotId}/Operations` (ListAdminSnapshotOperations)
+- ## 2026-08-20
+- Renamed all 13 operations so the operationId keyword leads (`AdminGetCohort` -> `FetchAdminCohort`) to meet standard.
+- Set `info` `libraryVisibility` to `hidden` to exclude this admin spec from generation.
+- Added the standard `pageSize`/`pageToken` query parameters to `ListAdminSnapshotOperations`, the only list operation missing them.
+- ## 2026-08-19
+- **Added 5 new path(s)**:
+- `/preview/Cohorts` (AdminListCohorts)
+- `/preview/Cohorts/{cohortId}` (AdminGetCohort)
+- `/preview/CohortSnapshots` (AdminListCohortSnapshots)
+- `/preview/CohortSnapshots/{cohortSnapshotId}` (AdminGetCohortSnapshot)
+- `/preview/CohortOperations/{cohortOperationId}` (AdminGetCohortOperation)
+- ## 2026-09-01
+- Renamed 3 `Get*` operations to `Fetch*` to match the operationId standard: `FetchCohort`, `FetchCohortSnapshot`, `FetchCohortOperation`. The transpiler skips operations whose operationId does not start with a standard keyword, which had been dropping all three from generated output.
+- Set `libraryVisibility` to `private` (was `hidden`) so the spec is eligible for the private docs pipeline.
+- Backticked brace- and angle-bracket-bearing tokens in descriptions for MDX safety.
+- ## 2026-08-28
+- **Removed 6 path(s)**:
+- `/preview/Audiences` (ListAudiences, CreateAudience)
+- `/preview/Audiences/{audienceId}` (FetchAudience, UpdateAudience, DeleteAudience)
+- `/preview/Snapshots` (ListSnapshots, CreateSnapshot)
+- `/preview/Snapshots/{snapshotId}` (FetchSnapshot, DeleteSnapshot)
+- `/preview/Snapshots/{snapshotId}/Profiles` (ListSnapshotProfiles)
+- `/preview/Operations/{operationId}` (FetchOperation)
+- ## 2026-08-20
+- Renamed 6 `Get*` operations to `Fetch*` to match the operationId standard.
+- Hid the deprecated Audiences/Snapshots paths and `/preview/Operations/{operationId}`.
+- Backticked 11 brace-bearing tokens in descriptions for MDX safety.
+
+**Conversations**
+- Add `VIDEO` to the Conversations v2 Communication channel enum.
+
+**Data-ingress**
+- # API Changes
+- ## 2026-09-01
+- Minor updates (formatting, metadata)
+- ## 2026-08-12
+- Minor updates (formatting, metadata)
+- ## 2026-08-12
+- Initial release with 13 paths and 13 operations
+
+**Destinations**
+- ## 2026-08-26
+- Minor updates (formatting, metadata)
+- ## 2026-08-26
+- Minor updates (formatting, metadata)
+- ## 2026-08-25
+- **Content updates**:
+- Updated description for `CreateDestination`
+- ## 2026-08-12
+- Minor updates (formatting, metadata)
+- ## 2026-08-12
+- **Content updates**:
+- Added properties to `DestinationType`: releaseStatus
+- Removed properties from `DestinationType`: maturity
+
+**Email**
+- # API Changes
+- ## 2026-08-28
+- **Content updates**:
+- Updated summary for `sendTransactional`
+- Added parameter(s) to `sendTransactional`: X-Twilio-Version
+- Updated schema description for `SuppressionsGroup`
+- Added properties to `SuppressionsGroup`: type
+- Removed properties from `SuppressionsGroup`: mode
+- Updated schema description for `SuppressionsGlobal`
+- Added properties to `SuppressionsGlobal`: type
+- Removed properties from `SuppressionsGlobal`: mode
+- Updated schema description for `Suppressions`
+- Updated schema description for `LongRunningOperationResponse`
+- ## 2026-08-27
+- **Content updates**:
+- Updated description for `SendEmail`
+- Added parameter(s) to `SendEmail`: Content-Encoding, Idempotency-Key
+- Updated schema description for `Envelope`
+- Updated schema description for `SuppressionsGroup`
+- Updated schema description for `SuppressionsGlobal`
+
+**Iam**
+- Added GET /v1/Account/AuthorizedApps/{consentSid} - fetch authorized app details, including allowed permissions, by consent identifier SID
+- added container-scoped entitlements endpoint (GET /v2/Container/{containerId}/Entitlements)
+
+**Knowledge**
+- ## 2026-07-20
+- **Content updates**:
+- Added new schemas: `KnowledgeErrorInstance`, `KnowledgeErrorGroup`
+- Added `errors` field to `WebSourceDetails` for reporting web crawl errors
+
+**Memory**
+- ## 2026-08-18
+- **Breaking change**:
+- Removed the deprecated `CSV` and `DATASET` values from the `DataMappingType` enum.
+- `INGRESS`, `DATASET_CLOUDAPP`, and `DATASET_WAREHOUSE` are the only valid values now.
+- Removed the `DataMappingFromCSV` and `DataMappingFromDataSet` schemas and their
+- `oneOf`/discriminator entries on `DataMappingFromTypes`, along with the corresponding
+- `CSV`/`DATASET` discriminator mapping keys.
+- Any caller still sending `type: CSV` or `type: DATASET` on `AdminListDataMappings`
+- (filtering by those values) will get a 400.
+- ## 2026-08-10
+- No path changes (updated metadata only)
+- `DataMappingType` gains `INGRESS`, `DATASET_CLOUDAPP`, and `DATASET_WAREHOUSE`.
+- `CSV` and `DATASET` remain valid and unchanged; they are deprecated aliases and
+- will be removed in a follow-up change.
+- `DataMappingFromTypes` gains three `oneOf` members and three discriminator keys:
+- `DataMappingFromIngress` (renames `DataMappingFromCSV`),
+- `DataMappingFromCloudAppDataSet` and `DataMappingFromWarehouseDataSet`
+- (both split from `DataMappingFromDataSet`, distinguishing a cloud-app-backed
+- TDI dataset from a warehouse-backed one).
+- Additive and backwards compatible: existing `CSV` and `DATASET` payloads are
+- unaffected.
+- ## 2026-08-27
+- **Added 2 new path(s)** for Trait Extraction Strategies:
+- `/v1/ControlPlane/TraitExtractionStrategies` (ListTraitExtractionStrategies, CreateTraitExtractionStrategy)
+- `/v1/ControlPlane/TraitExtractionStrategies/{traitStrategyId}` (FetchTraitExtractionStrategy, UpdateTraitExtractionStrategy, DeleteTraitExtractionStrategy)
+- ## 2026-08-18
+- **Breaking change**:
+- Removed the deprecated `CSV` and `DATASET` values from the `DataMappingType` enum.
+- `INGRESS`, `DATASET_CLOUDAPP`, and `DATASET_WAREHOUSE` are the only valid values now.
+- Removed the `DataMappingFromCSV` and `DataMappingFromDataSet` schemas and their
+- `oneOf`/discriminator entries on `DataMappingFromTypes`, along with the corresponding
+- `CSV`/`DATASET` discriminator mapping keys.
+- Any caller still sending `type: CSV` or `type: DATASET` on `CreateDataMapping` or
+- `UpdateDataMapping` (or filtering `ListDataMappings`/`ListDataMappingSuggestions` by
+- those values) will get a 400.
+- ## 2026-08-10
+- No path changes (updated metadata only)
+- `DataMappingType` gains `INGRESS`, `DATASET_CLOUDAPP`, and `DATASET_WAREHOUSE`.
+- `CSV` and `DATASET` remain valid and unchanged; they are deprecated aliases and
+- will be removed in a follow-up change.
+- `DataMappingFromTypes` gains three `oneOf` members and three discriminator keys:
+- `DataMappingFromIngress` (renames `DataMappingFromCSV`),
+- `DataMappingFromCloudAppDataSet` and `DataMappingFromWarehouseDataSet`
+- (both split from `DataMappingFromDataSet`, distinguishing a cloud-app-backed
+- TDI dataset from a warehouse-backed one).
+- Additive and backwards compatible: existing `CSV` and `DATASET` payloads are
+- unaffected.
+
+**Messaging**
+- Add SenderIdentity, SenderType, and SenderRegion filter query parameters to list numbers and senders endpoint (beta)
+- Add capabilities field to the numbers and senders response (beta)
+- Remove the WhatsApp Senders v1 endpoints (`/v1/Channels/WhatsApp/Senders`) from RestProxy; the sender was routed to the sunsetting `messaging-whatsapp-k8s-orch` downstream. Use the Senders v2 API (`/v2/Channels/Senders`) instead.
+
+**Verify**
+- Add `Templates` optional parameter on Verification creation (a stringified JSON array of `sid`/`substitutions` entries). When provided, `Templates` takes precedence over `TemplateSid`.
+
+**Voice**
+- ## 2026-08-05
+- Added GET /v3/Transcriptions to list and filter transcriptions (status, sourceId, languageCode, createdAfter/createdBefore) with pageSize/pageToken pagination. createdAfter is inclusive and createdBefore exclusive. Returns 422 (error code 17535) when a sourceId's historical item count exceeds the service scan cap
+
+**Webhooks**
+- # API Changes
+- ## 2026-08-24
+- **Changed**: Created Webhooks Config API ( https://docs.google.com/document/d/1zkAJD8a8MgoxWifdYDl_d465Az3W6CcD9fuCC2xlSXE/edit?tab=t.0#heading=h.u9e0ry6oe89j ), that includes 7 new resource(s)**: SharedKeys, AuthProfiles, Settings, Rules, Operations, Tests, EdgeZones in /v1/Webhooks referencing webhooks-config downstream.
+
+
 [2026-08-11] Version 9.11.0
 ---------------------------
 **Library - Fix**
