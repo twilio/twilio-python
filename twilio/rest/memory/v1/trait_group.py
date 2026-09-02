@@ -776,8 +776,10 @@ class TraitGroupList(ListResource):
 
             self.data_type: Optional[str] = payload.get("dataType")
             self.description: Optional[str] = payload.get("description")
-            self.validation_rule: Optional[ValidationRule] = payload.get(
-                "validationRule"
+            self.validation_rule: Optional[ValidationRule] = (
+                ValidationRule(payload.get("validationRule"))
+                if payload.get("validationRule") is not None
+                else None
             )
             self.id_type_promotion: Optional[str] = payload.get("idTypePromotion")
 
@@ -834,8 +836,10 @@ class TraitGroupList(ListResource):
 
             self.data_type: Optional[str] = payload.get("dataType")
             self.description: Optional[str] = payload.get("description")
-            self.validation_rule: Optional[ValidationRule] = payload.get(
-                "validationRule"
+            self.validation_rule: Optional[ValidationRule] = (
+                ValidationRule(payload.get("validationRule"))
+                if payload.get("validationRule") is not None
+                else None
             )
             self.id_type_promotion: Optional[str] = payload.get("idTypePromotion")
 
@@ -889,8 +893,10 @@ class TraitGroupList(ListResource):
 
             self.data_type: Optional[str] = payload.get("dataType")
             self.description: Optional[str] = payload.get("description")
-            self.validation_rule: Optional[ValidationRule] = payload.get(
-                "validationRule"
+            self.validation_rule: Optional[ValidationRule] = (
+                ValidationRule(payload.get("validationRule"))
+                if payload.get("validationRule") is not None
+                else None
             )
             self.id_type_promotion: Optional[str] = payload.get("idTypePromotion")
 

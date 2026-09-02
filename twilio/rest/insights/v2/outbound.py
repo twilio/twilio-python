@@ -12,11 +12,10 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -24,136 +23,19 @@ from twilio.base.page import Page
 
 
 class OutboundInstance(InstanceResource):
-
-    class CountyCarrierValueCarriers(object):
-        """
-        :ivar carrier: The name of the carrier.
-        :ivar total_calls: Total number of outbound calls for the carrier in the country.
-        :ivar blocked_calls: Total number of blocked outbound calls for the carrier in the country.
-        :ivar blocked_calls_percentage: Percentage of blocked outbound calls for the carrier in the country.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.carrier: Optional[str] = payload.get("carrier")
-            self.total_calls: Optional[int] = payload.get("total_calls")
-            self.blocked_calls: Optional[int] = payload.get("blocked_calls")
-            self.blocked_calls_percentage: Optional[float] = payload.get(
-                "blocked_calls_percentage"
-            )
-
-        def to_dict(self):
-            return {
-                "carrier": self.carrier,
-                "total_calls": self.total_calls,
-                "blocked_calls": self.blocked_calls,
-                "blocked_calls_percentage": self.blocked_calls_percentage,
-            }
-
-    class InsightsV2CreatePhoneNumbersReportRequest(object):
-        """
-        :ivar time_range:
-        :ivar filters:
-        :ivar size: The number of max available top Phone Numbers to generate.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.time_range: Optional[
-                InboundList.InsightsV2CreatePhoneNumbersReportRequestTimeRange
-            ] = payload.get("time_range")
-            self.filters: Optional[List[InboundList.PhoneNumberReportFilter]] = (
-                payload.get("filters")
-            )
-            self.size: Optional[int] = payload.get("size")
-
-        def to_dict(self):
-            return {
-                "time_range": (
-                    self.time_range.to_dict() if self.time_range is not None else None
-                ),
-                "filters": (
-                    [filters.to_dict() for filters in self.filters]
-                    if self.filters is not None
-                    else None
-                ),
-                "size": self.size,
-            }
-
-    class InsightsV2CreatePhoneNumbersReportRequestTimeRange(object):
-        """
-        :ivar start_datetime: Start date time of the report
-        :ivar end_datetime: End date time of the report
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.start_datetime: Optional[datetime] = payload.get("start_datetime")
-            self.end_datetime: Optional[datetime] = payload.get("end_datetime")
-
-        def to_dict(self):
-            return {
-                "start_datetime": self.start_datetime,
-                "end_datetime": self.end_datetime,
-            }
-
-    class PhoneNumberReportFilter(object):
-        """
-        :ivar key: The name of the filter
-        :ivar values: List of supported filter values for the field name
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.key: Optional[str] = payload.get("key")
-            self.values: Optional[List[str]] = payload.get("values")
-
-        def to_dict(self):
-            return {
-                "key": self.key,
-                "values": self.values,
-            }
-
-    class ReportFilter(object):
-        """
-        :ivar key: The name of the filter 'call_state', 'call_direction', 'call_type', 'twilio_regions', 'caller_country_code', 'callee_country_code', 'silent'
-        :ivar values: List of supported filter values for the field name
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.key: Optional[str] = payload.get("key")
-            self.values: Optional[List[str]] = payload.get("values")
-
-        def to_dict(self):
-            return {
-                "key": self.key,
-                "values": self.values,
-            }
-
-    class ReportStatus(object):
-        CREATED = "created"
-        RUNNING = "running"
-        COMPLETED = "completed"
-
     """
-    :ivar account_sid: The unique SID identifier of the Account.
-    :ivar report_id: The report identifier as Voice Insights Report TTID.
-    :ivar status: 
-    :ivar request_meta: 
-    :ivar url: The URL of this resource.
-    :ivar handle: Inbound phone number handle represented in the report.
-    :ivar total_calls: Total number of calls made with the given handle during the report period.
-    :ivar call_answer_score: The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered. 
-    :ivar call_state_percentage: 
-    :ivar silent_calls_percentage: Percentage of inbound calls with silence tags over total outbound calls. A silent tag is indicative of a connectivity issue or muted audio.
-    :ivar calls_by_device_type: Number of calls made with each device type. `voip`, `mobile`, `landline`, `unknown` 
-    :ivar answer_rate_device_type: Answer rate for each device type. `voip`, `mobile`, `landline`, `unknown` 
+    :ivar handle: The outbound phone number handle.
+    :ivar total_calls: Total number of outbound calls made with the given handle during the report period.
+    :ivar call_answer_score: The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered.
+    :ivar calls_by_device_type: Number of calls made with each device type. `voip`, `mobile`, `landline`, `unknown`
+    :ivar answer_rate_device_type: Answer rate for each device type. `voip`, `mobile`, `landline`, `unknown`
+    :ivar call_state_percentage:
     :ivar blocked_calls_by_carrier: Percentage of blocked calls by carrier per country.
+    :ivar silent_calls_percentage: Percentage of calls with silence tags over total calls. A silent tag is indicative of a connectivity issue or muted audio.
     :ivar short_duration_calls_percentage: Percentage of completed outbound calls under 10 seconds (PSTN Short call tags); More than 15% is typically low trust measured.
     :ivar long_duration_calls_percentage: Percentage of long duration calls ( >= 60 seconds)
     :ivar potential_robocalls_percentage: Percentage of completed outbound calls to unassigned or unallocated phone numbers.
-    :ivar answering_machine_detection: 
+    :ivar answering_machine_detection:
     """
 
     def __init__(
@@ -161,28 +43,23 @@ class OutboundInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.account_sid: Optional[str] = payload.get("account_sid")
-        self.report_id: Optional[str] = payload.get("report_id")
-        self.status: Optional["InboundInstance.str"] = payload.get("status")
-        self.request_meta: Optional[str] = payload.get("request_meta")
-        self.url: Optional[str] = payload.get("url")
         self.handle: Optional[str] = payload.get("handle")
         self.total_calls: Optional[int] = deserialize.integer(
             payload.get("total_calls")
         )
         self.call_answer_score: Optional[float] = payload.get("call_answer_score")
-        self.call_state_percentage: Optional[str] = payload.get("call_state_percentage")
-        self.silent_calls_percentage: Optional[float] = payload.get(
-            "silent_calls_percentage"
-        )
         self.calls_by_device_type: Optional[Dict[str, int]] = payload.get(
             "calls_by_device_type"
         )
         self.answer_rate_device_type: Optional[Dict[str, float]] = payload.get(
             "answer_rate_device_type"
         )
+        self.call_state_percentage: Optional[str] = payload.get("call_state_percentage")
         self.blocked_calls_by_carrier: Optional[List[str]] = payload.get(
             "blocked_calls_by_carrier"
+        )
+        self.silent_calls_percentage: Optional[float] = payload.get(
+            "silent_calls_percentage"
         )
         self.short_duration_calls_percentage: Optional[float] = payload.get(
             "short_duration_calls_percentage"
@@ -201,91 +78,6 @@ class OutboundInstance(InstanceResource):
             "report_id": report_id or self.report_id,
         }
 
-        self._context: Optional[OutboundContext] = None
-
-    @property
-    def _proxy(self) -> "OutboundContext":
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: OutboundContext for this OutboundInstance
-        """
-        if self._context is None:
-            self._context = OutboundContext(
-                self._version,
-                report_id=self._solution["report_id"],
-            )
-        return self._context
-
-    def create(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> "OutboundInstance":
-        """
-        Create the OutboundInstance
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: The created OutboundInstance
-        """
-        return self._proxy.create(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request,
-        )
-
-    async def create_async(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> "OutboundInstance":
-        """
-        Asynchronous coroutine to create the OutboundInstance
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: The created OutboundInstance
-        """
-        return await self._proxy.create_async(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request,
-        )
-
-    def create_with_http_info(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Create the OutboundInstance with HTTP info
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        return self._proxy.create_with_http_info(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request,
-        )
-
-    async def create_with_http_info_async(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Asynchronous coroutine to create the OutboundInstance with HTTP info
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        return await self._proxy.create_with_http_info_async(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request,
-        )
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -294,269 +86,6 @@ class OutboundInstance(InstanceResource):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V2.OutboundInstance {}>".format(context)
-
-
-class OutboundContext(InstanceContext):
-
-    class CountyCarrierValueCarriers(object):
-        """
-        :ivar carrier: The name of the carrier.
-        :ivar total_calls: Total number of outbound calls for the carrier in the country.
-        :ivar blocked_calls: Total number of blocked outbound calls for the carrier in the country.
-        :ivar blocked_calls_percentage: Percentage of blocked outbound calls for the carrier in the country.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.carrier: Optional[str] = payload.get("carrier")
-            self.total_calls: Optional[int] = payload.get("total_calls")
-            self.blocked_calls: Optional[int] = payload.get("blocked_calls")
-            self.blocked_calls_percentage: Optional[float] = payload.get(
-                "blocked_calls_percentage"
-            )
-
-        def to_dict(self):
-            return {
-                "carrier": self.carrier,
-                "total_calls": self.total_calls,
-                "blocked_calls": self.blocked_calls,
-                "blocked_calls_percentage": self.blocked_calls_percentage,
-            }
-
-    class InsightsV2CreatePhoneNumbersReportRequest(object):
-        """
-        :ivar time_range:
-        :ivar filters:
-        :ivar size: The number of max available top Phone Numbers to generate.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.time_range: Optional[
-                InboundList.InsightsV2CreatePhoneNumbersReportRequestTimeRange
-            ] = payload.get("time_range")
-            self.filters: Optional[List[InboundList.PhoneNumberReportFilter]] = (
-                payload.get("filters")
-            )
-            self.size: Optional[int] = payload.get("size")
-
-        def to_dict(self):
-            return {
-                "time_range": (
-                    self.time_range.to_dict() if self.time_range is not None else None
-                ),
-                "filters": (
-                    [filters.to_dict() for filters in self.filters]
-                    if self.filters is not None
-                    else None
-                ),
-                "size": self.size,
-            }
-
-    class InsightsV2CreatePhoneNumbersReportRequestTimeRange(object):
-        """
-        :ivar start_datetime: Start date time of the report
-        :ivar end_datetime: End date time of the report
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.start_datetime: Optional[datetime] = payload.get("start_datetime")
-            self.end_datetime: Optional[datetime] = payload.get("end_datetime")
-
-        def to_dict(self):
-            return {
-                "start_datetime": self.start_datetime,
-                "end_datetime": self.end_datetime,
-            }
-
-    class PhoneNumberReportFilter(object):
-        """
-        :ivar key: The name of the filter
-        :ivar values: List of supported filter values for the field name
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.key: Optional[str] = payload.get("key")
-            self.values: Optional[List[str]] = payload.get("values")
-
-        def to_dict(self):
-            return {
-                "key": self.key,
-                "values": self.values,
-            }
-
-    class ReportFilter(object):
-        """
-        :ivar key: The name of the filter 'call_state', 'call_direction', 'call_type', 'twilio_regions', 'caller_country_code', 'callee_country_code', 'silent'
-        :ivar values: List of supported filter values for the field name
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.key: Optional[str] = payload.get("key")
-            self.values: Optional[List[str]] = payload.get("values")
-
-        def to_dict(self):
-            return {
-                "key": self.key,
-                "values": self.values,
-            }
-
-    def __init__(self, version: Version, report_id: str):
-        """
-        Initialize the OutboundContext
-
-        :param version: Version that contains the resource
-        :param report_id: A unique Report Id.
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "report_id": report_id,
-        }
-        self._uri = "/Voice/Reports/PhoneNumbers/Outbound".format(**self._solution)
-
-    def _create(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> tuple:
-        """
-        Internal helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-        data = insights_v2_create_phone_numbers_report_request.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        return self._version.create_with_response_info(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    def create(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> OutboundInstance:
-        """
-        Create the OutboundInstance
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: The created OutboundInstance
-        """
-        payload, _, _ = self._create(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request
-        )
-        return OutboundInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-
-    def create_with_http_info(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Create the OutboundInstance and return response metadata
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = self._create(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request
-        )
-        instance = OutboundInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    async def _create_async(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> tuple:
-        """
-        Internal async helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-        data = insights_v2_create_phone_numbers_report_request.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        return await self._version.create_with_response_info_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    async def create_async(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> OutboundInstance:
-        """
-        Asynchronous coroutine to create the OutboundInstance
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: The created OutboundInstance
-        """
-        payload, _, _ = await self._create_async(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request
-        )
-        return OutboundInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-
-    async def create_with_http_info_async(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Asynchronous coroutine to create the OutboundInstance and return response metadata
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = await self._create_async(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request
-        )
-        instance = OutboundInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V2.OutboundContext {}>".format(context)
 
 
 class OutboundPage(Page):
@@ -583,112 +112,6 @@ class OutboundPage(Page):
 
 class OutboundList(ListResource):
 
-    class CountyCarrierValueCarriers(object):
-        """
-        :ivar carrier: The name of the carrier.
-        :ivar total_calls: Total number of outbound calls for the carrier in the country.
-        :ivar blocked_calls: Total number of blocked outbound calls for the carrier in the country.
-        :ivar blocked_calls_percentage: Percentage of blocked outbound calls for the carrier in the country.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.carrier: Optional[str] = payload.get("carrier")
-            self.total_calls: Optional[int] = payload.get("total_calls")
-            self.blocked_calls: Optional[int] = payload.get("blocked_calls")
-            self.blocked_calls_percentage: Optional[float] = payload.get(
-                "blocked_calls_percentage"
-            )
-
-        def to_dict(self):
-            return {
-                "carrier": self.carrier,
-                "total_calls": self.total_calls,
-                "blocked_calls": self.blocked_calls,
-                "blocked_calls_percentage": self.blocked_calls_percentage,
-            }
-
-    class InsightsV2CreatePhoneNumbersReportRequest(object):
-        """
-        :ivar time_range:
-        :ivar filters:
-        :ivar size: The number of max available top Phone Numbers to generate.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.time_range: Optional[
-                InboundList.InsightsV2CreatePhoneNumbersReportRequestTimeRange
-            ] = payload.get("time_range")
-            self.filters: Optional[List[InboundList.PhoneNumberReportFilter]] = (
-                payload.get("filters")
-            )
-            self.size: Optional[int] = payload.get("size")
-
-        def to_dict(self):
-            return {
-                "time_range": (
-                    self.time_range.to_dict() if self.time_range is not None else None
-                ),
-                "filters": (
-                    [filters.to_dict() for filters in self.filters]
-                    if self.filters is not None
-                    else None
-                ),
-                "size": self.size,
-            }
-
-    class InsightsV2CreatePhoneNumbersReportRequestTimeRange(object):
-        """
-        :ivar start_datetime: Start date time of the report
-        :ivar end_datetime: End date time of the report
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.start_datetime: Optional[datetime] = payload.get("start_datetime")
-            self.end_datetime: Optional[datetime] = payload.get("end_datetime")
-
-        def to_dict(self):
-            return {
-                "start_datetime": self.start_datetime,
-                "end_datetime": self.end_datetime,
-            }
-
-    class PhoneNumberReportFilter(object):
-        """
-        :ivar key: The name of the filter
-        :ivar values: List of supported filter values for the field name
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.key: Optional[str] = payload.get("key")
-            self.values: Optional[List[str]] = payload.get("values")
-
-        def to_dict(self):
-            return {
-                "key": self.key,
-                "values": self.values,
-            }
-
-    class ReportFilter(object):
-        """
-        :ivar key: The name of the filter 'call_state', 'call_direction', 'call_type', 'twilio_regions', 'caller_country_code', 'callee_country_code', 'silent'
-        :ivar values: List of supported filter values for the field name
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.key: Optional[str] = payload.get("key")
-            self.values: Optional[List[str]] = payload.get("values")
-
-        def to_dict(self):
-            return {
-                "key": self.key,
-                "values": self.values,
-            }
-
     def __init__(self, version: Version, report_id: str):
         """
         Initialize the OutboundList
@@ -706,136 +129,6 @@ class OutboundList(ListResource):
         self._uri = "/Voice/Reports/PhoneNumbers/Outbound/{report_id}".format(
             **self._solution
         )
-
-    def _create(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> tuple:
-        """
-        Internal helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-        data = insights_v2_create_phone_numbers_report_request.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        return self._version.create_with_response_info(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    def create(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> OutboundInstance:
-        """
-        Create the OutboundInstance
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: The created OutboundInstance
-        """
-        payload, _, _ = self._create(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request
-        )
-        return OutboundInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-
-    def create_with_http_info(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Create the OutboundInstance and return response metadata
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = self._create(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request
-        )
-        instance = OutboundInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    async def _create_async(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> tuple:
-        """
-        Internal async helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-        data = insights_v2_create_phone_numbers_report_request.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        return await self._version.create_with_response_info_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    async def create_async(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> OutboundInstance:
-        """
-        Asynchronously create the OutboundInstance
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: The created OutboundInstance
-        """
-        payload, _, _ = await self._create_async(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request
-        )
-        return OutboundInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-
-    async def create_with_http_info_async(
-        self,
-        insights_v2_create_phone_numbers_report_request: Union[
-            InsightsV2CreatePhoneNumbersReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Asynchronously create the OutboundInstance and return response metadata
-
-        :param insights_v2_create_phone_numbers_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = await self._create_async(
-            insights_v2_create_phone_numbers_report_request=insights_v2_create_phone_numbers_report_request
-        )
-        instance = OutboundInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -1201,22 +494,6 @@ class OutboundList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return OutboundPage(self._version, response, solution=self._solution)
-
-    def get(self, report_id: str) -> OutboundContext:
-        """
-        Constructs a OutboundContext
-
-        :param report_id: A unique Report Id.
-        """
-        return OutboundContext(self._version, report_id=report_id)
-
-    def __call__(self, report_id: str) -> OutboundContext:
-        """
-        Constructs a OutboundContext
-
-        :param report_id: A unique Report Id.
-        """
-        return OutboundContext(self._version, report_id=report_id)
 
     def __repr__(self) -> str:
         """

@@ -107,7 +107,18 @@ class IdentityResolutionSettingList(ListResource):
 
             self.identifier_configs: Optional[
                 List[IdentityResolutionSettingList.IdentifierConfig]
-            ] = payload.get("identifierConfigs")
+            ] = (
+                [
+                    (
+                        IdentityResolutionSettingList.IdentifierConfig(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("identifierConfigs")
+                ]
+                if payload.get("identifierConfigs") is not None
+                else None
+            )
             self.matching_rules: Optional[List[str]] = payload.get("matchingRules")
 
         def to_dict(self):

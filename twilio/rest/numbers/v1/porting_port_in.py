@@ -78,7 +78,9 @@ class PortingPortInInstance(InstanceResource):
             )
             self.address_sid: Optional[str] = payload.get("address_sid")
             self.address: Optional[PortingPortInList.NumbersV1PortingAddress] = (
-                payload.get("address")
+                PortingPortInList.NumbersV1PortingAddress(payload.get("address"))
+                if payload.get("address") is not None
+                else None
             )
             self.authorized_representative: Optional[str] = payload.get(
                 "authorized_representative"
@@ -133,10 +135,27 @@ class PortingPortInInstance(InstanceResource):
             self.documents: Optional[List[str]] = payload.get("documents")
             self.phone_numbers: Optional[
                 List[PortingPortInList.NumbersV1PortingPortInCreatePhoneNumbers]
-            ] = payload.get("phone_numbers")
+            ] = (
+                [
+                    (
+                        PortingPortInList.NumbersV1PortingPortInCreatePhoneNumbers(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("phone_numbers")
+                ]
+                if payload.get("phone_numbers") is not None
+                else None
+            )
             self.losing_carrier_information: Optional[
                 PortingPortInList.NumbersV1PortingLosingCarrierInformation
-            ] = payload.get("losing_carrier_information")
+            ] = (
+                PortingPortInList.NumbersV1PortingLosingCarrierInformation(
+                    payload.get("losing_carrier_information")
+                )
+                if payload.get("losing_carrier_information") is not None
+                else None
+            )
             self.notification_emails: Optional[List[str]] = payload.get(
                 "notification_emails"
             )
@@ -426,7 +445,9 @@ class PortingPortInContext(InstanceContext):
             )
             self.address_sid: Optional[str] = payload.get("address_sid")
             self.address: Optional[PortingPortInList.NumbersV1PortingAddress] = (
-                payload.get("address")
+                PortingPortInList.NumbersV1PortingAddress(payload.get("address"))
+                if payload.get("address") is not None
+                else None
             )
             self.authorized_representative: Optional[str] = payload.get(
                 "authorized_representative"
@@ -481,10 +502,27 @@ class PortingPortInContext(InstanceContext):
             self.documents: Optional[List[str]] = payload.get("documents")
             self.phone_numbers: Optional[
                 List[PortingPortInList.NumbersV1PortingPortInCreatePhoneNumbers]
-            ] = payload.get("phone_numbers")
+            ] = (
+                [
+                    (
+                        PortingPortInList.NumbersV1PortingPortInCreatePhoneNumbers(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("phone_numbers")
+                ]
+                if payload.get("phone_numbers") is not None
+                else None
+            )
             self.losing_carrier_information: Optional[
                 PortingPortInList.NumbersV1PortingLosingCarrierInformation
-            ] = payload.get("losing_carrier_information")
+            ] = (
+                PortingPortInList.NumbersV1PortingLosingCarrierInformation(
+                    payload.get("losing_carrier_information")
+                )
+                if payload.get("losing_carrier_information") is not None
+                else None
+            )
             self.notification_emails: Optional[List[str]] = payload.get(
                 "notification_emails"
             )
@@ -784,7 +822,9 @@ class PortingPortInList(ListResource):
             )
             self.address_sid: Optional[str] = payload.get("address_sid")
             self.address: Optional[PortingPortInList.NumbersV1PortingAddress] = (
-                payload.get("address")
+                PortingPortInList.NumbersV1PortingAddress(payload.get("address"))
+                if payload.get("address") is not None
+                else None
             )
             self.authorized_representative: Optional[str] = payload.get(
                 "authorized_representative"
@@ -839,10 +879,27 @@ class PortingPortInList(ListResource):
             self.documents: Optional[List[str]] = payload.get("documents")
             self.phone_numbers: Optional[
                 List[PortingPortInList.NumbersV1PortingPortInCreatePhoneNumbers]
-            ] = payload.get("phone_numbers")
+            ] = (
+                [
+                    (
+                        PortingPortInList.NumbersV1PortingPortInCreatePhoneNumbers(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("phone_numbers")
+                ]
+                if payload.get("phone_numbers") is not None
+                else None
+            )
             self.losing_carrier_information: Optional[
                 PortingPortInList.NumbersV1PortingLosingCarrierInformation
-            ] = payload.get("losing_carrier_information")
+            ] = (
+                PortingPortInList.NumbersV1PortingLosingCarrierInformation(
+                    payload.get("losing_carrier_information")
+                )
+                if payload.get("losing_carrier_information") is not None
+                else None
+            )
             self.notification_emails: Optional[List[str]] = payload.get(
                 "notification_emails"
             )

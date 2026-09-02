@@ -319,7 +319,16 @@ class ImportList(ListResource):
             self.filename: Optional[str] = payload.get("filename")
             self.file_size: Optional[int] = payload.get("fileSize")
             self.column_mappings: Optional[List[ImportList.ColumnMappingItem]] = (
-                payload.get("columnMappings")
+                [
+                    (
+                        ImportList.ColumnMappingItem(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("columnMappings")
+                ]
+                if payload.get("columnMappings") is not None
+                else None
             )
 
         def to_dict(self):

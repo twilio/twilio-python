@@ -46,7 +46,13 @@ class KnowledgeInstance(InstanceResource):
             self.name: Optional[str] = payload.get("name")
             self.policy: Optional[
                 KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest
-            ] = payload.get("policy")
+            ] = (
+                KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
@@ -107,7 +113,13 @@ class KnowledgeInstance(InstanceResource):
             self.name: Optional[str] = payload.get("name")
             self.policy: Optional[
                 KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest
-            ] = payload.get("policy")
+            ] = (
+                KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
@@ -364,7 +376,13 @@ class KnowledgeContext(InstanceContext):
             self.name: Optional[str] = payload.get("name")
             self.policy: Optional[
                 KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest
-            ] = payload.get("policy")
+            ] = (
+                KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
@@ -425,7 +443,13 @@ class KnowledgeContext(InstanceContext):
             self.name: Optional[str] = payload.get("name")
             self.policy: Optional[
                 KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest
-            ] = payload.get("policy")
+            ] = (
+                KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
@@ -812,7 +836,13 @@ class KnowledgeList(ListResource):
             self.name: Optional[str] = payload.get("name")
             self.policy: Optional[
                 KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest
-            ] = payload.get("policy")
+            ] = (
+                KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
@@ -873,7 +903,13 @@ class KnowledgeList(ListResource):
             self.name: Optional[str] = payload.get("name")
             self.policy: Optional[
                 KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest
-            ] = payload.get("policy")
+            ] = (
+                KnowledgeList.KnowledgeV1ServiceCreatePolicyRequest(
+                    payload.get("policy")
+                )
+                if payload.get("policy") is not None
+                else None
+            )
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 

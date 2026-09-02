@@ -33,6 +33,7 @@ class ParticipantInstance(InstanceResource):
         RCS = "RCS"
         WHATSAPP = "WHATSAPP"
         CHAT = "CHAT"
+        VIDEO = "VIDEO"
 
     class ConversationsV2ParticipantType(object):
         HUMAN_AGENT = "HUMAN_AGENT"
@@ -543,7 +544,20 @@ class ParticipantList(ListResource):
                 List[
                     ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses
                 ]
-            ] = payload.get("addresses")
+            ] = (
+                [
+                    (
+                        ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("addresses")
+                ]
+                if payload.get("addresses") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -574,7 +588,20 @@ class ParticipantList(ListResource):
                 List[
                     ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses
                 ]
-            ] = payload.get("addresses")
+            ] = (
+                [
+                    (
+                        ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("addresses")
+                ]
+                if payload.get("addresses") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
