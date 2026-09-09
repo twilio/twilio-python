@@ -43,6 +43,36 @@ class TestAsyncHttpClientRequest(aiounittest.AsyncTestCase):
         self.assertEqual(request_args["method"], "GET")
         self.assertEqual(request_args["url"], "https://mock.twilio.com")
 
+    async def test_request_body_is_passed_as_json_for_application_json(self):
+        body = {"userName": "Alice"}
+
+        await self.client.request(
+            "POST",
+            "https://mock.twilio.com",
+            data=body,
+            headers={"Content-Type": "application/json"},
+        )
+
+        request_args = self.session_mock.request.call_args.kwargs
+
+        self.assertEqual(request_args["json"], body)
+        self.assertNotIn("data", request_args)
+
+    async def test_request_body_is_passed_as_json_for_scim_json(self):
+        body = {"userName": "Alice"}
+
+        await self.client.request(
+            "POST",
+            "https://mock.twilio.com",
+            data=body,
+            headers={"Content-Type": "application/scim+json"},
+        )
+
+        request_args = self.session_mock.request.call_args.kwargs
+
+        self.assertEqual(request_args["json"], body)
+        self.assertNotIn("data", request_args)
+        
     async def test_request_called_with_basic_auth(self):
         await self.client.request(
             "doesnt matter", "doesnt matter", auth=("account_sid", "auth_token")
