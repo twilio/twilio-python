@@ -58,6 +58,22 @@ class TestAsyncHttpClientRequest(aiounittest.AsyncTestCase):
         with self.assertRaises(ValueError):
             await self.client.request("doesnt matter", "doesnt matter", timeout=-1)
 
+    async def test_request_uses_client_timeout_when_none_passed(self):
+        self.client.timeout = 30
+        await self.client.request("GET", "https://mock.twilio.com")
+
+        self.session_mock.request.assert_called()
+        request_args = self.session_mock.request.call_args.kwargs
+        self.assertEqual(request_args["timeout"], 30)
+
+    async def test_request_timeout_overrides_client_timeout(self):
+        self.client.timeout = 30
+        await self.client.request("GET", "https://mock.twilio.com", timeout=15)
+
+        self.session_mock.request.assert_called()
+        request_args = self.session_mock.request.call_args.kwargs
+        self.assertEqual(request_args["timeout"], 15)
+
 
 class TestAsyncHttpClientRetries(aiounittest.AsyncTestCase):
     def setUp(self):
