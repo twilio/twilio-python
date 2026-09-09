@@ -53,7 +53,7 @@ class ConfigurationInstance(InstanceResource):
     """
 
     def __init__(
-        self, version: Version, payload: ResponseResource, id: Optional[str] = None
+        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
     ):
         super().__init__(version)
 
@@ -201,6 +201,46 @@ class ConfigurationInstance(InstanceResource):
         :returns: ApiResponse with instance, status code, and headers
         """
         return await self._proxy.fetch_with_http_info_async()
+
+    def patch(
+        self,
+        idempotency_key: Union[str, object] = values.unset,
+        patch_configuration_request: Union[
+            PatchConfigurationRequest, object
+        ] = values.unset,
+    ) -> "ConfigurationInstance":
+        """
+        Patch the ConfigurationInstance
+
+        :param idempotency_key: Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL.
+        :param patch_configuration_request: The partial configuration update.
+
+        :returns: The patched ConfigurationInstance
+        """
+        return self._proxy.patch(
+            idempotency_key=idempotency_key,
+            patch_configuration_request=patch_configuration_request,
+        )
+
+    async def patch_async(
+        self,
+        idempotency_key: Union[str, object] = values.unset,
+        patch_configuration_request: Union[
+            PatchConfigurationRequest, object
+        ] = values.unset,
+    ) -> "ConfigurationInstance":
+        """
+        Asynchronous coroutine to patch the ConfigurationInstance
+
+        :param idempotency_key: Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL.
+        :param patch_configuration_request: The partial configuration update.
+
+        :returns: The patched ConfigurationInstance
+        """
+        return await self._proxy.patch_async(
+            idempotency_key=idempotency_key,
+            patch_configuration_request=patch_configuration_request,
+        )
 
     def update(
         self,
@@ -495,6 +535,158 @@ class ConfigurationContext(InstanceContext):
         )
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
+    def _patch(
+        self,
+        idempotency_key: Union[str, object] = values.unset,
+        patch_configuration_request: Union[
+            PatchConfigurationRequest, object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for patch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = patch_configuration_request.to_dict()
+
+        headers = values.of({})
+
+        if not (
+            idempotency_key is values.unset
+            or (isinstance(idempotency_key, str) and not idempotency_key)
+        ):
+            headers["Idempotency-Key"] = idempotency_key
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.patch_with_response_info(
+            method="PATCH", uri=self._uri, data=data, headers=headers
+        )
+
+    def patch(
+        self,
+        idempotency_key: Union[str, object] = values.unset,
+        patch_configuration_request: Union[
+            PatchConfigurationRequest, object
+        ] = values.unset,
+    ) -> ConfigurationInstance:
+        """
+        Patch the ConfigurationInstance
+
+        :param idempotency_key: Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL.
+        :param patch_configuration_request: The partial configuration update.
+
+        :returns: The patched ConfigurationInstance
+        """
+        payload, _, _ = self._patch(
+            idempotency_key=idempotency_key,
+            patch_configuration_request=patch_configuration_request,
+        )
+        return ConfigurationInstance(self._version, payload, id=self._solution["id"])
+
+    def patch_with_http_info(
+        self,
+        idempotency_key: Union[str, object] = values.unset,
+        patch_configuration_request: Union[
+            PatchConfigurationRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Patch the ConfigurationInstance and return response metadata
+
+        :param idempotency_key: Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL.
+        :param patch_configuration_request: The partial configuration update.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._patch(
+            idempotency_key=idempotency_key,
+            patch_configuration_request=patch_configuration_request,
+        )
+        instance = ConfigurationInstance(
+            self._version, payload, id=self._solution["id"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _patch_async(
+        self,
+        idempotency_key: Union[str, object] = values.unset,
+        patch_configuration_request: Union[
+            PatchConfigurationRequest, object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for patch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = patch_configuration_request.to_dict()
+
+        headers = values.of({})
+
+        if not (
+            idempotency_key is values.unset
+            or (isinstance(idempotency_key, str) and not idempotency_key)
+        ):
+            headers["Idempotency-Key"] = idempotency_key
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.patch_with_response_info_async(
+            method="PATCH", uri=self._uri, data=data, headers=headers
+        )
+
+    async def patch_async(
+        self,
+        idempotency_key: Union[str, object] = values.unset,
+        patch_configuration_request: Union[
+            PatchConfigurationRequest, object
+        ] = values.unset,
+    ) -> ConfigurationInstance:
+        """
+        Asynchronous coroutine to patch the ConfigurationInstance
+
+        :param idempotency_key: Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL.
+        :param patch_configuration_request: The partial configuration update.
+
+        :returns: The patched ConfigurationInstance
+        """
+        payload, _, _ = await self._patch_async(
+            idempotency_key=idempotency_key,
+            patch_configuration_request=patch_configuration_request,
+        )
+        return ConfigurationInstance(self._version, payload, id=self._solution["id"])
+
+    async def patch_with_http_info_async(
+        self,
+        idempotency_key: Union[str, object] = values.unset,
+        patch_configuration_request: Union[
+            PatchConfigurationRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to patch the ConfigurationInstance and return response metadata
+
+        :param idempotency_key: Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL.
+        :param patch_configuration_request: The partial configuration update.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._patch_async(
+            idempotency_key=idempotency_key,
+            patch_configuration_request=patch_configuration_request,
+        )
+        instance = ConfigurationInstance(
+            self._version, payload, id=self._solution["id"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
     def _update(
         self,
         idempotency_key: Union[str, object] = values.unset,
@@ -707,11 +899,18 @@ class ConfigurationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.status_timeouts: Optional[ConversationsV2StatusTimeouts] = payload.get(
-                "statusTimeouts"
+            self.status_timeouts: Optional[ConversationsV2StatusTimeouts] = (
+                ConversationsV2StatusTimeouts(payload.get("statusTimeouts"))
+                if payload.get("statusTimeouts") is not None
+                else None
             )
             self.capture_rules: Optional[List[ConversationsV2CaptureRule]] = (
-                payload.get("captureRules")
+                [
+                    ConversationsV2CaptureRule(item) if isinstance(item, dict) else item
+                    for item in payload.get("captureRules")
+                ]
+                if payload.get("captureRules") is not None
+                else None
             )
 
         def to_dict(self):
@@ -793,16 +992,45 @@ class ConfigurationList(ListResource):
 
             self.display_name: Optional[str] = payload.get("displayName")
             self.description: Optional[str] = payload.get("description")
-            self.conversation_grouping_type: Optional["ConfigurationInstance.str"] = (
-                payload.get("conversationGroupingType")
+            self.conversation_grouping_type: Optional[str] = payload.get(
+                "conversationGroupingType"
             )
             self.memory_store_id: Optional[str] = payload.get("memoryStoreId")
             self.channel_settings: Optional[
-                Dict[str, CreateConfigurationRequestChannelSettingsValue]
-            ] = payload.get("channelSettings")
+                Dict[
+                    str,
+                    ConfigurationList.CreateConfigurationRequestChannelSettingsValue,
+                ]
+            ] = (
+                {
+                    k: (
+                        ConfigurationList.CreateConfigurationRequestChannelSettingsValue(
+                            v
+                        )
+                        if isinstance(v, dict)
+                        else v
+                    )
+                    for k, v in payload.get("channelSettings").items()
+                }
+                if payload.get("channelSettings") is not None
+                else None
+            )
             self.status_callbacks: Optional[
                 List[ConfigurationList.CreateConfigurationRequestStatusCallbacks]
-            ] = payload.get("statusCallbacks")
+            ] = (
+                [
+                    (
+                        ConfigurationList.CreateConfigurationRequestStatusCallbacks(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("statusCallbacks")
+                ]
+                if payload.get("statusCallbacks") is not None
+                else None
+            )
             self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
                 "intelligenceConfigurationIds"
             )
@@ -811,7 +1039,13 @@ class ConfigurationList(ListResource):
             )
             self.conversations_v1_bridge: Optional[
                 ConfigurationList.CreateConfigurationRequestConversationsV1Bridge
-            ] = payload.get("conversationsV1Bridge")
+            ] = (
+                ConfigurationList.CreateConfigurationRequestConversationsV1Bridge(
+                    payload.get("conversationsV1Bridge")
+                )
+                if payload.get("conversationsV1Bridge") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -850,11 +1084,32 @@ class ConfigurationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.status_timeouts: Optional[
-                CreateConfigurationRequestChannelSettingsValueStatusTimeouts
-            ] = payload.get("statusTimeouts")
+                ConfigurationList.CreateConfigurationRequestChannelSettingsValueStatusTimeouts
+            ] = (
+                ConfigurationList.CreateConfigurationRequestChannelSettingsValueStatusTimeouts(
+                    payload.get("statusTimeouts")
+                )
+                if payload.get("statusTimeouts") is not None
+                else None
+            )
             self.capture_rules: Optional[
-                List[CreateConfigurationRequestChannelSettingsValueCaptureRules]
-            ] = payload.get("captureRules")
+                List[
+                    ConfigurationList.CreateConfigurationRequestChannelSettingsValueCaptureRules
+                ]
+            ] = (
+                [
+                    (
+                        ConfigurationList.CreateConfigurationRequestChannelSettingsValueCaptureRules(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("captureRules")
+                ]
+                if payload.get("captureRules") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -930,12 +1185,175 @@ class ConfigurationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.url: Optional[str] = payload.get("url")
-            self.method: Optional["ConfigurationInstance.str"] = payload.get("method")
+            self.method: Optional[str] = payload.get("method")
 
         def to_dict(self):
             return {
                 "url": self.url,
                 "method": self.method,
+            }
+
+    class PatchConfigurationRequest(object):
+        """
+        :ivar display_name: A human-readable name for the configuration. Limited to 32 characters.
+        :ivar description: Human-readable description for the configuration.
+        :ivar conversation_grouping_type: Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+        :ivar memory_store_id: The Memory Store ID for profile resolution.
+        :ivar channel_settings: Channel-specific settings to merge onto the existing channelSettings map. A channel key mapped to a value replaces that channel's settings; a channel key explicitly mapped to null removes it; an omitted channel key is left untouched.
+        :ivar status_callbacks:
+        :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
+        :ivar memory_extraction_enabled: Whether memory extraction is enabled for conversations under this configuration.
+        :ivar conversations_v1_bridge:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.display_name: Optional[str] = payload.get("displayName")
+            self.description: Optional[str] = payload.get("description")
+            self.conversation_grouping_type: Optional[str] = payload.get(
+                "conversationGroupingType"
+            )
+            self.memory_store_id: Optional[str] = payload.get("memoryStoreId")
+            self.channel_settings: Optional[
+                Dict[
+                    str, ConfigurationList.PatchConfigurationRequestChannelSettingsValue
+                ]
+            ] = (
+                {
+                    k: (
+                        ConfigurationList.PatchConfigurationRequestChannelSettingsValue(
+                            v
+                        )
+                        if isinstance(v, dict)
+                        else v
+                    )
+                    for k, v in payload.get("channelSettings").items()
+                }
+                if payload.get("channelSettings") is not None
+                else None
+            )
+            self.status_callbacks: Optional[
+                List[ConfigurationList.UpdateConfigurationRequestStatusCallbacks]
+            ] = (
+                [
+                    (
+                        ConfigurationList.UpdateConfigurationRequestStatusCallbacks(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("statusCallbacks")
+                ]
+                if payload.get("statusCallbacks") is not None
+                else None
+            )
+            self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
+                "intelligenceConfigurationIds"
+            )
+            self.memory_extraction_enabled: Optional[bool] = payload.get(
+                "memoryExtractionEnabled"
+            )
+            self.conversations_v1_bridge: Optional[
+                ConfigurationList.PatchConfigurationRequestConversationsV1Bridge
+            ] = (
+                ConfigurationList.PatchConfigurationRequestConversationsV1Bridge(
+                    payload.get("conversationsV1Bridge")
+                )
+                if payload.get("conversationsV1Bridge") is not None
+                else None
+            )
+
+        def to_dict(self):
+            return {
+                "displayName": self.display_name,
+                "description": self.description,
+                "conversationGroupingType": self.conversation_grouping_type,
+                "memoryStoreId": self.memory_store_id,
+                "channelSettings": (
+                    {k: v.to_dict() for k, v in self.channel_settings.items()}
+                    if self.channel_settings is not None
+                    else None
+                ),
+                "statusCallbacks": (
+                    [
+                        status_callbacks.to_dict()
+                        for status_callbacks in self.status_callbacks
+                    ]
+                    if self.status_callbacks is not None
+                    else None
+                ),
+                "intelligenceConfigurationIds": self.intelligence_configuration_ids,
+                "memoryExtractionEnabled": self.memory_extraction_enabled,
+                "conversationsV1Bridge": (
+                    self.conversations_v1_bridge.to_dict()
+                    if self.conversations_v1_bridge is not None
+                    else None
+                ),
+            }
+
+    class PatchConfigurationRequestChannelSettingsValue(object):
+        """
+        :ivar status_timeouts:
+        :ivar capture_rules:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.status_timeouts: Optional[
+                ConfigurationList.UpdateConfigurationRequestChannelSettingsValueStatusTimeouts
+            ] = (
+                ConfigurationList.UpdateConfigurationRequestChannelSettingsValueStatusTimeouts(
+                    payload.get("statusTimeouts")
+                )
+                if payload.get("statusTimeouts") is not None
+                else None
+            )
+            self.capture_rules: Optional[
+                List[
+                    ConfigurationList.UpdateConfigurationRequestChannelSettingsValueCaptureRules
+                ]
+            ] = (
+                [
+                    (
+                        ConfigurationList.UpdateConfigurationRequestChannelSettingsValueCaptureRules(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("captureRules")
+                ]
+                if payload.get("captureRules") is not None
+                else None
+            )
+
+        def to_dict(self):
+            return {
+                "statusTimeouts": (
+                    self.status_timeouts.to_dict()
+                    if self.status_timeouts is not None
+                    else None
+                ),
+                "captureRules": (
+                    [capture_rules.to_dict() for capture_rules in self.capture_rules]
+                    if self.capture_rules is not None
+                    else None
+                ),
+            }
+
+    class PatchConfigurationRequestConversationsV1Bridge(object):
+        """
+        :ivar service_id: The Conversations V1 Service SID (IS prefix). One configuration per V1 Service SID.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.service_id: Optional[str] = payload.get("serviceId")
+
+        def to_dict(self):
+            return {
+                "serviceId": self.service_id,
             }
 
     class UpdateConfigurationRequest(object):
@@ -955,16 +1373,45 @@ class ConfigurationList(ListResource):
 
             self.display_name: Optional[str] = payload.get("displayName")
             self.description: Optional[str] = payload.get("description")
-            self.conversation_grouping_type: Optional["ConfigurationInstance.str"] = (
-                payload.get("conversationGroupingType")
+            self.conversation_grouping_type: Optional[str] = payload.get(
+                "conversationGroupingType"
             )
             self.memory_store_id: Optional[str] = payload.get("memoryStoreId")
             self.channel_settings: Optional[
-                Dict[str, UpdateConfigurationRequestChannelSettingsValue]
-            ] = payload.get("channelSettings")
+                Dict[
+                    str,
+                    ConfigurationList.UpdateConfigurationRequestChannelSettingsValue,
+                ]
+            ] = (
+                {
+                    k: (
+                        ConfigurationList.UpdateConfigurationRequestChannelSettingsValue(
+                            v
+                        )
+                        if isinstance(v, dict)
+                        else v
+                    )
+                    for k, v in payload.get("channelSettings").items()
+                }
+                if payload.get("channelSettings") is not None
+                else None
+            )
             self.status_callbacks: Optional[
                 List[ConfigurationList.UpdateConfigurationRequestStatusCallbacks]
-            ] = payload.get("statusCallbacks")
+            ] = (
+                [
+                    (
+                        ConfigurationList.UpdateConfigurationRequestStatusCallbacks(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("statusCallbacks")
+                ]
+                if payload.get("statusCallbacks") is not None
+                else None
+            )
             self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
                 "intelligenceConfigurationIds"
             )
@@ -973,7 +1420,13 @@ class ConfigurationList(ListResource):
             )
             self.conversations_v1_bridge: Optional[
                 ConfigurationList.CreateConfigurationRequestConversationsV1Bridge
-            ] = payload.get("conversationsV1Bridge")
+            ] = (
+                ConfigurationList.CreateConfigurationRequestConversationsV1Bridge(
+                    payload.get("conversationsV1Bridge")
+                )
+                if payload.get("conversationsV1Bridge") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1012,11 +1465,32 @@ class ConfigurationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.status_timeouts: Optional[
-                UpdateConfigurationRequestChannelSettingsValueStatusTimeouts
-            ] = payload.get("statusTimeouts")
+                ConfigurationList.UpdateConfigurationRequestChannelSettingsValueStatusTimeouts
+            ] = (
+                ConfigurationList.UpdateConfigurationRequestChannelSettingsValueStatusTimeouts(
+                    payload.get("statusTimeouts")
+                )
+                if payload.get("statusTimeouts") is not None
+                else None
+            )
             self.capture_rules: Optional[
-                List[UpdateConfigurationRequestChannelSettingsValueCaptureRules]
-            ] = payload.get("captureRules")
+                List[
+                    ConfigurationList.UpdateConfigurationRequestChannelSettingsValueCaptureRules
+                ]
+            ] = (
+                [
+                    (
+                        ConfigurationList.UpdateConfigurationRequestChannelSettingsValueCaptureRules(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("captureRules")
+                ]
+                if payload.get("captureRules") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1078,7 +1552,7 @@ class ConfigurationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.url: Optional[str] = payload.get("url")
-            self.method: Optional["ConfigurationInstance.str"] = payload.get("method")
+            self.method: Optional[str] = payload.get("method")
 
         def to_dict(self):
             return {

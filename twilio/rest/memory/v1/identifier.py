@@ -34,7 +34,7 @@ class IdentifierInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         store_id: str,
         profile_id: str,
         id_type: Optional[str] = None,

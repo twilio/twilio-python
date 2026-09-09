@@ -61,7 +61,9 @@ class SupportingDocumentInstance(InstanceResource):
             "status"
         )
         self.failure_reason: Optional[str] = payload.get("failure_reason")
-        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
+        self.errors: Optional[
+            List[Dict[str, Dict[str, Dict[str, Dict[str, object]]]]]
+        ] = payload.get("errors")
         self.type: Optional[str] = payload.get("type")
         self.attributes: Optional[Dict[str, object]] = payload.get("attributes")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(

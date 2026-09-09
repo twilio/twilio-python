@@ -66,7 +66,7 @@ class BuildInstance(InstanceResource):
     :ivar links: 
     """
 
-    def __init__(self, version: Version, payload:Dict[str, Any], service_sid: str, sid: Optional[str] = None):
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
         
@@ -74,9 +74,9 @@ class BuildInstance(InstanceResource):
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.status: Optional["BuildInstance.Status"] = payload.get("status")
-        self.asset_versions: Optional[List[Dict[str, object]]] = payload.get("asset_versions")
-        self.function_versions: Optional[List[Dict[str, object]]] = payload.get("function_versions")
-        self.dependencies: Optional[List[Dict[str, object]]] = payload.get("dependencies")
+        self.asset_versions: Optional[List[Dict[str, Dict[str, Dict[str, object]]]]] = payload.get("asset_versions")
+        self.function_versions: Optional[List[Dict[str, Dict[str, Dict[str, object]]]]] = payload.get("function_versions")
+        self.dependencies: Optional[List[Dict[str, Dict[str, Dict[str, object]]]]] = payload.get("dependencies")
         self.runtime: Optional["BuildInstance.Runtime"] = payload.get("runtime")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))

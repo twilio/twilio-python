@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
-from twilio.base import deserialize, values
+from twilio.base import values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -126,7 +126,13 @@ class ReportInstance(InstanceResource):
 
             self.outbound_carrier_calling: Optional[
                 AccountReportKYTOutboundCarrierCalling
-            ] = payload.get("outbound_carrier_calling")
+            ] = (
+                AccountReportKYTOutboundCarrierCalling(
+                    payload.get("outbound_carrier_calling")
+                )
+                if payload.get("outbound_carrier_calling") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -159,7 +165,12 @@ class ReportInstance(InstanceResource):
                 "unique_called_numbers"
             )
             self.blocked_calls_by_carrier: Optional[List[CountyCarrierValue]] = (
-                payload.get("blocked_calls_by_carrier")
+                [
+                    CountyCarrierValue(item) if isinstance(item, dict) else item
+                    for item in payload.get("blocked_calls_by_carrier")
+                ]
+                if payload.get("blocked_calls_by_carrier") is not None
+                else None
             )
             self.short_duration_calls_percentage: Optional[float] = payload.get(
                 "short_duration_calls_percentage"
@@ -170,13 +181,21 @@ class ReportInstance(InstanceResource):
             self.potential_robocalls_percentage: Optional[float] = payload.get(
                 "potential_robocalls_percentage"
             )
-            self.branded_calling: Optional[BrandedCalling] = payload.get(
-                "branded_calling"
+            self.branded_calling: Optional[BrandedCalling] = (
+                BrandedCalling(payload.get("branded_calling"))
+                if payload.get("branded_calling") is not None
+                else None
             )
-            self.voice_integrity: Optional[VoiceIntegrity] = payload.get(
-                "voice_integrity"
+            self.voice_integrity: Optional[VoiceIntegrity] = (
+                VoiceIntegrity(payload.get("voice_integrity"))
+                if payload.get("voice_integrity") is not None
+                else None
             )
-            self.stir_shaken: Optional[StirShaken] = payload.get("stir_shaken")
+            self.stir_shaken: Optional[StirShaken] = (
+                StirShaken(payload.get("stir_shaken"))
+                if payload.get("stir_shaken") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -216,9 +235,15 @@ class ReportInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.sdk: Optional[AccountReportNetworkIssuesSdk] = payload.get("sdk")
+            self.sdk: Optional[AccountReportNetworkIssuesSdk] = (
+                AccountReportNetworkIssuesSdk(payload.get("sdk"))
+                if payload.get("sdk") is not None
+                else None
+            )
             self.twilio_gateway: Optional[AccountReportNetworkIssuesTwilioGateway] = (
-                payload.get("twilio_gateway")
+                AccountReportNetworkIssuesTwilioGateway(payload.get("twilio_gateway"))
+                if payload.get("twilio_gateway") is not None
+                else None
             )
 
         def to_dict(self):
@@ -307,8 +332,13 @@ class ReportInstance(InstanceResource):
             self.answer_rate: Optional[float] = payload.get("answer_rate")
             self.human_answer_rate: Optional[float] = payload.get("human_answer_rate")
             self.engagement_rate: Optional[float] = payload.get("engagement_rate")
-            self.by_use_case: Optional[List[BrandedUseCaseDetail]] = payload.get(
-                "by_use_case"
+            self.by_use_case: Optional[List[BrandedUseCaseDetail]] = (
+                [
+                    BrandedUseCaseDetail(item) if isinstance(item, dict) else item
+                    for item in payload.get("by_use_case")
+                ]
+                if payload.get("by_use_case") is not None
+                else None
             )
 
         def to_dict(self):
@@ -391,9 +421,20 @@ class ReportInstance(InstanceResource):
 
             self.time_range: Optional[
                 ReportList.InsightsV2CreateAccountReportRequestTimeRange
-            ] = payload.get("time_range")
-            self.filters: Optional[List[ReportList.ReportFilter]] = payload.get(
-                "filters"
+            ] = (
+                ReportList.InsightsV2CreateAccountReportRequestTimeRange(
+                    payload.get("time_range")
+                )
+                if payload.get("time_range") is not None
+                else None
+            )
+            self.filters: Optional[List[ReportList.ReportFilter]] = (
+                [
+                    ReportList.ReportFilter(item) if isinstance(item, dict) else item
+                    for item in payload.get("filters")
+                ]
+                if payload.get("filters") is not None
+                else None
             )
 
         def to_dict(self):
@@ -451,10 +492,20 @@ class ReportInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.call_count: Optional[StirShakenCallCount] = payload.get("call_count")
-            self.percentage: Optional[StirShakenPercentage] = payload.get("percentage")
-            self.answer_rate: Optional[StirShakenAnswerRate] = payload.get(
-                "answer_rate"
+            self.call_count: Optional[StirShakenCallCount] = (
+                StirShakenCallCount(payload.get("call_count"))
+                if payload.get("call_count") is not None
+                else None
+            )
+            self.percentage: Optional[StirShakenPercentage] = (
+                StirShakenPercentage(payload.get("percentage"))
+                if payload.get("percentage") is not None
+                else None
+            )
+            self.answer_rate: Optional[StirShakenAnswerRate] = (
+                StirShakenAnswerRate(payload.get("answer_rate"))
+                if payload.get("answer_rate") is not None
+                else None
             )
 
         def to_dict(self):
@@ -542,7 +593,16 @@ class ReportInstance(InstanceResource):
             self.enabled_calls: Optional[int] = payload.get("enabled_calls")
             self.enabled_percentage: Optional[float] = payload.get("enabled_percentage")
             self.calls_per_bundle: Optional[List[VoiceIntegrityCallsPerBundle]] = (
-                payload.get("calls_per_bundle")
+                [
+                    (
+                        VoiceIntegrityCallsPerBundle(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("calls_per_bundle")
+                ]
+                if payload.get("calls_per_bundle") is not None
+                else None
             )
 
         def to_dict(self):
@@ -598,18 +658,6 @@ class ReportInstance(InstanceResource):
     :ivar status: 
     :ivar request_meta: 
     :ivar url: The URL of this resource.
-    :ivar handle: Inbound phone number handle represented in the report.
-    :ivar total_calls: Total number of calls made with the given handle during the report period.
-    :ivar call_answer_score: The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered. 
-    :ivar call_state_percentage: 
-    :ivar silent_calls_percentage: Percentage of inbound calls with silence tags over total outbound calls. A silent tag is indicative of a connectivity issue or muted audio.
-    :ivar calls_by_device_type: Number of calls made with each device type. `voip`, `mobile`, `landline`, `unknown` 
-    :ivar answer_rate_device_type: Answer rate for each device type. `voip`, `mobile`, `landline`, `unknown` 
-    :ivar blocked_calls_by_carrier: Percentage of blocked calls by carrier per country.
-    :ivar short_duration_calls_percentage: Percentage of completed outbound calls under 10 seconds (PSTN Short call tags); More than 15% is typically low trust measured.
-    :ivar long_duration_calls_percentage: Percentage of long duration calls ( >= 60 seconds)
-    :ivar potential_robocalls_percentage: Percentage of completed outbound calls to unassigned or unallocated phone numbers.
-    :ivar answering_machine_detection: 
     :ivar report: 
     """
 
@@ -620,39 +668,11 @@ class ReportInstance(InstanceResource):
 
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.report_id: Optional[str] = payload.get("report_id")
-        self.status: Optional["InboundInstance.str"] = payload.get("status")
+        self.status: Optional["InboundReportInstance.ReportStatus"] = payload.get(
+            "status"
+        )
         self.request_meta: Optional[str] = payload.get("request_meta")
         self.url: Optional[str] = payload.get("url")
-        self.handle: Optional[str] = payload.get("handle")
-        self.total_calls: Optional[int] = deserialize.integer(
-            payload.get("total_calls")
-        )
-        self.call_answer_score: Optional[float] = payload.get("call_answer_score")
-        self.call_state_percentage: Optional[str] = payload.get("call_state_percentage")
-        self.silent_calls_percentage: Optional[float] = payload.get(
-            "silent_calls_percentage"
-        )
-        self.calls_by_device_type: Optional[Dict[str, int]] = payload.get(
-            "calls_by_device_type"
-        )
-        self.answer_rate_device_type: Optional[Dict[str, float]] = payload.get(
-            "answer_rate_device_type"
-        )
-        self.blocked_calls_by_carrier: Optional[List[str]] = payload.get(
-            "blocked_calls_by_carrier"
-        )
-        self.short_duration_calls_percentage: Optional[float] = payload.get(
-            "short_duration_calls_percentage"
-        )
-        self.long_duration_calls_percentage: Optional[float] = payload.get(
-            "long_duration_calls_percentage"
-        )
-        self.potential_robocalls_percentage: Optional[float] = payload.get(
-            "potential_robocalls_percentage"
-        )
-        self.answering_machine_detection: Optional[str] = payload.get(
-            "answering_machine_detection"
-        )
         self.report: Optional[str] = payload.get("report")
 
         self._solution = {
@@ -675,74 +695,6 @@ class ReportInstance(InstanceResource):
                 report_id=self._solution["report_id"],
             )
         return self._context
-
-    def create(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> "ReportInstance":
-        """
-        Create the ReportInstance
-
-        :param insights_v2_create_account_report_request:
-
-        :returns: The created ReportInstance
-        """
-        return self._proxy.create(
-            insights_v2_create_account_report_request=insights_v2_create_account_report_request,
-        )
-
-    async def create_async(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> "ReportInstance":
-        """
-        Asynchronous coroutine to create the ReportInstance
-
-        :param insights_v2_create_account_report_request:
-
-        :returns: The created ReportInstance
-        """
-        return await self._proxy.create_async(
-            insights_v2_create_account_report_request=insights_v2_create_account_report_request,
-        )
-
-    def create_with_http_info(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Create the ReportInstance with HTTP info
-
-        :param insights_v2_create_account_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        return self._proxy.create_with_http_info(
-            insights_v2_create_account_report_request=insights_v2_create_account_report_request,
-        )
-
-    async def create_with_http_info_async(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Asynchronous coroutine to create the ReportInstance with HTTP info
-
-        :param insights_v2_create_account_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        return await self._proxy.create_with_http_info_async(
-            insights_v2_create_account_report_request=insights_v2_create_account_report_request,
-        )
 
     def fetch(self) -> "ReportInstance":
         """
@@ -894,7 +846,13 @@ class ReportContext(InstanceContext):
 
             self.outbound_carrier_calling: Optional[
                 AccountReportKYTOutboundCarrierCalling
-            ] = payload.get("outbound_carrier_calling")
+            ] = (
+                AccountReportKYTOutboundCarrierCalling(
+                    payload.get("outbound_carrier_calling")
+                )
+                if payload.get("outbound_carrier_calling") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -927,7 +885,12 @@ class ReportContext(InstanceContext):
                 "unique_called_numbers"
             )
             self.blocked_calls_by_carrier: Optional[List[CountyCarrierValue]] = (
-                payload.get("blocked_calls_by_carrier")
+                [
+                    CountyCarrierValue(item) if isinstance(item, dict) else item
+                    for item in payload.get("blocked_calls_by_carrier")
+                ]
+                if payload.get("blocked_calls_by_carrier") is not None
+                else None
             )
             self.short_duration_calls_percentage: Optional[float] = payload.get(
                 "short_duration_calls_percentage"
@@ -938,13 +901,21 @@ class ReportContext(InstanceContext):
             self.potential_robocalls_percentage: Optional[float] = payload.get(
                 "potential_robocalls_percentage"
             )
-            self.branded_calling: Optional[BrandedCalling] = payload.get(
-                "branded_calling"
+            self.branded_calling: Optional[BrandedCalling] = (
+                BrandedCalling(payload.get("branded_calling"))
+                if payload.get("branded_calling") is not None
+                else None
             )
-            self.voice_integrity: Optional[VoiceIntegrity] = payload.get(
-                "voice_integrity"
+            self.voice_integrity: Optional[VoiceIntegrity] = (
+                VoiceIntegrity(payload.get("voice_integrity"))
+                if payload.get("voice_integrity") is not None
+                else None
             )
-            self.stir_shaken: Optional[StirShaken] = payload.get("stir_shaken")
+            self.stir_shaken: Optional[StirShaken] = (
+                StirShaken(payload.get("stir_shaken"))
+                if payload.get("stir_shaken") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -984,9 +955,15 @@ class ReportContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.sdk: Optional[AccountReportNetworkIssuesSdk] = payload.get("sdk")
+            self.sdk: Optional[AccountReportNetworkIssuesSdk] = (
+                AccountReportNetworkIssuesSdk(payload.get("sdk"))
+                if payload.get("sdk") is not None
+                else None
+            )
             self.twilio_gateway: Optional[AccountReportNetworkIssuesTwilioGateway] = (
-                payload.get("twilio_gateway")
+                AccountReportNetworkIssuesTwilioGateway(payload.get("twilio_gateway"))
+                if payload.get("twilio_gateway") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1075,8 +1052,13 @@ class ReportContext(InstanceContext):
             self.answer_rate: Optional[float] = payload.get("answer_rate")
             self.human_answer_rate: Optional[float] = payload.get("human_answer_rate")
             self.engagement_rate: Optional[float] = payload.get("engagement_rate")
-            self.by_use_case: Optional[List[BrandedUseCaseDetail]] = payload.get(
-                "by_use_case"
+            self.by_use_case: Optional[List[BrandedUseCaseDetail]] = (
+                [
+                    BrandedUseCaseDetail(item) if isinstance(item, dict) else item
+                    for item in payload.get("by_use_case")
+                ]
+                if payload.get("by_use_case") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1159,9 +1141,20 @@ class ReportContext(InstanceContext):
 
             self.time_range: Optional[
                 ReportList.InsightsV2CreateAccountReportRequestTimeRange
-            ] = payload.get("time_range")
-            self.filters: Optional[List[ReportList.ReportFilter]] = payload.get(
-                "filters"
+            ] = (
+                ReportList.InsightsV2CreateAccountReportRequestTimeRange(
+                    payload.get("time_range")
+                )
+                if payload.get("time_range") is not None
+                else None
+            )
+            self.filters: Optional[List[ReportList.ReportFilter]] = (
+                [
+                    ReportList.ReportFilter(item) if isinstance(item, dict) else item
+                    for item in payload.get("filters")
+                ]
+                if payload.get("filters") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1219,10 +1212,20 @@ class ReportContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.call_count: Optional[StirShakenCallCount] = payload.get("call_count")
-            self.percentage: Optional[StirShakenPercentage] = payload.get("percentage")
-            self.answer_rate: Optional[StirShakenAnswerRate] = payload.get(
-                "answer_rate"
+            self.call_count: Optional[StirShakenCallCount] = (
+                StirShakenCallCount(payload.get("call_count"))
+                if payload.get("call_count") is not None
+                else None
+            )
+            self.percentage: Optional[StirShakenPercentage] = (
+                StirShakenPercentage(payload.get("percentage"))
+                if payload.get("percentage") is not None
+                else None
+            )
+            self.answer_rate: Optional[StirShakenAnswerRate] = (
+                StirShakenAnswerRate(payload.get("answer_rate"))
+                if payload.get("answer_rate") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1310,7 +1313,16 @@ class ReportContext(InstanceContext):
             self.enabled_calls: Optional[int] = payload.get("enabled_calls")
             self.enabled_percentage: Optional[float] = payload.get("enabled_percentage")
             self.calls_per_bundle: Optional[List[VoiceIntegrityCallsPerBundle]] = (
-                payload.get("calls_per_bundle")
+                [
+                    (
+                        VoiceIntegrityCallsPerBundle(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("calls_per_bundle")
+                ]
+                if payload.get("calls_per_bundle") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1369,136 +1381,6 @@ class ReportContext(InstanceContext):
             "report_id": report_id,
         }
         self._uri = "/Voice/Reports/{report_id}".format(**self._solution)
-
-    def _create(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> tuple:
-        """
-        Internal helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-        data = insights_v2_create_account_report_request.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        return self._version.create_with_response_info(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    def create(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> ReportInstance:
-        """
-        Create the ReportInstance
-
-        :param insights_v2_create_account_report_request:
-
-        :returns: The created ReportInstance
-        """
-        payload, _, _ = self._create(
-            insights_v2_create_account_report_request=insights_v2_create_account_report_request
-        )
-        return ReportInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-
-    def create_with_http_info(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Create the ReportInstance and return response metadata
-
-        :param insights_v2_create_account_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = self._create(
-            insights_v2_create_account_report_request=insights_v2_create_account_report_request
-        )
-        instance = ReportInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    async def _create_async(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> tuple:
-        """
-        Internal async helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-        data = insights_v2_create_account_report_request.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        return await self._version.create_with_response_info_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    async def create_async(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> ReportInstance:
-        """
-        Asynchronous coroutine to create the ReportInstance
-
-        :param insights_v2_create_account_report_request:
-
-        :returns: The created ReportInstance
-        """
-        payload, _, _ = await self._create_async(
-            insights_v2_create_account_report_request=insights_v2_create_account_report_request
-        )
-        return ReportInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-
-    async def create_with_http_info_async(
-        self,
-        insights_v2_create_account_report_request: Union[
-            InsightsV2CreateAccountReportRequest, object
-        ] = values.unset,
-    ) -> ApiResponse:
-        """
-        Asynchronous coroutine to create the ReportInstance and return response metadata
-
-        :param insights_v2_create_account_report_request:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = await self._create_async(
-            insights_v2_create_account_report_request=insights_v2_create_account_report_request
-        )
-        instance = ReportInstance(
-            self._version, payload, report_id=self._solution["report_id"]
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def _fetch(self) -> tuple:
         """
@@ -1704,7 +1586,13 @@ class ReportList(ListResource):
 
             self.outbound_carrier_calling: Optional[
                 AccountReportKYTOutboundCarrierCalling
-            ] = payload.get("outbound_carrier_calling")
+            ] = (
+                AccountReportKYTOutboundCarrierCalling(
+                    payload.get("outbound_carrier_calling")
+                )
+                if payload.get("outbound_carrier_calling") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1737,7 +1625,12 @@ class ReportList(ListResource):
                 "unique_called_numbers"
             )
             self.blocked_calls_by_carrier: Optional[List[CountyCarrierValue]] = (
-                payload.get("blocked_calls_by_carrier")
+                [
+                    CountyCarrierValue(item) if isinstance(item, dict) else item
+                    for item in payload.get("blocked_calls_by_carrier")
+                ]
+                if payload.get("blocked_calls_by_carrier") is not None
+                else None
             )
             self.short_duration_calls_percentage: Optional[float] = payload.get(
                 "short_duration_calls_percentage"
@@ -1748,13 +1641,21 @@ class ReportList(ListResource):
             self.potential_robocalls_percentage: Optional[float] = payload.get(
                 "potential_robocalls_percentage"
             )
-            self.branded_calling: Optional[BrandedCalling] = payload.get(
-                "branded_calling"
+            self.branded_calling: Optional[BrandedCalling] = (
+                BrandedCalling(payload.get("branded_calling"))
+                if payload.get("branded_calling") is not None
+                else None
             )
-            self.voice_integrity: Optional[VoiceIntegrity] = payload.get(
-                "voice_integrity"
+            self.voice_integrity: Optional[VoiceIntegrity] = (
+                VoiceIntegrity(payload.get("voice_integrity"))
+                if payload.get("voice_integrity") is not None
+                else None
             )
-            self.stir_shaken: Optional[StirShaken] = payload.get("stir_shaken")
+            self.stir_shaken: Optional[StirShaken] = (
+                StirShaken(payload.get("stir_shaken"))
+                if payload.get("stir_shaken") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1794,9 +1695,15 @@ class ReportList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.sdk: Optional[AccountReportNetworkIssuesSdk] = payload.get("sdk")
+            self.sdk: Optional[AccountReportNetworkIssuesSdk] = (
+                AccountReportNetworkIssuesSdk(payload.get("sdk"))
+                if payload.get("sdk") is not None
+                else None
+            )
             self.twilio_gateway: Optional[AccountReportNetworkIssuesTwilioGateway] = (
-                payload.get("twilio_gateway")
+                AccountReportNetworkIssuesTwilioGateway(payload.get("twilio_gateway"))
+                if payload.get("twilio_gateway") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1885,8 +1792,13 @@ class ReportList(ListResource):
             self.answer_rate: Optional[float] = payload.get("answer_rate")
             self.human_answer_rate: Optional[float] = payload.get("human_answer_rate")
             self.engagement_rate: Optional[float] = payload.get("engagement_rate")
-            self.by_use_case: Optional[List[BrandedUseCaseDetail]] = payload.get(
-                "by_use_case"
+            self.by_use_case: Optional[List[BrandedUseCaseDetail]] = (
+                [
+                    BrandedUseCaseDetail(item) if isinstance(item, dict) else item
+                    for item in payload.get("by_use_case")
+                ]
+                if payload.get("by_use_case") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1969,9 +1881,20 @@ class ReportList(ListResource):
 
             self.time_range: Optional[
                 ReportList.InsightsV2CreateAccountReportRequestTimeRange
-            ] = payload.get("time_range")
-            self.filters: Optional[List[ReportList.ReportFilter]] = payload.get(
-                "filters"
+            ] = (
+                ReportList.InsightsV2CreateAccountReportRequestTimeRange(
+                    payload.get("time_range")
+                )
+                if payload.get("time_range") is not None
+                else None
+            )
+            self.filters: Optional[List[ReportList.ReportFilter]] = (
+                [
+                    ReportList.ReportFilter(item) if isinstance(item, dict) else item
+                    for item in payload.get("filters")
+                ]
+                if payload.get("filters") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2029,10 +1952,20 @@ class ReportList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.call_count: Optional[StirShakenCallCount] = payload.get("call_count")
-            self.percentage: Optional[StirShakenPercentage] = payload.get("percentage")
-            self.answer_rate: Optional[StirShakenAnswerRate] = payload.get(
-                "answer_rate"
+            self.call_count: Optional[StirShakenCallCount] = (
+                StirShakenCallCount(payload.get("call_count"))
+                if payload.get("call_count") is not None
+                else None
+            )
+            self.percentage: Optional[StirShakenPercentage] = (
+                StirShakenPercentage(payload.get("percentage"))
+                if payload.get("percentage") is not None
+                else None
+            )
+            self.answer_rate: Optional[StirShakenAnswerRate] = (
+                StirShakenAnswerRate(payload.get("answer_rate"))
+                if payload.get("answer_rate") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2120,7 +2053,16 @@ class ReportList(ListResource):
             self.enabled_calls: Optional[int] = payload.get("enabled_calls")
             self.enabled_percentage: Optional[float] = payload.get("enabled_percentage")
             self.calls_per_bundle: Optional[List[VoiceIntegrityCallsPerBundle]] = (
-                payload.get("calls_per_bundle")
+                [
+                    (
+                        VoiceIntegrityCallsPerBundle(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("calls_per_bundle")
+                ]
+                if payload.get("calls_per_bundle") is not None
+                else None
             )
 
         def to_dict(self):
@@ -2173,6 +2115,130 @@ class ReportList(ListResource):
 
         """
         super().__init__(version)
+
+        self._uri = "/Voice/Reports"
+
+    def _create(
+        self,
+        insights_v2_create_account_report_request: Union[
+            InsightsV2CreateAccountReportRequest, object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = insights_v2_create_account_report_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+    def create(
+        self,
+        insights_v2_create_account_report_request: Union[
+            InsightsV2CreateAccountReportRequest, object
+        ] = values.unset,
+    ) -> ReportInstance:
+        """
+        Create the ReportInstance
+
+        :param insights_v2_create_account_report_request:
+
+        :returns: The created ReportInstance
+        """
+        payload, _, _ = self._create(
+            insights_v2_create_account_report_request=insights_v2_create_account_report_request
+        )
+        return ReportInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        insights_v2_create_account_report_request: Union[
+            InsightsV2CreateAccountReportRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ReportInstance and return response metadata
+
+        :param insights_v2_create_account_report_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            insights_v2_create_account_report_request=insights_v2_create_account_report_request
+        )
+        instance = ReportInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        insights_v2_create_account_report_request: Union[
+            InsightsV2CreateAccountReportRequest, object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = insights_v2_create_account_report_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+    async def create_async(
+        self,
+        insights_v2_create_account_report_request: Union[
+            InsightsV2CreateAccountReportRequest, object
+        ] = values.unset,
+    ) -> ReportInstance:
+        """
+        Asynchronously create the ReportInstance
+
+        :param insights_v2_create_account_report_request:
+
+        :returns: The created ReportInstance
+        """
+        payload, _, _ = await self._create_async(
+            insights_v2_create_account_report_request=insights_v2_create_account_report_request
+        )
+        return ReportInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        insights_v2_create_account_report_request: Union[
+            InsightsV2CreateAccountReportRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ReportInstance and return response metadata
+
+        :param insights_v2_create_account_report_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            insights_v2_create_account_report_request=insights_v2_create_account_report_request
+        )
+        instance = ReportInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, report_id: str) -> ReportContext:
         """

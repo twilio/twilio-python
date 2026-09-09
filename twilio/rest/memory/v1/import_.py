@@ -43,13 +43,13 @@ class ImportInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         store_id: str,
         import_id: Optional[str] = None,
     ):
         super().__init__(version)
 
-        self.status: Optional["ImportInstance.str"] = payload.get("status")
+        self.status: Optional[str] = payload.get("status")
         self.filename: Optional[str] = payload.get("filename")
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("createdAt")
@@ -319,7 +319,16 @@ class ImportList(ListResource):
             self.filename: Optional[str] = payload.get("filename")
             self.file_size: Optional[int] = payload.get("fileSize")
             self.column_mappings: Optional[List[ImportList.ColumnMappingItem]] = (
-                payload.get("columnMappings")
+                [
+                    (
+                        ImportList.ColumnMappingItem(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("columnMappings")
+                ]
+                if payload.get("columnMappings") is not None
+                else None
             )
 
         def to_dict(self):

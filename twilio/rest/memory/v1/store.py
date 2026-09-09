@@ -39,10 +39,7 @@ class StoreInstance(InstanceResource):
     """
 
     def __init__(
-        self,
-        version: Version,
-        payload: ResponseResource,
-        store_id: Optional[str] = None,
+        self, version: Version, payload: Dict[str, Any], store_id: Optional[str] = None
     ):
         super().__init__(version)
 
@@ -53,7 +50,7 @@ class StoreInstance(InstanceResource):
         self.display_name: Optional[str] = payload.get("displayName")
         self.description: Optional[str] = payload.get("description")
         self.id: Optional[str] = payload.get("id")
-        self.status: Optional["StoreInstance.str"] = payload.get("status")
+        self.status: Optional[str] = payload.get("status")
         self.intelligence_service_id: Optional[str] = payload.get(
             "intelligenceServiceId"
         )

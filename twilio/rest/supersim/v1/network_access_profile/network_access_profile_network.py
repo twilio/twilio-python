@@ -47,7 +47,9 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
         )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.iso_country: Optional[str] = payload.get("iso_country")
-        self.identifiers: Optional[List[Dict[str, object]]] = payload.get("identifiers")
+        self.identifiers: Optional[List[Dict[str, Dict[str, Dict[str, object]]]]] = (
+            payload.get("identifiers")
+        )
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {

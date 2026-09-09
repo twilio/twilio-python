@@ -34,13 +34,11 @@ class TypingIndicatorInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channel: Optional["TypingIndicatorInstance.str"] = payload.get(
-                "channel"
-            )
+            self.channel: Optional[str] = payload.get("channel")
             self.message_id: Optional[str] = payload.get("messageId")
             self._from: Optional[str] = payload.get("from")
             self.to: Optional[str] = payload.get("to")
-            self.event: Optional["TypingIndicatorInstance.str"] = payload.get("event")
+            self.event: Optional[str] = payload.get("event")
 
         def to_dict(self):
             return {
@@ -83,13 +81,11 @@ class TypingIndicatorList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channel: Optional["TypingIndicatorInstance.str"] = payload.get(
-                "channel"
-            )
+            self.channel: Optional[str] = payload.get("channel")
             self.message_id: Optional[str] = payload.get("messageId")
             self._from: Optional[str] = payload.get("from")
             self.to: Optional[str] = payload.get("to")
-            self.event: Optional["TypingIndicatorInstance.str"] = payload.get("event")
+            self.event: Optional[str] = payload.get("event")
 
         def to_dict(self):
             return {

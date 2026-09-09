@@ -40,7 +40,7 @@ class ConversationSummaryInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         store_id: str,
         profile_id: str,
         summary_id: Optional[str] = None,
@@ -557,7 +557,16 @@ class ConversationSummaryList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.summaries: Optional[List[ConversationSummaryList.SummaryCore]] = (
-                payload.get("summaries")
+                [
+                    (
+                        ConversationSummaryList.SummaryCore(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("summaries")
+                ]
+                if payload.get("summaries") is not None
+                else None
             )
 
         def to_dict(self):

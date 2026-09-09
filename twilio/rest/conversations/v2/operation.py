@@ -47,7 +47,9 @@ class OperationInstance(InstanceResource):
         super().__init__(version)
 
         self.operation_id: Optional[str] = payload.get("operationId")
-        self.status: Optional["OperationInstance.str"] = payload.get("status")
+        self.status: Optional[
+            "OperationInstance.ConversationsV2OperationStatusValue"
+        ] = payload.get("status")
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("createdAt")
         )

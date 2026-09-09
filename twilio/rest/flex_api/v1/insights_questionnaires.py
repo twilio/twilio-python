@@ -46,7 +46,9 @@ class InsightsQuestionnairesInstance(InstanceResource):
         self.name: Optional[str] = payload.get("name")
         self.description: Optional[str] = payload.get("description")
         self.active: Optional[bool] = payload.get("active")
-        self.questions: Optional[List[Dict[str, object]]] = payload.get("questions")
+        self.questions: Optional[
+            List[Dict[str, Dict[str, Dict[str, Dict[str, object]]]]]
+        ] = payload.get("questions")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {

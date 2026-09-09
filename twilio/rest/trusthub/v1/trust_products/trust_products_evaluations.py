@@ -56,7 +56,9 @@ class TrustProductsEvaluationsInstance(InstanceResource):
         self.status: Optional["TrustProductsEvaluationsInstance.Status"] = payload.get(
             "status"
         )
-        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
+        self.results: Optional[List[Dict[str, Dict[str, Dict[str, object]]]]] = (
+            payload.get("results")
+        )
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )

@@ -33,6 +33,7 @@ class ParticipantInstance(InstanceResource):
         RCS = "RCS"
         WHATSAPP = "WHATSAPP"
         CHAT = "CHAT"
+        VIDEO = "VIDEO"
 
     class ConversationsV2ParticipantType(object):
         HUMAN_AGENT = "HUMAN_AGENT"
@@ -66,7 +67,9 @@ class ParticipantInstance(InstanceResource):
         self.conversation_id: Optional[str] = payload.get("conversationId")
         self.account_id: Optional[str] = payload.get("accountId")
         self.name: Optional[str] = payload.get("name")
-        self.type: Optional["ParticipantInstance.str"] = payload.get("type")
+        self.type: Optional["ParticipantInstance.ConversationsV2ParticipantType"] = (
+            payload.get("type")
+        )
         self.profile_id: Optional[str] = payload.get("profileId")
         self.addresses: Optional[List[str]] = payload.get("addresses")
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
@@ -515,7 +518,7 @@ class ParticipantList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channel: Optional["ConversationInstance.str"] = payload.get("channel")
+            self.channel: Optional[str] = payload.get("channel")
             self.address: Optional[str] = payload.get("address")
             self.channel_id: Optional[str] = payload.get("channelId")
 
@@ -537,13 +540,26 @@ class ParticipantList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
-            self.type: Optional["ParticipantInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profileId")
             self.addresses: Optional[
                 List[
                     ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses
                 ]
-            ] = payload.get("addresses")
+            ] = (
+                [
+                    (
+                        ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("addresses")
+                ]
+                if payload.get("addresses") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -568,13 +584,26 @@ class ParticipantList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
-            self.type: Optional["ParticipantInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profileId")
             self.addresses: Optional[
                 List[
                     ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses
                 ]
-            ] = payload.get("addresses")
+            ] = (
+                [
+                    (
+                        ParticipantList.CreateConversationWithConfigRequestParticipantsAddresses(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("addresses")
+                ]
+                if payload.get("addresses") is not None
+                else None
+            )
 
         def to_dict(self):
             return {

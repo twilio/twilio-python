@@ -39,14 +39,14 @@ class KnowledgeBasisInstance(InstanceResource):
     """
 
     def __init__(
-        self, version: Version, payload: ResponseResource, kb_id: Optional[str] = None
+        self, version: Version, payload: Dict[str, Any], kb_id: Optional[str] = None
     ):
         super().__init__(version)
 
         self.display_name: Optional[str] = payload.get("displayName")
         self.description: Optional[str] = payload.get("description")
         self.id: Optional[str] = payload.get("id")
-        self.status: Optional["KnowledgeBasisInstance.str"] = payload.get("status")
+        self.status: Optional[str] = payload.get("status")
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("createdAt")
         )

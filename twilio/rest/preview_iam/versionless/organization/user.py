@@ -114,8 +114,17 @@ class UserInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.schemas: Optional[List[str]] = payload.get("schemas")
-            self.operations: Optional[List[UserList.ScimPatchOperation]] = payload.get(
-                "Operations"
+            self.operations: Optional[List[UserList.ScimPatchOperation]] = (
+                [
+                    (
+                        UserList.ScimPatchOperation(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("Operations")
+                ]
+                if payload.get("Operations") is not None
+                else None
             )
 
         def to_dict(self):
@@ -154,17 +163,30 @@ class UserInstance(InstanceResource):
             self.external_id: Optional[str] = payload.get("externalId")
             self.user_name: Optional[str] = payload.get("userName")
             self.display_name: Optional[str] = payload.get("displayName")
-            self.name: Optional[UserList.ScimName] = payload.get("name")
-            self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get(
-                "emails"
+            self.name: Optional[UserList.ScimName] = (
+                UserList.ScimName(payload.get("name"))
+                if payload.get("name") is not None
+                else None
+            )
+            self.emails: Optional[List[UserList.ScimEmailAddress]] = (
+                [
+                    UserList.ScimEmailAddress(item) if isinstance(item, dict) else item
+                    for item in payload.get("emails")
+                ]
+                if payload.get("emails") is not None
+                else None
             )
             self.active: Optional[bool] = payload.get("active")
             self.locale: Optional[str] = payload.get("locale")
             self.timezone: Optional[str] = payload.get("timezone")
             self.schemas: Optional[List[str]] = payload.get("schemas")
-            self.meta: Optional[UserList.ScimMeta] = payload.get("meta")
+            self.meta: Optional[UserList.ScimMeta] = (
+                UserList.ScimMeta(payload.get("meta"))
+                if payload.get("meta") is not None
+                else None
+            )
             self.detail: Optional[str] = payload.get("detail")
-            self.scim_type: Optional["UserInstance.str"] = payload.get("scimType")
+            self.scim_type: Optional[str] = payload.get("scimType")
             self.status: Optional[str] = payload.get("status")
             self.code: Optional[int] = payload.get("code")
             self.more_info: Optional[str] = payload.get("moreInfo")
@@ -225,15 +247,15 @@ class UserInstance(InstanceResource):
         self.external_id: Optional[str] = payload.get("externalId")
         self.user_name: Optional[str] = payload.get("userName")
         self.display_name: Optional[str] = payload.get("displayName")
-        self.name: Optional[UserList.str] = payload.get("name")
-        self.emails: Optional[List[UserList.str]] = payload.get("emails")
+        self.name: Optional[UserList.ScimName] = payload.get("name")
+        self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get("emails")
         self.active: Optional[bool] = payload.get("active")
         self.locale: Optional[str] = payload.get("locale")
         self.timezone: Optional[str] = payload.get("timezone")
         self.schemas: Optional[List[str]] = payload.get("schemas")
-        self.meta: Optional[UserList.str] = payload.get("meta")
+        self.meta: Optional[UserList.ScimMeta] = payload.get("meta")
         self.detail: Optional[str] = payload.get("detail")
-        self.scim_type: Optional["UserInstance.str"] = payload.get("scimType")
+        self.scim_type: Optional[str] = payload.get("scimType")
         self.status: Optional[str] = payload.get("status")
         self.code: Optional[int] = payload.get("code")
         self.more_info: Optional[str] = payload.get("moreInfo")
@@ -534,8 +556,17 @@ class UserContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.schemas: Optional[List[str]] = payload.get("schemas")
-            self.operations: Optional[List[UserList.ScimPatchOperation]] = payload.get(
-                "Operations"
+            self.operations: Optional[List[UserList.ScimPatchOperation]] = (
+                [
+                    (
+                        UserList.ScimPatchOperation(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("Operations")
+                ]
+                if payload.get("Operations") is not None
+                else None
             )
 
         def to_dict(self):
@@ -574,17 +605,30 @@ class UserContext(InstanceContext):
             self.external_id: Optional[str] = payload.get("externalId")
             self.user_name: Optional[str] = payload.get("userName")
             self.display_name: Optional[str] = payload.get("displayName")
-            self.name: Optional[UserList.ScimName] = payload.get("name")
-            self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get(
-                "emails"
+            self.name: Optional[UserList.ScimName] = (
+                UserList.ScimName(payload.get("name"))
+                if payload.get("name") is not None
+                else None
+            )
+            self.emails: Optional[List[UserList.ScimEmailAddress]] = (
+                [
+                    UserList.ScimEmailAddress(item) if isinstance(item, dict) else item
+                    for item in payload.get("emails")
+                ]
+                if payload.get("emails") is not None
+                else None
             )
             self.active: Optional[bool] = payload.get("active")
             self.locale: Optional[str] = payload.get("locale")
             self.timezone: Optional[str] = payload.get("timezone")
             self.schemas: Optional[List[str]] = payload.get("schemas")
-            self.meta: Optional[UserList.ScimMeta] = payload.get("meta")
+            self.meta: Optional[UserList.ScimMeta] = (
+                UserList.ScimMeta(payload.get("meta"))
+                if payload.get("meta") is not None
+                else None
+            )
             self.detail: Optional[str] = payload.get("detail")
-            self.scim_type: Optional["UserInstance.str"] = payload.get("scimType")
+            self.scim_type: Optional[str] = payload.get("scimType")
             self.status: Optional[str] = payload.get("status")
             self.code: Optional[int] = payload.get("code")
             self.more_info: Optional[str] = payload.get("moreInfo")
@@ -1211,8 +1255,17 @@ class UserList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.schemas: Optional[List[str]] = payload.get("schemas")
-            self.operations: Optional[List[UserList.ScimPatchOperation]] = payload.get(
-                "Operations"
+            self.operations: Optional[List[UserList.ScimPatchOperation]] = (
+                [
+                    (
+                        UserList.ScimPatchOperation(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("Operations")
+                ]
+                if payload.get("Operations") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1251,17 +1304,30 @@ class UserList(ListResource):
             self.external_id: Optional[str] = payload.get("externalId")
             self.user_name: Optional[str] = payload.get("userName")
             self.display_name: Optional[str] = payload.get("displayName")
-            self.name: Optional[UserList.ScimName] = payload.get("name")
-            self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get(
-                "emails"
+            self.name: Optional[UserList.ScimName] = (
+                UserList.ScimName(payload.get("name"))
+                if payload.get("name") is not None
+                else None
+            )
+            self.emails: Optional[List[UserList.ScimEmailAddress]] = (
+                [
+                    UserList.ScimEmailAddress(item) if isinstance(item, dict) else item
+                    for item in payload.get("emails")
+                ]
+                if payload.get("emails") is not None
+                else None
             )
             self.active: Optional[bool] = payload.get("active")
             self.locale: Optional[str] = payload.get("locale")
             self.timezone: Optional[str] = payload.get("timezone")
             self.schemas: Optional[List[str]] = payload.get("schemas")
-            self.meta: Optional[UserList.ScimMeta] = payload.get("meta")
+            self.meta: Optional[UserList.ScimMeta] = (
+                UserList.ScimMeta(payload.get("meta"))
+                if payload.get("meta") is not None
+                else None
+            )
             self.detail: Optional[str] = payload.get("detail")
-            self.scim_type: Optional["UserInstance.str"] = payload.get("scimType")
+            self.scim_type: Optional[str] = payload.get("scimType")
             self.status: Optional[str] = payload.get("status")
             self.code: Optional[int] = payload.get("code")
             self.more_info: Optional[str] = payload.get("moreInfo")

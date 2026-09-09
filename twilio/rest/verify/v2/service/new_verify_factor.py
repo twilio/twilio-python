@@ -37,13 +37,19 @@ class NewVerifyFactorInstance(InstanceResource):
 
             self.id: Optional[str] = payload.get("id")
             self.raw_id: Optional[str] = payload.get("rawId")
-            self.authenticator_attachment: Optional["NewVerifyFactorInstance.str"] = (
-                payload.get("authenticatorAttachment")
+            self.authenticator_attachment: Optional[str] = payload.get(
+                "authenticatorAttachment"
             )
-            self.type: Optional["NewVerifyFactorInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.response: Optional[
                 NewVerifyFactorList.VerifyPasskeysFactorRequestResponse
-            ] = payload.get("response")
+            ] = (
+                NewVerifyFactorList.VerifyPasskeysFactorRequestResponse(
+                    payload.get("response")
+                )
+                if payload.get("response") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -67,7 +73,7 @@ class NewVerifyFactorInstance(InstanceResource):
 
             self.attestation_object: Optional[str] = payload.get("attestationObject")
             self.client_data_json: Optional[str] = payload.get("clientDataJSON")
-            self.transports: Optional[List[Enumstr]] = payload.get("transports")
+            self.transports: Optional[List[str]] = payload.get("transports")
 
         def to_dict(self):
             return {
@@ -107,10 +113,8 @@ class NewVerifyFactorInstance(InstanceResource):
             payload.get("date_updated")
         )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.status: Optional["NewVerifyFactorInstance.str"] = payload.get("status")
-        self.factor_type: Optional["NewVerifyFactorInstance.str"] = payload.get(
-            "factor_type"
-        )
+        self.status: Optional[str] = payload.get("status")
+        self.factor_type: Optional[str] = payload.get("factor_type")
         self.config: Optional[Dict[str, object]] = payload.get("config")
         self.metadata: Optional[Dict[str, object]] = payload.get("metadata")
         self.url: Optional[str] = payload.get("url")
@@ -144,13 +148,19 @@ class NewVerifyFactorList(ListResource):
 
             self.id: Optional[str] = payload.get("id")
             self.raw_id: Optional[str] = payload.get("rawId")
-            self.authenticator_attachment: Optional["NewVerifyFactorInstance.str"] = (
-                payload.get("authenticatorAttachment")
+            self.authenticator_attachment: Optional[str] = payload.get(
+                "authenticatorAttachment"
             )
-            self.type: Optional["NewVerifyFactorInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.response: Optional[
                 NewVerifyFactorList.VerifyPasskeysFactorRequestResponse
-            ] = payload.get("response")
+            ] = (
+                NewVerifyFactorList.VerifyPasskeysFactorRequestResponse(
+                    payload.get("response")
+                )
+                if payload.get("response") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -174,7 +184,7 @@ class NewVerifyFactorList(ListResource):
 
             self.attestation_object: Optional[str] = payload.get("attestationObject")
             self.client_data_json: Optional[str] = payload.get("clientDataJSON")
-            self.transports: Optional[List[Enumstr]] = payload.get("transports")
+            self.transports: Optional[List[str]] = payload.get("transports")
 
         def to_dict(self):
             return {

@@ -65,7 +65,9 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         self.total_count: Optional[int] = deserialize.integer(
             payload.get("total_count")
         )
-        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
+        self.results: Optional[List[Dict[str, Dict[str, object]]]] = payload.get(
+            "results"
+        )
 
         self._solution = {
             "bulk_hosting_sid": bulk_hosting_sid or self.bulk_hosting_sid,

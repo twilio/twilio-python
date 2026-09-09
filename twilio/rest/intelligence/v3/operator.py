@@ -55,7 +55,7 @@ class OperatorInstance(InstanceResource):
     """
 
     def __init__(
-        self, version: Version, payload: ResponseResource, id: Optional[str] = None
+        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
     ):
         super().__init__(version)
 
@@ -78,8 +78,8 @@ class OperatorInstance(InstanceResource):
             payload.get("trainingExamples")
         )
         self.context: Optional[OperatorList.OperatorContext] = payload.get("context")
-        self.parameters: Optional[Dict[str, OperatorParameter]] = payload.get(
-            "parameters"
+        self.parameters: Optional[Dict[str, OperatorList.OperatorParameter]] = (
+            payload.get("parameters")
         )
 
         # Only set _solution if path params are provided (not None)
@@ -631,12 +631,30 @@ class OperatorList(ListResource):
             )
             self.training_examples: Optional[
                 List[OperatorList.OperatorTrainingExample]
-            ] = payload.get("trainingExamples")
-            self.context: Optional[OperatorList.OperatorContext] = payload.get(
-                "context"
+            ] = (
+                [
+                    (
+                        OperatorList.OperatorTrainingExample(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("trainingExamples")
+                ]
+                if payload.get("trainingExamples") is not None
+                else None
             )
-            self.parameters: Optional[Dict[str, OperatorParameter]] = payload.get(
-                "parameters"
+            self.context: Optional[OperatorList.OperatorContext] = (
+                OperatorList.OperatorContext(payload.get("context"))
+                if payload.get("context") is not None
+                else None
+            )
+            self.parameters: Optional[Dict[str, OperatorList.OperatorParameter]] = (
+                {
+                    k: OperatorList.OperatorParameter(v) if isinstance(v, dict) else v
+                    for k, v in payload.get("parameters").items()
+                }
+                if payload.get("parameters") is not None
+                else None
             )
 
         def to_dict(self):
@@ -673,11 +691,15 @@ class OperatorList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.memory: Optional[OperatorList.OperatorContextMemory] = payload.get(
-                "memory"
+            self.memory: Optional[OperatorList.OperatorContextMemory] = (
+                OperatorList.OperatorContextMemory(payload.get("memory"))
+                if payload.get("memory") is not None
+                else None
             )
             self.knowledge: Optional[OperatorList.OperatorContextKnowledge] = (
-                payload.get("knowledge")
+                OperatorList.OperatorContextKnowledge(payload.get("knowledge"))
+                if payload.get("knowledge") is not None
+                else None
             )
 
         def to_dict(self):
@@ -714,6 +736,29 @@ class OperatorList(ListResource):
         def to_dict(self):
             return {
                 "enabled": self.enabled,
+            }
+
+    class OperatorParameter(object):
+        """
+        :ivar type: The data type of the parameter (e.g., STRING, INTEGER). Available values: STRING, INTEGER, NUMBER, BOOLEAN, KNOWLEDGE_BASE_AND_SOURCE_IDS  KNOWLEDGE_BASE_AND_SOURCE_IDS is a special type of parameter that refers to a Memora Knowledge Source, prefixed with its Knowledge Base container. Support for KB type = plaintext only. During Intelligence Configuration creation, this parameter is linked to a specific Knowledge Source. The operator receives the resolved plaintext at runtime and injects it into the prompt. The value of this parameter is expected to be passed in the following format: knowledge_base_id:knowledge_source_id.
+        :ivar default: Default value to use in the prompt if no value is provided by the Intelligence Configuration. Note: knowledge_base_and_source_ids does not support the default attribute, but all other param types do allow for a default value.
+        :ivar required: Whether this parameter must be set at Operator execution time. Defaults to false if not provided.
+        :ivar description: A human-readable description of the parameter.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional[str] = payload.get("type")
+            self.default: Optional[Dict[str, object]] = payload.get("default")
+            self.required: Optional[bool] = payload.get("required")
+            self.description: Optional[str] = payload.get("description")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "default": self.default,
+                "required": self.required,
+                "description": self.description,
             }
 
     class OperatorTrainingExample(object):

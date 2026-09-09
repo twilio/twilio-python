@@ -50,7 +50,7 @@ class KnowledgeInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         kb_id: str,
         knowledge_id: Optional[str] = None,
     ):
@@ -60,7 +60,7 @@ class KnowledgeInstance(InstanceResource):
         self.description: Optional[str] = payload.get("description")
         self.source: Optional[str] = payload.get("source")
         self.id: Optional[str] = payload.get("id")
-        self.status: Optional["KnowledgeInstance.str"] = payload.get("status")
+        self.status: Optional[str] = payload.get("status")
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("createdAt")
         )
@@ -630,8 +630,10 @@ class KnowledgeList(ListResource):
 
             self.name: Optional[str] = payload.get("name")
             self.description: Optional[str] = payload.get("description")
-            self.source: Optional[KnowledgeList.KnowledgeSourceTypes] = payload.get(
-                "source"
+            self.source: Optional[KnowledgeList.KnowledgeSourceTypes] = (
+                KnowledgeList.KnowledgeSourceTypes(payload.get("source"))
+                if payload.get("source") is not None
+                else None
             )
 
         def to_dict(self):
@@ -641,6 +643,61 @@ class KnowledgeList(ListResource):
                 "source": self.source.to_dict() if self.source is not None else None,
             }
 
+    class KnowledgeErrorGroup(object):
+        """
+        :ivar title: The error type or reason (e.g., \"404 Not Found\", \"500 Internal Server Error\").
+        :ivar instances: Array of error instances for this error title. Required when an error group is present.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.title: Optional[str] = payload.get("title")
+            self.instances: Optional[List[KnowledgeList.KnowledgeErrorInstance]] = (
+                [
+                    (
+                        KnowledgeList.KnowledgeErrorInstance(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("instances")
+                ]
+                if payload.get("instances") is not None
+                else None
+            )
+
+        def to_dict(self):
+            return {
+                "title": self.title,
+                "instances": (
+                    [instances.to_dict() for instances in self.instances]
+                    if self.instances is not None
+                    else None
+                ),
+            }
+
+    class KnowledgeErrorInstance(object):
+        """
+        :ivar type: A URI reference identifying the problem type, resolving to human-readable documentation (e.g., https://www.twilio.com/docs/api/errors/420018).
+        :ivar code: Twilio-specific numeric error code for programmatic handling.
+        :ivar instance: The specific URL or resource that caused the error.
+        :ivar detail: Detailed explanation of the error.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional[str] = payload.get("type")
+            self.code: Optional[int] = payload.get("code")
+            self.instance: Optional[str] = payload.get("instance")
+            self.detail: Optional[str] = payload.get("detail")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "code": self.code,
+                "instance": self.instance,
+                "detail": self.detail,
+            }
+
     class KnowledgeSourceTypes(object):
         """
         :ivar type: Raw text knowledge sources
@@ -648,6 +705,7 @@ class KnowledgeList(ListResource):
         :ivar url: The URL to crawl for web content
         :ivar crawl_depth: The maximum depth to crawl from the source URL
         :ivar crawl_period: Frequency of re-crawling the website for updated content
+        :ivar errors: Processing errors encountered during web crawling, grouped by title. Array of error groups, where each group has a title and list of error instances. Only present when crawl errors occurred.
         :ivar file_name: Name of the file to be uploaded
         :ivar file_size: Expected size of the file in bytes
         :ivar mime_type:
@@ -657,12 +715,22 @@ class KnowledgeList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.type: Optional["KnowledgeInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.content: Optional[str] = payload.get("content")
             self.url: Optional[str] = payload.get("url")
             self.crawl_depth: Optional[int] = payload.get("crawlDepth")
-            self.crawl_period: Optional["KnowledgeInstance.str"] = payload.get(
-                "crawlPeriod"
+            self.crawl_period: Optional[str] = payload.get("crawlPeriod")
+            self.errors: Optional[List[KnowledgeList.KnowledgeErrorGroup]] = (
+                [
+                    (
+                        KnowledgeList.KnowledgeErrorGroup(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("errors")
+                ]
+                if payload.get("errors") is not None
+                else None
             )
             self.file_name: Optional[str] = payload.get("fileName")
             self.file_size: Optional[int] = payload.get("fileSize")
@@ -679,6 +747,11 @@ class KnowledgeList(ListResource):
                 "url": self.url,
                 "crawlDepth": self.crawl_depth,
                 "crawlPeriod": self.crawl_period,
+                "errors": (
+                    [errors.to_dict() for errors in self.errors]
+                    if self.errors is not None
+                    else None
+                ),
                 "fileName": self.file_name,
                 "fileSize": self.file_size,
                 "mimeType": self.mime_type,

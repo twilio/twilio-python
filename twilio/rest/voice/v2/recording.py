@@ -33,9 +33,9 @@ class RecordingInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channels: Optional["RecordingInstance.str"] = payload.get("channels")
-            self.trim: Optional["RecordingInstance.str"] = payload.get("trim")
-            self.track: Optional["RecordingInstance.str"] = payload.get("track")
+            self.channels: Optional[str] = payload.get("channels")
+            self.trim: Optional[str] = payload.get("trim")
+            self.track: Optional[str] = payload.get("track")
 
         def to_dict(self):
             return {
@@ -55,21 +55,48 @@ class RecordingInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.configuration_type: Optional["RecordingInstance.str"] = payload.get(
-                "configurationType"
-            )
+            self.configuration_type: Optional[str] = payload.get("configurationType")
             self.composition_policy: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingCompositionPolicy
-            ] = payload.get("compositionPolicy")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingCompositionPolicy(
+                    payload.get("compositionPolicy")
+                )
+                if payload.get("compositionPolicy") is not None
+                else None
+            )
             self.call_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
-            ] = payload.get("callRecordingStatusCallback")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
+                    payload.get("callRecordingStatusCallback")
+                )
+                if payload.get("callRecordingStatusCallback") is not None
+                else None
+            )
             self.conference_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
-            ] = payload.get("conferenceRecordingStatusCallback")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
+                    payload.get("conferenceRecordingStatusCallback")
+                )
+                if payload.get("conferenceRecordingStatusCallback") is not None
+                else None
+            )
             self.features: Optional[
                 List[RecordingList.VoiceV2ConfigurationRecordingFeature]
-            ] = payload.get("features")
+            ] = (
+                [
+                    (
+                        RecordingList.VoiceV2ConfigurationRecordingFeature(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("features")
+                ]
+                if payload.get("features") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -105,7 +132,7 @@ class RecordingInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.type: Optional["RecordingInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.feature_id: Optional[str] = payload.get("featureId")
             self.description: Optional[str] = payload.get("description")
 
@@ -129,7 +156,13 @@ class RecordingInstance(InstanceResource):
             self.description: Optional[str] = payload.get("description")
             self.configuration: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -152,8 +185,8 @@ class RecordingInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.url: Optional[str] = payload.get("url")
-            self.method: Optional["RecordingInstance.str"] = payload.get("method")
-            self.events: Optional[List[Enumstr]] = payload.get("events")
+            self.method: Optional[str] = payload.get("method")
+            self.events: Optional[List[str]] = payload.get("events")
 
         def to_dict(self):
             return {
@@ -382,9 +415,9 @@ class RecordingContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channels: Optional["RecordingInstance.str"] = payload.get("channels")
-            self.trim: Optional["RecordingInstance.str"] = payload.get("trim")
-            self.track: Optional["RecordingInstance.str"] = payload.get("track")
+            self.channels: Optional[str] = payload.get("channels")
+            self.trim: Optional[str] = payload.get("trim")
+            self.track: Optional[str] = payload.get("track")
 
         def to_dict(self):
             return {
@@ -404,21 +437,48 @@ class RecordingContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.configuration_type: Optional["RecordingInstance.str"] = payload.get(
-                "configurationType"
-            )
+            self.configuration_type: Optional[str] = payload.get("configurationType")
             self.composition_policy: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingCompositionPolicy
-            ] = payload.get("compositionPolicy")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingCompositionPolicy(
+                    payload.get("compositionPolicy")
+                )
+                if payload.get("compositionPolicy") is not None
+                else None
+            )
             self.call_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
-            ] = payload.get("callRecordingStatusCallback")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
+                    payload.get("callRecordingStatusCallback")
+                )
+                if payload.get("callRecordingStatusCallback") is not None
+                else None
+            )
             self.conference_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
-            ] = payload.get("conferenceRecordingStatusCallback")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
+                    payload.get("conferenceRecordingStatusCallback")
+                )
+                if payload.get("conferenceRecordingStatusCallback") is not None
+                else None
+            )
             self.features: Optional[
                 List[RecordingList.VoiceV2ConfigurationRecordingFeature]
-            ] = payload.get("features")
+            ] = (
+                [
+                    (
+                        RecordingList.VoiceV2ConfigurationRecordingFeature(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("features")
+                ]
+                if payload.get("features") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -454,7 +514,7 @@ class RecordingContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.type: Optional["RecordingInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.feature_id: Optional[str] = payload.get("featureId")
             self.description: Optional[str] = payload.get("description")
 
@@ -478,7 +538,13 @@ class RecordingContext(InstanceContext):
             self.description: Optional[str] = payload.get("description")
             self.configuration: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -501,8 +567,8 @@ class RecordingContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.url: Optional[str] = payload.get("url")
-            self.method: Optional["RecordingInstance.str"] = payload.get("method")
-            self.events: Optional[List[Enumstr]] = payload.get("events")
+            self.method: Optional[str] = payload.get("method")
+            self.events: Optional[List[str]] = payload.get("events")
 
         def to_dict(self):
             return {
@@ -849,9 +915,9 @@ class RecordingList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channels: Optional["RecordingInstance.str"] = payload.get("channels")
-            self.trim: Optional["RecordingInstance.str"] = payload.get("trim")
-            self.track: Optional["RecordingInstance.str"] = payload.get("track")
+            self.channels: Optional[str] = payload.get("channels")
+            self.trim: Optional[str] = payload.get("trim")
+            self.track: Optional[str] = payload.get("track")
 
         def to_dict(self):
             return {
@@ -871,21 +937,48 @@ class RecordingList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.configuration_type: Optional["RecordingInstance.str"] = payload.get(
-                "configurationType"
-            )
+            self.configuration_type: Optional[str] = payload.get("configurationType")
             self.composition_policy: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingCompositionPolicy
-            ] = payload.get("compositionPolicy")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingCompositionPolicy(
+                    payload.get("compositionPolicy")
+                )
+                if payload.get("compositionPolicy") is not None
+                else None
+            )
             self.call_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
-            ] = payload.get("callRecordingStatusCallback")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
+                    payload.get("callRecordingStatusCallback")
+                )
+                if payload.get("callRecordingStatusCallback") is not None
+                else None
+            )
             self.conference_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
-            ] = payload.get("conferenceRecordingStatusCallback")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
+                    payload.get("conferenceRecordingStatusCallback")
+                )
+                if payload.get("conferenceRecordingStatusCallback") is not None
+                else None
+            )
             self.features: Optional[
                 List[RecordingList.VoiceV2ConfigurationRecordingFeature]
-            ] = payload.get("features")
+            ] = (
+                [
+                    (
+                        RecordingList.VoiceV2ConfigurationRecordingFeature(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("features")
+                ]
+                if payload.get("features") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -921,7 +1014,7 @@ class RecordingList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.type: Optional["RecordingInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.feature_id: Optional[str] = payload.get("featureId")
             self.description: Optional[str] = payload.get("description")
 
@@ -945,7 +1038,13 @@ class RecordingList(ListResource):
             self.description: Optional[str] = payload.get("description")
             self.configuration: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                RecordingList.VoiceV2ConfigurationRecordingConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -968,8 +1067,8 @@ class RecordingList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.url: Optional[str] = payload.get("url")
-            self.method: Optional["RecordingInstance.str"] = payload.get("method")
-            self.events: Optional[List[Enumstr]] = payload.get("events")
+            self.method: Optional[str] = payload.get("method")
+            self.events: Optional[List[str]] = payload.get("events")
 
         def to_dict(self):
             return {

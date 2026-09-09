@@ -169,8 +169,8 @@ class TollfreeVerificationInstance(InstanceResource):
             "business_contact_phone"
         )
         self.notification_email: Optional[str] = payload.get("notification_email")
-        self.use_case_categories: Optional["TollfreeVerificationInstance.str]"] = (
-            payload.get("use_case_categories")
+        self.use_case_categories: Optional[List[str]] = payload.get(
+            "use_case_categories"
         )
         self.use_case_summary: Optional[str] = payload.get("use_case_summary")
         self.production_message_sample: Optional[str] = payload.get(
@@ -224,9 +224,9 @@ class TollfreeVerificationInstance(InstanceResource):
         )
         self.age_gated_content: Optional[bool] = payload.get("age_gated_content")
         self.opt_in_keywords: Optional[List[str]] = payload.get("opt_in_keywords")
-        self.rejection_reasons: Optional[List[Dict[str, object]]] = payload.get(
-            "rejection_reasons"
-        )
+        self.rejection_reasons: Optional[
+            List[Dict[str, Dict[str, Dict[str, Dict[str, object]]]]]
+        ] = payload.get("rejection_reasons")
         self.resource_links: Optional[Dict[str, object]] = payload.get("resource_links")
         self.external_reference_id: Optional[str] = payload.get("external_reference_id")
         self.vetting_id: Optional[str] = payload.get("vetting_id")

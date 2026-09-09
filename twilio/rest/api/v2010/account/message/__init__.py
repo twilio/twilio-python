@@ -751,6 +751,7 @@ class MessageList(ListResource):
         send_at: Union[datetime, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        message_intent: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         fallback_from: Union[str, object] = values.unset,
@@ -786,6 +787,7 @@ class MessageList(ListResource):
                 "SendAt": serialize.iso8601_datetime(send_at),
                 "SendAsMms": serialize.boolean_to_string(send_as_mms),
                 "ContentVariables": content_variables,
+                "MessageIntent": message_intent,
                 "RiskCheck": risk_check,
                 "From": from_,
                 "FallbackFrom": fallback_from,
@@ -829,6 +831,7 @@ class MessageList(ListResource):
         send_at: Union[datetime, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        message_intent: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         fallback_from: Union[str, object] = values.unset,
@@ -858,6 +861,7 @@ class MessageList(ListResource):
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
+        :param message_intent:
         :param risk_check:
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param fallback_from: A fallback SMS sender to use when the recipient cannot be reached over RCS. This parameter may only be used when also providing a [Messaging Service](https://twilio.com/docs/messaging/services) containing an RCS sender. The fallback SMS sender must be either a Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), or [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), hosted within Twilio and belong to the Account creating the Message.
@@ -887,6 +891,7 @@ class MessageList(ListResource):
             send_at=send_at,
             send_as_mms=send_as_mms,
             content_variables=content_variables,
+            message_intent=message_intent,
             risk_check=risk_check,
             from_=from_,
             fallback_from=fallback_from,
@@ -923,6 +928,7 @@ class MessageList(ListResource):
         send_at: Union[datetime, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        message_intent: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         fallback_from: Union[str, object] = values.unset,
@@ -952,6 +958,7 @@ class MessageList(ListResource):
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
+        :param message_intent:
         :param risk_check:
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param fallback_from: A fallback SMS sender to use when the recipient cannot be reached over RCS. This parameter may only be used when also providing a [Messaging Service](https://twilio.com/docs/messaging/services) containing an RCS sender. The fallback SMS sender must be either a Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), or [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), hosted within Twilio and belong to the Account creating the Message.
@@ -981,6 +988,7 @@ class MessageList(ListResource):
             send_at=send_at,
             send_as_mms=send_as_mms,
             content_variables=content_variables,
+            message_intent=message_intent,
             risk_check=risk_check,
             from_=from_,
             fallback_from=fallback_from,
@@ -1018,6 +1026,7 @@ class MessageList(ListResource):
         send_at: Union[datetime, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        message_intent: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         fallback_from: Union[str, object] = values.unset,
@@ -1053,6 +1062,7 @@ class MessageList(ListResource):
                 "SendAt": serialize.iso8601_datetime(send_at),
                 "SendAsMms": serialize.boolean_to_string(send_as_mms),
                 "ContentVariables": content_variables,
+                "MessageIntent": message_intent,
                 "RiskCheck": risk_check,
                 "From": from_,
                 "FallbackFrom": fallback_from,
@@ -1096,6 +1106,7 @@ class MessageList(ListResource):
         send_at: Union[datetime, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        message_intent: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         fallback_from: Union[str, object] = values.unset,
@@ -1125,6 +1136,7 @@ class MessageList(ListResource):
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
+        :param message_intent:
         :param risk_check:
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param fallback_from: A fallback SMS sender to use when the recipient cannot be reached over RCS. This parameter may only be used when also providing a [Messaging Service](https://twilio.com/docs/messaging/services) containing an RCS sender. The fallback SMS sender must be either a Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), or [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), hosted within Twilio and belong to the Account creating the Message.
@@ -1154,6 +1166,7 @@ class MessageList(ListResource):
             send_at=send_at,
             send_as_mms=send_as_mms,
             content_variables=content_variables,
+            message_intent=message_intent,
             risk_check=risk_check,
             from_=from_,
             fallback_from=fallback_from,
@@ -1190,6 +1203,7 @@ class MessageList(ListResource):
         send_at: Union[datetime, object] = values.unset,
         send_as_mms: Union[bool, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        message_intent: Union[str, object] = values.unset,
         risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
         from_: Union[str, object] = values.unset,
         fallback_from: Union[str, object] = values.unset,
@@ -1219,6 +1233,7 @@ class MessageList(ListResource):
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
+        :param message_intent:
         :param risk_check:
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param fallback_from: A fallback SMS sender to use when the recipient cannot be reached over RCS. This parameter may only be used when also providing a [Messaging Service](https://twilio.com/docs/messaging/services) containing an RCS sender. The fallback SMS sender must be either a Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), or [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), hosted within Twilio and belong to the Account creating the Message.
@@ -1248,6 +1263,7 @@ class MessageList(ListResource):
             send_at=send_at,
             send_as_mms=send_as_mms,
             content_variables=content_variables,
+            message_intent=message_intent,
             risk_check=risk_check,
             from_=from_,
             fallback_from=fallback_from,

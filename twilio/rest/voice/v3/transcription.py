@@ -15,37 +15,76 @@ r"""
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
-from twilio.base import values
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+from twilio.base.token_pagination import TokenPagination
 
 
 class TranscriptionInstance(InstanceResource):
     """
-    :ivar operation_id: Unique identifier for the transcription operation.
-    :ivar status: Current status of the transcription operation. PENDING: accepted but not yet started. RUNNING: currently in progress. COMPLETED: successfully completed. FAILED: failed and cannot be completed.
-    :ivar status_url: URL to poll for the latest operation status.
+    :ivar id: Unique identifier for a Transcription. This is also the transcriptionId returned in the LRO 202 response.
+    :ivar account_id: Twilio Account SID
+    :ivar status: The current status of the transcription operation
+    :ivar transcription_configuration_id: Unique identifier for a Transcription configuration.
+    :ivar media_url: The third party media URL
+    :ivar source_id: The source ID (recording ID) - used for tracking only
+    :ivar audio_started_at: The call/recording start time. When the transcription was created using a sourceId, this value is inferred from the recording resource's start time. When created using a mediaUrl, this reflects the value supplied by the caller.
+    :ivar conversation_id: Maestro conversation ID, populated once the transcription has been stored in Maestro.
+    :ivar participants: Array of participants in the conversation
+    :ivar duration: Audio duration in seconds
+    :ivar resolved_configuration:
+    :ivar created_at: When this transcript was created
+    :ivar updated_at: When this transcript was last updated
+    :ivar url: The URL of this resource
+    :ivar links: Absolute URLs of resources related to this Transcription. Includes `conversation`, the Conversations API resource for this Transcription's `conversationId`, once the transcript has been stored. Omitted entirely when there is no related resource to link to.
+    :ivar status_url: URI to poll for operation status. Mirrors the Location response header. Provided as a body field for programmatic access by JSON-parsing clients (RFC 9110 Section 15.3.3).
     :ivar transcription:
+    :ivar operation_id: Unique identifier for the transcription operation.
     """
 
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         transcription_id: Optional[str] = None,
     ):
         super().__init__(version)
 
-        self.operation_id: Optional[str] = payload.get("operationId")
-        self.status: Optional["TranscriptionInstance.str"] = payload.get("status")
-        self.status_url: Optional[str] = payload.get("statusUrl")
-        self.transcription: Optional[VoiceV3TranscriptionTranscription] = payload.get(
-            "transcription"
+        self.id: Optional[str] = payload.get("id")
+        self.account_id: Optional[str] = payload.get("accountId")
+        self.status: Optional[str] = payload.get("status")
+        self.transcription_configuration_id: Optional[str] = payload.get(
+            "transcriptionConfigurationId"
         )
+        self.media_url: Optional[str] = payload.get("mediaUrl")
+        self.source_id: Optional[str] = payload.get("sourceId")
+        self.audio_started_at: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("audioStartedAt")
+        )
+        self.conversation_id: Optional[str] = payload.get("conversationId")
+        self.participants: Optional[List[VoiceV3TranscriptionParticipant]] = (
+            payload.get("participants")
+        )
+        self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self.resolved_configuration: Optional[
+            VoiceV3TranscriptionResolvedConfiguration
+        ] = payload.get("resolvedConfiguration")
+        self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("createdAt")
+        )
+        self.updated_at: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("updatedAt")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.status_url: Optional[str] = payload.get("statusUrl")
+        self.transcription: Optional[str] = payload.get("transcription")
+        self.operation_id: Optional[str] = payload.get("operationId")
 
         # Only set _solution if path params are provided (not None)
         if transcription_id is not None:
@@ -233,6 +272,26 @@ class TranscriptionContext(InstanceContext):
         return "<Twilio.Voice.V3.TranscriptionContext {}>".format(context)
 
 
+class TranscriptionPage(TokenPagination):
+
+    def get_instance(self, payload: Dict[str, Any]) -> TranscriptionInstance:
+        """
+        Build an instance of TranscriptionInstance
+
+        :param payload: Payload response from the API
+        """
+
+        return TranscriptionInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V3.TranscriptionPage>"
+
+
 class TranscriptionList(ListResource):
 
     class CreateV3TranscriptionsRequest(object):
@@ -250,13 +309,22 @@ class TranscriptionList(ListResource):
             self.transcription_configuration_id: Optional[str] = payload.get(
                 "transcriptionConfigurationId"
             )
-            self.input_source: Optional["TranscriptionInstance.str"] = payload.get(
-                "inputSource"
-            )
+            self.input_source: Optional[str] = payload.get("inputSource")
             self.source_id: Optional[str] = payload.get("sourceId")
             self.participants: Optional[
                 List[TranscriptionList.VoiceV3TranscriptionParticipant]
-            ] = payload.get("participants")
+            ] = (
+                [
+                    (
+                        TranscriptionList.VoiceV3TranscriptionParticipant(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("participants")
+                ]
+                if payload.get("participants") is not None
+                else None
+            )
             self.media_url: Optional[str] = payload.get("mediaUrl")
             self.audio_started_at: Optional[datetime] = payload.get("audioStartedAt")
 
@@ -284,7 +352,7 @@ class TranscriptionList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.type: Optional["TranscriptionInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.address: Optional[str] = payload.get("address")
             self.name: Optional[str] = payload.get("name")
             self.audio_channel_index: Optional[int] = payload.get("audioChannelIndex")
@@ -316,13 +384,32 @@ class TranscriptionList(ListResource):
             self.language: Optional[str] = payload.get("language")
             self.transcription_status_callback: Optional[
                 VoiceV3TranscriptionTranscriptionStatusCallback
-            ] = payload.get("transcriptionStatusCallback")
+            ] = (
+                VoiceV3TranscriptionTranscriptionStatusCallback(
+                    payload.get("transcriptionStatusCallback")
+                )
+                if payload.get("transcriptionStatusCallback") is not None
+                else None
+            )
             self.conversation_configuration_id: Optional[str] = payload.get(
                 "conversationConfigurationId"
             )
             self.participant_defaults: Optional[
                 List[VoiceV3TranscriptionResolvedConfigurationParticipantDefaults]
-            ] = payload.get("participantDefaults")
+            ] = (
+                [
+                    (
+                        VoiceV3TranscriptionResolvedConfigurationParticipantDefaults(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("participantDefaults")
+                ]
+                if payload.get("participantDefaults") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -526,6 +613,577 @@ class TranscriptionList(ListResource):
         )
         instance = TranscriptionInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def stream(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> Iterator[TranscriptionInstance]:
+        """
+        Streams TranscriptionInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param datetime created_after: Only include transcriptions created at or after this time (inclusive)
+        :param datetime created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param str language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param str source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param str status: Only include transcriptions in this status
+        :param str page_token: Opaque cursor for retrieving the next or previous page of results
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            created_after=created_after,
+            created_before=created_before,
+            language_code=language_code,
+            source_id=source_id,
+            status=status,
+            page_token=page_token,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> AsyncIterator[TranscriptionInstance]:
+        """
+        Asynchronously streams TranscriptionInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param datetime created_after: Only include transcriptions created at or after this time (inclusive)
+        :param datetime created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param str language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param str source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param str status: Only include transcriptions in this status
+        :param str page_token: Opaque cursor for retrieving the next or previous page of results
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            created_after=created_after,
+            created_before=created_before,
+            language_code=language_code,
+            source_id=source_id,
+            status=status,
+            page_token=page_token,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams TranscriptionInstance and returns headers from first page
+
+
+        :param datetime created_after: Only include transcriptions created at or after this time (inclusive)
+        :param datetime created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param str language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param str source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param str status: Only include transcriptions in this status
+        :param str page_token: Opaque cursor for retrieving the next or previous page of results
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            created_after=created_after,
+            created_before=created_before,
+            language_code=language_code,
+            source_id=source_id,
+            status=status,
+            page_token=page_token,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams TranscriptionInstance and returns headers from first page
+
+
+        :param datetime created_after: Only include transcriptions created at or after this time (inclusive)
+        :param datetime created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param str language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param str source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param str status: Only include transcriptions in this status
+        :param str page_token: Opaque cursor for retrieving the next or previous page of results
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            created_after=created_after,
+            created_before=created_before,
+            language_code=language_code,
+            source_id=source_id,
+            status=status,
+            page_token=page_token,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    def list(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[TranscriptionInstance]:
+        """
+        Lists TranscriptionInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param datetime created_after: Only include transcriptions created at or after this time (inclusive)
+        :param datetime created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param str language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param str source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param str status: Only include transcriptions in this status
+        :param str page_token: Opaque cursor for retrieving the next or previous page of results
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: list that will contain up to limit results
+        """
+
+        return list(
+            self.stream(
+                created_after=created_after,
+                created_before=created_before,
+                language_code=language_code,
+                source_id=source_id,
+                status=status,
+                page_token=page_token,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[TranscriptionInstance]:
+        """
+        Asynchronously lists TranscriptionInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param datetime created_after: Only include transcriptions created at or after this time (inclusive)
+        :param datetime created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param str language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param str source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param str status: Only include transcriptions in this status
+        :param str page_token: Opaque cursor for retrieving the next or previous page of results
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: list that will contain up to limit results
+        """
+
+        return [
+            record
+            async for record in await self.stream_async(
+                created_after=created_after,
+                created_before=created_before,
+                language_code=language_code,
+                source_id=source_id,
+                status=status,
+                page_token=page_token,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
+
+    def list_with_http_info(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists TranscriptionInstance and returns headers from first page
+
+
+        :param datetime created_after: Only include transcriptions created at or after this time (inclusive)
+        :param datetime created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param str language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param str source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param str status: Only include transcriptions in this status
+        :param str page_token: Opaque cursor for retrieving the next or previous page of results
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            created_after=created_after,
+            created_before=created_before,
+            language_code=language_code,
+            source_id=source_id,
+            status=status,
+            page_token=page_token,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists TranscriptionInstance and returns headers from first page
+
+
+        :param datetime created_after: Only include transcriptions created at or after this time (inclusive)
+        :param datetime created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param str language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param str source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param str status: Only include transcriptions in this status
+        :param str page_token: Opaque cursor for retrieving the next or previous page of results
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            created_after=created_after,
+            created_before=created_before,
+            language_code=language_code,
+            source_id=source_id,
+            status=status,
+            page_token=page_token,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    def page(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+    ) -> TranscriptionPage:
+        """
+        Retrieve a single page of TranscriptionInstance records from the API.
+        Request is executed immediately
+
+        :param created_after: Only include transcriptions created at or after this time (inclusive)
+        :param created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param status: Only include transcriptions in this status
+        :param page_size: Number of results per page. This endpoint caps at 100, which is lower than the shared pagination component's ceiling and matches what the service enforces.
+        :param page_token: Opaque cursor for retrieving the next or previous page of results
+        :returns: Page of TranscriptionInstance
+        """
+        data = values.of(
+            {
+                "createdAfter": serialize.iso8601_datetime(created_after),
+                "createdBefore": serialize.iso8601_datetime(created_before),
+                "languageCode": language_code,
+                "sourceId": source_id,
+                "status": status,
+                "pageSize": page_size,
+                "pageToken": page_token,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        return TranscriptionPage(self._version, response, uri=self._uri, params=data)
+
+    async def page_async(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+    ) -> TranscriptionPage:
+        """
+        Asynchronously retrieve a single page of TranscriptionInstance records from the API.
+        Request is executed immediately
+
+        :param created_after: Only include transcriptions created at or after this time (inclusive)
+        :param created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param status: Only include transcriptions in this status
+        :param page_size: Number of results per page. This endpoint caps at 100, which is lower than the shared pagination component's ceiling and matches what the service enforces.
+        :param page_token: Opaque cursor for retrieving the next or previous page of results
+        :returns: Page of TranscriptionInstance
+        """
+        data = values.of(
+            {
+                "createdAfter": serialize.iso8601_datetime(created_after),
+                "createdBefore": serialize.iso8601_datetime(created_before),
+                "languageCode": language_code,
+                "sourceId": source_id,
+                "status": status,
+                "pageSize": page_size,
+                "pageToken": page_token,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        return TranscriptionPage(self._version, response, uri=self._uri, params=data)
+
+    def page_with_http_info(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param created_after: Only include transcriptions created at or after this time (inclusive)
+        :param created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param status: Only include transcriptions in this status
+        :param page_token: Opaque cursor for retrieving the next or previous page of results
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with TranscriptionPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "createdAfter": serialize.iso8601_datetime(created_after),
+                "createdBefore": serialize.iso8601_datetime(created_before),
+                "languageCode": language_code,
+                "sourceId": source_id,
+                "status": status,
+                "pageToken": page_token,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = TranscriptionPage(self._version, response, uri=self._uri)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        source_id: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param created_after: Only include transcriptions created at or after this time (inclusive)
+        :param created_before: Only include transcriptions created strictly before this time (exclusive)
+        :param language_code: Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+        :param source_id: Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+        :param status: Only include transcriptions in this status
+        :param page_token: Opaque cursor for retrieving the next or previous page of results
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with TranscriptionPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "createdAfter": serialize.iso8601_datetime(created_after),
+                "createdBefore": serialize.iso8601_datetime(created_before),
+                "languageCode": language_code,
+                "sourceId": source_id,
+                "status": status,
+                "pageToken": page_token,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = TranscriptionPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    def get_page(self, target_url: str) -> TranscriptionPage:
+        """
+        Retrieve a specific page of TranscriptionInstance records from the API.
+        Request is executed immediately
+
+        :param target_url: API-generated URL for the requested results page
+
+        :returns: Page of TranscriptionInstance
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return TranscriptionPage(self._version, response)
+
+    async def get_page_async(self, target_url: str) -> TranscriptionPage:
+        """
+        Asynchronously retrieve a specific page of TranscriptionInstance records from the API.
+        Request is executed immediately
+
+        :param target_url: API-generated URL for the requested results page
+
+        :returns: Page of TranscriptionInstance
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return TranscriptionPage(self._version, response)
 
     def get(self, transcription_id: str) -> TranscriptionContext:
         """

@@ -47,7 +47,9 @@ class SenderIdRegistrationInstance(InstanceResource):
             self.status_callback_url: Optional[str] = payload.get("statusCallbackUrl")
             self.comments: Optional[str] = payload.get("comments")
             self.theme_set_id: Optional[str] = payload.get("themeSetId")
-            self.data: Optional[Dict[str, object]] = payload.get("data")
+            self.data: Optional[Dict[str, Dict[str, Dict[str, Dict[str, object]]]]] = (
+                payload.get("data")
+            )
 
         def to_dict(self):
             return {
@@ -92,7 +94,7 @@ class SenderIdRegistrationInstance(InstanceResource):
         self.status_callback_url: Optional[str] = payload.get("statusCallbackUrl")
         self.comments: Optional[str] = payload.get("comments")
         self.embedded_session: Optional[str] = payload.get("embeddedSession")
-        self.data: Optional[Dict[str, object]] = payload.get("data")
+        self.data: Optional[Dict[str, Dict[str, object]]] = payload.get("data")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("dateCreated")
         )
@@ -135,7 +137,9 @@ class SenderIdRegistrationList(ListResource):
             self.status_callback_url: Optional[str] = payload.get("statusCallbackUrl")
             self.comments: Optional[str] = payload.get("comments")
             self.theme_set_id: Optional[str] = payload.get("themeSetId")
-            self.data: Optional[Dict[str, object]] = payload.get("data")
+            self.data: Optional[Dict[str, Dict[str, Dict[str, Dict[str, object]]]]] = (
+                payload.get("data")
+            )
 
         def to_dict(self):
             return {

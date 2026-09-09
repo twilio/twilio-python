@@ -103,7 +103,9 @@ class UsAppToPersonInstance(InstanceResource):
         )
         self.url: Optional[str] = payload.get("url")
         self.mock: Optional[bool] = payload.get("mock")
-        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
+        self.errors: Optional[
+            List[Dict[str, Dict[str, Dict[str, Dict[str, object]]]]]
+        ] = payload.get("errors")
         self.privacy_policy_url: Optional[str] = payload.get("privacy_policy_url")
         self.terms_and_conditions_url: Optional[str] = payload.get(
             "terms_and_conditions_url"

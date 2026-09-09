@@ -58,7 +58,9 @@ class BulkList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.traits: Optional[Dict[str, Dict[str, object]]] = payload.get("traits")
+            self.traits: Optional[Dict[str, Dict[str, Dict[str, object]]]] = (
+                payload.get("traits")
+            )
 
         def to_dict(self):
             return {
@@ -72,8 +74,13 @@ class BulkList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.profiles: Optional[List[BulkList.ProfileData]] = payload.get(
-                "profiles"
+            self.profiles: Optional[List[BulkList.ProfileData]] = (
+                [
+                    BulkList.ProfileData(item) if isinstance(item, dict) else item
+                    for item in payload.get("profiles")
+                ]
+                if payload.get("profiles") is not None
+                else None
             )
 
         def to_dict(self):

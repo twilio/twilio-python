@@ -71,8 +71,8 @@ class OperatorResultInstance(InstanceResource):
             payload.get("match_probability")
         )
         self.normalized_result: Optional[str] = payload.get("normalized_result")
-        self.utterance_results: Optional[List[Dict[str, object]]] = payload.get(
-            "utterance_results"
+        self.utterance_results: Optional[List[Dict[str, Dict[str, object]]]] = (
+            payload.get("utterance_results")
         )
         self.utterance_match: Optional[bool] = payload.get("utterance_match")
         self.predicted_label: Optional[str] = payload.get("predicted_label")

@@ -33,11 +33,13 @@ class CommunicationInstance(InstanceResource):
         RCS = "RCS"
         WHATSAPP = "WHATSAPP"
         CHAT = "CHAT"
+        VIDEO = "VIDEO"
 
     class ConversationsV2RecipientDeliveryStatus(object):
         INITIATED = "INITIATED"
         IN_PROGRESS = "IN_PROGRESS"
         DELIVERED = "DELIVERED"
+        READ = "READ"
         COMPLETED = "COMPLETED"
         FAILED = "FAILED"
 
@@ -337,7 +339,18 @@ class CommunicationList(ListResource):
             self.engine: Optional[str] = payload.get("engine")
             self.words: Optional[
                 List[ConversationsV2ContentTranscriptionTranscriptionWords]
-            ] = payload.get("words")
+            ] = (
+                [
+                    (
+                        ConversationsV2ContentTranscriptionTranscriptionWords(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("words")
+                ]
+                if payload.get("words") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -384,16 +397,41 @@ class CommunicationList(ListResource):
 
             self.author: Optional[
                 CommunicationList.CreateCommunicationInConversationRequestAuthor
-            ] = payload.get("author")
+            ] = (
+                CommunicationList.CreateCommunicationInConversationRequestAuthor(
+                    payload.get("author")
+                )
+                if payload.get("author") is not None
+                else None
+            )
             self.content: Optional[
                 CommunicationList.CreateCommunicationInConversationRequestContent
-            ] = payload.get("content")
+            ] = (
+                CommunicationList.CreateCommunicationInConversationRequestContent(
+                    payload.get("content")
+                )
+                if payload.get("content") is not None
+                else None
+            )
             self.channel_id: Optional[str] = payload.get("channelId")
             self.recipients: Optional[
                 List[
                     CommunicationList.CreateCommunicationInConversationRequestRecipients
                 ]
-            ] = payload.get("recipients")
+            ] = (
+                [
+                    (
+                        CommunicationList.CreateCommunicationInConversationRequestRecipients(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("recipients")
+                ]
+                if payload.get("recipients") is not None
+                else None
+            )
             self.occurred_at: Optional[datetime] = payload.get("occurredAt")
 
         def to_dict(self):
@@ -419,7 +457,7 @@ class CommunicationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.address: Optional[str] = payload.get("address")
-            self.channel: Optional["CommunicationInstance.str"] = payload.get("channel")
+            self.channel: Optional[str] = payload.get("channel")
             self.participant_id: Optional[str] = payload.get("participantId")
 
         def to_dict(self):
@@ -438,11 +476,17 @@ class CommunicationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.type: Optional["CommunicationInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.text: Optional[str] = payload.get("text")
             self.transcription: Optional[
                 CommunicationList.ContentTranscriptionTranscription
-            ] = payload.get("transcription")
+            ] = (
+                CommunicationList.ContentTranscriptionTranscription(
+                    payload.get("transcription")
+                )
+                if payload.get("transcription") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -465,7 +509,7 @@ class CommunicationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.address: Optional[str] = payload.get("address")
-            self.channel: Optional["CommunicationInstance.str"] = payload.get("channel")
+            self.channel: Optional[str] = payload.get("channel")
             self.participant_id: Optional[str] = payload.get("participantId")
 
         def to_dict(self):

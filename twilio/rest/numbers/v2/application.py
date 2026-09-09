@@ -39,10 +39,22 @@ class ApplicationInstance(InstanceResource):
             self.iso_country: Optional[str] = payload.get("iso_country")
             self.business_information: Optional[
                 ApplicationList.CreateShortCodeApplicationRequestBusinessInformation
-            ] = payload.get("business_information")
+            ] = (
+                ApplicationList.CreateShortCodeApplicationRequestBusinessInformation(
+                    payload.get("business_information")
+                )
+                if payload.get("business_information") is not None
+                else None
+            )
             self.setup: Optional[
                 ApplicationList.CreateShortCodeApplicationRequestSetup
-            ] = payload.get("setup")
+            ] = (
+                ApplicationList.CreateShortCodeApplicationRequestSetup(
+                    payload.get("setup")
+                )
+                if payload.get("setup") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -131,7 +143,7 @@ class ApplicationInstance(InstanceResource):
             "notification_emails"
         )
         self.iso_country: Optional[str] = payload.get("iso_country")
-        self.state: Optional["ApplicationInstance.str"] = payload.get("state")
+        self.state: Optional[str] = payload.get("state")
         self.setup: Optional[str] = payload.get("setup")
         self.business_information: Optional[str] = payload.get("business_information")
         self.user_sign_up: Optional[str] = payload.get("user_sign_up")
@@ -230,10 +242,22 @@ class ApplicationContext(InstanceContext):
             self.iso_country: Optional[str] = payload.get("iso_country")
             self.business_information: Optional[
                 ApplicationList.CreateShortCodeApplicationRequestBusinessInformation
-            ] = payload.get("business_information")
+            ] = (
+                ApplicationList.CreateShortCodeApplicationRequestBusinessInformation(
+                    payload.get("business_information")
+                )
+                if payload.get("business_information") is not None
+                else None
+            )
             self.setup: Optional[
                 ApplicationList.CreateShortCodeApplicationRequestSetup
-            ] = payload.get("setup")
+            ] = (
+                ApplicationList.CreateShortCodeApplicationRequestSetup(
+                    payload.get("setup")
+                )
+                if payload.get("setup") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -428,10 +452,22 @@ class ApplicationList(ListResource):
             self.iso_country: Optional[str] = payload.get("iso_country")
             self.business_information: Optional[
                 ApplicationList.CreateShortCodeApplicationRequestBusinessInformation
-            ] = payload.get("business_information")
+            ] = (
+                ApplicationList.CreateShortCodeApplicationRequestBusinessInformation(
+                    payload.get("business_information")
+                )
+                if payload.get("business_information") is not None
+                else None
+            )
             self.setup: Optional[
                 ApplicationList.CreateShortCodeApplicationRequestSetup
-            ] = payload.get("setup")
+            ] = (
+                ApplicationList.CreateShortCodeApplicationRequestSetup(
+                    payload.get("setup")
+                )
+                if payload.get("setup") is not None
+                else None
+            )
 
         def to_dict(self):
             return {

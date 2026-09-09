@@ -38,7 +38,20 @@ class InstalledAddOnUsageInstance(InstanceResource):
                 List[
                     InstalledAddOnUsageList.MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
                 ]
-            ] = payload.get("billable_items")
+            ] = (
+                [
+                    (
+                        InstalledAddOnUsageList.MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("billable_items")
+                ]
+                if payload.get("billable_items") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -83,9 +96,11 @@ class InstalledAddOnUsageInstance(InstanceResource):
         self.total_submitted: Optional[float] = deserialize.decimal(
             payload.get("total_submitted")
         )
-        self.billable_items: Optional[List[InstalledAddOnUsageList.str]] = payload.get(
-            "billable_items"
-        )
+        self.billable_items: Optional[
+            List[
+                InstalledAddOnUsageList.MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+            ]
+        ] = payload.get("billable_items")
 
         self._solution = {
             "installed_add_on_sid": installed_add_on_sid,
@@ -118,7 +133,20 @@ class InstalledAddOnUsageList(ListResource):
                 List[
                     InstalledAddOnUsageList.MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
                 ]
-            ] = payload.get("billable_items")
+            ] = (
+                [
+                    (
+                        InstalledAddOnUsageList.MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("billable_items")
+                ]
+                if payload.get("billable_items") is not None
+                else None
+            )
 
         def to_dict(self):
             return {

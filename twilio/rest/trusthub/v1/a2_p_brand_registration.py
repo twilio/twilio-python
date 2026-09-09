@@ -57,9 +57,7 @@ class A2PBrandRegistrationInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.brand_type: Optional["A2PBrandRegistrationInstance.str"] = payload.get(
-                "brandType"
-            )
+            self.brand_type: Optional[str] = payload.get("brandType")
             self.theme_set_id: Optional[str] = payload.get("themeSetId")
             self.friendly_name: Optional[str] = payload.get("friendlyName")
             self.notification_email: Optional[str] = payload.get("notificationEmail")
@@ -211,9 +209,7 @@ class A2PBrandRegistrationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.brand_type: Optional["A2PBrandRegistrationInstance.str"] = payload.get(
-                "brandType"
-            )
+            self.brand_type: Optional[str] = payload.get("brandType")
             self.theme_set_id: Optional[str] = payload.get("themeSetId")
             self.friendly_name: Optional[str] = payload.get("friendlyName")
             self.notification_email: Optional[str] = payload.get("notificationEmail")

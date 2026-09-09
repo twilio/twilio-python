@@ -36,16 +36,12 @@ class ChannelsSenderInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.waba_id: Optional[str] = payload.get("waba_id")
-            self.verification_method: Optional["ChannelsSenderInstance.str"] = (
-                payload.get("verification_method")
-            )
+            self.verification_method: Optional[str] = payload.get("verification_method")
             self.verification_code: Optional[str] = payload.get("verification_code")
             self.voice_application_sid: Optional[str] = payload.get(
                 "voice_application_sid"
             )
-            self.account_type: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "account_type"
-            )
+            self.account_type: Optional[str] = payload.get("account_type")
 
         def to_dict(self):
             return {
@@ -87,9 +83,7 @@ class ChannelsSenderInstance(InstanceResource):
                 "terms_of_service_url"
             )
             self.accent_color: Optional[str] = payload.get("accent_color")
-            self.use_case: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "use_case"
-            )
+            self.use_case: Optional[str] = payload.get("use_case")
             self.vertical: Optional[str] = payload.get("vertical")
             self.websites: Optional[Dict[str, object]] = payload.get("websites")
             self.emails: Optional[Dict[str, object]] = payload.get("emails")
@@ -181,13 +175,31 @@ class ChannelsSenderInstance(InstanceResource):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
-            ] = payload.get("webhook")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
+                    payload.get("webhook")
+                )
+                if payload.get("webhook") is not None
+                else None
+            )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
-            ] = payload.get("profile")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderProfile(
+                    payload.get("profile")
+                )
+                if payload.get("profile") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -215,13 +227,31 @@ class ChannelsSenderInstance(InstanceResource):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
-            ] = payload.get("webhook")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
+                    payload.get("webhook")
+                )
+                if payload.get("webhook") is not None
+                else None
+            )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
-            ] = payload.get("profile")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderProfile(
+                    payload.get("profile")
+                )
+                if payload.get("profile") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -248,13 +278,9 @@ class ChannelsSenderInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.callback_url: Optional[str] = payload.get("callback_url")
-            self.callback_method: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "callback_method"
-            )
+            self.callback_method: Optional[str] = payload.get("callback_method")
             self.fallback_url: Optional[str] = payload.get("fallback_url")
-            self.fallback_method: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "fallback_method"
-            )
+            self.fallback_method: Optional[str] = payload.get("fallback_method")
             self.status_callback_url: Optional[str] = payload.get("status_callback_url")
             self.status_callback_method: Optional[str] = payload.get(
                 "status_callback_method"
@@ -279,7 +305,11 @@ class ChannelsSenderInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
-            self.status: Optional[MessagingV2RcsCarrierStatus] = payload.get("status")
+            self.status: Optional[MessagingV2RcsCarrierStatus] = (
+                MessagingV2RcsCarrierStatus(payload.get("status"))
+                if payload.get("status") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -299,9 +329,18 @@ class ChannelsSenderInstance(InstanceResource):
 
             self.country: Optional[str] = payload.get("country")
             self.registration_sid: Optional[str] = payload.get("registration_sid")
-            self.status: Optional[MessagingV2RcsCountryStatus] = payload.get("status")
-            self.carriers: Optional[List[MessagingV2RcsCarrier]] = payload.get(
-                "carriers"
+            self.status: Optional[MessagingV2RcsCountryStatus] = (
+                MessagingV2RcsCountryStatus(payload.get("status"))
+                if payload.get("status") is not None
+                else None
+            )
+            self.carriers: Optional[List[MessagingV2RcsCarrier]] = (
+                [
+                    MessagingV2RcsCarrier(item) if isinstance(item, dict) else item
+                    for item in payload.get("carriers")
+                ]
+                if payload.get("carriers") is not None
+                else None
             )
 
         def to_dict(self):
@@ -557,16 +596,12 @@ class ChannelsSenderContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.waba_id: Optional[str] = payload.get("waba_id")
-            self.verification_method: Optional["ChannelsSenderInstance.str"] = (
-                payload.get("verification_method")
-            )
+            self.verification_method: Optional[str] = payload.get("verification_method")
             self.verification_code: Optional[str] = payload.get("verification_code")
             self.voice_application_sid: Optional[str] = payload.get(
                 "voice_application_sid"
             )
-            self.account_type: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "account_type"
-            )
+            self.account_type: Optional[str] = payload.get("account_type")
 
         def to_dict(self):
             return {
@@ -608,9 +643,7 @@ class ChannelsSenderContext(InstanceContext):
                 "terms_of_service_url"
             )
             self.accent_color: Optional[str] = payload.get("accent_color")
-            self.use_case: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "use_case"
-            )
+            self.use_case: Optional[str] = payload.get("use_case")
             self.vertical: Optional[str] = payload.get("vertical")
             self.websites: Optional[Dict[str, object]] = payload.get("websites")
             self.emails: Optional[Dict[str, object]] = payload.get("emails")
@@ -702,13 +735,31 @@ class ChannelsSenderContext(InstanceContext):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
-            ] = payload.get("webhook")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
+                    payload.get("webhook")
+                )
+                if payload.get("webhook") is not None
+                else None
+            )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
-            ] = payload.get("profile")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderProfile(
+                    payload.get("profile")
+                )
+                if payload.get("profile") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -736,13 +787,31 @@ class ChannelsSenderContext(InstanceContext):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
-            ] = payload.get("webhook")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
+                    payload.get("webhook")
+                )
+                if payload.get("webhook") is not None
+                else None
+            )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
-            ] = payload.get("profile")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderProfile(
+                    payload.get("profile")
+                )
+                if payload.get("profile") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -769,13 +838,9 @@ class ChannelsSenderContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.callback_url: Optional[str] = payload.get("callback_url")
-            self.callback_method: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "callback_method"
-            )
+            self.callback_method: Optional[str] = payload.get("callback_method")
             self.fallback_url: Optional[str] = payload.get("fallback_url")
-            self.fallback_method: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "fallback_method"
-            )
+            self.fallback_method: Optional[str] = payload.get("fallback_method")
             self.status_callback_url: Optional[str] = payload.get("status_callback_url")
             self.status_callback_method: Optional[str] = payload.get(
                 "status_callback_method"
@@ -800,7 +865,11 @@ class ChannelsSenderContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
-            self.status: Optional[MessagingV2RcsCarrierStatus] = payload.get("status")
+            self.status: Optional[MessagingV2RcsCarrierStatus] = (
+                MessagingV2RcsCarrierStatus(payload.get("status"))
+                if payload.get("status") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -820,9 +889,18 @@ class ChannelsSenderContext(InstanceContext):
 
             self.country: Optional[str] = payload.get("country")
             self.registration_sid: Optional[str] = payload.get("registration_sid")
-            self.status: Optional[MessagingV2RcsCountryStatus] = payload.get("status")
-            self.carriers: Optional[List[MessagingV2RcsCarrier]] = payload.get(
-                "carriers"
+            self.status: Optional[MessagingV2RcsCountryStatus] = (
+                MessagingV2RcsCountryStatus(payload.get("status"))
+                if payload.get("status") is not None
+                else None
+            )
+            self.carriers: Optional[List[MessagingV2RcsCarrier]] = (
+                [
+                    MessagingV2RcsCarrier(item) if isinstance(item, dict) else item
+                    for item in payload.get("carriers")
+                ]
+                if payload.get("carriers") is not None
+                else None
             )
 
         def to_dict(self):
@@ -1180,16 +1258,12 @@ class ChannelsSenderList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.waba_id: Optional[str] = payload.get("waba_id")
-            self.verification_method: Optional["ChannelsSenderInstance.str"] = (
-                payload.get("verification_method")
-            )
+            self.verification_method: Optional[str] = payload.get("verification_method")
             self.verification_code: Optional[str] = payload.get("verification_code")
             self.voice_application_sid: Optional[str] = payload.get(
                 "voice_application_sid"
             )
-            self.account_type: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "account_type"
-            )
+            self.account_type: Optional[str] = payload.get("account_type")
 
         def to_dict(self):
             return {
@@ -1231,9 +1305,7 @@ class ChannelsSenderList(ListResource):
                 "terms_of_service_url"
             )
             self.accent_color: Optional[str] = payload.get("accent_color")
-            self.use_case: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "use_case"
-            )
+            self.use_case: Optional[str] = payload.get("use_case")
             self.vertical: Optional[str] = payload.get("vertical")
             self.websites: Optional[Dict[str, object]] = payload.get("websites")
             self.emails: Optional[Dict[str, object]] = payload.get("emails")
@@ -1325,13 +1397,31 @@ class ChannelsSenderList(ListResource):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
-            ] = payload.get("webhook")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
+                    payload.get("webhook")
+                )
+                if payload.get("webhook") is not None
+                else None
+            )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
-            ] = payload.get("profile")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderProfile(
+                    payload.get("profile")
+                )
+                if payload.get("profile") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1359,13 +1449,31 @@ class ChannelsSenderList(ListResource):
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.configuration: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
-            ] = payload.get("webhook")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
+                    payload.get("webhook")
+                )
+                if payload.get("webhook") is not None
+                else None
+            )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
-            ] = payload.get("profile")
+            ] = (
+                ChannelsSenderList.MessagingV2ChannelsSenderProfile(
+                    payload.get("profile")
+                )
+                if payload.get("profile") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1392,13 +1500,9 @@ class ChannelsSenderList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.callback_url: Optional[str] = payload.get("callback_url")
-            self.callback_method: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "callback_method"
-            )
+            self.callback_method: Optional[str] = payload.get("callback_method")
             self.fallback_url: Optional[str] = payload.get("fallback_url")
-            self.fallback_method: Optional["ChannelsSenderInstance.str"] = payload.get(
-                "fallback_method"
-            )
+            self.fallback_method: Optional[str] = payload.get("fallback_method")
             self.status_callback_url: Optional[str] = payload.get("status_callback_url")
             self.status_callback_method: Optional[str] = payload.get(
                 "status_callback_method"
@@ -1423,7 +1527,11 @@ class ChannelsSenderList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
-            self.status: Optional[MessagingV2RcsCarrierStatus] = payload.get("status")
+            self.status: Optional[MessagingV2RcsCarrierStatus] = (
+                MessagingV2RcsCarrierStatus(payload.get("status"))
+                if payload.get("status") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1443,9 +1551,18 @@ class ChannelsSenderList(ListResource):
 
             self.country: Optional[str] = payload.get("country")
             self.registration_sid: Optional[str] = payload.get("registration_sid")
-            self.status: Optional[MessagingV2RcsCountryStatus] = payload.get("status")
-            self.carriers: Optional[List[MessagingV2RcsCarrier]] = payload.get(
-                "carriers"
+            self.status: Optional[MessagingV2RcsCountryStatus] = (
+                MessagingV2RcsCountryStatus(payload.get("status"))
+                if payload.get("status") is not None
+                else None
+            )
+            self.carriers: Optional[List[MessagingV2RcsCarrier]] = (
+                [
+                    MessagingV2RcsCarrier(item) if isinstance(item, dict) else item
+                    for item in payload.get("carriers")
+                ]
+                if payload.get("carriers") is not None
+                else None
             )
 
         def to_dict(self):

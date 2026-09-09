@@ -28,8 +28,9 @@ from twilio.base.token_pagination import TokenPagination
 class DataMappingInstance(InstanceResource):
 
     class DataMappingType(object):
-        CSV = "CSV"
-        DATASET = "DATASET"
+        INGRESS = "INGRESS"
+        DATASET_CLOUDAPP = "DATASET_CLOUDAPP"
+        DATASET_WAREHOUSE = "DATASET_WAREHOUSE"
 
     """
     :ivar message: 
@@ -48,7 +49,7 @@ class DataMappingInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         store_id: str,
         data_mapping_id: Optional[str] = None,
     ):
@@ -601,10 +602,14 @@ class DataMappingList(ListResource):
             self.description: Optional[str] = payload.get("description")
             self.is_enabled: Optional[bool] = payload.get("isEnabled")
             self.mapping_to: Optional[DataMappingList.DataMappingToTraits] = (
-                payload.get("mappingTo")
+                DataMappingList.DataMappingToTraits(payload.get("mappingTo"))
+                if payload.get("mappingTo") is not None
+                else None
             )
             self.mapping_from: Optional[DataMappingList.DataMappingFromTypes] = (
-                payload.get("mappingFrom")
+                DataMappingList.DataMappingFromTypes(payload.get("mappingFrom"))
+                if payload.get("mappingFrom") is not None
+                else None
             )
 
         def to_dict(self):
@@ -636,7 +641,9 @@ class DataMappingList(ListResource):
             self.description: Optional[str] = payload.get("description")
             self.is_enabled: Optional[bool] = payload.get("isEnabled")
             self.mapping_to: Optional[DataMappingList.DataMappingToTraits] = (
-                payload.get("mappingTo")
+                DataMappingList.DataMappingToTraits(payload.get("mappingTo"))
+                if payload.get("mappingTo") is not None
+                else None
             )
 
         def to_dict(self):
@@ -652,13 +659,13 @@ class DataMappingList(ListResource):
     class DataMappingFromTypes(object):
         """
         :ivar type: The source data type, which determines the source of the data and the required configuration parameters.
-        :ivar columns: The list of CSV column names that serve as the source fields.
+        :ivar columns: The list of ingress column names that serve as the source fields.
         :ivar dataset_id: The unique identifier of the TDI dataset to connect.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.type: Optional["DataMappingInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.columns: Optional[List[str]] = payload.get("columns")
             self.dataset_id: Optional[str] = payload.get("datasetId")
 
@@ -677,9 +684,18 @@ class DataMappingList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.type: Optional["DataMappingInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.mappings: Optional[List[DataMappingList.MappingTraitItem]] = (
-                payload.get("mappings")
+                [
+                    (
+                        DataMappingList.MappingTraitItem(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("mappings")
+                ]
+                if payload.get("mappings") is not None
+                else None
             )
 
         def to_dict(self):

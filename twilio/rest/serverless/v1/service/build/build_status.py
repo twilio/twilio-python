@@ -46,7 +46,7 @@ class BuildStatusInstance(InstanceResource):
     :ivar url: The absolute URL of the Build Status resource.
     """
 
-    def __init__(self, version: Version, payload:Dict[str, Any], service_sid: str, sid: str):
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, sid: str):
         super().__init__(version)
 
         

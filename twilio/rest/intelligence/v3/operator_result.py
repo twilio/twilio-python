@@ -48,7 +48,7 @@ class OperatorResultInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         operator_result_id: Optional[str] = None,
     ):
         super().__init__(version)

@@ -43,7 +43,9 @@ class BulkEligibilityInstance(InstanceResource):
 
         self.request_id: Optional[str] = payload.get("request_id")
         self.url: Optional[str] = payload.get("url")
-        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
+        self.results: Optional[List[Dict[str, Dict[str, object]]]] = payload.get(
+            "results"
+        )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.status: Optional[str] = payload.get("status")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
