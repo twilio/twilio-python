@@ -40,7 +40,7 @@ class ObservationInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         store_id: str,
         profile_id: str,
         observation_id: Optional[str] = None,
@@ -552,7 +552,18 @@ class ObservationList(ListResource):
 
             self.observations: Optional[
                 List[ObservationList.ObservationCreateRequest]
-            ] = payload.get("observations")
+            ] = (
+                [
+                    (
+                        ObservationList.ObservationCreateRequest(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("observations")
+                ]
+                if payload.get("observations") is not None
+                else None
+            )
 
         def to_dict(self):
             return {

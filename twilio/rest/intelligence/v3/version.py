@@ -64,7 +64,7 @@ class VersionInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         id: str,
         resource_version: Optional[int] = None,
     ):
@@ -91,8 +91,8 @@ class VersionInstance(InstanceResource):
         self.description: Optional[str] = payload.get("description")
         self.author: Optional["VersionInstance.OperatorAuthor"] = payload.get("author")
         self.prompt: Optional[str] = payload.get("prompt")
-        self.output_format: Optional["VersionInstance.str"] = payload.get(
-            "outputFormat"
+        self.output_format: Optional["VersionInstance.OperatorOutputFormat"] = (
+            payload.get("outputFormat")
         )
         self.output_schema: Optional[Dict[str, object]] = payload.get("outputSchema")
         self.training_examples: Optional[List[str]] = payload.get("trainingExamples")

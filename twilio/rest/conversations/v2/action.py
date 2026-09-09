@@ -37,6 +37,7 @@ class ActionInstance(InstanceResource):
         RCS = "RCS"
         WHATSAPP = "WHATSAPP"
         CHAT = "CHAT"
+        VIDEO = "VIDEO"
 
     """
     :ivar id: Unique identifier for this Action.
@@ -60,7 +61,9 @@ class ActionInstance(InstanceResource):
 
         self.id: Optional[str] = payload.get("id")
         self.type: Optional[str] = payload.get("type")
-        self.status: Optional["ActionInstance.str"] = payload.get("status")
+        self.status: Optional["ActionInstance.ConversationsV2ActionStatus"] = (
+            payload.get("status")
+        )
         self.conversation_id: Optional[str] = payload.get("conversationId")
         self.related: Optional[Dict[str, str]] = payload.get("related")
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
@@ -327,15 +330,30 @@ class ActionList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self._from: Optional[ActionList.ConversationsV2SendMessageParticipant] = (
-                payload.get("from")
+                ActionList.ConversationsV2SendMessageParticipant(payload.get("from"))
+                if payload.get("from") is not None
+                else None
             )
             self.to: Optional[
                 List[ActionList.ConversationsV2SendMessageParticipant]
-            ] = payload.get("to")
-            self.content: Optional[ActionList.ConversationsV2SendMessageContent] = (
-                payload.get("content")
+            ] = (
+                [
+                    (
+                        ActionList.ConversationsV2SendMessageParticipant(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("to")
+                ]
+                if payload.get("to") is not None
+                else None
             )
-            self.channel_settings: Optional[Dict[str, object]] = payload.get(
+            self.content: Optional[ActionList.ConversationsV2SendMessageContent] = (
+                ActionList.ConversationsV2SendMessageContent(payload.get("content"))
+                if payload.get("content") is not None
+                else None
+            )
+            self.channel_settings: Optional[Dict[str, Dict[str, object]]] = payload.get(
                 "channelSettings"
             )
 
@@ -357,7 +375,9 @@ class ActionList(ListResource):
 
             self.type: Optional[str] = payload.get("type")
             self.payload: Optional[ActionList.ConversationsV2SendMessagePayload] = (
-                payload.get("payload")
+                ActionList.ConversationsV2SendMessagePayload(payload.get("payload"))
+                if payload.get("payload") is not None
+                else None
             )
 
         def to_dict(self):

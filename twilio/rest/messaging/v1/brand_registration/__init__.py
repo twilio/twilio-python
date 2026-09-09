@@ -100,7 +100,9 @@ class BrandRegistrationInstance(InstanceResource):
         )
         self.tcr_id: Optional[str] = payload.get("tcr_id")
         self.failure_reason: Optional[str] = payload.get("failure_reason")
-        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
+        self.errors: Optional[
+            List[Dict[str, Dict[str, Dict[str, Dict[str, object]]]]]
+        ] = payload.get("errors")
         self.url: Optional[str] = payload.get("url")
         self.brand_score: Optional[int] = deserialize.integer(
             payload.get("brand_score")

@@ -37,9 +37,7 @@ class TranscriptionInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.configuration_type: Optional["TranscriptionInstance.str"] = (
-                payload.get("configurationType")
-            )
+            self.configuration_type: Optional[str] = payload.get("configurationType")
             self.transcription_engine: Optional[str] = payload.get(
                 "transcriptionEngine"
             )
@@ -47,7 +45,13 @@ class TranscriptionInstance(InstanceResource):
             self.language: Optional[str] = payload.get("language")
             self.transcription_status_callback: Optional[
                 TranscriptionList.VoiceV2ConfigurationTranscriptionStatusCallback
-            ] = payload.get("transcriptionStatusCallback")
+            ] = (
+                TranscriptionList.VoiceV2ConfigurationTranscriptionStatusCallback(
+                    payload.get("transcriptionStatusCallback")
+                )
+                if payload.get("transcriptionStatusCallback") is not None
+                else None
+            )
             self.conversation_configuration_id: Optional[str] = payload.get(
                 "conversationConfigurationId"
             )
@@ -55,7 +59,20 @@ class TranscriptionInstance(InstanceResource):
                 List[
                     TranscriptionList.VoiceV2ConfigurationTranscriptionParticipantDefault
                 ]
-            ] = payload.get("participantDefaults")
+            ] = (
+                [
+                    (
+                        TranscriptionList.VoiceV2ConfigurationTranscriptionParticipantDefault(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("participantDefaults")
+                ]
+                if payload.get("participantDefaults") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -88,7 +105,7 @@ class TranscriptionInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.audio_channel_index: Optional[int] = payload.get("audioChannelIndex")
-            self.type: Optional["TranscriptionInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
             return {
@@ -109,7 +126,13 @@ class TranscriptionInstance(InstanceResource):
             self.description: Optional[str] = payload.get("description")
             self.configuration: Optional[
                 TranscriptionList.VoiceV2ConfigurationTranscriptionConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                TranscriptionList.VoiceV2ConfigurationTranscriptionConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -131,7 +154,7 @@ class TranscriptionInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.url: Optional[str] = payload.get("url")
-            self.method: Optional["TranscriptionInstance.str"] = payload.get("method")
+            self.method: Optional[str] = payload.get("method")
 
         def to_dict(self):
             return {
@@ -363,9 +386,7 @@ class TranscriptionContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.configuration_type: Optional["TranscriptionInstance.str"] = (
-                payload.get("configurationType")
-            )
+            self.configuration_type: Optional[str] = payload.get("configurationType")
             self.transcription_engine: Optional[str] = payload.get(
                 "transcriptionEngine"
             )
@@ -373,7 +394,13 @@ class TranscriptionContext(InstanceContext):
             self.language: Optional[str] = payload.get("language")
             self.transcription_status_callback: Optional[
                 TranscriptionList.VoiceV2ConfigurationTranscriptionStatusCallback
-            ] = payload.get("transcriptionStatusCallback")
+            ] = (
+                TranscriptionList.VoiceV2ConfigurationTranscriptionStatusCallback(
+                    payload.get("transcriptionStatusCallback")
+                )
+                if payload.get("transcriptionStatusCallback") is not None
+                else None
+            )
             self.conversation_configuration_id: Optional[str] = payload.get(
                 "conversationConfigurationId"
             )
@@ -381,7 +408,20 @@ class TranscriptionContext(InstanceContext):
                 List[
                     TranscriptionList.VoiceV2ConfigurationTranscriptionParticipantDefault
                 ]
-            ] = payload.get("participantDefaults")
+            ] = (
+                [
+                    (
+                        TranscriptionList.VoiceV2ConfigurationTranscriptionParticipantDefault(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("participantDefaults")
+                ]
+                if payload.get("participantDefaults") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -414,7 +454,7 @@ class TranscriptionContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.audio_channel_index: Optional[int] = payload.get("audioChannelIndex")
-            self.type: Optional["TranscriptionInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
             return {
@@ -435,7 +475,13 @@ class TranscriptionContext(InstanceContext):
             self.description: Optional[str] = payload.get("description")
             self.configuration: Optional[
                 TranscriptionList.VoiceV2ConfigurationTranscriptionConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                TranscriptionList.VoiceV2ConfigurationTranscriptionConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -457,7 +503,7 @@ class TranscriptionContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.url: Optional[str] = payload.get("url")
-            self.method: Optional["TranscriptionInstance.str"] = payload.get("method")
+            self.method: Optional[str] = payload.get("method")
 
         def to_dict(self):
             return {
@@ -807,9 +853,7 @@ class TranscriptionList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.configuration_type: Optional["TranscriptionInstance.str"] = (
-                payload.get("configurationType")
-            )
+            self.configuration_type: Optional[str] = payload.get("configurationType")
             self.transcription_engine: Optional[str] = payload.get(
                 "transcriptionEngine"
             )
@@ -817,7 +861,13 @@ class TranscriptionList(ListResource):
             self.language: Optional[str] = payload.get("language")
             self.transcription_status_callback: Optional[
                 TranscriptionList.VoiceV2ConfigurationTranscriptionStatusCallback
-            ] = payload.get("transcriptionStatusCallback")
+            ] = (
+                TranscriptionList.VoiceV2ConfigurationTranscriptionStatusCallback(
+                    payload.get("transcriptionStatusCallback")
+                )
+                if payload.get("transcriptionStatusCallback") is not None
+                else None
+            )
             self.conversation_configuration_id: Optional[str] = payload.get(
                 "conversationConfigurationId"
             )
@@ -825,7 +875,20 @@ class TranscriptionList(ListResource):
                 List[
                     TranscriptionList.VoiceV2ConfigurationTranscriptionParticipantDefault
                 ]
-            ] = payload.get("participantDefaults")
+            ] = (
+                [
+                    (
+                        TranscriptionList.VoiceV2ConfigurationTranscriptionParticipantDefault(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("participantDefaults")
+                ]
+                if payload.get("participantDefaults") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -858,7 +921,7 @@ class TranscriptionList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.audio_channel_index: Optional[int] = payload.get("audioChannelIndex")
-            self.type: Optional["TranscriptionInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
             return {
@@ -879,7 +942,13 @@ class TranscriptionList(ListResource):
             self.description: Optional[str] = payload.get("description")
             self.configuration: Optional[
                 TranscriptionList.VoiceV2ConfigurationTranscriptionConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                TranscriptionList.VoiceV2ConfigurationTranscriptionConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -901,7 +970,7 @@ class TranscriptionList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.url: Optional[str] = payload.get("url")
-            self.method: Optional["TranscriptionInstance.str"] = payload.get("method")
+            self.method: Optional[str] = payload.get("method")
 
         def to_dict(self):
             return {

@@ -13,7 +13,7 @@ r"""
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
@@ -84,16 +84,12 @@ class NewChallengeInstance(InstanceResource):
         self.expiration_date: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("expiration_date")
         )
-        self.status: Optional["ApproveChallengeInstance.str"] = payload.get("status")
-        self.responded_reason: Optional["ApproveChallengeInstance.str"] = payload.get(
-            "responded_reason"
-        )
+        self.status: Optional[str] = payload.get("status")
+        self.responded_reason: Optional[str] = payload.get("responded_reason")
         self.details: Optional[Dict[str, object]] = payload.get("details")
         self.hidden_details: Optional[Dict[str, object]] = payload.get("hidden_details")
         self.metadata: Optional[Dict[str, object]] = payload.get("metadata")
-        self.factor_type: Optional["ApproveChallengeInstance.str"] = payload.get(
-            "factor_type"
-        )
+        self.factor_type: Optional[str] = payload.get("factor_type")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.options: Optional[Dict[str, object]] = payload.get("options")
@@ -120,7 +116,10 @@ class NewChallengeInstance(InstanceResource):
         return self._context
 
     def create(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> "NewChallengeInstance":
         """
         Create the NewChallengeInstance
@@ -130,11 +129,14 @@ class NewChallengeInstance(InstanceResource):
         :returns: The created NewChallengeInstance
         """
         return self._proxy.create(
-            create_passkeys_challenge_request,
+            create_passkeys_challenge_request=create_passkeys_challenge_request,
         )
 
     async def create_async(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> "NewChallengeInstance":
         """
         Asynchronous coroutine to create the NewChallengeInstance
@@ -144,11 +146,14 @@ class NewChallengeInstance(InstanceResource):
         :returns: The created NewChallengeInstance
         """
         return await self._proxy.create_async(
-            create_passkeys_challenge_request,
+            create_passkeys_challenge_request=create_passkeys_challenge_request,
         )
 
     def create_with_http_info(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> ApiResponse:
         """
         Create the NewChallengeInstance with HTTP info
@@ -158,11 +163,14 @@ class NewChallengeInstance(InstanceResource):
         :returns: ApiResponse with instance, status code, and headers
         """
         return self._proxy.create_with_http_info(
-            create_passkeys_challenge_request,
+            create_passkeys_challenge_request=create_passkeys_challenge_request,
         )
 
     async def create_with_http_info_async(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to create the NewChallengeInstance with HTTP info
@@ -172,7 +180,7 @@ class NewChallengeInstance(InstanceResource):
         :returns: ApiResponse with instance, status code, and headers
         """
         return await self._proxy.create_with_http_info_async(
-            create_passkeys_challenge_request,
+            create_passkeys_challenge_request=create_passkeys_challenge_request,
         )
 
     def __repr__(self) -> str:
@@ -222,7 +230,10 @@ class NewChallengeContext(InstanceContext):
         )
 
     def _create(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> tuple:
         """
         Internal helper for create operation
@@ -243,7 +254,10 @@ class NewChallengeContext(InstanceContext):
         )
 
     def create(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> NewChallengeInstance:
         """
         Create the NewChallengeInstance
@@ -260,7 +274,10 @@ class NewChallengeContext(InstanceContext):
         )
 
     def create_with_http_info(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> ApiResponse:
         """
         Create the NewChallengeInstance and return response metadata
@@ -278,7 +295,10 @@ class NewChallengeContext(InstanceContext):
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     async def _create_async(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> tuple:
         """
         Internal async helper for create operation
@@ -299,7 +319,10 @@ class NewChallengeContext(InstanceContext):
         )
 
     async def create_async(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> NewChallengeInstance:
         """
         Asynchronous coroutine to create the NewChallengeInstance
@@ -316,7 +339,10 @@ class NewChallengeContext(InstanceContext):
         )
 
     async def create_with_http_info_async(
-        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+        self,
+        create_passkeys_challenge_request: Union[
+            CreatePasskeysChallengeRequest, object
+        ] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to create the NewChallengeInstance and return response metadata

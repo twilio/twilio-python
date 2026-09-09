@@ -39,7 +39,7 @@ class TraitGroupInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         store_id: str,
         trait_group_name: Optional[str] = None,
     ):
@@ -752,7 +752,14 @@ class TraitGroupList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.description: Optional[str] = payload.get("description")
-            self.traits: Optional[Dict[str, TraitDefinition]] = payload.get("traits")
+            self.traits: Optional[Dict[str, TraitGroupList.TraitDefinition]] = (
+                {
+                    k: TraitGroupList.TraitDefinition(v) if isinstance(v, dict) else v
+                    for k, v in payload.get("traits").items()
+                }
+                if payload.get("traits") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -776,8 +783,10 @@ class TraitGroupList(ListResource):
 
             self.data_type: Optional[str] = payload.get("dataType")
             self.description: Optional[str] = payload.get("description")
-            self.validation_rule: Optional[ValidationRule] = payload.get(
-                "validationRule"
+            self.validation_rule: Optional[TraitGroupList.ValidationRule] = (
+                TraitGroupList.ValidationRule(payload.get("validationRule"))
+                if payload.get("validationRule") is not None
+                else None
             )
             self.id_type_promotion: Optional[str] = payload.get("idTypePromotion")
 
@@ -805,8 +814,13 @@ class TraitGroupList(ListResource):
 
             self.display_name: Optional[str] = payload.get("displayName")
             self.description: Optional[str] = payload.get("description")
-            self.traits: Optional[Dict[str, TraitGroupCoreTraits]] = payload.get(
-                "traits"
+            self.traits: Optional[Dict[str, TraitGroupCoreTraits]] = (
+                {
+                    k: TraitGroupCoreTraits(v) if isinstance(v, dict) else v
+                    for k, v in payload.get("traits").items()
+                }
+                if payload.get("traits") is not None
+                else None
             )
             self.version: Optional[int] = deserialize.integer(payload.get("version"))
 
@@ -834,8 +848,10 @@ class TraitGroupList(ListResource):
 
             self.data_type: Optional[str] = payload.get("dataType")
             self.description: Optional[str] = payload.get("description")
-            self.validation_rule: Optional[ValidationRule] = payload.get(
-                "validationRule"
+            self.validation_rule: Optional[ValidationRule] = (
+                ValidationRule(payload.get("validationRule"))
+                if payload.get("validationRule") is not None
+                else None
             )
             self.id_type_promotion: Optional[str] = payload.get("idTypePromotion")
 
@@ -862,8 +878,17 @@ class TraitGroupList(ListResource):
 
             self.display_name: Optional[str] = payload.get("displayName")
             self.description: Optional[str] = payload.get("description")
-            self.traits: Optional[Dict[str, TraitGroupRequestTraits]] = payload.get(
-                "traits"
+            self.traits: Optional[Dict[str, TraitGroupList.TraitGroupRequestTraits]] = (
+                {
+                    k: (
+                        TraitGroupList.TraitGroupRequestTraits(v)
+                        if isinstance(v, dict)
+                        else v
+                    )
+                    for k, v in payload.get("traits").items()
+                }
+                if payload.get("traits") is not None
+                else None
             )
 
         def to_dict(self):
@@ -889,8 +914,10 @@ class TraitGroupList(ListResource):
 
             self.data_type: Optional[str] = payload.get("dataType")
             self.description: Optional[str] = payload.get("description")
-            self.validation_rule: Optional[ValidationRule] = payload.get(
-                "validationRule"
+            self.validation_rule: Optional[TraitGroupList.ValidationRule] = (
+                TraitGroupList.ValidationRule(payload.get("validationRule"))
+                if payload.get("validationRule") is not None
+                else None
             )
             self.id_type_promotion: Optional[str] = payload.get("idTypePromotion")
 

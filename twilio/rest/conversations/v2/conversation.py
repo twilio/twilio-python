@@ -33,6 +33,7 @@ class ConversationInstance(InstanceResource):
         RCS = "RCS"
         WHATSAPP = "WHATSAPP"
         CHAT = "CHAT"
+        VIDEO = "VIDEO"
 
     class ConversationsV2ConversationGroupingType(object):
         GROUP_BY_PROFILE = "GROUP_BY_PROFILE"
@@ -68,14 +69,16 @@ class ConversationInstance(InstanceResource):
     """
 
     def __init__(
-        self, version: Version, payload: ResponseResource, id: Optional[str] = None
+        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
     ):
         super().__init__(version)
 
         self.id: Optional[str] = payload.get("id")
         self.account_id: Optional[str] = payload.get("accountId")
         self.configuration_id: Optional[str] = payload.get("configurationId")
-        self.status: Optional["ConversationInstance.str"] = payload.get("status")
+        self.status: Optional[
+            "ConversationInstance.ConversationsV2ConversationStatus"
+        ] = payload.get("status")
         self.name: Optional[str] = payload.get("name")
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("createdAt")
@@ -801,7 +804,11 @@ class ConversationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channel: Optional[ConversationsV2Channel] = payload.get("channel")
+            self.channel: Optional[ConversationsV2Channel] = (
+                ConversationsV2Channel(payload.get("channel"))
+                if payload.get("channel") is not None
+                else None
+            )
             self.address: Optional[str] = payload.get("address")
             self.channel_id: Optional[str] = payload.get("channelId")
 
@@ -835,7 +842,7 @@ class ConversationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.url: Optional[str] = payload.get("url")
-            self.method: Optional["ConversationInstance.str"] = payload.get("method")
+            self.method: Optional[str] = payload.get("method")
 
         def to_dict(self):
             return {
@@ -857,10 +864,29 @@ class ConversationList(ListResource):
             self.name: Optional[str] = payload.get("name")
             self.configuration: Optional[
                 ConversationList.CreateConversationWithConfigRequestConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ConversationList.CreateConversationWithConfigRequestConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
             self.participants: Optional[
                 List[ConversationList.CreateConversationWithConfigRequestParticipants]
-            ] = payload.get("participants")
+            ] = (
+                [
+                    (
+                        ConversationList.CreateConversationWithConfigRequestParticipants(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("participants")
+                ]
+                if payload.get("participants") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -905,13 +931,26 @@ class ConversationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
-            self.type: Optional["ConversationInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.profile_id: Optional[str] = payload.get("profileId")
             self.addresses: Optional[
                 List[
                     ConversationList.CreateConversationWithConfigRequestParticipantsAddresses
                 ]
-            ] = payload.get("addresses")
+            ] = (
+                [
+                    (
+                        ConversationList.CreateConversationWithConfigRequestParticipantsAddresses(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("addresses")
+                ]
+                if payload.get("addresses") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -934,7 +973,7 @@ class ConversationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.channel: Optional["ConversationInstance.str"] = payload.get("channel")
+            self.channel: Optional[str] = payload.get("channel")
             self.address: Optional[str] = payload.get("address")
             self.channel_id: Optional[str] = payload.get("channelId")
 
@@ -955,10 +994,16 @@ class ConversationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
-            self.status: Optional["ConversationInstance.str"] = payload.get("status")
+            self.status: Optional[str] = payload.get("status")
             self.configuration: Optional[
                 ConversationList.PatchConversationByIdRequestConfiguration
-            ] = payload.get("configuration")
+            ] = (
+                ConversationList.PatchConversationByIdRequestConfiguration(
+                    payload.get("configuration")
+                )
+                if payload.get("configuration") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -980,7 +1025,18 @@ class ConversationList(ListResource):
 
             self.status_callbacks: Optional[
                 List[ConversationList.ConversationsV2StatusCallbackConfig]
-            ] = payload.get("statusCallbacks")
+            ] = (
+                [
+                    (
+                        ConversationList.ConversationsV2StatusCallbackConfig(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("statusCallbacks")
+                ]
+                if payload.get("statusCallbacks") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -1003,7 +1059,7 @@ class ConversationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
-            self.status: Optional["ConversationInstance.str"] = payload.get("status")
+            self.status: Optional[str] = payload.get("status")
 
         def to_dict(self):
             return {

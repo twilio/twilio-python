@@ -39,7 +39,9 @@ class EndUserTypeInstance(InstanceResource):
         self.sid: Optional[str] = payload.get("sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.machine_name: Optional[str] = payload.get("machine_name")
-        self.fields: Optional[List[Dict[str, object]]] = payload.get("fields")
+        self.fields: Optional[List[Dict[str, Dict[str, object]]]] = payload.get(
+            "fields"
+        )
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {

@@ -37,13 +37,19 @@ class ApproveChallengeInstance(InstanceResource):
 
             self.id: Optional[str] = payload.get("id")
             self.raw_id: Optional[str] = payload.get("rawId")
-            self.authenticator_attachment: Optional["ApproveChallengeInstance.str"] = (
-                payload.get("authenticatorAttachment")
+            self.authenticator_attachment: Optional[str] = payload.get(
+                "authenticatorAttachment"
             )
-            self.type: Optional["ApproveChallengeInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.response: Optional[
                 ApproveChallengeList.ApprovePasskeysChallengeRequestResponse
-            ] = payload.get("response")
+            ] = (
+                ApproveChallengeList.ApprovePasskeysChallengeRequestResponse(
+                    payload.get("response")
+                )
+                if payload.get("response") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -122,16 +128,12 @@ class ApproveChallengeInstance(InstanceResource):
         self.expiration_date: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("expiration_date")
         )
-        self.status: Optional["ApproveChallengeInstance.str"] = payload.get("status")
-        self.responded_reason: Optional["ApproveChallengeInstance.str"] = payload.get(
-            "responded_reason"
-        )
+        self.status: Optional[str] = payload.get("status")
+        self.responded_reason: Optional[str] = payload.get("responded_reason")
         self.details: Optional[Dict[str, object]] = payload.get("details")
         self.hidden_details: Optional[Dict[str, object]] = payload.get("hidden_details")
         self.metadata: Optional[Dict[str, object]] = payload.get("metadata")
-        self.factor_type: Optional["ApproveChallengeInstance.str"] = payload.get(
-            "factor_type"
-        )
+        self.factor_type: Optional[str] = payload.get("factor_type")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.options: Optional[Dict[str, object]] = payload.get("options")
@@ -165,13 +167,19 @@ class ApproveChallengeList(ListResource):
 
             self.id: Optional[str] = payload.get("id")
             self.raw_id: Optional[str] = payload.get("rawId")
-            self.authenticator_attachment: Optional["ApproveChallengeInstance.str"] = (
-                payload.get("authenticatorAttachment")
+            self.authenticator_attachment: Optional[str] = payload.get(
+                "authenticatorAttachment"
             )
-            self.type: Optional["ApproveChallengeInstance.str"] = payload.get("type")
+            self.type: Optional[str] = payload.get("type")
             self.response: Optional[
                 ApproveChallengeList.ApprovePasskeysChallengeRequestResponse
-            ] = payload.get("response")
+            ] = (
+                ApproveChallengeList.ApprovePasskeysChallengeRequestResponse(
+                    payload.get("response")
+                )
+                if payload.get("response") is not None
+                else None
+            )
 
         def to_dict(self):
             return {

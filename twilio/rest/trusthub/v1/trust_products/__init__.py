@@ -80,7 +80,9 @@ class TrustProductsInstance(InstanceResource):
         )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
-        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
+        self.errors: Optional[
+            List[Dict[str, Dict[str, Dict[str, Dict[str, object]]]]]
+        ] = payload.get("errors")
 
         self._solution = {
             "sid": sid or self.sid,

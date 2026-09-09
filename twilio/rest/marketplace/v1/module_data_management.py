@@ -49,7 +49,9 @@ class ModuleDataManagementInstance(InstanceResource):
         self.documentation: Optional[Dict[str, object]] = payload.get("documentation")
         self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
         self.pricing: Optional[Dict[str, object]] = payload.get("pricing")
-        self.listings: Optional[List[Dict[str, object]]] = payload.get("listings")
+        self.listings: Optional[List[Dict[str, Dict[str, Dict[str, object]]]]] = (
+            payload.get("listings")
+        )
 
         self._solution = {
             "sid": sid or self.sid,

@@ -59,14 +59,16 @@ class ConversationInstance(InstanceResource):
     """
 
     def __init__(
-        self, version: Version, payload: ResponseResource, id: Optional[str] = None
+        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
     ):
         super().__init__(version)
 
         self.id: Optional[str] = payload.get("id")
         self.account_id: Optional[str] = payload.get("accountId")
         self.name: Optional[str] = payload.get("name")
-        self.status: Optional["ConversationInstance.str"] = payload.get("status")
+        self.status: Optional["ConversationInstance.ConversationStatus"] = payload.get(
+            "status"
+        )
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("createdAt")
         )
@@ -79,7 +81,9 @@ class ConversationInstance(InstanceResource):
         self.conversation_configuration_id: Optional[str] = payload.get(
             "conversationConfigurationId"
         )
-        self.channels: Optional[List[Enumstr]] = payload.get("channels")
+        self.channels: Optional[List["ConversationInstance.Channel"]] = payload.get(
+            "channels"
+        )
         self.channel_ids: Optional[List[str]] = payload.get("channelIds")
         self.participants: Optional[List[str]] = payload.get("participants")
         self.communications: Optional[List[str]] = payload.get("communications")

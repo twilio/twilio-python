@@ -32,7 +32,7 @@ class IdentityResolutionSettingInstance(InstanceResource):
     :ivar status_url: URI to check operation status.
     """
 
-    def __init__(self, version: Version, payload: ResponseResource, store_id: str):
+    def __init__(self, version: Version, payload: Dict[str, Any], store_id: str):
         super().__init__(version)
 
         self.identifier_configs: Optional[List[str]] = payload.get("identifierConfigs")
@@ -73,18 +73,12 @@ class IdentityResolutionSettingList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.id_type: Optional[str] = payload.get("idType")
-            self.matching_algo: Optional["IdentityResolutionSettingInstance.str"] = (
-                payload.get("matchingAlgo")
-            )
+            self.matching_algo: Optional[str] = payload.get("matchingAlgo")
             self.matching_threshold: Optional[int] = payload.get("matchingThreshold")
             self.limit: Optional[int] = payload.get("limit")
-            self.limit_policy: Optional["IdentityResolutionSettingInstance.str"] = (
-                payload.get("limitPolicy")
-            )
+            self.limit_policy: Optional[str] = payload.get("limitPolicy")
             self.enforce_unique: Optional[bool] = payload.get("enforceUnique")
-            self.normalization: Optional["IdentityResolutionSettingInstance.str"] = (
-                payload.get("normalization")
-            )
+            self.normalization: Optional[str] = payload.get("normalization")
 
         def to_dict(self):
             return {
@@ -107,7 +101,18 @@ class IdentityResolutionSettingList(ListResource):
 
             self.identifier_configs: Optional[
                 List[IdentityResolutionSettingList.IdentifierConfig]
-            ] = payload.get("identifierConfigs")
+            ] = (
+                [
+                    (
+                        IdentityResolutionSettingList.IdentifierConfig(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("identifierConfigs")
+                ]
+                if payload.get("identifierConfigs") is not None
+                else None
+            )
             self.matching_rules: Optional[List[str]] = payload.get("matchingRules")
 
         def to_dict(self):

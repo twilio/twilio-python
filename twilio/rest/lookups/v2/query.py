@@ -104,16 +104,22 @@ class QueryInstance(InstanceResource):
 
             self.correlation_id: Optional[str] = payload.get("correlation_id")
             self.phone_number: Optional[str] = payload.get("phone_number")
-            self.fields: Optional[List[Enumstr]] = payload.get("fields")
+            self.fields: Optional[List[str]] = payload.get("fields")
             self.country_code: Optional[str] = payload.get("country_code")
             self.identity_match: Optional[QueryList.IdentityMatchParameters] = (
-                payload.get("identity_match")
+                QueryList.IdentityMatchParameters(payload.get("identity_match"))
+                if payload.get("identity_match") is not None
+                else None
             )
             self.reassigned_number: Optional[QueryList.ReassignedNumberParameters] = (
-                payload.get("reassigned_number")
+                QueryList.ReassignedNumberParameters(payload.get("reassigned_number"))
+                if payload.get("reassigned_number") is not None
+                else None
             )
-            self.sms_pumping_risk: Optional[QueryList.RiskParameters] = payload.get(
-                "sms_pumping_risk"
+            self.sms_pumping_risk: Optional[QueryList.RiskParameters] = (
+                QueryList.RiskParameters(payload.get("sms_pumping_risk"))
+                if payload.get("sms_pumping_risk") is not None
+                else None
             )
 
         def to_dict(self):
@@ -147,7 +153,16 @@ class QueryInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.phone_numbers: Optional[List[QueryList.LookupBatchRequest]] = (
-                payload.get("phone_numbers")
+                [
+                    (
+                        QueryList.LookupBatchRequest(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("phone_numbers")
+                ]
+                if payload.get("phone_numbers") is not None
+                else None
             )
 
         def to_dict(self):
@@ -288,16 +303,22 @@ class QueryList(ListResource):
 
             self.correlation_id: Optional[str] = payload.get("correlation_id")
             self.phone_number: Optional[str] = payload.get("phone_number")
-            self.fields: Optional[List[Enumstr]] = payload.get("fields")
+            self.fields: Optional[List[str]] = payload.get("fields")
             self.country_code: Optional[str] = payload.get("country_code")
             self.identity_match: Optional[QueryList.IdentityMatchParameters] = (
-                payload.get("identity_match")
+                QueryList.IdentityMatchParameters(payload.get("identity_match"))
+                if payload.get("identity_match") is not None
+                else None
             )
             self.reassigned_number: Optional[QueryList.ReassignedNumberParameters] = (
-                payload.get("reassigned_number")
+                QueryList.ReassignedNumberParameters(payload.get("reassigned_number"))
+                if payload.get("reassigned_number") is not None
+                else None
             )
-            self.sms_pumping_risk: Optional[QueryList.RiskParameters] = payload.get(
-                "sms_pumping_risk"
+            self.sms_pumping_risk: Optional[QueryList.RiskParameters] = (
+                QueryList.RiskParameters(payload.get("sms_pumping_risk"))
+                if payload.get("sms_pumping_risk") is not None
+                else None
             )
 
         def to_dict(self):
@@ -331,7 +352,16 @@ class QueryList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.phone_numbers: Optional[List[QueryList.LookupBatchRequest]] = (
-                payload.get("phone_numbers")
+                [
+                    (
+                        QueryList.LookupBatchRequest(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("phone_numbers")
+                ]
+                if payload.get("phone_numbers") is not None
+                else None
             )
 
         def to_dict(self):

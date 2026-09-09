@@ -38,7 +38,7 @@ class ProfileInstance(InstanceResource):
     def __init__(
         self,
         version: Version,
-        payload: ResponseResource,
+        payload: Dict[str, Any],
         store_id: str,
         profile_id: Optional[str] = None,
     ):
@@ -51,7 +51,9 @@ class ProfileInstance(InstanceResource):
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("createdAt")
         )
-        self.traits: Optional[Dict[str, Dict[str, object]]] = payload.get("traits")
+        self.traits: Optional[Dict[str, Dict[str, Dict[str, object]]]] = payload.get(
+            "traits"
+        )
 
         # Only set _solution if path params are provided (not None)
         if store_id is not None or profile_id is not None:
@@ -585,7 +587,9 @@ class ProfileList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.traits: Optional[Dict[str, Dict[str, object]]] = payload.get("traits")
+            self.traits: Optional[
+                Dict[str, Dict[str, Dict[str, Dict[str, Dict[str, Dict[str, object]]]]]]
+            ] = payload.get("traits")
 
         def to_dict(self):
             return {
@@ -599,7 +603,9 @@ class ProfileList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.traits: Optional[Dict[str, Dict[str, object]]] = payload.get("traits")
+            self.traits: Optional[
+                Dict[str, Dict[str, Dict[str, Dict[str, Dict[str, object]]]]]
+            ] = payload.get("traits")
 
         def to_dict(self):
             return {

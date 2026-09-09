@@ -43,7 +43,7 @@ class ConfigurationInstance(InstanceResource):
     """
 
     def __init__(
-        self, version: Version, payload: ResponseResource, id: Optional[str] = None
+        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
     ):
         super().__init__(version)
 
@@ -554,8 +554,8 @@ class ConfigurationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.type: Optional["ConfigurationInstance.str"] = payload.get("type")
-            self.method: Optional["ConfigurationInstance.str"] = payload.get("method")
+            self.type: Optional[str] = payload.get("type")
+            self.method: Optional[str] = payload.get("method")
             self.url: Optional[str] = payload.get("url")
 
         def to_dict(self):
@@ -573,11 +573,15 @@ class ConfigurationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.memory: Optional[ConfigurationList.ContextMemory] = payload.get(
-                "memory"
+            self.memory: Optional[ConfigurationList.ContextMemory] = (
+                ConfigurationList.ContextMemory(payload.get("memory"))
+                if payload.get("memory") is not None
+                else None
             )
-            self.knowledge: Optional[ConfigurationList.ContextKnowledge] = payload.get(
-                "knowledge"
+            self.knowledge: Optional[ConfigurationList.ContextKnowledge] = (
+                ConfigurationList.ContextKnowledge(payload.get("knowledge"))
+                if payload.get("knowledge") is not None
+                else None
             )
 
         def to_dict(self):
@@ -628,7 +632,16 @@ class ConfigurationList(ListResource):
             self.display_name: Optional[str] = payload.get("displayName")
             self.description: Optional[str] = payload.get("description")
             self.rules: Optional[List[ConfigurationList.RuleCreationRequestPayload]] = (
-                payload.get("rules")
+                [
+                    (
+                        ConfigurationList.RuleCreationRequestPayload(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("rules")
+                ]
+                if payload.get("rules") is not None
+                else None
             )
 
         def to_dict(self):
@@ -672,16 +685,35 @@ class ConfigurationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.operators: Optional[List[ConfigurationList.Operator]] = payload.get(
-                "operators"
+            self.operators: Optional[List[ConfigurationList.Operator]] = (
+                [
+                    ConfigurationList.Operator(item) if isinstance(item, dict) else item
+                    for item in payload.get("operators")
+                ]
+                if payload.get("operators") is not None
+                else None
             )
-            self.triggers: Optional[List[ConfigurationList.Trigger]] = payload.get(
-                "triggers"
+            self.triggers: Optional[List[ConfigurationList.Trigger]] = (
+                [
+                    ConfigurationList.Trigger(item) if isinstance(item, dict) else item
+                    for item in payload.get("triggers")
+                ]
+                if payload.get("triggers") is not None
+                else None
             )
-            self.actions: Optional[List[ConfigurationList.Action]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ConfigurationList.Action]] = (
+                [
+                    ConfigurationList.Action(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
-            self.context: Optional[ConfigurationList.Context] = payload.get("context")
+            self.context: Optional[ConfigurationList.Context] = (
+                ConfigurationList.Context(payload.get("context"))
+                if payload.get("context") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -715,16 +747,35 @@ class ConfigurationList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.id: Optional[str] = payload.get("id")
-            self.operators: Optional[List[ConfigurationList.Operator]] = payload.get(
-                "operators"
+            self.operators: Optional[List[ConfigurationList.Operator]] = (
+                [
+                    ConfigurationList.Operator(item) if isinstance(item, dict) else item
+                    for item in payload.get("operators")
+                ]
+                if payload.get("operators") is not None
+                else None
             )
-            self.triggers: Optional[List[ConfigurationList.Trigger]] = payload.get(
-                "triggers"
+            self.triggers: Optional[List[ConfigurationList.Trigger]] = (
+                [
+                    ConfigurationList.Trigger(item) if isinstance(item, dict) else item
+                    for item in payload.get("triggers")
+                ]
+                if payload.get("triggers") is not None
+                else None
             )
-            self.actions: Optional[List[ConfigurationList.Action]] = payload.get(
-                "actions"
+            self.actions: Optional[List[ConfigurationList.Action]] = (
+                [
+                    ConfigurationList.Action(item) if isinstance(item, dict) else item
+                    for item in payload.get("actions")
+                ]
+                if payload.get("actions") is not None
+                else None
             )
-            self.context: Optional[ConfigurationList.Context] = payload.get("context")
+            self.context: Optional[ConfigurationList.Context] = (
+                ConfigurationList.Context(payload.get("context"))
+                if payload.get("context") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -755,9 +806,11 @@ class ConfigurationList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.on: Optional["ConfigurationInstance.str"] = payload.get("on")
+            self.on: Optional[str] = payload.get("on")
             self.parameters: Optional[ConfigurationList.TriggerParameters] = (
-                payload.get("parameters")
+                ConfigurationList.TriggerParameters(payload.get("parameters"))
+                if payload.get("parameters") is not None
+                else None
             )
 
         def to_dict(self):
@@ -794,7 +847,16 @@ class ConfigurationList(ListResource):
             self.display_name: Optional[str] = payload.get("displayName")
             self.description: Optional[str] = payload.get("description")
             self.rules: Optional[List[ConfigurationList.RuleUpdateRequestPayload]] = (
-                payload.get("rules")
+                [
+                    (
+                        ConfigurationList.RuleUpdateRequestPayload(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("rules")
+                ]
+                if payload.get("rules") is not None
+                else None
             )
 
         def to_dict(self):

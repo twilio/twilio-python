@@ -32,9 +32,7 @@ class LookupOverrideInstance(InstanceResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.line_type: Optional["LookupOverrideInstance.str"] = payload.get(
-                "line_type"
-            )
+            self.line_type: Optional[str] = payload.get("line_type")
             self.reason: Optional[str] = payload.get("reason")
 
         def to_dict(self):
@@ -71,12 +69,8 @@ class LookupOverrideInstance(InstanceResource):
         super().__init__(version)
 
         self.phone_number: Optional[str] = payload.get("phone_number")
-        self.original_line_type: Optional["LookupOverrideInstance.str"] = payload.get(
-            "original_line_type"
-        )
-        self.overridden_line_type: Optional["LookupOverrideInstance.str"] = payload.get(
-            "overridden_line_type"
-        )
+        self.original_line_type: Optional[str] = payload.get("original_line_type")
+        self.overridden_line_type: Optional[str] = payload.get("overridden_line_type")
         self.override_reason: Optional[str] = payload.get("override_reason")
         self.override_timestamp: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("override_timestamp")
@@ -321,9 +315,7 @@ class LookupOverrideContext(InstanceContext):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.line_type: Optional["LookupOverrideInstance.str"] = payload.get(
-                "line_type"
-            )
+            self.line_type: Optional[str] = payload.get("line_type")
             self.reason: Optional[str] = payload.get("reason")
 
         def to_dict(self):
@@ -777,9 +769,7 @@ class LookupOverrideList(ListResource):
 
         def __init__(self, payload: Dict[str, Any]):
 
-            self.line_type: Optional["LookupOverrideInstance.str"] = payload.get(
-                "line_type"
-            )
+            self.line_type: Optional[str] = payload.get("line_type")
             self.reason: Optional[str] = payload.get("reason")
 
         def to_dict(self):

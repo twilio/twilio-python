@@ -37,7 +37,13 @@ class NewFactorInstance(InstanceResource):
             self.identity: Optional[str] = payload.get("identity")
             self.config: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfig
-            ] = payload.get("config")
+            ] = (
+                NewFactorList.CreateNewPasskeysFactorRequestConfig(
+                    payload.get("config")
+                )
+                if payload.get("config") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -58,16 +64,20 @@ class NewFactorInstance(InstanceResource):
 
             self.relying_party: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty
-            ] = payload.get("relying_party")
-            self.authenticator_attachment: Optional["NewFactorInstance.str"] = (
-                payload.get("authenticator_attachment")
+            ] = (
+                NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty(
+                    payload.get("relying_party")
+                )
+                if payload.get("relying_party") is not None
+                else None
             )
-            self.discoverable_credentials: Optional["NewFactorInstance.str"] = (
-                payload.get("discoverable_credentials")
+            self.authenticator_attachment: Optional[str] = payload.get(
+                "authenticator_attachment"
             )
-            self.user_verification: Optional["NewFactorInstance.str"] = payload.get(
-                "user_verification"
+            self.discoverable_credentials: Optional[str] = payload.get(
+                "discoverable_credentials"
             )
+            self.user_verification: Optional[str] = payload.get("user_verification")
 
         def to_dict(self):
             return {
@@ -136,8 +146,8 @@ class NewFactorInstance(InstanceResource):
             payload.get("date_updated")
         )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.status: Optional["NewFactorInstance.str"] = payload.get("status")
-        self.factor_type: Optional["NewFactorInstance.str"] = payload.get("factor_type")
+        self.status: Optional[str] = payload.get("status")
+        self.factor_type: Optional[str] = payload.get("factor_type")
         self.config: Optional[Dict[str, object]] = payload.get("config")
         self.metadata: Optional[Dict[str, object]] = payload.get("metadata")
         self.url: Optional[str] = payload.get("url")
@@ -171,7 +181,13 @@ class NewFactorList(ListResource):
             self.identity: Optional[str] = payload.get("identity")
             self.config: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfig
-            ] = payload.get("config")
+            ] = (
+                NewFactorList.CreateNewPasskeysFactorRequestConfig(
+                    payload.get("config")
+                )
+                if payload.get("config") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
@@ -192,16 +208,20 @@ class NewFactorList(ListResource):
 
             self.relying_party: Optional[
                 NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty
-            ] = payload.get("relying_party")
-            self.authenticator_attachment: Optional["NewFactorInstance.str"] = (
-                payload.get("authenticator_attachment")
+            ] = (
+                NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty(
+                    payload.get("relying_party")
+                )
+                if payload.get("relying_party") is not None
+                else None
             )
-            self.discoverable_credentials: Optional["NewFactorInstance.str"] = (
-                payload.get("discoverable_credentials")
+            self.authenticator_attachment: Optional[str] = payload.get(
+                "authenticator_attachment"
             )
-            self.user_verification: Optional["NewFactorInstance.str"] = payload.get(
-                "user_verification"
+            self.discoverable_credentials: Optional[str] = payload.get(
+                "discoverable_credentials"
             )
+            self.user_verification: Optional[str] = payload.get("user_verification")
 
         def to_dict(self):
             return {

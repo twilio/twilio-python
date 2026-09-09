@@ -76,9 +76,9 @@ class VerificationInstance(InstanceResource):
         self.lookup: Optional[Dict[str, object]] = payload.get("lookup")
         self.amount: Optional[str] = payload.get("amount")
         self.payee: Optional[str] = payload.get("payee")
-        self.send_code_attempts: Optional[List[Dict[str, object]]] = payload.get(
-            "send_code_attempts"
-        )
+        self.send_code_attempts: Optional[
+            List[Dict[str, Dict[str, Dict[str, object]]]]
+        ] = payload.get("send_code_attempts")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -488,6 +488,7 @@ class VerificationList(ListResource):
         app_hash: Union[str, object] = values.unset,
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
+        templates: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
         enable_sna_client_token: Union[bool, object] = values.unset,
         risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
@@ -516,6 +517,7 @@ class VerificationList(ListResource):
                 "AppHash": app_hash,
                 "TemplateSid": template_sid,
                 "TemplateCustomSubstitutions": template_custom_substitutions,
+                "Templates": templates,
                 "DeviceIp": device_ip,
                 "EnableSnaClientToken": serialize.boolean_to_string(
                     enable_sna_client_token
@@ -550,6 +552,7 @@ class VerificationList(ListResource):
         app_hash: Union[str, object] = values.unset,
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
+        templates: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
         enable_sna_client_token: Union[bool, object] = values.unset,
         risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
@@ -570,8 +573,9 @@ class VerificationList(ListResource):
         :param rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
         :param channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
         :param app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
-        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. If the `Templates` parameter is also provided, `Templates` takes precedence over this parameter.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
+        :param templates: A stringified JSON array of template entries, ordered by preference. Each entry is an object with the following fields: `sid` (string, required, matching `^HJ[0-9a-fA-F]{32}$`) — the SID of the message [template](https://www.twilio.com/docs/verify/api/templates) to apply; and `substitutions` (object, optional) — a key-value map in which the keys are the template's special variables and the values are their substitution values. The array may contain up to 10 entries. If provided, `Templates` takes precedence over `TemplateSid` and `TemplateCustomSubstitutions`.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
         :param enable_sna_client_token: An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
         :param risk_check:
@@ -594,6 +598,7 @@ class VerificationList(ListResource):
             app_hash=app_hash,
             template_sid=template_sid,
             template_custom_substitutions=template_custom_substitutions,
+            templates=templates,
             device_ip=device_ip,
             enable_sna_client_token=enable_sna_client_token,
             risk_check=risk_check,
@@ -619,6 +624,7 @@ class VerificationList(ListResource):
         app_hash: Union[str, object] = values.unset,
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
+        templates: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
         enable_sna_client_token: Union[bool, object] = values.unset,
         risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
@@ -639,8 +645,9 @@ class VerificationList(ListResource):
         :param rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
         :param channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
         :param app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
-        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. If the `Templates` parameter is also provided, `Templates` takes precedence over this parameter.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
+        :param templates: A stringified JSON array of template entries, ordered by preference. Each entry is an object with the following fields: `sid` (string, required, matching `^HJ[0-9a-fA-F]{32}$`) — the SID of the message [template](https://www.twilio.com/docs/verify/api/templates) to apply; and `substitutions` (object, optional) — a key-value map in which the keys are the template's special variables and the values are their substitution values. The array may contain up to 10 entries. If provided, `Templates` takes precedence over `TemplateSid` and `TemplateCustomSubstitutions`.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
         :param enable_sna_client_token: An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
         :param risk_check:
@@ -663,6 +670,7 @@ class VerificationList(ListResource):
             app_hash=app_hash,
             template_sid=template_sid,
             template_custom_substitutions=template_custom_substitutions,
+            templates=templates,
             device_ip=device_ip,
             enable_sna_client_token=enable_sna_client_token,
             risk_check=risk_check,
@@ -689,6 +697,7 @@ class VerificationList(ListResource):
         app_hash: Union[str, object] = values.unset,
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
+        templates: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
         enable_sna_client_token: Union[bool, object] = values.unset,
         risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
@@ -717,6 +726,7 @@ class VerificationList(ListResource):
                 "AppHash": app_hash,
                 "TemplateSid": template_sid,
                 "TemplateCustomSubstitutions": template_custom_substitutions,
+                "Templates": templates,
                 "DeviceIp": device_ip,
                 "EnableSnaClientToken": serialize.boolean_to_string(
                     enable_sna_client_token
@@ -751,6 +761,7 @@ class VerificationList(ListResource):
         app_hash: Union[str, object] = values.unset,
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
+        templates: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
         enable_sna_client_token: Union[bool, object] = values.unset,
         risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
@@ -771,8 +782,9 @@ class VerificationList(ListResource):
         :param rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
         :param channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
         :param app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
-        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. If the `Templates` parameter is also provided, `Templates` takes precedence over this parameter.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
+        :param templates: A stringified JSON array of template entries, ordered by preference. Each entry is an object with the following fields: `sid` (string, required, matching `^HJ[0-9a-fA-F]{32}$`) — the SID of the message [template](https://www.twilio.com/docs/verify/api/templates) to apply; and `substitutions` (object, optional) — a key-value map in which the keys are the template's special variables and the values are their substitution values. The array may contain up to 10 entries. If provided, `Templates` takes precedence over `TemplateSid` and `TemplateCustomSubstitutions`.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
         :param enable_sna_client_token: An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
         :param risk_check:
@@ -795,6 +807,7 @@ class VerificationList(ListResource):
             app_hash=app_hash,
             template_sid=template_sid,
             template_custom_substitutions=template_custom_substitutions,
+            templates=templates,
             device_ip=device_ip,
             enable_sna_client_token=enable_sna_client_token,
             risk_check=risk_check,
@@ -820,6 +833,7 @@ class VerificationList(ListResource):
         app_hash: Union[str, object] = values.unset,
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
+        templates: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
         enable_sna_client_token: Union[bool, object] = values.unset,
         risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
@@ -840,8 +854,9 @@ class VerificationList(ListResource):
         :param rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
         :param channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
         :param app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
-        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. If the `Templates` parameter is also provided, `Templates` takes precedence over this parameter.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
+        :param templates: A stringified JSON array of template entries, ordered by preference. Each entry is an object with the following fields: `sid` (string, required, matching `^HJ[0-9a-fA-F]{32}$`) — the SID of the message [template](https://www.twilio.com/docs/verify/api/templates) to apply; and `substitutions` (object, optional) — a key-value map in which the keys are the template's special variables and the values are their substitution values. The array may contain up to 10 entries. If provided, `Templates` takes precedence over `TemplateSid` and `TemplateCustomSubstitutions`.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
         :param enable_sna_client_token: An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
         :param risk_check:
@@ -864,6 +879,7 @@ class VerificationList(ListResource):
             app_hash=app_hash,
             template_sid=template_sid,
             template_custom_substitutions=template_custom_substitutions,
+            templates=templates,
             device_ip=device_ip,
             enable_sna_client_token=enable_sna_client_token,
             risk_check=risk_check,
