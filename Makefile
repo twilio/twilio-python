@@ -1,10 +1,13 @@
-.PHONY: clean install analysis test test-install test-docker develop docs docs-install prettier prettier-check
+.PHONY: clean githooks install analysis test test-install test-docker develop docs docs-install prettier prettier-check
+
+githooks:
+	ln -sf ../../githooks/pre-commit .git/hooks/pre-commit
 
 venv:
 	@python --version || (echo "Python is not installed, Python 3.7+"; exit 1);
 	virtualenv --python=python venv
 
-install: venv
+install: githooks venv
 	. venv/bin/activate; pip install .
 
 test-install: install

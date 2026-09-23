@@ -1,0 +1,23 @@
+FILES=$(git diff --cached --name-only | grep -E '(requirements.*\.txt$|^uv\.lock$)')
+if [ -n "$FILES" ]; then
+  # A tracked lockfile/requirements file must only reference public hosts - an internal
+  # Artifactory PyPI mirror URL breaks the install for anyone outside Twilio's network
+  # (enforced in CI by uv-lockfile-hygiene). There's no single safe rewrite target for a
+  # package URL, so block and let a human regenerate against public PyPI.
+  ALLOW='pypi\.org|files\.pythonhosted\.org|github\.com|codeload\.github\.com'
+  BAD=""
+  for f in $FILES; do
+    [ -f "$f" ] || continue
+    HOSTS=$(grep -oE "https?://[^\"' ,)}]+" "$f" 2>/dev/null | sed -E 's#^(https?://[^/]+).*#\1#' | sort -u)
+    for h in $HOSTS; do
+      echo "$h" | grep -qE "://($ALLOW)$" || BAD="${BAD}${f}: ${h}"$'\n'
+    done
+  done
+  if [ -n "$BAD" ]; then
+    echo "pre-commit: non-public registry hosts found - external consumers cannot install (see uv-lockfile-hygiene CI check). Rewrite to pypi.org before committing:"
+    printf '%s' "$BAD"
+    exit 1
+  fi
+fi
+
+make test
