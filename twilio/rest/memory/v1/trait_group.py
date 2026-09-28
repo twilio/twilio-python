@@ -213,38 +213,38 @@ class TraitGroupInstance(InstanceResource):
 
     def patch(
         self,
+        patch_trait_group_request: PatchTraitGroupRequest,
         if_match: Union[str, object] = values.unset,
-        patch_trait_group_request: Union[PatchTraitGroupRequest, object] = values.unset,
     ) -> "TraitGroupInstance":
         """
         Patch the TraitGroupInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_trait_group_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched TraitGroupInstance
         """
         return self._proxy.patch(
-            if_match=if_match,
             patch_trait_group_request=patch_trait_group_request,
+            if_match=if_match,
         )
 
     async def patch_async(
         self,
+        patch_trait_group_request: PatchTraitGroupRequest,
         if_match: Union[str, object] = values.unset,
-        patch_trait_group_request: Union[PatchTraitGroupRequest, object] = values.unset,
     ) -> "TraitGroupInstance":
         """
         Asynchronous coroutine to patch the TraitGroupInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_trait_group_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched TraitGroupInstance
         """
         return await self._proxy.patch_async(
-            if_match=if_match,
             patch_trait_group_request=patch_trait_group_request,
+            if_match=if_match,
         )
 
     def __repr__(self) -> str:
@@ -538,8 +538,8 @@ class TraitGroupContext(InstanceContext):
 
     def _patch(
         self,
+        patch_trait_group_request: PatchTraitGroupRequest,
         if_match: Union[str, object] = values.unset,
-        patch_trait_group_request: Union[PatchTraitGroupRequest, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for patch operation
@@ -566,19 +566,19 @@ class TraitGroupContext(InstanceContext):
 
     def patch(
         self,
+        patch_trait_group_request: PatchTraitGroupRequest,
         if_match: Union[str, object] = values.unset,
-        patch_trait_group_request: Union[PatchTraitGroupRequest, object] = values.unset,
     ) -> TraitGroupInstance:
         """
         Patch the TraitGroupInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_trait_group_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched TraitGroupInstance
         """
         payload, _, _ = self._patch(
-            if_match=if_match, patch_trait_group_request=patch_trait_group_request
+            patch_trait_group_request=patch_trait_group_request, if_match=if_match
         )
         return TraitGroupInstance(
             self._version,
@@ -589,19 +589,19 @@ class TraitGroupContext(InstanceContext):
 
     def patch_with_http_info(
         self,
+        patch_trait_group_request: PatchTraitGroupRequest,
         if_match: Union[str, object] = values.unset,
-        patch_trait_group_request: Union[PatchTraitGroupRequest, object] = values.unset,
     ) -> ApiResponse:
         """
         Patch the TraitGroupInstance and return response metadata
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_trait_group_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._patch(
-            if_match=if_match, patch_trait_group_request=patch_trait_group_request
+            patch_trait_group_request=patch_trait_group_request, if_match=if_match
         )
         instance = TraitGroupInstance(
             self._version,
@@ -613,8 +613,8 @@ class TraitGroupContext(InstanceContext):
 
     async def _patch_async(
         self,
+        patch_trait_group_request: PatchTraitGroupRequest,
         if_match: Union[str, object] = values.unset,
-        patch_trait_group_request: Union[PatchTraitGroupRequest, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for patch operation
@@ -641,19 +641,19 @@ class TraitGroupContext(InstanceContext):
 
     async def patch_async(
         self,
+        patch_trait_group_request: PatchTraitGroupRequest,
         if_match: Union[str, object] = values.unset,
-        patch_trait_group_request: Union[PatchTraitGroupRequest, object] = values.unset,
     ) -> TraitGroupInstance:
         """
         Asynchronous coroutine to patch the TraitGroupInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_trait_group_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched TraitGroupInstance
         """
         payload, _, _ = await self._patch_async(
-            if_match=if_match, patch_trait_group_request=patch_trait_group_request
+            patch_trait_group_request=patch_trait_group_request, if_match=if_match
         )
         return TraitGroupInstance(
             self._version,
@@ -664,19 +664,19 @@ class TraitGroupContext(InstanceContext):
 
     async def patch_with_http_info_async(
         self,
+        patch_trait_group_request: PatchTraitGroupRequest,
         if_match: Union[str, object] = values.unset,
-        patch_trait_group_request: Union[PatchTraitGroupRequest, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to patch the TraitGroupInstance and return response metadata
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_trait_group_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._patch_async(
-            if_match=if_match, patch_trait_group_request=patch_trait_group_request
+            patch_trait_group_request=patch_trait_group_request, if_match=if_match
         )
         instance = TraitGroupInstance(
             self._version,

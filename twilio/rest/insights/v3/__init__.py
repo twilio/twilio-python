@@ -15,6 +15,8 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
+from twilio.rest.insights.v3.capacity import CapacityList
+from twilio.rest.insights.v3.custom_field_mapping import CustomFieldMappingList
 from twilio.rest.insights.v3.metadata import MetadataList
 from twilio.rest.insights.v3.query import QueryList
 from twilio.rest.insights.v3.query_job import QueryJobList
@@ -29,9 +31,23 @@ class V3(Version):
         :param domain: The Twilio.insights domain
         """
         super().__init__(domain, "v3")
+        self._capacity: Optional[CapacityList] = None
+        self._custom_field_mappings: Optional[CustomFieldMappingList] = None
         self._metadata: Optional[MetadataList] = None
         self._query: Optional[QueryList] = None
         self._query_jobs: Optional[QueryJobList] = None
+
+    @property
+    def capacity(self) -> CapacityList:
+        if self._capacity is None:
+            self._capacity = CapacityList(self)
+        return self._capacity
+
+    @property
+    def custom_field_mappings(self) -> CustomFieldMappingList:
+        if self._custom_field_mappings is None:
+            self._custom_field_mappings = CustomFieldMappingList(self)
+        return self._custom_field_mappings
 
     @property
     def metadata(self) -> MetadataList:
