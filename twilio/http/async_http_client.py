@@ -87,12 +87,17 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
             "method": method.upper(),
             "url": url,
             "params": params,
-            "data": data,
             "headers": headers,
             "auth": basic_auth,
             "timeout": timeout,
             "allow_redirects": allow_redirects,
         }
+        if headers and headers.get("Content-Type") == "application/json":
+            kwargs["json"] = data
+        elif headers and headers.get("Content-Type") == "application/scim+json":
+            kwargs["json"] = data
+        else:
+            kwargs["data"] = data
 
         self.log_request(kwargs)
         self._test_only_last_response = None
