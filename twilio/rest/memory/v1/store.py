@@ -153,38 +153,38 @@ class StoreInstance(InstanceResource):
 
     def patch(
         self,
+        patch_store_request: PatchStoreRequest,
         if_match: Union[str, object] = values.unset,
-        patch_store_request: Union[PatchStoreRequest, object] = values.unset,
     ) -> "StoreInstance":
         """
         Patch the StoreInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_store_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched StoreInstance
         """
         return self._proxy.patch(
-            if_match=if_match,
             patch_store_request=patch_store_request,
+            if_match=if_match,
         )
 
     async def patch_async(
         self,
+        patch_store_request: PatchStoreRequest,
         if_match: Union[str, object] = values.unset,
-        patch_store_request: Union[PatchStoreRequest, object] = values.unset,
     ) -> "StoreInstance":
         """
         Asynchronous coroutine to patch the StoreInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_store_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched StoreInstance
         """
         return await self._proxy.patch_async(
-            if_match=if_match,
             patch_store_request=patch_store_request,
+            if_match=if_match,
         )
 
     def __repr__(self) -> str:
@@ -378,8 +378,8 @@ class StoreContext(InstanceContext):
 
     def _patch(
         self,
+        patch_store_request: PatchStoreRequest,
         if_match: Union[str, object] = values.unset,
-        patch_store_request: Union[PatchStoreRequest, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for patch operation
@@ -406,19 +406,19 @@ class StoreContext(InstanceContext):
 
     def patch(
         self,
+        patch_store_request: PatchStoreRequest,
         if_match: Union[str, object] = values.unset,
-        patch_store_request: Union[PatchStoreRequest, object] = values.unset,
     ) -> StoreInstance:
         """
         Patch the StoreInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_store_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched StoreInstance
         """
         payload, _, _ = self._patch(
-            if_match=if_match, patch_store_request=patch_store_request
+            patch_store_request=patch_store_request, if_match=if_match
         )
         return StoreInstance(
             self._version, payload, store_id=self._solution["store_id"]
@@ -426,19 +426,19 @@ class StoreContext(InstanceContext):
 
     def patch_with_http_info(
         self,
+        patch_store_request: PatchStoreRequest,
         if_match: Union[str, object] = values.unset,
-        patch_store_request: Union[PatchStoreRequest, object] = values.unset,
     ) -> ApiResponse:
         """
         Patch the StoreInstance and return response metadata
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_store_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._patch(
-            if_match=if_match, patch_store_request=patch_store_request
+            patch_store_request=patch_store_request, if_match=if_match
         )
         instance = StoreInstance(
             self._version, payload, store_id=self._solution["store_id"]
@@ -447,8 +447,8 @@ class StoreContext(InstanceContext):
 
     async def _patch_async(
         self,
+        patch_store_request: PatchStoreRequest,
         if_match: Union[str, object] = values.unset,
-        patch_store_request: Union[PatchStoreRequest, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for patch operation
@@ -475,19 +475,19 @@ class StoreContext(InstanceContext):
 
     async def patch_async(
         self,
+        patch_store_request: PatchStoreRequest,
         if_match: Union[str, object] = values.unset,
-        patch_store_request: Union[PatchStoreRequest, object] = values.unset,
     ) -> StoreInstance:
         """
         Asynchronous coroutine to patch the StoreInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_store_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched StoreInstance
         """
         payload, _, _ = await self._patch_async(
-            if_match=if_match, patch_store_request=patch_store_request
+            patch_store_request=patch_store_request, if_match=if_match
         )
         return StoreInstance(
             self._version, payload, store_id=self._solution["store_id"]
@@ -495,19 +495,19 @@ class StoreContext(InstanceContext):
 
     async def patch_with_http_info_async(
         self,
+        patch_store_request: PatchStoreRequest,
         if_match: Union[str, object] = values.unset,
-        patch_store_request: Union[PatchStoreRequest, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to patch the StoreInstance and return response metadata
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param patch_store_request:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._patch_async(
-            if_match=if_match, patch_store_request=patch_store_request
+            patch_store_request=patch_store_request, if_match=if_match
         )
         instance = StoreInstance(
             self._version, payload, store_id=self._solution["store_id"]

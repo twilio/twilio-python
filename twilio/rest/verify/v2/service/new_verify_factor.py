@@ -94,7 +94,7 @@ class NewVerifyFactorInstance(InstanceResource):
     :ivar status: The Status of this Factor. One of `unverified` or `verified`.
     :ivar factor_type: The Type of this Factor. Currently `push` and `totp` are supported.
     :ivar config: An object that contains configurations specific to a `factor_type`.
-    :ivar metadata: Custom metadata associated with the factor.
+    :ivar metadata: Metadata associated with the factor. For `passkeys` factors, it contains the `aaguid` of the authenticator once the factor is verified, and `date_last_approved` (ISO 8601) once the factor has been used to approve a challenge.
     :ivar url: The URL of this resource.
     """
 

@@ -14,7 +14,7 @@ r"""
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
 
@@ -58,6 +58,7 @@ class RuleExecutionList(ListResource):
         :ivar intelligence_configuration_id: The Intelligence Configuration identifier to execute the Rule within.
         :ivar rule_id: The rule identifier to execute within the selected Intelligence Configuration.
         :ivar conversation_id: The Conversation identifier to execute the Rule against.
+        :ivar rule:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -67,12 +68,66 @@ class RuleExecutionList(ListResource):
             )
             self.rule_id: Optional[str] = payload.get("ruleId")
             self.conversation_id: Optional[str] = payload.get("conversationId")
+            self.rule: Optional[RuleExecutionList.RuleOverride] = (
+                RuleExecutionList.RuleOverride(payload.get("rule"))
+                if payload.get("rule") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
                 "intelligenceConfigurationId": self.intelligence_configuration_id,
                 "ruleId": self.rule_id,
                 "conversationId": self.conversation_id,
+                "rule": self.rule.to_dict() if self.rule is not None else None,
+            }
+
+    class OperatorOverride(object):
+        """
+        :ivar id: The operator id (as configured in the stored rule) to override.
+        :ivar parameters: Parameter overrides merged into the stored operator's parameters.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.parameters: Optional[Dict[str, Dict[str, object]]] = payload.get(
+                "parameters"
+            )
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "parameters": self.parameters,
+            }
+
+    class RuleOverride(object):
+        """
+        :ivar operators: Operator parameter overrides, merged key-by-key into the stored operator's parameters (override wins on matching keys; unspecified keys retain their stored values). Operators in the stored rule not referenced here execute with their stored parameters unchanged.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.operators: Optional[List[RuleExecutionList.OperatorOverride]] = (
+                [
+                    (
+                        RuleExecutionList.OperatorOverride(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("operators")
+                ]
+                if payload.get("operators") is not None
+                else None
+            )
+
+        def to_dict(self):
+            return {
+                "operators": (
+                    [operators.to_dict() for operators in self.operators]
+                    if self.operators is not None
+                    else None
+                ),
             }
 
     def __init__(self, version: Version):

@@ -63,7 +63,9 @@ class ConversationInstance(InstanceResource):
     :ivar created_at: Timestamp when this Conversation was created.
     :ivar updated_at: Timestamp when this Conversation was last updated.
     :ivar configuration: 
+    :ivar metadata: Customer-managed key-value pairs. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
     :ivar participants: Participants in this Conversation.
+    :ivar action_id: The Action created for the request's `action`, present only on the create response that dispatched one. Poll `GET /v2/Conversations/{ConversationId}/Actions/{ActionId}` for its status. 
     :ivar status_url: URL to poll for operation status.
     :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
     """
@@ -87,7 +89,9 @@ class ConversationInstance(InstanceResource):
             payload.get("updatedAt")
         )
         self.configuration: Optional[str] = payload.get("configuration")
+        self.metadata: Optional[Dict[str, str]] = payload.get("metadata")
         self.participants: Optional[List[str]] = payload.get("participants")
+        self.action_id: Optional[str] = payload.get("actionId")
         self.status_url: Optional[str] = payload.get("statusUrl")
         self.related: Optional[Dict[str, str]] = payload.get("related")
 
@@ -795,6 +799,20 @@ class ConversationPage(TokenPagination):
 
 class ConversationList(ListResource):
 
+    class ConversationWorkflow(object):
+        """
+        :ivar flow_id: The Studio Flow to run.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.flow_id: Optional[str] = payload.get("flowId")
+
+        def to_dict(self):
+            return {
+                "flowId": self.flow_id,
+            }
+
     class ConversationsV2Address(object):
         """
         :ivar channel:
@@ -856,6 +874,7 @@ class ConversationList(ListResource):
         :ivar name: The name of the conversation.
         :ivar configuration:
         :ivar participants: Optional list of Participants to create with the Conversation.
+        :ivar metadata: Optional customer-managed key-value metadata for this Conversation. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -887,6 +906,7 @@ class ConversationList(ListResource):
                 if payload.get("participants") is not None
                 else None
             )
+            self.metadata: Optional[Dict[str, str]] = payload.get("metadata")
 
         def to_dict(self):
             return {
@@ -902,11 +922,13 @@ class ConversationList(ListResource):
                     if self.participants is not None
                     else None
                 ),
+                "metadata": self.metadata,
             }
 
     class CreateConversationWithConfigRequestConfiguration(object):
         """
         :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
+        :ivar workflows: The Workflows to associate with this Conversation. Overrides the Configuration's own.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -914,10 +936,27 @@ class ConversationList(ListResource):
             self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
                 "intelligenceConfigurationIds"
             )
+            self.workflows: Optional[List[ConversationList.ConversationWorkflow]] = (
+                [
+                    (
+                        ConversationList.ConversationWorkflow(item)
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("workflows")
+                ]
+                if payload.get("workflows") is not None
+                else None
+            )
 
         def to_dict(self):
             return {
                 "intelligenceConfigurationIds": self.intelligence_configuration_ids,
+                "workflows": (
+                    [workflows.to_dict() for workflows in self.workflows]
+                    if self.workflows is not None
+                    else None
+                ),
             }
 
     class CreateConversationWithConfigRequestParticipants(object):
@@ -989,6 +1028,7 @@ class ConversationList(ListResource):
         :ivar name: The name of the Conversation.
         :ivar status: Lifecycle status of a Conversation.
         :ivar configuration:
+        :ivar metadata: Merge patch for customer-managed metadata (max 8 entries after merge). Provided keys are added or updated; keys set to null are removed; keys not mentioned are preserved.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1004,6 +1044,7 @@ class ConversationList(ListResource):
                 if payload.get("configuration") is not None
                 else None
             )
+            self.metadata: Optional[Dict[str, Optional[str]]] = payload.get("metadata")
 
         def to_dict(self):
             return {
@@ -1014,6 +1055,7 @@ class ConversationList(ListResource):
                     if self.configuration is not None
                     else None
                 ),
+                "metadata": self.metadata,
             }
 
     class PatchConversationByIdRequestConfiguration(object):
@@ -1054,17 +1096,20 @@ class ConversationList(ListResource):
         """
         :ivar name: The name of the Conversation.
         :ivar status: Lifecycle status of a Conversation.
+        :ivar metadata: Customer-managed key-value metadata for this Conversation. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[str] = payload.get("status")
+            self.metadata: Optional[Dict[str, str]] = payload.get("metadata")
 
         def to_dict(self):
             return {
                 "name": self.name,
                 "status": self.status,
+                "metadata": self.metadata,
             }
 
     def __init__(self, version: Version):
