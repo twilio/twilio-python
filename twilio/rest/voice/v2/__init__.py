@@ -20,6 +20,9 @@ from twilio.rest.voice.v2.account_default_configuration import (
 )
 from twilio.rest.voice.v2.configuration import ConfigurationList
 from twilio.rest.voice.v2.recording import RecordingList
+from twilio.rest.voice.v2.recording_account_default_configuration import (
+    RecordingAccountDefaultConfigurationList,
+)
 from twilio.rest.voice.v2.transcription import TranscriptionList
 from twilio.rest.voice.v2.type import TypeList
 
@@ -38,6 +41,9 @@ class V2(Version):
         ] = None
         self._configurations: Optional[ConfigurationList] = None
         self._recording: Optional[RecordingList] = None
+        self._recording_account_default_configuration: Optional[
+            RecordingAccountDefaultConfigurationList
+        ] = None
         self._transcription: Optional[TranscriptionList] = None
         self._type: Optional[TypeList] = None
 
@@ -58,6 +64,16 @@ class V2(Version):
         if self._recording is None:
             self._recording = RecordingList(self)
         return self._recording
+
+    @property
+    def recording_account_default_configuration(
+        self,
+    ) -> RecordingAccountDefaultConfigurationList:
+        if self._recording_account_default_configuration is None:
+            self._recording_account_default_configuration = (
+                RecordingAccountDefaultConfigurationList(self)
+            )
+        return self._recording_account_default_configuration
 
     @property
     def transcription(self) -> TranscriptionList:

@@ -51,7 +51,7 @@ class FactorInstance(InstanceResource):
     :ivar status: 
     :ivar factor_type: 
     :ivar config: An object that contains configurations specific to a `factor_type`.
-    :ivar metadata: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length.
+    :ivar metadata: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length. For `passkeys` factors, it contains the `aaguid` of the authenticator once the factor is verified, and `date_last_approved` (ISO 8601) once the factor has been used to approve a challenge.
     :ivar url: The URL of this resource.
     """
 
