@@ -616,6 +616,8 @@ class Stop(TwiML):
         track=None,
         status_callback=None,
         status_callback_method=None,
+        audio_format=None,
+        sample_rate=None,
         **kwargs
     ):
         """
@@ -627,6 +629,8 @@ class Stop(TwiML):
         :param track: Track to be streamed to remote service
         :param status_callback: Status Callback URL
         :param status_callback_method: Status Callback URL method
+        :param audio_format: Required Audio Format
+        :param sample_rate: Sample Rate for HD Codec
         :param kwargs: additional attributes
 
         :returns: <Stream> element
@@ -639,6 +643,8 @@ class Stop(TwiML):
                 track=track,
                 status_callback=status_callback,
                 status_callback_method=status_callback_method,
+                audio_format=audio_format,
+                sample_rate=sample_rate,
                 **kwargs
             )
         )
@@ -838,6 +844,8 @@ class Start(TwiML):
         track=None,
         status_callback=None,
         status_callback_method=None,
+        audio_format=None,
+        sample_rate=None,
         **kwargs
     ):
         """
@@ -849,6 +857,8 @@ class Start(TwiML):
         :param track: Track to be streamed to remote service
         :param status_callback: Status Callback URL
         :param status_callback_method: Status Callback URL method
+        :param audio_format: Required Audio Format
+        :param sample_rate: Sample Rate for HD Codec
         :param kwargs: additional attributes
 
         :returns: <Stream> element
@@ -861,6 +871,8 @@ class Start(TwiML):
                 track=track,
                 status_callback=status_callback,
                 status_callback_method=status_callback_method,
+                audio_format=audio_format,
+                sample_rate=sample_rate,
                 **kwargs
             )
         )
@@ -2801,6 +2813,8 @@ class Connect(TwiML):
         track=None,
         status_callback=None,
         status_callback_method=None,
+        audio_format=None,
+        sample_rate=None,
         **kwargs
     ):
         """
@@ -2812,6 +2826,8 @@ class Connect(TwiML):
         :param track: Track to be streamed to remote service
         :param status_callback: Status Callback URL
         :param status_callback_method: Status Callback URL method
+        :param audio_format: Required Audio Format
+        :param sample_rate: Sample Rate for HD Codec
         :param kwargs: additional attributes
 
         :returns: <Stream> element
@@ -2824,6 +2840,8 @@ class Connect(TwiML):
                 track=track,
                 status_callback=status_callback,
                 status_callback_method=status_callback_method,
+                audio_format=audio_format,
+                sample_rate=sample_rate,
                 **kwargs
             )
         )

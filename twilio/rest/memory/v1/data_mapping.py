@@ -170,38 +170,38 @@ class DataMappingInstance(InstanceResource):
 
     def patch(
         self,
+        data_mapping_core: DataMappingCore,
         if_match: Union[str, object] = values.unset,
-        data_mapping_core: Union[DataMappingCore, object] = values.unset,
     ) -> "DataMappingInstance":
         """
         Patch the DataMappingInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param data_mapping_core:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched DataMappingInstance
         """
         return self._proxy.patch(
-            if_match=if_match,
             data_mapping_core=data_mapping_core,
+            if_match=if_match,
         )
 
     async def patch_async(
         self,
+        data_mapping_core: DataMappingCore,
         if_match: Union[str, object] = values.unset,
-        data_mapping_core: Union[DataMappingCore, object] = values.unset,
     ) -> "DataMappingInstance":
         """
         Asynchronous coroutine to patch the DataMappingInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param data_mapping_core:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched DataMappingInstance
         """
         return await self._proxy.patch_async(
-            if_match=if_match,
             data_mapping_core=data_mapping_core,
+            if_match=if_match,
         )
 
     def __repr__(self) -> str:
@@ -405,8 +405,8 @@ class DataMappingContext(InstanceContext):
 
     def _patch(
         self,
+        data_mapping_core: DataMappingCore,
         if_match: Union[str, object] = values.unset,
-        data_mapping_core: Union[DataMappingCore, object] = values.unset,
     ) -> tuple:
         """
         Internal helper for patch operation
@@ -433,19 +433,19 @@ class DataMappingContext(InstanceContext):
 
     def patch(
         self,
+        data_mapping_core: DataMappingCore,
         if_match: Union[str, object] = values.unset,
-        data_mapping_core: Union[DataMappingCore, object] = values.unset,
     ) -> DataMappingInstance:
         """
         Patch the DataMappingInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param data_mapping_core:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched DataMappingInstance
         """
         payload, _, _ = self._patch(
-            if_match=if_match, data_mapping_core=data_mapping_core
+            data_mapping_core=data_mapping_core, if_match=if_match
         )
         return DataMappingInstance(
             self._version,
@@ -456,19 +456,19 @@ class DataMappingContext(InstanceContext):
 
     def patch_with_http_info(
         self,
+        data_mapping_core: DataMappingCore,
         if_match: Union[str, object] = values.unset,
-        data_mapping_core: Union[DataMappingCore, object] = values.unset,
     ) -> ApiResponse:
         """
         Patch the DataMappingInstance and return response metadata
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param data_mapping_core:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._patch(
-            if_match=if_match, data_mapping_core=data_mapping_core
+            data_mapping_core=data_mapping_core, if_match=if_match
         )
         instance = DataMappingInstance(
             self._version,
@@ -480,8 +480,8 @@ class DataMappingContext(InstanceContext):
 
     async def _patch_async(
         self,
+        data_mapping_core: DataMappingCore,
         if_match: Union[str, object] = values.unset,
-        data_mapping_core: Union[DataMappingCore, object] = values.unset,
     ) -> tuple:
         """
         Internal async helper for patch operation
@@ -508,19 +508,19 @@ class DataMappingContext(InstanceContext):
 
     async def patch_async(
         self,
+        data_mapping_core: DataMappingCore,
         if_match: Union[str, object] = values.unset,
-        data_mapping_core: Union[DataMappingCore, object] = values.unset,
     ) -> DataMappingInstance:
         """
         Asynchronous coroutine to patch the DataMappingInstance
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param data_mapping_core:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: The patched DataMappingInstance
         """
         payload, _, _ = await self._patch_async(
-            if_match=if_match, data_mapping_core=data_mapping_core
+            data_mapping_core=data_mapping_core, if_match=if_match
         )
         return DataMappingInstance(
             self._version,
@@ -531,19 +531,19 @@ class DataMappingContext(InstanceContext):
 
     async def patch_with_http_info_async(
         self,
+        data_mapping_core: DataMappingCore,
         if_match: Union[str, object] = values.unset,
-        data_mapping_core: Union[DataMappingCore, object] = values.unset,
     ) -> ApiResponse:
         """
         Asynchronous coroutine to patch the DataMappingInstance and return response metadata
 
-        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
         :param data_mapping_core:
+        :param if_match: Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource's current Entity Tag (ETag) matches the one provided, preventing accidental overwrites.
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._patch_async(
-            if_match=if_match, data_mapping_core=data_mapping_core
+            data_mapping_core=data_mapping_core, if_match=if_match
         )
         instance = DataMappingInstance(
             self._version,
