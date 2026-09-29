@@ -2,7 +2,7 @@ import unittest
 
 import aiounittest
 
-from mock import AsyncMock, Mock
+from unittest.mock import AsyncMock, Mock
 
 from twilio.http.response import Response
 from twilio.rest import Client
