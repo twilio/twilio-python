@@ -93,7 +93,9 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
             "timeout": timeout,
             "allow_redirects": allow_redirects,
         }
-
+        if self.proxy_url:
+            kwargs["proxy"] = self.proxy_url
+            
         self.log_request(kwargs)
         self._test_only_last_response = None
 
