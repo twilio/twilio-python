@@ -22,6 +22,27 @@ from twilio.base.version import Version
 
 
 class SmsVerificationInstance(InstanceResource):
+
+    class NumbersV1SmsVerificationRequest(object):
+        """
+        :ivar to: The phone number to verify in E.164 format.
+        :ivar locale: The locale for the verification SMS message.
+        :ivar friendly_name: A human-readable name for the caller ID.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.to: Optional[str] = payload.get("to")
+            self.locale: Optional[str] = payload.get("locale")
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
+
+        def to_dict(self):
+            return {
+                "to": self.to,
+                "locale": self.locale,
+                "friendly_name": self.friendly_name,
+            }
+
     """
     :ivar to: The phone number being verified in E.164 format.
     :ivar verification_sid: The unique SID of this verification resource.
@@ -47,6 +68,26 @@ class SmsVerificationInstance(InstanceResource):
 
 class SmsVerificationList(ListResource):
 
+    class NumbersV1SmsVerificationRequest(object):
+        """
+        :ivar to: The phone number to verify in E.164 format.
+        :ivar locale: The locale for the verification SMS message.
+        :ivar friendly_name: A human-readable name for the caller ID.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.to: Optional[str] = payload.get("to")
+            self.locale: Optional[str] = payload.get("locale")
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
+
+        def to_dict(self):
+            return {
+                "to": self.to,
+                "locale": self.locale,
+                "friendly_name": self.friendly_name,
+            }
+
     def __init__(self, version: Version):
         """
         Initialize the SmsVerificationList
@@ -58,77 +99,107 @@ class SmsVerificationList(ListResource):
 
         self._uri = "/CallerIds/SmsVerifications"
 
-    def _create(self) -> tuple:
+    def _create(
+        self, numbers_v1_sms_verification_request: NumbersV1SmsVerificationRequest
+    ) -> tuple:
         """
         Internal helper for create operation
 
         Returns:
             tuple: (payload, status_code, headers)
         """
+        data = numbers_v1_sms_verification_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
 
         headers["Accept"] = "application/json"
 
         return self._version.create_with_response_info(
-            method="POST", uri=self._uri, headers=headers
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
-    def create(self) -> SmsVerificationInstance:
+    def create(
+        self, numbers_v1_sms_verification_request: NumbersV1SmsVerificationRequest
+    ) -> SmsVerificationInstance:
         """
         Create the SmsVerificationInstance
 
+        :param numbers_v1_sms_verification_request:
 
         :returns: The created SmsVerificationInstance
         """
-        payload, _, _ = self._create()
+        payload, _, _ = self._create(
+            numbers_v1_sms_verification_request=numbers_v1_sms_verification_request
+        )
         return SmsVerificationInstance(self._version, payload)
 
-    def create_with_http_info(self) -> ApiResponse:
+    def create_with_http_info(
+        self, numbers_v1_sms_verification_request: NumbersV1SmsVerificationRequest
+    ) -> ApiResponse:
         """
         Create the SmsVerificationInstance and return response metadata
 
+        :param numbers_v1_sms_verification_request:
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._create()
+        payload, status_code, headers = self._create(
+            numbers_v1_sms_verification_request=numbers_v1_sms_verification_request
+        )
         instance = SmsVerificationInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _create_async(self) -> tuple:
+    async def _create_async(
+        self, numbers_v1_sms_verification_request: NumbersV1SmsVerificationRequest
+    ) -> tuple:
         """
         Internal async helper for create operation
 
         Returns:
             tuple: (payload, status_code, headers)
         """
+        data = numbers_v1_sms_verification_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
 
         headers["Accept"] = "application/json"
 
         return await self._version.create_with_response_info_async(
-            method="POST", uri=self._uri, headers=headers
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
-    async def create_async(self) -> SmsVerificationInstance:
+    async def create_async(
+        self, numbers_v1_sms_verification_request: NumbersV1SmsVerificationRequest
+    ) -> SmsVerificationInstance:
         """
         Asynchronously create the SmsVerificationInstance
 
+        :param numbers_v1_sms_verification_request:
 
         :returns: The created SmsVerificationInstance
         """
-        payload, _, _ = await self._create_async()
+        payload, _, _ = await self._create_async(
+            numbers_v1_sms_verification_request=numbers_v1_sms_verification_request
+        )
         return SmsVerificationInstance(self._version, payload)
 
-    async def create_with_http_info_async(self) -> ApiResponse:
+    async def create_with_http_info_async(
+        self, numbers_v1_sms_verification_request: NumbersV1SmsVerificationRequest
+    ) -> ApiResponse:
         """
         Asynchronously create the SmsVerificationInstance and return response metadata
 
+        :param numbers_v1_sms_verification_request:
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._create_async()
+        payload, status_code, headers = await self._create_async(
+            numbers_v1_sms_verification_request=numbers_v1_sms_verification_request
+        )
         instance = SmsVerificationInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 

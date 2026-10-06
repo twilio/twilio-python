@@ -928,6 +928,8 @@ class ConversationList(ListResource):
     class CreateConversationWithConfigRequestConfiguration(object):
         """
         :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
+        :ivar trait_extraction_strategy_ids: A list of Trait Extraction Strategy IDs.
+        :ivar observation_extraction_strategy_ids: A list of Observation Extraction Strategy IDs.
         :ivar workflows: The Workflows to associate with this Conversation. Overrides the Configuration's own.
         """
 
@@ -935,6 +937,12 @@ class ConversationList(ListResource):
 
             self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
                 "intelligenceConfigurationIds"
+            )
+            self.trait_extraction_strategy_ids: Optional[List[str]] = payload.get(
+                "traitExtractionStrategyIds"
+            )
+            self.observation_extraction_strategy_ids: Optional[List[str]] = payload.get(
+                "observationExtractionStrategyIds"
             )
             self.workflows: Optional[List[ConversationList.ConversationWorkflow]] = (
                 [
@@ -952,6 +960,8 @@ class ConversationList(ListResource):
         def to_dict(self):
             return {
                 "intelligenceConfigurationIds": self.intelligence_configuration_ids,
+                "traitExtractionStrategyIds": self.trait_extraction_strategy_ids,
+                "observationExtractionStrategyIds": self.observation_extraction_strategy_ids,
                 "workflows": (
                     [workflows.to_dict() for workflows in self.workflows]
                     if self.workflows is not None

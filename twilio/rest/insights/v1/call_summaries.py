@@ -89,7 +89,7 @@ class CallSummariesInstance(InstanceResource):
     :ivar client_edge: `object` Contains metrics and properties for the Twilio media gateway of a Client call. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
     :ivar sdk_edge: `object` Contains metrics and properties for the SDK sensor library for Client calls. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
     :ivar sip_edge: `object` Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
-    :ivar tags: Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
+    :ivar tags: [Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags) that Voice Insights analysis applies to calls. They indicate a condition that may influence the subjective experience of call audio quality.
     :ivar url: The URL of this resource.
     :ivar attributes: `object` Attributes capturing call-flow-specific details. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#attributes-object) for the object properties.
     :ivar properties: `object` Contains edge-agnostic call-level details. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#properties-object) for the object properties.

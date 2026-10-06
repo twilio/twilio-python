@@ -27,14 +27,14 @@ from twilio.base.token_pagination import TokenPagination
 
 class ConversationSummaryInstance(InstanceResource):
     """
-    :ivar source: The source system that generated the summary. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+    :ivar message:
+    :ivar source: The source system that generated the summary. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
     :ivar content: The main content of the summary.
     :ivar occurred_at: The timestamp when the summary was originally created.
     :ivar conversation_id: A unique identifier for the conversation using Twilio Type ID (TTID) format.
     :ivar id: A unique identifier for the summary using Twilio Type ID (TTID) format.
     :ivar created_at: The timestamp when the summary was created.
     :ivar updated_at: The timestamp when the summary was last updated.
-    :ivar message:
     """
 
     def __init__(
@@ -47,6 +47,7 @@ class ConversationSummaryInstance(InstanceResource):
     ):
         super().__init__(version)
 
+        self.message: Optional[str] = payload.get("message")
         self.source: Optional[str] = payload.get("source")
         self.content: Optional[str] = payload.get("content")
         self.occurred_at: Optional[datetime] = deserialize.iso8601_datetime(
@@ -60,7 +61,6 @@ class ConversationSummaryInstance(InstanceResource):
         self.updated_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("updatedAt")
         )
-        self.message: Optional[str] = payload.get("message")
 
         # Only set _solution if path params are provided (not None)
         if store_id is not None or profile_id is not None or summary_id is not None:
@@ -580,7 +580,7 @@ class ConversationSummaryList(ListResource):
 
     class SummaryCore(object):
         """
-        :ivar source: The source system that generated the summary. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :ivar source: The source system that generated the summary. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :ivar content: The main content of the summary.
         :ivar occurred_at: The timestamp when the summary was originally created.
         :ivar conversation_id: A unique identifier for the conversation using Twilio Type ID (TTID) format.
@@ -603,7 +603,7 @@ class ConversationSummaryList(ListResource):
 
     class SummaryCorePatch(object):
         """
-        :ivar source: The source system that generated the summary. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :ivar source: The source system that generated the summary. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :ivar content: The main content of the summary.
         :ivar occurred_at: The timestamp when the summary was originally created. If not provided, defaults to the time the summary was received.
         :ivar conversation_id: A unique identifier for the conversation using Twilio Type ID (TTID) format.
