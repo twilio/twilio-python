@@ -575,13 +575,13 @@ class ConfigurationList(ListResource):
 
             self.memory: Optional[ConfigurationList.ContextMemory] = (
                 ConfigurationList.ContextMemory(payload.get("memory"))
-                if payload.get("memory") is not None
-                else None
+                if isinstance(payload.get("memory"), dict)
+                else payload.get("memory")
             )
             self.knowledge: Optional[ConfigurationList.ContextKnowledge] = (
                 ConfigurationList.ContextKnowledge(payload.get("knowledge"))
-                if payload.get("knowledge") is not None
-                else None
+                if isinstance(payload.get("knowledge"), dict)
+                else payload.get("knowledge")
             )
 
         def to_dict(self):
@@ -711,8 +711,8 @@ class ConfigurationList(ListResource):
             )
             self.context: Optional[ConfigurationList.Context] = (
                 ConfigurationList.Context(payload.get("context"))
-                if payload.get("context") is not None
-                else None
+                if isinstance(payload.get("context"), dict)
+                else payload.get("context")
             )
 
         def to_dict(self):
@@ -773,8 +773,8 @@ class ConfigurationList(ListResource):
             )
             self.context: Optional[ConfigurationList.Context] = (
                 ConfigurationList.Context(payload.get("context"))
-                if payload.get("context") is not None
-                else None
+                if isinstance(payload.get("context"), dict)
+                else payload.get("context")
             )
 
         def to_dict(self):
@@ -809,8 +809,8 @@ class ConfigurationList(ListResource):
             self.on: Optional[str] = payload.get("on")
             self.parameters: Optional[ConfigurationList.TriggerParameters] = (
                 ConfigurationList.TriggerParameters(payload.get("parameters"))
-                if payload.get("parameters") is not None
-                else None
+                if isinstance(payload.get("parameters"), dict)
+                else payload.get("parameters")
             )
 
         def to_dict(self):

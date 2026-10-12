@@ -130,8 +130,8 @@ class ReportInstance(InstanceResource):
                 AccountReportKYTOutboundCarrierCalling(
                     payload.get("outbound_carrier_calling")
                 )
-                if payload.get("outbound_carrier_calling") is not None
-                else None
+                if isinstance(payload.get("outbound_carrier_calling"), dict)
+                else payload.get("outbound_carrier_calling")
             )
 
         def to_dict(self):
@@ -183,18 +183,18 @@ class ReportInstance(InstanceResource):
             )
             self.branded_calling: Optional[BrandedCalling] = (
                 BrandedCalling(payload.get("branded_calling"))
-                if payload.get("branded_calling") is not None
-                else None
+                if isinstance(payload.get("branded_calling"), dict)
+                else payload.get("branded_calling")
             )
             self.voice_integrity: Optional[VoiceIntegrity] = (
                 VoiceIntegrity(payload.get("voice_integrity"))
-                if payload.get("voice_integrity") is not None
-                else None
+                if isinstance(payload.get("voice_integrity"), dict)
+                else payload.get("voice_integrity")
             )
             self.stir_shaken: Optional[StirShaken] = (
                 StirShaken(payload.get("stir_shaken"))
-                if payload.get("stir_shaken") is not None
-                else None
+                if isinstance(payload.get("stir_shaken"), dict)
+                else payload.get("stir_shaken")
             )
 
         def to_dict(self):
@@ -237,13 +237,13 @@ class ReportInstance(InstanceResource):
 
             self.sdk: Optional[AccountReportNetworkIssuesSdk] = (
                 AccountReportNetworkIssuesSdk(payload.get("sdk"))
-                if payload.get("sdk") is not None
-                else None
+                if isinstance(payload.get("sdk"), dict)
+                else payload.get("sdk")
             )
             self.twilio_gateway: Optional[AccountReportNetworkIssuesTwilioGateway] = (
                 AccountReportNetworkIssuesTwilioGateway(payload.get("twilio_gateway"))
-                if payload.get("twilio_gateway") is not None
-                else None
+                if isinstance(payload.get("twilio_gateway"), dict)
+                else payload.get("twilio_gateway")
             )
 
         def to_dict(self):
@@ -425,8 +425,8 @@ class ReportInstance(InstanceResource):
                 ReportList.InsightsV2CreateAccountReportRequestTimeRange(
                     payload.get("time_range")
                 )
-                if payload.get("time_range") is not None
-                else None
+                if isinstance(payload.get("time_range"), dict)
+                else payload.get("time_range")
             )
             self.filters: Optional[List[ReportList.ReportFilter]] = (
                 [
@@ -494,18 +494,18 @@ class ReportInstance(InstanceResource):
 
             self.call_count: Optional[StirShakenCallCount] = (
                 StirShakenCallCount(payload.get("call_count"))
-                if payload.get("call_count") is not None
-                else None
+                if isinstance(payload.get("call_count"), dict)
+                else payload.get("call_count")
             )
             self.percentage: Optional[StirShakenPercentage] = (
                 StirShakenPercentage(payload.get("percentage"))
-                if payload.get("percentage") is not None
-                else None
+                if isinstance(payload.get("percentage"), dict)
+                else payload.get("percentage")
             )
             self.answer_rate: Optional[StirShakenAnswerRate] = (
                 StirShakenAnswerRate(payload.get("answer_rate"))
-                if payload.get("answer_rate") is not None
-                else None
+                if isinstance(payload.get("answer_rate"), dict)
+                else payload.get("answer_rate")
             )
 
         def to_dict(self):
@@ -850,8 +850,8 @@ class ReportContext(InstanceContext):
                 AccountReportKYTOutboundCarrierCalling(
                     payload.get("outbound_carrier_calling")
                 )
-                if payload.get("outbound_carrier_calling") is not None
-                else None
+                if isinstance(payload.get("outbound_carrier_calling"), dict)
+                else payload.get("outbound_carrier_calling")
             )
 
         def to_dict(self):
@@ -903,18 +903,18 @@ class ReportContext(InstanceContext):
             )
             self.branded_calling: Optional[BrandedCalling] = (
                 BrandedCalling(payload.get("branded_calling"))
-                if payload.get("branded_calling") is not None
-                else None
+                if isinstance(payload.get("branded_calling"), dict)
+                else payload.get("branded_calling")
             )
             self.voice_integrity: Optional[VoiceIntegrity] = (
                 VoiceIntegrity(payload.get("voice_integrity"))
-                if payload.get("voice_integrity") is not None
-                else None
+                if isinstance(payload.get("voice_integrity"), dict)
+                else payload.get("voice_integrity")
             )
             self.stir_shaken: Optional[StirShaken] = (
                 StirShaken(payload.get("stir_shaken"))
-                if payload.get("stir_shaken") is not None
-                else None
+                if isinstance(payload.get("stir_shaken"), dict)
+                else payload.get("stir_shaken")
             )
 
         def to_dict(self):
@@ -957,13 +957,13 @@ class ReportContext(InstanceContext):
 
             self.sdk: Optional[AccountReportNetworkIssuesSdk] = (
                 AccountReportNetworkIssuesSdk(payload.get("sdk"))
-                if payload.get("sdk") is not None
-                else None
+                if isinstance(payload.get("sdk"), dict)
+                else payload.get("sdk")
             )
             self.twilio_gateway: Optional[AccountReportNetworkIssuesTwilioGateway] = (
                 AccountReportNetworkIssuesTwilioGateway(payload.get("twilio_gateway"))
-                if payload.get("twilio_gateway") is not None
-                else None
+                if isinstance(payload.get("twilio_gateway"), dict)
+                else payload.get("twilio_gateway")
             )
 
         def to_dict(self):
@@ -1145,8 +1145,8 @@ class ReportContext(InstanceContext):
                 ReportList.InsightsV2CreateAccountReportRequestTimeRange(
                     payload.get("time_range")
                 )
-                if payload.get("time_range") is not None
-                else None
+                if isinstance(payload.get("time_range"), dict)
+                else payload.get("time_range")
             )
             self.filters: Optional[List[ReportList.ReportFilter]] = (
                 [
@@ -1214,18 +1214,18 @@ class ReportContext(InstanceContext):
 
             self.call_count: Optional[StirShakenCallCount] = (
                 StirShakenCallCount(payload.get("call_count"))
-                if payload.get("call_count") is not None
-                else None
+                if isinstance(payload.get("call_count"), dict)
+                else payload.get("call_count")
             )
             self.percentage: Optional[StirShakenPercentage] = (
                 StirShakenPercentage(payload.get("percentage"))
-                if payload.get("percentage") is not None
-                else None
+                if isinstance(payload.get("percentage"), dict)
+                else payload.get("percentage")
             )
             self.answer_rate: Optional[StirShakenAnswerRate] = (
                 StirShakenAnswerRate(payload.get("answer_rate"))
-                if payload.get("answer_rate") is not None
-                else None
+                if isinstance(payload.get("answer_rate"), dict)
+                else payload.get("answer_rate")
             )
 
         def to_dict(self):
@@ -1590,8 +1590,8 @@ class ReportList(ListResource):
                 AccountReportKYTOutboundCarrierCalling(
                     payload.get("outbound_carrier_calling")
                 )
-                if payload.get("outbound_carrier_calling") is not None
-                else None
+                if isinstance(payload.get("outbound_carrier_calling"), dict)
+                else payload.get("outbound_carrier_calling")
             )
 
         def to_dict(self):
@@ -1643,18 +1643,18 @@ class ReportList(ListResource):
             )
             self.branded_calling: Optional[BrandedCalling] = (
                 BrandedCalling(payload.get("branded_calling"))
-                if payload.get("branded_calling") is not None
-                else None
+                if isinstance(payload.get("branded_calling"), dict)
+                else payload.get("branded_calling")
             )
             self.voice_integrity: Optional[VoiceIntegrity] = (
                 VoiceIntegrity(payload.get("voice_integrity"))
-                if payload.get("voice_integrity") is not None
-                else None
+                if isinstance(payload.get("voice_integrity"), dict)
+                else payload.get("voice_integrity")
             )
             self.stir_shaken: Optional[StirShaken] = (
                 StirShaken(payload.get("stir_shaken"))
-                if payload.get("stir_shaken") is not None
-                else None
+                if isinstance(payload.get("stir_shaken"), dict)
+                else payload.get("stir_shaken")
             )
 
         def to_dict(self):
@@ -1697,13 +1697,13 @@ class ReportList(ListResource):
 
             self.sdk: Optional[AccountReportNetworkIssuesSdk] = (
                 AccountReportNetworkIssuesSdk(payload.get("sdk"))
-                if payload.get("sdk") is not None
-                else None
+                if isinstance(payload.get("sdk"), dict)
+                else payload.get("sdk")
             )
             self.twilio_gateway: Optional[AccountReportNetworkIssuesTwilioGateway] = (
                 AccountReportNetworkIssuesTwilioGateway(payload.get("twilio_gateway"))
-                if payload.get("twilio_gateway") is not None
-                else None
+                if isinstance(payload.get("twilio_gateway"), dict)
+                else payload.get("twilio_gateway")
             )
 
         def to_dict(self):
@@ -1885,8 +1885,8 @@ class ReportList(ListResource):
                 ReportList.InsightsV2CreateAccountReportRequestTimeRange(
                     payload.get("time_range")
                 )
-                if payload.get("time_range") is not None
-                else None
+                if isinstance(payload.get("time_range"), dict)
+                else payload.get("time_range")
             )
             self.filters: Optional[List[ReportList.ReportFilter]] = (
                 [
@@ -1954,18 +1954,18 @@ class ReportList(ListResource):
 
             self.call_count: Optional[StirShakenCallCount] = (
                 StirShakenCallCount(payload.get("call_count"))
-                if payload.get("call_count") is not None
-                else None
+                if isinstance(payload.get("call_count"), dict)
+                else payload.get("call_count")
             )
             self.percentage: Optional[StirShakenPercentage] = (
                 StirShakenPercentage(payload.get("percentage"))
-                if payload.get("percentage") is not None
-                else None
+                if isinstance(payload.get("percentage"), dict)
+                else payload.get("percentage")
             )
             self.answer_rate: Optional[StirShakenAnswerRate] = (
                 StirShakenAnswerRate(payload.get("answer_rate"))
-                if payload.get("answer_rate") is not None
-                else None
+                if isinstance(payload.get("answer_rate"), dict)
+                else payload.get("answer_rate")
             )
 
         def to_dict(self):

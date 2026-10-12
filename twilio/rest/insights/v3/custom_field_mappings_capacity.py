@@ -23,7 +23,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class CapacityInstance(InstanceResource):
+class CustomFieldMappingsCapacityInstance(InstanceResource):
     """
     :ivar measure:
     """
@@ -40,21 +40,21 @@ class CapacityInstance(InstanceResource):
         :returns: Machine friendly representation
         """
 
-        return "<Twilio.Insights.V3.CapacityInstance>"
+        return "<Twilio.Insights.V3.CustomFieldMappingsCapacityInstance>"
 
 
-class CapacityList(ListResource):
+class CustomFieldMappingsCapacityList(ListResource):
 
     def __init__(self, version: Version):
         """
-        Initialize the CapacityList
+        Initialize the CustomFieldMappingsCapacityList
 
         :param version: Version that contains the resource
 
         """
         super().__init__(version)
 
-        self._uri = "/ControlPlane/ConversationInsights/CustomFieldMappings/Capacity"
+        self._uri = "/ControlPlane/ConversationInsights/CustomFieldMappingsCapacity"
 
     def _fetch(self) -> tuple:
         """
@@ -71,25 +71,25 @@ class CapacityList(ListResource):
             method="GET", uri=self._uri, headers=headers
         )
 
-    def fetch(self) -> CapacityInstance:
+    def fetch(self) -> CustomFieldMappingsCapacityInstance:
         """
-        Fetch the CapacityInstance
+        Fetch the CustomFieldMappingsCapacityInstance
 
 
-        :returns: The fetched CapacityInstance
+        :returns: The fetched CustomFieldMappingsCapacityInstance
         """
         payload, _, _ = self._fetch()
-        return CapacityInstance(self._version, payload)
+        return CustomFieldMappingsCapacityInstance(self._version, payload)
 
     def fetch_with_http_info(self) -> ApiResponse:
         """
-        Fetch the CapacityInstance and return response metadata
+        Fetch the CustomFieldMappingsCapacityInstance and return response metadata
 
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = self._fetch()
-        instance = CapacityInstance(self._version, payload)
+        instance = CustomFieldMappingsCapacityInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     async def _fetch_async(self) -> tuple:
@@ -107,25 +107,25 @@ class CapacityList(ListResource):
             method="GET", uri=self._uri, headers=headers
         )
 
-    async def fetch_async(self) -> CapacityInstance:
+    async def fetch_async(self) -> CustomFieldMappingsCapacityInstance:
         """
-        Asynchronously fetch the CapacityInstance
+        Asynchronously fetch the CustomFieldMappingsCapacityInstance
 
 
-        :returns: The fetched CapacityInstance
+        :returns: The fetched CustomFieldMappingsCapacityInstance
         """
         payload, _, _ = await self._fetch_async()
-        return CapacityInstance(self._version, payload)
+        return CustomFieldMappingsCapacityInstance(self._version, payload)
 
     async def fetch_with_http_info_async(self) -> ApiResponse:
         """
-        Asynchronously fetch the CapacityInstance and return response metadata
+        Asynchronously fetch the CustomFieldMappingsCapacityInstance and return response metadata
 
 
         :returns: ApiResponse with instance, status code, and headers
         """
         payload, status_code, headers = await self._fetch_async()
-        instance = CapacityInstance(self._version, payload)
+        instance = CustomFieldMappingsCapacityInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
@@ -134,4 +134,4 @@ class CapacityList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Insights.V3.CapacityList>"
+        return "<Twilio.Insights.V3.CustomFieldMappingsCapacityList>"

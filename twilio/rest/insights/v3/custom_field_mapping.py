@@ -15,13 +15,14 @@ r"""
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
-
+from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+from twilio.base.token_pagination import TokenPagination
 
 
 class CustomFieldMappingInstance(InstanceResource):
@@ -33,17 +34,21 @@ class CustomFieldMappingInstance(InstanceResource):
         INTELLIGENCE_OPERATOR = "INTELLIGENCE_OPERATOR"
 
     """
-    :ivar id: TTID for conversation insights custom field mapping
+    :ivar id: The unique identifier of the custom field mapping.
     :ivar category: 
-    :ivar name: 
+    :ivar name: Name of the custom field, unique within the account.
     :ivar description: Optional, free-text description supplied at registration time. Display-only — not part of any uniqueness check. 
     :ivar entity_metadata: 
     :ivar created_at: When the mapping was registered.
-    :ivar updated_at: When the mapping was last materially modified in-place. Null until the first update-in-place.
-    :ivar mappings: 
+    :ivar updated_at: When the mapping was last modified via `PATCH`. Null until the first update.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any]):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        mapping_id: Optional[str] = None,
+    ):
         super().__init__(version)
 
         self.id: Optional[str] = payload.get("id")
@@ -59,8 +64,100 @@ class CustomFieldMappingInstance(InstanceResource):
         self.updated_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("updatedAt")
         )
-        self.mappings: Optional[List[CustomFieldMappingResponse]] = payload.get(
-            "mappings"
+
+        # Only set _solution if path params are provided (not None)
+        if mapping_id is not None:
+            self._solution = {
+                "mapping_id": mapping_id,
+            }
+
+        self._context: Optional[CustomFieldMappingContext] = None
+
+    @property
+    def _proxy(self) -> "CustomFieldMappingContext":
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: CustomFieldMappingContext for this CustomFieldMappingInstance
+        """
+        if self._context is None:
+            self._context = CustomFieldMappingContext(
+                self._version,
+                mapping_id=self._solution["mapping_id"],
+            )
+        return self._context
+
+    def fetch(self) -> "CustomFieldMappingInstance":
+        """
+        Fetch the CustomFieldMappingInstance
+
+
+        :returns: The fetched CustomFieldMappingInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self) -> "CustomFieldMappingInstance":
+        """
+        Asynchronous coroutine to fetch the CustomFieldMappingInstance
+
+
+        :returns: The fetched CustomFieldMappingInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the CustomFieldMappingInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the CustomFieldMappingInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
+    def patch(
+        self,
+        custom_field_mapping_update_request: CustomFieldMappingUpdateRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> "CustomFieldMappingInstance":
+        """
+        Patch the CustomFieldMappingInstance
+
+        :param custom_field_mapping_update_request:
+        :param if_match: ETag of the custom field mapping, as returned in the `ETag` response header. When supplied, the update is applied only if the mapping has not changed since that ETag was issued; otherwise `412` is returned.
+
+        :returns: The patched CustomFieldMappingInstance
+        """
+        return self._proxy.patch(
+            custom_field_mapping_update_request=custom_field_mapping_update_request,
+            if_match=if_match,
+        )
+
+    async def patch_async(
+        self,
+        custom_field_mapping_update_request: CustomFieldMappingUpdateRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> "CustomFieldMappingInstance":
+        """
+        Asynchronous coroutine to patch the CustomFieldMappingInstance
+
+        :param custom_field_mapping_update_request:
+        :param if_match: ETag of the custom field mapping, as returned in the `ETag` response header. When supplied, the update is applied only if the mapping has not changed since that ETag was issued; otherwise `412` is returned.
+
+        :returns: The patched CustomFieldMappingInstance
+        """
+        return await self._proxy.patch_async(
+            custom_field_mapping_update_request=custom_field_mapping_update_request,
+            if_match=if_match,
         )
 
     def __repr__(self) -> str:
@@ -69,8 +166,289 @@ class CustomFieldMappingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V3.CustomFieldMappingInstance {}>".format(context)
 
-        return "<Twilio.Insights.V3.CustomFieldMappingInstance>"
+
+class CustomFieldMappingContext(InstanceContext):
+
+    def __init__(self, version: Version, mapping_id: str):
+        """
+        Initialize the CustomFieldMappingContext
+
+        :param version: Version that contains the resource
+        :param mapping_id: The unique identifier of the custom field mapping, as returned in `id` when the mapping was created.
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "mapping_id": mapping_id,
+        }
+        self._uri = "/ControlPlane/ConversationInsights/CustomFieldMappings/{mapping_id}".format(
+            **self._solution
+        )
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
+    def fetch(self) -> CustomFieldMappingInstance:
+        """
+        Fetch the CustomFieldMappingInstance
+
+
+        :returns: The fetched CustomFieldMappingInstance
+        """
+        payload, _, _ = self._fetch()
+        return CustomFieldMappingInstance(
+            self._version,
+            payload,
+            mapping_id=self._solution["mapping_id"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the CustomFieldMappingInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = CustomFieldMappingInstance(
+            self._version,
+            payload,
+            mapping_id=self._solution["mapping_id"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
+        )
+
+    async def fetch_async(self) -> CustomFieldMappingInstance:
+        """
+        Asynchronous coroutine to fetch the CustomFieldMappingInstance
+
+
+        :returns: The fetched CustomFieldMappingInstance
+        """
+        payload, _, _ = await self._fetch_async()
+        return CustomFieldMappingInstance(
+            self._version,
+            payload,
+            mapping_id=self._solution["mapping_id"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the CustomFieldMappingInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = CustomFieldMappingInstance(
+            self._version,
+            payload,
+            mapping_id=self._solution["mapping_id"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _patch(
+        self,
+        custom_field_mapping_update_request: CustomFieldMappingUpdateRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for patch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = custom_field_mapping_update_request.to_dict()
+
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.patch_with_response_info(
+            method="PATCH", uri=self._uri, data=data, headers=headers
+        )
+
+    def patch(
+        self,
+        custom_field_mapping_update_request: CustomFieldMappingUpdateRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> CustomFieldMappingInstance:
+        """
+        Patch the CustomFieldMappingInstance
+
+        :param custom_field_mapping_update_request:
+        :param if_match: ETag of the custom field mapping, as returned in the `ETag` response header. When supplied, the update is applied only if the mapping has not changed since that ETag was issued; otherwise `412` is returned.
+
+        :returns: The patched CustomFieldMappingInstance
+        """
+        payload, _, _ = self._patch(
+            custom_field_mapping_update_request=custom_field_mapping_update_request,
+            if_match=if_match,
+        )
+        return CustomFieldMappingInstance(
+            self._version, payload, mapping_id=self._solution["mapping_id"]
+        )
+
+    def patch_with_http_info(
+        self,
+        custom_field_mapping_update_request: CustomFieldMappingUpdateRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Patch the CustomFieldMappingInstance and return response metadata
+
+        :param custom_field_mapping_update_request:
+        :param if_match: ETag of the custom field mapping, as returned in the `ETag` response header. When supplied, the update is applied only if the mapping has not changed since that ETag was issued; otherwise `412` is returned.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._patch(
+            custom_field_mapping_update_request=custom_field_mapping_update_request,
+            if_match=if_match,
+        )
+        instance = CustomFieldMappingInstance(
+            self._version, payload, mapping_id=self._solution["mapping_id"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _patch_async(
+        self,
+        custom_field_mapping_update_request: CustomFieldMappingUpdateRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for patch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = custom_field_mapping_update_request.to_dict()
+
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.patch_with_response_info_async(
+            method="PATCH", uri=self._uri, data=data, headers=headers
+        )
+
+    async def patch_async(
+        self,
+        custom_field_mapping_update_request: CustomFieldMappingUpdateRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> CustomFieldMappingInstance:
+        """
+        Asynchronous coroutine to patch the CustomFieldMappingInstance
+
+        :param custom_field_mapping_update_request:
+        :param if_match: ETag of the custom field mapping, as returned in the `ETag` response header. When supplied, the update is applied only if the mapping has not changed since that ETag was issued; otherwise `412` is returned.
+
+        :returns: The patched CustomFieldMappingInstance
+        """
+        payload, _, _ = await self._patch_async(
+            custom_field_mapping_update_request=custom_field_mapping_update_request,
+            if_match=if_match,
+        )
+        return CustomFieldMappingInstance(
+            self._version, payload, mapping_id=self._solution["mapping_id"]
+        )
+
+    async def patch_with_http_info_async(
+        self,
+        custom_field_mapping_update_request: CustomFieldMappingUpdateRequest,
+        if_match: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to patch the CustomFieldMappingInstance and return response metadata
+
+        :param custom_field_mapping_update_request:
+        :param if_match: ETag of the custom field mapping, as returned in the `ETag` response header. When supplied, the update is applied only if the mapping has not changed since that ETag was issued; otherwise `412` is returned.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._patch_async(
+            custom_field_mapping_update_request=custom_field_mapping_update_request,
+            if_match=if_match,
+        )
+        instance = CustomFieldMappingInstance(
+            self._version, payload, mapping_id=self._solution["mapping_id"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V3.CustomFieldMappingContext {}>".format(context)
+
+
+class CustomFieldMappingPage(TokenPagination):
+
+    def get_instance(self, payload: Dict[str, Any]) -> CustomFieldMappingInstance:
+        """
+        Build an instance of CustomFieldMappingInstance
+
+        :param payload: Payload response from the API
+        """
+
+        return CustomFieldMappingInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Insights.V3.CustomFieldMappingPage>"
 
 
 class CustomFieldMappingList(ListResource):
@@ -78,8 +456,8 @@ class CustomFieldMappingList(ListResource):
     class CustomFieldMappingRequest(object):
         """
         :ivar category:
-        :ivar name: Customer-facing name for the field; becomes the ClickHouse Map key and the platform field alias. Unique per account across every `sourceType` — the Map key namespace is account-global.
-        :ivar description: Optional, free-text description of this custom field mapping. Display-only — not part of any uniqueness check.
+        :ivar name: Name of the custom field, used to reference it in Insights queries. Contains only letters, digits and `_`, and must not be empty. Must be unique within the account across every `sourceType`; registering an existing name returns `409`. Cannot be changed after registration.
+        :ivar description: Optional, free-text description of this custom field mapping, up to 150 characters. Display-only — not part of any uniqueness check.
         :ivar entity_metadata:
         """
 
@@ -90,21 +468,43 @@ class CustomFieldMappingList(ListResource):
             )
             self.name: Optional[str] = payload.get("name")
             self.description: Optional[str] = payload.get("description")
+            self.entity_metadata: Optional[CustomFieldMappingList.EntityMetadata] = (
+                CustomFieldMappingList.EntityMetadata(payload.get("entityMetadata"))
+                if isinstance(payload.get("entityMetadata"), dict)
+                else payload.get("entityMetadata")
+            )
+
+        def to_dict(self):
+            return {
+                "category": self.category,
+                "name": self.name,
+                "description": self.description,
+                "entityMetadata": (
+                    self.entity_metadata.to_dict()
+                    if self.entity_metadata is not None
+                    else None
+                ),
+            }
+
+    class CustomFieldMappingUpdateRequest(object):
+        """
+        :ivar entity_metadata:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
             self.entity_metadata: Optional[
-                CustomFieldMappingList.IntelligenceOperatorEntityMetadata
+                CustomFieldMappingList.EntityMetadataUpdate
             ] = (
-                CustomFieldMappingList.IntelligenceOperatorEntityMetadata(
+                CustomFieldMappingList.EntityMetadataUpdate(
                     payload.get("entityMetadata")
                 )
-                if payload.get("entityMetadata") is not None
-                else None
+                if isinstance(payload.get("entityMetadata"), dict)
+                else payload.get("entityMetadata")
             )
 
         def to_dict(self):
             return {
-                "category": self.category,
-                "name": self.name,
-                "description": self.description,
                 "entityMetadata": (
                     self.entity_metadata.to_dict()
                     if self.entity_metadata is not None
@@ -112,58 +512,10 @@ class CustomFieldMappingList(ListResource):
                 ),
             }
 
-    class CustomFieldMappingResponse(object):
-        """
-        :ivar id: TTID for conversation insights custom field mapping
-        :ivar category:
-        :ivar name:
-        :ivar description: Optional, free-text description supplied at registration time. Display-only — not part of any uniqueness check.
-        :ivar entity_metadata:
-        :ivar created_at: When the mapping was registered.
-        :ivar updated_at: When the mapping was last materially modified in-place. Null until the first update-in-place.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.id: Optional[str] = payload.get("id")
-            self.category: Optional["CustomFieldMappingInstance.MappingCategory"] = (
-                payload.get("category")
-            )
-            self.name: Optional[str] = payload.get("name")
-            self.description: Optional[str] = payload.get("description")
-            self.entity_metadata: Optional[IntelligenceOperatorEntityMetadata] = (
-                IntelligenceOperatorEntityMetadata(payload.get("entityMetadata"))
-                if payload.get("entityMetadata") is not None
-                else None
-            )
-            self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
-                payload.get("createdAt")
-            )
-            self.updated_at: Optional[datetime] = deserialize.iso8601_datetime(
-                payload.get("updatedAt")
-            )
-
-        def to_dict(self):
-            return {
-                "id": self.id,
-                "category": self.category,
-                "name": self.name,
-                "description": self.description,
-                "entityMetadata": (
-                    self.entity_metadata.to_dict()
-                    if self.entity_metadata is not None
-                    else None
-                ),
-                "createdAt": self.created_at,
-                "updatedAt": self.updated_at,
-            }
-
-    class IntelligenceOperatorEntityMetadata(object):
+    class EntityMetadata(object):
         """
         :ivar source_type:
-        :ivar operator_id: The Intelligence operator ID. Part of the owner check for idempotent upserts — a mismatch against the existing registration's `(sourceType, operatorId)` returns `409`.
-        :ivar operator_name: Optional, display-only name of the operator as supplied at registration time. Not part of any uniqueness or validation logic.
-        :ivar field: Annotation fieldPath key; generic identifier that determines the output-schema field. Resolved against the operator identified by `operatorId`.
+        :ivar intelligence_operator:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -171,15 +523,88 @@ class CustomFieldMappingList(ListResource):
             self.source_type: Optional["CustomFieldMappingInstance.SourceType"] = (
                 payload.get("sourceType")
             )
+            self.intelligence_operator: Optional[
+                CustomFieldMappingList.IntelligenceOperatorSource
+            ] = (
+                CustomFieldMappingList.IntelligenceOperatorSource(
+                    payload.get("intelligenceOperator")
+                )
+                if isinstance(payload.get("intelligenceOperator"), dict)
+                else payload.get("intelligenceOperator")
+            )
+
+        def to_dict(self):
+            return {
+                "sourceType": self.source_type,
+                "intelligenceOperator": (
+                    self.intelligence_operator.to_dict()
+                    if self.intelligence_operator is not None
+                    else None
+                ),
+            }
+
+    class EntityMetadataUpdate(object):
+        """
+        :ivar source_type:
+        :ivar intelligence_operator:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.source_type: Optional["CustomFieldMappingInstance.SourceType"] = (
+                payload.get("sourceType")
+            )
+            self.intelligence_operator: Optional[
+                CustomFieldMappingList.IntelligenceOperatorSourceUpdate
+            ] = (
+                CustomFieldMappingList.IntelligenceOperatorSourceUpdate(
+                    payload.get("intelligenceOperator")
+                )
+                if isinstance(payload.get("intelligenceOperator"), dict)
+                else payload.get("intelligenceOperator")
+            )
+
+        def to_dict(self):
+            return {
+                "sourceType": self.source_type,
+                "intelligenceOperator": (
+                    self.intelligence_operator.to_dict()
+                    if self.intelligence_operator is not None
+                    else None
+                ),
+            }
+
+    class IntelligenceOperatorSource(object):
+        """
+        :ivar operator_id: The ID of the Conversational Intelligence operator whose output supplies this field's value. Must match `^intelligence_operator_[0-7][0-9a-z]{25}$`. Cannot be changed after registration.
+        :ivar operator_name: Optional, display-only name of the operator. Stored as supplied and not validated against the operator.
+        :ivar field: Path to the property in the operator's output schema that supplies this field's value. Rules: - one or two segments separated by `.` — a top-level property   (`leadScore`) or one level of nesting (`scores.leadScore`); - each segment contains only letters, digits and `_`; array   indexing (such as `items[0]`) is not supported; - the path must exist in the output schema of the operator's   latest active version and resolve to a property of type `number`   or `integer`.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
             self.operator_id: Optional[str] = payload.get("operatorId")
             self.operator_name: Optional[str] = payload.get("operatorName")
             self.field: Optional[str] = payload.get("field")
 
         def to_dict(self):
             return {
-                "sourceType": self.source_type,
                 "operatorId": self.operator_id,
                 "operatorName": self.operator_name,
+                "field": self.field,
+            }
+
+    class IntelligenceOperatorSourceUpdate(object):
+        """
+        :ivar field: New path to the property in the operator's output schema. Follows the same rules as `field` at registration: one or two `.`-separated segments of letters, digits and `_`, resolving to a `number` or `integer` property on the operator's latest active version.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.field: Optional[str] = payload.get("field")
+
+        def to_dict(self):
+            return {
                 "field": self.field,
             }
 
@@ -296,77 +721,410 @@ class CustomFieldMappingList(ListResource):
         instance = CustomFieldMappingInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    def _fetch(self) -> tuple:
+    def stream(
+        self,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> Iterator[CustomFieldMappingInstance]:
         """
-        Internal helper for fetch operation
+        Streams CustomFieldMappingInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
 
-        Returns:
-            tuple: (payload, status_code, headers)
+        :param str page_token: Token for pagination
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
         """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_token=page_token, page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> AsyncIterator[CustomFieldMappingInstance]:
+        """
+        Asynchronously streams CustomFieldMappingInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str page_token: Token for pagination
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            page_token=page_token, page_size=limits["page_size"]
+        )
+
+        return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams CustomFieldMappingInstance and returns headers from first page
+
+
+        :param str page_token: Token for pagination
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            page_token=page_token, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams CustomFieldMappingInstance and returns headers from first page
+
+
+        :param str page_token: Token for pagination
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_token=page_token, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    def list(
+        self,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[CustomFieldMappingInstance]:
+        """
+        Lists CustomFieldMappingInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str page_token: Token for pagination
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: list that will contain up to limit results
+        """
+
+        return list(
+            self.stream(
+                page_token=page_token,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[CustomFieldMappingInstance]:
+        """
+        Asynchronously lists CustomFieldMappingInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str page_token: Token for pagination
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: list that will contain up to limit results
+        """
+
+        return [
+            record
+            async for record in await self.stream_async(
+                page_token=page_token,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
+
+    def list_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists CustomFieldMappingInstance and returns headers from first page
+
+
+        :param str page_token: Token for pagination
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            page_token=page_token,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists CustomFieldMappingInstance and returns headers from first page
+
+
+        :param str page_token: Token for pagination
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            page_token=page_token,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    def page(
+        self,
+        page_size: Union[int, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+    ) -> CustomFieldMappingPage:
+        """
+        Retrieve a single page of CustomFieldMappingInstance records from the API.
+        Request is executed immediately
+
+        :param page_size: The maximum number of resources to return
+        :param page_token: Token for pagination
+        :returns: Page of CustomFieldMappingInstance
+        """
+        data = values.of(
+            {
+                "pageSize": page_size,
+                "pageToken": page_token,
+            }
+        )
+
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
-        return self._version.fetch_with_response_info(
-            method="GET", uri=self._uri, headers=headers
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        return CustomFieldMappingPage(
+            self._version, response, uri=self._uri, params=data
         )
 
-    def fetch(self) -> CustomFieldMappingInstance:
+    async def page_async(
+        self,
+        page_size: Union[int, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+    ) -> CustomFieldMappingPage:
         """
-        Fetch the CustomFieldMappingInstance
+        Asynchronously retrieve a single page of CustomFieldMappingInstance records from the API.
+        Request is executed immediately
 
-
-        :returns: The fetched CustomFieldMappingInstance
+        :param page_size: The maximum number of resources to return
+        :param page_token: Token for pagination
+        :returns: Page of CustomFieldMappingInstance
         """
-        payload, _, _ = self._fetch()
-        return CustomFieldMappingInstance(self._version, payload)
+        data = values.of(
+            {
+                "pageSize": page_size,
+                "pageToken": page_token,
+            }
+        )
 
-    def fetch_with_http_info(self) -> ApiResponse:
-        """
-        Fetch the CustomFieldMappingInstance and return response metadata
-
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = self._fetch()
-        instance = CustomFieldMappingInstance(self._version, payload)
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    async def _fetch_async(self) -> tuple:
-        """
-        Internal async helper for fetch operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
-        return await self._version.fetch_with_response_info_async(
-            method="GET", uri=self._uri, headers=headers
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        return CustomFieldMappingPage(
+            self._version, response, uri=self._uri, params=data
         )
 
-    async def fetch_async(self) -> CustomFieldMappingInstance:
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
         """
-        Asynchronously fetch the CustomFieldMappingInstance
+        Retrieve a single page with response metadata
 
 
-        :returns: The fetched CustomFieldMappingInstance
+        :param page_token: Token for pagination
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with CustomFieldMappingPage, status code, and headers
         """
-        payload, _, _ = await self._fetch_async()
-        return CustomFieldMappingInstance(self._version, payload)
+        data = values.of(
+            {
+                "pageToken": page_token,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-    async def fetch_with_http_info_async(self) -> ApiResponse:
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = CustomFieldMappingPage(self._version, response, uri=self._uri)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
         """
-        Asynchronously fetch the CustomFieldMappingInstance and return response metadata
+        Asynchronously retrieve a single page with response metadata
 
 
-        :returns: ApiResponse with instance, status code, and headers
+        :param page_token: Token for pagination
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with CustomFieldMappingPage, status code, and headers
         """
-        payload, status_code, headers = await self._fetch_async()
-        instance = CustomFieldMappingInstance(self._version, payload)
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+        data = values.of(
+            {
+                "pageToken": page_token,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = CustomFieldMappingPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    def get_page(self, target_url: str) -> CustomFieldMappingPage:
+        """
+        Retrieve a specific page of CustomFieldMappingInstance records from the API.
+        Request is executed immediately
+
+        :param target_url: API-generated URL for the requested results page
+
+        :returns: Page of CustomFieldMappingInstance
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return CustomFieldMappingPage(self._version, response)
+
+    async def get_page_async(self, target_url: str) -> CustomFieldMappingPage:
+        """
+        Asynchronously retrieve a specific page of CustomFieldMappingInstance records from the API.
+        Request is executed immediately
+
+        :param target_url: API-generated URL for the requested results page
+
+        :returns: Page of CustomFieldMappingInstance
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return CustomFieldMappingPage(self._version, response)
+
+    def get(self, mapping_id: str) -> CustomFieldMappingContext:
+        """
+        Constructs a CustomFieldMappingContext
+
+        :param mapping_id: The unique identifier of the custom field mapping, as returned in `id` when the mapping was created.
+        """
+        return CustomFieldMappingContext(self._version, mapping_id=mapping_id)
+
+    def __call__(self, mapping_id: str) -> CustomFieldMappingContext:
+        """
+        Constructs a CustomFieldMappingContext
+
+        :param mapping_id: The unique identifier of the custom field mapping, as returned in `id` when the mapping was created.
+        """
+        return CustomFieldMappingContext(self._version, mapping_id=mapping_id)
 
     def __repr__(self) -> str:
         """

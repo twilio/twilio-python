@@ -43,8 +43,8 @@ class ApplicationInstance(InstanceResource):
                 ApplicationList.CreateShortCodeApplicationRequestBusinessInformation(
                     payload.get("business_information")
                 )
-                if payload.get("business_information") is not None
-                else None
+                if isinstance(payload.get("business_information"), dict)
+                else payload.get("business_information")
             )
             self.setup: Optional[
                 ApplicationList.CreateShortCodeApplicationRequestSetup
@@ -52,8 +52,8 @@ class ApplicationInstance(InstanceResource):
                 ApplicationList.CreateShortCodeApplicationRequestSetup(
                     payload.get("setup")
                 )
-                if payload.get("setup") is not None
-                else None
+                if isinstance(payload.get("setup"), dict)
+                else payload.get("setup")
             )
 
         def to_dict(self):
@@ -246,8 +246,8 @@ class ApplicationContext(InstanceContext):
                 ApplicationList.CreateShortCodeApplicationRequestBusinessInformation(
                     payload.get("business_information")
                 )
-                if payload.get("business_information") is not None
-                else None
+                if isinstance(payload.get("business_information"), dict)
+                else payload.get("business_information")
             )
             self.setup: Optional[
                 ApplicationList.CreateShortCodeApplicationRequestSetup
@@ -255,8 +255,8 @@ class ApplicationContext(InstanceContext):
                 ApplicationList.CreateShortCodeApplicationRequestSetup(
                     payload.get("setup")
                 )
-                if payload.get("setup") is not None
-                else None
+                if isinstance(payload.get("setup"), dict)
+                else payload.get("setup")
             )
 
         def to_dict(self):
@@ -456,8 +456,8 @@ class ApplicationList(ListResource):
                 ApplicationList.CreateShortCodeApplicationRequestBusinessInformation(
                     payload.get("business_information")
                 )
-                if payload.get("business_information") is not None
-                else None
+                if isinstance(payload.get("business_information"), dict)
+                else payload.get("business_information")
             )
             self.setup: Optional[
                 ApplicationList.CreateShortCodeApplicationRequestSetup
@@ -465,8 +465,8 @@ class ApplicationList(ListResource):
                 ApplicationList.CreateShortCodeApplicationRequestSetup(
                     payload.get("setup")
                 )
-                if payload.get("setup") is not None
-                else None
+                if isinstance(payload.get("setup"), dict)
+                else payload.get("setup")
             )
 
         def to_dict(self):

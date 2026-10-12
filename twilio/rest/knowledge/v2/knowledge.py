@@ -632,8 +632,8 @@ class KnowledgeList(ListResource):
             self.description: Optional[str] = payload.get("description")
             self.source: Optional[KnowledgeList.KnowledgeSourceTypes] = (
                 KnowledgeList.KnowledgeSourceTypes(payload.get("source"))
-                if payload.get("source") is not None
-                else None
+                if isinstance(payload.get("source"), dict)
+                else payload.get("source")
             )
 
         def to_dict(self):

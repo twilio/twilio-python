@@ -47,8 +47,8 @@ class ApproveChallengeInstance(InstanceResource):
                 ApproveChallengeList.ApprovePasskeysChallengeRequestResponse(
                     payload.get("response")
                 )
-                if payload.get("response") is not None
-                else None
+                if isinstance(payload.get("response"), dict)
+                else payload.get("response")
             )
 
         def to_dict(self):
@@ -177,8 +177,8 @@ class ApproveChallengeList(ListResource):
                 ApproveChallengeList.ApprovePasskeysChallengeRequestResponse(
                     payload.get("response")
                 )
-                if payload.get("response") is not None
-                else None
+                if isinstance(payload.get("response"), dict)
+                else payload.get("response")
             )
 
         def to_dict(self):
