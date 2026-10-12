@@ -41,8 +41,8 @@ class NewFactorInstance(InstanceResource):
                 NewFactorList.CreateNewPasskeysFactorRequestConfig(
                     payload.get("config")
                 )
-                if payload.get("config") is not None
-                else None
+                if isinstance(payload.get("config"), dict)
+                else payload.get("config")
             )
 
         def to_dict(self):
@@ -68,8 +68,8 @@ class NewFactorInstance(InstanceResource):
                 NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty(
                     payload.get("relying_party")
                 )
-                if payload.get("relying_party") is not None
-                else None
+                if isinstance(payload.get("relying_party"), dict)
+                else payload.get("relying_party")
             )
             self.authenticator_attachment: Optional[str] = payload.get(
                 "authenticator_attachment"
@@ -185,8 +185,8 @@ class NewFactorList(ListResource):
                 NewFactorList.CreateNewPasskeysFactorRequestConfig(
                     payload.get("config")
                 )
-                if payload.get("config") is not None
-                else None
+                if isinstance(payload.get("config"), dict)
+                else payload.get("config")
             )
 
         def to_dict(self):
@@ -212,8 +212,8 @@ class NewFactorList(ListResource):
                 NewFactorList.CreateNewPasskeysFactorRequestConfigRelyingParty(
                     payload.get("relying_party")
                 )
-                if payload.get("relying_party") is not None
-                else None
+                if isinstance(payload.get("relying_party"), dict)
+                else payload.get("relying_party")
             )
             self.authenticator_attachment: Optional[str] = payload.get(
                 "authenticator_attachment"

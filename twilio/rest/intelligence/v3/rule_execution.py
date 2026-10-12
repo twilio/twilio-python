@@ -70,8 +70,8 @@ class RuleExecutionList(ListResource):
             self.conversation_id: Optional[str] = payload.get("conversationId")
             self.rule: Optional[RuleExecutionList.RuleOverride] = (
                 RuleExecutionList.RuleOverride(payload.get("rule"))
-                if payload.get("rule") is not None
-                else None
+                if isinstance(payload.get("rule"), dict)
+                else payload.get("rule")
             )
 
         def to_dict(self):

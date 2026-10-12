@@ -39,8 +39,8 @@ class RecordingAccountDefaultConfigurationInstance(InstanceResource):
                 RecordingAccountDefaultConfigurationList.VoiceV2ConfigurationRecordingConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
 
         def to_dict(self):
@@ -71,8 +71,8 @@ class RecordingAccountDefaultConfigurationInstance(InstanceResource):
                 RecordingList.VoiceV2ConfigurationRecordingCompositionPolicy(
                     payload.get("compositionPolicy")
                 )
-                if payload.get("compositionPolicy") is not None
-                else None
+                if isinstance(payload.get("compositionPolicy"), dict)
+                else payload.get("compositionPolicy")
             )
             self.call_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
@@ -80,8 +80,8 @@ class RecordingAccountDefaultConfigurationInstance(InstanceResource):
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
                     payload.get("callRecordingStatusCallback")
                 )
-                if payload.get("callRecordingStatusCallback") is not None
-                else None
+                if isinstance(payload.get("callRecordingStatusCallback"), dict)
+                else payload.get("callRecordingStatusCallback")
             )
             self.conference_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
@@ -89,8 +89,8 @@ class RecordingAccountDefaultConfigurationInstance(InstanceResource):
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
                     payload.get("conferenceRecordingStatusCallback")
                 )
-                if payload.get("conferenceRecordingStatusCallback") is not None
-                else None
+                if isinstance(payload.get("conferenceRecordingStatusCallback"), dict)
+                else payload.get("conferenceRecordingStatusCallback")
             )
             self.features: Optional[
                 List[RecordingList.VoiceV2ConfigurationRecordingFeature]
@@ -412,8 +412,8 @@ class RecordingAccountDefaultConfigurationContext(InstanceContext):
                 RecordingAccountDefaultConfigurationList.VoiceV2ConfigurationRecordingConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
 
         def to_dict(self):
@@ -444,8 +444,8 @@ class RecordingAccountDefaultConfigurationContext(InstanceContext):
                 RecordingList.VoiceV2ConfigurationRecordingCompositionPolicy(
                     payload.get("compositionPolicy")
                 )
-                if payload.get("compositionPolicy") is not None
-                else None
+                if isinstance(payload.get("compositionPolicy"), dict)
+                else payload.get("compositionPolicy")
             )
             self.call_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
@@ -453,8 +453,8 @@ class RecordingAccountDefaultConfigurationContext(InstanceContext):
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
                     payload.get("callRecordingStatusCallback")
                 )
-                if payload.get("callRecordingStatusCallback") is not None
-                else None
+                if isinstance(payload.get("callRecordingStatusCallback"), dict)
+                else payload.get("callRecordingStatusCallback")
             )
             self.conference_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
@@ -462,8 +462,8 @@ class RecordingAccountDefaultConfigurationContext(InstanceContext):
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
                     payload.get("conferenceRecordingStatusCallback")
                 )
-                if payload.get("conferenceRecordingStatusCallback") is not None
-                else None
+                if isinstance(payload.get("conferenceRecordingStatusCallback"), dict)
+                else payload.get("conferenceRecordingStatusCallback")
             )
             self.features: Optional[
                 List[RecordingList.VoiceV2ConfigurationRecordingFeature]
@@ -944,8 +944,8 @@ class RecordingAccountDefaultConfigurationList(ListResource):
                 RecordingAccountDefaultConfigurationList.VoiceV2ConfigurationRecordingConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
 
         def to_dict(self):
@@ -976,8 +976,8 @@ class RecordingAccountDefaultConfigurationList(ListResource):
                 RecordingList.VoiceV2ConfigurationRecordingCompositionPolicy(
                     payload.get("compositionPolicy")
                 )
-                if payload.get("compositionPolicy") is not None
-                else None
+                if isinstance(payload.get("compositionPolicy"), dict)
+                else payload.get("compositionPolicy")
             )
             self.call_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
@@ -985,8 +985,8 @@ class RecordingAccountDefaultConfigurationList(ListResource):
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
                     payload.get("callRecordingStatusCallback")
                 )
-                if payload.get("callRecordingStatusCallback") is not None
-                else None
+                if isinstance(payload.get("callRecordingStatusCallback"), dict)
+                else payload.get("callRecordingStatusCallback")
             )
             self.conference_recording_status_callback: Optional[
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback
@@ -994,8 +994,8 @@ class RecordingAccountDefaultConfigurationList(ListResource):
                 RecordingList.VoiceV2ConfigurationRecordingStatusCallback(
                     payload.get("conferenceRecordingStatusCallback")
                 )
-                if payload.get("conferenceRecordingStatusCallback") is not None
-                else None
+                if isinstance(payload.get("conferenceRecordingStatusCallback"), dict)
+                else payload.get("conferenceRecordingStatusCallback")
             )
             self.features: Optional[
                 List[RecordingList.VoiceV2ConfigurationRecordingFeature]

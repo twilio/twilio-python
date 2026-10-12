@@ -52,8 +52,8 @@ class OAuthAppInstance(InstanceResource):
                 OAuthAppList.IamV1OrganizationVendoroauthappPolicy(
                     payload.get("policy")
                 )
-                if payload.get("policy") is not None
-                else None
+                if isinstance(payload.get("policy"), dict)
+                else payload.get("policy")
             )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
@@ -89,8 +89,8 @@ class OAuthAppInstance(InstanceResource):
                 OAuthAppList.IamV1OrganizationVendorOauthAppUpdateRequestPolicy(
                     payload.get("policy")
                 )
-                if payload.get("policy") is not None
-                else None
+                if isinstance(payload.get("policy"), dict)
+                else payload.get("policy")
             )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
@@ -335,8 +335,8 @@ class OAuthAppContext(InstanceContext):
                 OAuthAppList.IamV1OrganizationVendoroauthappPolicy(
                     payload.get("policy")
                 )
-                if payload.get("policy") is not None
-                else None
+                if isinstance(payload.get("policy"), dict)
+                else payload.get("policy")
             )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
@@ -372,8 +372,8 @@ class OAuthAppContext(InstanceContext):
                 OAuthAppList.IamV1OrganizationVendorOauthAppUpdateRequestPolicy(
                     payload.get("policy")
                 )
-                if payload.get("policy") is not None
-                else None
+                if isinstance(payload.get("policy"), dict)
+                else payload.get("policy")
             )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
@@ -657,8 +657,8 @@ class OAuthAppList(ListResource):
                 OAuthAppList.IamV1OrganizationVendoroauthappPolicy(
                     payload.get("policy")
                 )
-                if payload.get("policy") is not None
-                else None
+                if isinstance(payload.get("policy"), dict)
+                else payload.get("policy")
             )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 
@@ -694,8 +694,8 @@ class OAuthAppList(ListResource):
                 OAuthAppList.IamV1OrganizationVendorOauthAppUpdateRequestPolicy(
                     payload.get("policy")
                 )
-                if payload.get("policy") is not None
-                else None
+                if isinstance(payload.get("policy"), dict)
+                else payload.get("policy")
             )
             self.access_token_ttl: Optional[int] = payload.get("access_token_ttl")
 

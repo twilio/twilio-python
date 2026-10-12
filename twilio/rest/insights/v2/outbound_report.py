@@ -38,8 +38,8 @@ class OutboundReportInstance(InstanceResource):
                 InboundReportList.InsightsV2CreatePhoneNumbersReportRequestTimeRange(
                     payload.get("time_range")
                 )
-                if payload.get("time_range") is not None
-                else None
+                if isinstance(payload.get("time_range"), dict)
+                else payload.get("time_range")
             )
             self.filters: Optional[List[InboundReportList.PhoneNumberReportFilter]] = (
                 [
@@ -136,8 +136,8 @@ class OutboundReportList(ListResource):
                 InboundReportList.InsightsV2CreatePhoneNumbersReportRequestTimeRange(
                     payload.get("time_range")
                 )
-                if payload.get("time_range") is not None
-                else None
+                if isinstance(payload.get("time_range"), dict)
+                else payload.get("time_range")
             )
             self.filters: Optional[List[InboundReportList.PhoneNumberReportFilter]] = (
                 [

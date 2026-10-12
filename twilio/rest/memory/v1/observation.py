@@ -30,7 +30,7 @@ class ObservationInstance(InstanceResource):
     :ivar message:
     :ivar content: The main content of the observation.
     :ivar occurred_at: The timestamp when the observation originally occurred.
-    :ivar source: The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+    :ivar source: The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
     :ivar conversation_ids: Array of conversation IDs associated with this observation.
     :ivar id: A unique identifier for the observation using Twilio Type ID (TTID) format.
     :ivar created_at: The timestamp when the observation was created.
@@ -578,7 +578,7 @@ class ObservationList(ListResource):
         """
         :ivar content: The main content of the observation.
         :ivar occurred_at: The timestamp when the observation originally occurred.
-        :ivar source: The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :ivar source: The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :ivar conversation_ids: Array of conversation IDs associated with this observation.
         """
 
@@ -601,7 +601,7 @@ class ObservationList(ListResource):
         """
         :ivar content: The main content of the observation.
         :ivar occurred_at: The timestamp when the observation originally occurred.
-        :ivar source: The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :ivar source: The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :ivar conversation_ids: Array of conversation IDs associated with this observation.
         """
 
@@ -830,7 +830,7 @@ class ObservationList(ListResource):
 
         :param str page_token: The token for the page of results to retrieve.
         :param str order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param str source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param str source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param datetime created_after: Filter observations created after this timestamp (inclusive).
         :param datetime created_before: Filter observations created before this timestamp (exclusive).
         :param str conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -878,7 +878,7 @@ class ObservationList(ListResource):
 
         :param str page_token: The token for the page of results to retrieve.
         :param str order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param str source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param str source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param datetime created_after: Filter observations created after this timestamp (inclusive).
         :param datetime created_before: Filter observations created before this timestamp (exclusive).
         :param str conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -924,7 +924,7 @@ class ObservationList(ListResource):
 
         :param str page_token: The token for the page of results to retrieve.
         :param str order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param str source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param str source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param datetime created_after: Filter observations created after this timestamp (inclusive).
         :param datetime created_before: Filter observations created before this timestamp (exclusive).
         :param str conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -971,7 +971,7 @@ class ObservationList(ListResource):
 
         :param str page_token: The token for the page of results to retrieve.
         :param str order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param str source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param str source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param datetime created_after: Filter observations created after this timestamp (inclusive).
         :param datetime created_before: Filter observations created before this timestamp (exclusive).
         :param str conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -1019,7 +1019,7 @@ class ObservationList(ListResource):
 
         :param str page_token: The token for the page of results to retrieve.
         :param str order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param str source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param str source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param datetime created_after: Filter observations created after this timestamp (inclusive).
         :param datetime created_before: Filter observations created before this timestamp (exclusive).
         :param str conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -1067,7 +1067,7 @@ class ObservationList(ListResource):
 
         :param str page_token: The token for the page of results to retrieve.
         :param str order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param str source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param str source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param datetime created_after: Filter observations created after this timestamp (inclusive).
         :param datetime created_before: Filter observations created before this timestamp (exclusive).
         :param str conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -1115,7 +1115,7 @@ class ObservationList(ListResource):
 
         :param str page_token: The token for the page of results to retrieve.
         :param str order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param str source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param str source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param datetime created_after: Filter observations created after this timestamp (inclusive).
         :param datetime created_before: Filter observations created before this timestamp (exclusive).
         :param str conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -1161,7 +1161,7 @@ class ObservationList(ListResource):
 
         :param str page_token: The token for the page of results to retrieve.
         :param str order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param str source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param str source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param datetime created_after: Filter observations created after this timestamp (inclusive).
         :param datetime created_before: Filter observations created before this timestamp (exclusive).
         :param str conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -1207,7 +1207,7 @@ class ObservationList(ListResource):
         :param page_size: The maximum number of items to return per page, maximum of 1000.
         :param page_token: The token for the page of results to retrieve.
         :param order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param created_after: Filter observations created after this timestamp (inclusive).
         :param created_before: Filter observations created before this timestamp (exclusive).
         :param conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -1261,7 +1261,7 @@ class ObservationList(ListResource):
         :param page_size: The maximum number of items to return per page, maximum of 1000.
         :param page_token: The token for the page of results to retrieve.
         :param order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param created_after: Filter observations created after this timestamp (inclusive).
         :param created_before: Filter observations created before this timestamp (exclusive).
         :param conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -1315,7 +1315,7 @@ class ObservationList(ListResource):
 
         :param page_token: The token for the page of results to retrieve.
         :param order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param created_after: Filter observations created after this timestamp (inclusive).
         :param created_before: Filter observations created before this timestamp (exclusive).
         :param conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.
@@ -1376,7 +1376,7 @@ class ObservationList(ListResource):
 
         :param page_token: The token for the page of results to retrieve.
         :param order_by: Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-        :param source: Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+        :param source: Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
         :param created_after: Filter observations created after this timestamp (inclusive).
         :param created_before: Filter observations created before this timestamp (exclusive).
         :param conversation_id: Filter by conversation ID. Returns only items associated with the specified conversation.

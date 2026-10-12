@@ -3,6 +3,82 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2026-10-12] Version 9.12.0
+---------------------------
+**Audiences**
+- ## 2026-10-06
+- Minor updates (formatting, metadata)
+- ## 2026-10-05
+- Minor updates (formatting, metadata)
+- ## 2026-10-02
+- **Added 1 new path(s)**:
+- `/preview/Cohorts/{cohortId}/Operations` (AdminListCohortOperations)
+- ## 2026-10-01
+- **Content updates**:
+- Updated description for `AdminListSnapshotOperations`
+- ## 2026-09-28
+- **Content updates**:
+- Updated description for `AdminListCohortSnapshots`
+- Updated description for `AdminFetchCohortSnapshot`
+- Updated schema description for `Criteria`
+- Added properties to `OperationPayload`: cohortId
+- Removed properties from `OperationPayload`: audienceId
+- Updated schema description for `OperationResult`
+- Added properties to `OperationResult`: cohortId
+- Removed properties from `OperationResult`: audienceId
+- Updated schema description for `Record`
+- Updated schema description for `Cohort`
+- ...and 3 more changes
+- ## 2026-10-01
+- Minor updates (formatting, metadata)
+- ## 2026-09-28
+- **Content updates**:
+- Updated schema description for `CohortOperationResult`
+- Updated schema description for `PartitionCount`
+
+**Conversations**
+- Add PATCH /v2/Imports/{id} to cancel an import, and the `CANCELED` import status (dev-us1 and stage-us1)
+- Add Imports endpoints for 1console (private visibility, dev-us1 and stage-us1)
+- Add `traitExtractionStrategyIds` and `observationExtractionStrategyIds` to the Conversations v2 Admin Configuration schema.
+- Align the Conversations v2 Capabilities list and create contracts with the backend `domainId` field.
+
+**Data-ingress**
+- ## 2026-10-01
+- Minor updates (formatting, metadata)
+- ## 2026-09-17
+- Add support for Hubspot connector
+- ## 2026-10-01
+- Minor updates (formatting, metadata)
+- ## 2026-09-17
+- Add support for Hubspot connector
+
+**Events**
+- Remove the Replays API (`/v1/Replays`, beta feature `api.eventstreams.replay`); the feature was never GA and is being sunset **(breaking change)**
+
+**Knowledge**
+- ## 2026-09-24
+- **Routing updates**:
+- Changed `downstreamServiceName` from `memora-domain` to `enterprise-knowledge-domain` for all operations
+
+**Memory**
+- ## 2026-09-30
+- The `source` field on observations and conversation summaries, and the `source` filter
+- on `ListProfileObservations`, now also accept forward slashes (`/`). The pattern is
+- `^[a-zA-Z0-9 _./-]+$`. This is additive and backwards compatible: every previously
+- valid value is still accepted.
+- `UpdateStore`, `UpdateTraitGroup`, and `UpdateDataMapping` now require a body with at least one property. An empty `{}` gets a 400.
+
+**Messaging**
+- Add opt-out configuration admin endpoints (`GET/PUT/DELETE /v1/Accounts/{AccountSid}/OptOuts/{OptOutSid}/...`) to the messaging admin-api (dev-us1 and stage-us1 only)
+- Add create opt-out configuration endpoint (`POST /v1/Accounts/{AccountSid}/OptOuts`) to the messaging admin-api (dev-us1 and stage-us1 only)
+- Add update messaging service endpoint (`PUT /v1/Accounts/{AccountSid}/Services/{MessagingServiceSid}`) to the messaging admin-api (dev-us1 and stage-us1 only)
+- Enable messaging service add-ons, update messaging service, and opt-out configuration admin endpoints in prod-us1 and prod-ie1
+- Add WhatsApp display name change support to Sender API: `pending_display_name`, `pending_display_name_status` and `pending_display_name_status_date` on fetch, and `display_name_status` on update and partial update
+
+**Routes**
+- Set SDK and docs visibility of `GET`/`POST` `/v3/ShortCodes/{isoCountryCode}/{shortCode}` to `public`, maturity to `ga`
+
+
 [2026-09-28] Version 9.11.2
 ---------------------------
 **Twiml**
