@@ -96,8 +96,8 @@ class CustomFieldMappingList(ListResource):
                 CustomFieldMappingList.IntelligenceOperatorEntityMetadata(
                     payload.get("entityMetadata")
                 )
-                if payload.get("entityMetadata") is not None
-                else None
+                if isinstance(payload.get("entityMetadata"), dict)
+                else payload.get("entityMetadata")
             )
 
         def to_dict(self):
@@ -133,8 +133,8 @@ class CustomFieldMappingList(ListResource):
             self.description: Optional[str] = payload.get("description")
             self.entity_metadata: Optional[IntelligenceOperatorEntityMetadata] = (
                 IntelligenceOperatorEntityMetadata(payload.get("entityMetadata"))
-                if payload.get("entityMetadata") is not None
-                else None
+                if isinstance(payload.get("entityMetadata"), dict)
+                else payload.get("entityMetadata")
             )
             self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
                 payload.get("createdAt")

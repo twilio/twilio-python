@@ -47,8 +47,8 @@ class NewVerifyFactorInstance(InstanceResource):
                 NewVerifyFactorList.VerifyPasskeysFactorRequestResponse(
                     payload.get("response")
                 )
-                if payload.get("response") is not None
-                else None
+                if isinstance(payload.get("response"), dict)
+                else payload.get("response")
             )
 
         def to_dict(self):
@@ -158,8 +158,8 @@ class NewVerifyFactorList(ListResource):
                 NewVerifyFactorList.VerifyPasskeysFactorRequestResponse(
                     payload.get("response")
                 )
-                if payload.get("response") is not None
-                else None
+                if isinstance(payload.get("response"), dict)
+                else payload.get("response")
             )
 
         def to_dict(self):

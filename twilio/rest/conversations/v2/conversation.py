@@ -824,8 +824,8 @@ class ConversationList(ListResource):
 
             self.channel: Optional[ConversationsV2Channel] = (
                 ConversationsV2Channel(payload.get("channel"))
-                if payload.get("channel") is not None
-                else None
+                if isinstance(payload.get("channel"), dict)
+                else payload.get("channel")
             )
             self.address: Optional[str] = payload.get("address")
             self.channel_id: Optional[str] = payload.get("channelId")
@@ -887,8 +887,8 @@ class ConversationList(ListResource):
                 ConversationList.CreateConversationWithConfigRequestConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.participants: Optional[
                 List[ConversationList.CreateConversationWithConfigRequestParticipants]
@@ -1051,8 +1051,8 @@ class ConversationList(ListResource):
                 ConversationList.PatchConversationByIdRequestConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.metadata: Optional[Dict[str, Optional[str]]] = payload.get("metadata")
 

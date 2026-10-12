@@ -165,8 +165,8 @@ class UserInstance(InstanceResource):
             self.display_name: Optional[str] = payload.get("displayName")
             self.name: Optional[UserList.ScimName] = (
                 UserList.ScimName(payload.get("name"))
-                if payload.get("name") is not None
-                else None
+                if isinstance(payload.get("name"), dict)
+                else payload.get("name")
             )
             self.emails: Optional[List[UserList.ScimEmailAddress]] = (
                 [
@@ -182,8 +182,8 @@ class UserInstance(InstanceResource):
             self.schemas: Optional[List[str]] = payload.get("schemas")
             self.meta: Optional[UserList.ScimMeta] = (
                 UserList.ScimMeta(payload.get("meta"))
-                if payload.get("meta") is not None
-                else None
+                if isinstance(payload.get("meta"), dict)
+                else payload.get("meta")
             )
             self.detail: Optional[str] = payload.get("detail")
             self.scim_type: Optional[str] = payload.get("scimType")
@@ -607,8 +607,8 @@ class UserContext(InstanceContext):
             self.display_name: Optional[str] = payload.get("displayName")
             self.name: Optional[UserList.ScimName] = (
                 UserList.ScimName(payload.get("name"))
-                if payload.get("name") is not None
-                else None
+                if isinstance(payload.get("name"), dict)
+                else payload.get("name")
             )
             self.emails: Optional[List[UserList.ScimEmailAddress]] = (
                 [
@@ -624,8 +624,8 @@ class UserContext(InstanceContext):
             self.schemas: Optional[List[str]] = payload.get("schemas")
             self.meta: Optional[UserList.ScimMeta] = (
                 UserList.ScimMeta(payload.get("meta"))
-                if payload.get("meta") is not None
-                else None
+                if isinstance(payload.get("meta"), dict)
+                else payload.get("meta")
             )
             self.detail: Optional[str] = payload.get("detail")
             self.scim_type: Optional[str] = payload.get("scimType")
@@ -1306,8 +1306,8 @@ class UserList(ListResource):
             self.display_name: Optional[str] = payload.get("displayName")
             self.name: Optional[UserList.ScimName] = (
                 UserList.ScimName(payload.get("name"))
-                if payload.get("name") is not None
-                else None
+                if isinstance(payload.get("name"), dict)
+                else payload.get("name")
             )
             self.emails: Optional[List[UserList.ScimEmailAddress]] = (
                 [
@@ -1323,8 +1323,8 @@ class UserList(ListResource):
             self.schemas: Optional[List[str]] = payload.get("schemas")
             self.meta: Optional[UserList.ScimMeta] = (
                 UserList.ScimMeta(payload.get("meta"))
-                if payload.get("meta") is not None
-                else None
+                if isinstance(payload.get("meta"), dict)
+                else payload.get("meta")
             )
             self.detail: Optional[str] = payload.get("detail")
             self.scim_type: Optional[str] = payload.get("scimType")

@@ -333,8 +333,8 @@ class ActionList(ListResource):
 
             self._from: Optional[ActionList.ConversationsV2SendMessageParticipant] = (
                 ActionList.ConversationsV2SendMessageParticipant(payload.get("from"))
-                if payload.get("from") is not None
-                else None
+                if isinstance(payload.get("from"), dict)
+                else payload.get("from")
             )
             self.to: Optional[
                 List[ActionList.ConversationsV2SendMessageParticipant]
@@ -352,8 +352,8 @@ class ActionList(ListResource):
             )
             self.content: Optional[ActionList.ConversationsV2SendMessageContent] = (
                 ActionList.ConversationsV2SendMessageContent(payload.get("content"))
-                if payload.get("content") is not None
-                else None
+                if isinstance(payload.get("content"), dict)
+                else payload.get("content")
             )
             self.channel_settings: Optional[Dict[str, Dict[str, object]]] = payload.get(
                 "channelSettings"
@@ -378,8 +378,8 @@ class ActionList(ListResource):
             self.type: Optional[str] = payload.get("type")
             self.payload: Optional[ActionList.ConversationsV2SendMessagePayload] = (
                 ActionList.ConversationsV2SendMessagePayload(payload.get("payload"))
-                if payload.get("payload") is not None
-                else None
+                if isinstance(payload.get("payload"), dict)
+                else payload.get("payload")
             )
 
         def to_dict(self):

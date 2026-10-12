@@ -62,8 +62,8 @@ class QueryList(ListResource):
             self.domain: Optional[str] = payload.get("domain")
             self.query: Optional[QueryList.QueryDefinition] = (
                 QueryList.QueryDefinition(payload.get("query"))
-                if payload.get("query") is not None
-                else None
+                if isinstance(payload.get("query"), dict)
+                else payload.get("query")
             )
 
         def to_dict(self):

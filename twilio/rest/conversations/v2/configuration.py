@@ -909,8 +909,8 @@ class ConfigurationList(ListResource):
 
             self.status_timeouts: Optional[ConversationsV2StatusTimeouts] = (
                 ConversationsV2StatusTimeouts(payload.get("statusTimeouts"))
-                if payload.get("statusTimeouts") is not None
-                else None
+                if isinstance(payload.get("statusTimeouts"), dict)
+                else payload.get("statusTimeouts")
             )
             self.capture_rules: Optional[List[ConversationsV2CaptureRule]] = (
                 [
@@ -1051,8 +1051,8 @@ class ConfigurationList(ListResource):
                 ConfigurationList.CreateConfigurationRequestConversationsV1Bridge(
                     payload.get("conversationsV1Bridge")
                 )
-                if payload.get("conversationsV1Bridge") is not None
-                else None
+                if isinstance(payload.get("conversationsV1Bridge"), dict)
+                else payload.get("conversationsV1Bridge")
             )
 
         def to_dict(self):
@@ -1097,8 +1097,8 @@ class ConfigurationList(ListResource):
                 ConfigurationList.CreateConfigurationRequestChannelSettingsValueStatusTimeouts(
                     payload.get("statusTimeouts")
                 )
-                if payload.get("statusTimeouts") is not None
-                else None
+                if isinstance(payload.get("statusTimeouts"), dict)
+                else payload.get("statusTimeouts")
             )
             self.capture_rules: Optional[
                 List[
@@ -1268,8 +1268,8 @@ class ConfigurationList(ListResource):
                 ConfigurationList.PatchConfigurationRequestConversationsV1Bridge(
                     payload.get("conversationsV1Bridge")
                 )
-                if payload.get("conversationsV1Bridge") is not None
-                else None
+                if isinstance(payload.get("conversationsV1Bridge"), dict)
+                else payload.get("conversationsV1Bridge")
             )
 
         def to_dict(self):
@@ -1314,8 +1314,8 @@ class ConfigurationList(ListResource):
                 ConfigurationList.UpdateConfigurationRequestChannelSettingsValueStatusTimeouts(
                     payload.get("statusTimeouts")
                 )
-                if payload.get("statusTimeouts") is not None
-                else None
+                if isinstance(payload.get("statusTimeouts"), dict)
+                else payload.get("statusTimeouts")
             )
             self.capture_rules: Optional[
                 List[
@@ -1432,8 +1432,8 @@ class ConfigurationList(ListResource):
                 ConfigurationList.CreateConfigurationRequestConversationsV1Bridge(
                     payload.get("conversationsV1Bridge")
                 )
-                if payload.get("conversationsV1Bridge") is not None
-                else None
+                if isinstance(payload.get("conversationsV1Bridge"), dict)
+                else payload.get("conversationsV1Bridge")
             )
 
         def to_dict(self):
@@ -1478,8 +1478,8 @@ class ConfigurationList(ListResource):
                 ConfigurationList.UpdateConfigurationRequestChannelSettingsValueStatusTimeouts(
                     payload.get("statusTimeouts")
                 )
-                if payload.get("statusTimeouts") is not None
-                else None
+                if isinstance(payload.get("statusTimeouts"), dict)
+                else payload.get("statusTimeouts")
             )
             self.capture_rules: Optional[
                 List[

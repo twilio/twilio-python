@@ -402,8 +402,8 @@ class CommunicationList(ListResource):
                 CommunicationList.CreateCommunicationInConversationRequestAuthor(
                     payload.get("author")
                 )
-                if payload.get("author") is not None
-                else None
+                if isinstance(payload.get("author"), dict)
+                else payload.get("author")
             )
             self.content: Optional[
                 CommunicationList.CreateCommunicationInConversationRequestContent
@@ -411,8 +411,8 @@ class CommunicationList(ListResource):
                 CommunicationList.CreateCommunicationInConversationRequestContent(
                     payload.get("content")
                 )
-                if payload.get("content") is not None
-                else None
+                if isinstance(payload.get("content"), dict)
+                else payload.get("content")
             )
             self.channel_id: Optional[str] = payload.get("channelId")
             self.resource_id: Optional[str] = payload.get("resourceId")
@@ -487,8 +487,8 @@ class CommunicationList(ListResource):
                 CommunicationList.ContentTranscriptionTranscription(
                     payload.get("transcription")
                 )
-                if payload.get("transcription") is not None
-                else None
+                if isinstance(payload.get("transcription"), dict)
+                else payload.get("transcription")
             )
 
         def to_dict(self):

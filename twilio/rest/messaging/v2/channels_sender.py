@@ -180,8 +180,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -189,8 +189,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -198,8 +198,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -232,8 +232,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -241,8 +241,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -250,8 +250,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -308,8 +308,8 @@ class ChannelsSenderInstance(InstanceResource):
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[MessagingV2RcsCarrierStatus] = (
                 MessagingV2RcsCarrierStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
 
         def to_dict(self):
@@ -332,8 +332,8 @@ class ChannelsSenderInstance(InstanceResource):
             self.registration_sid: Optional[str] = payload.get("registration_sid")
             self.status: Optional[MessagingV2RcsCountryStatus] = (
                 MessagingV2RcsCountryStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
             self.carriers: Optional[List[MessagingV2RcsCarrier]] = (
                 [
@@ -754,8 +754,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -763,8 +763,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -772,8 +772,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -806,8 +806,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -815,8 +815,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -824,8 +824,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -882,8 +882,8 @@ class ChannelsSenderContext(InstanceContext):
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[MessagingV2RcsCarrierStatus] = (
                 MessagingV2RcsCarrierStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
 
         def to_dict(self):
@@ -906,8 +906,8 @@ class ChannelsSenderContext(InstanceContext):
             self.registration_sid: Optional[str] = payload.get("registration_sid")
             self.status: Optional[MessagingV2RcsCountryStatus] = (
                 MessagingV2RcsCountryStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
             self.carriers: Optional[List[MessagingV2RcsCarrier]] = (
                 [
@@ -1416,8 +1416,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -1425,8 +1425,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -1434,8 +1434,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -1468,8 +1468,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -1477,8 +1477,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -1486,8 +1486,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -1544,8 +1544,8 @@ class ChannelsSenderList(ListResource):
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[MessagingV2RcsCarrierStatus] = (
                 MessagingV2RcsCarrierStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
 
         def to_dict(self):
@@ -1568,8 +1568,8 @@ class ChannelsSenderList(ListResource):
             self.registration_sid: Optional[str] = payload.get("registration_sid")
             self.status: Optional[MessagingV2RcsCountryStatus] = (
                 MessagingV2RcsCountryStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
             self.carriers: Optional[List[MessagingV2RcsCarrier]] = (
                 [
