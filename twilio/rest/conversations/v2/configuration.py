@@ -35,8 +35,6 @@ class ConfigurationInstance(InstanceResource):
         )
 
     """
-    :ivar status_url: URL to poll for operation status.
-    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
     :ivar id: Configuration ID.
     :ivar display_name: A human-readable name for the configuration. Limited to 32 characters.
     :ivar description: Human-readable description for the Configuration. Allows spaces and special characters, typically limited to a paragraph of text. This serves as a descriptive field rather than just a name.
@@ -45,11 +43,15 @@ class ConfigurationInstance(InstanceResource):
     :ivar channel_settings: Channel-specific configuration settings by channel type. Keys should be valid channel types (`VOICE`, `SMS`, `RCS`, `WHATSAPP`, `CHAT`).
     :ivar status_callbacks: List of default webhook configurations applied to Conversations under this Configuration.
     :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
+    :ivar trait_extraction_strategy_ids: A list of Trait Extraction Strategy IDs.
+    :ivar observation_extraction_strategy_ids: A list of Observation Extraction Strategy IDs.
     :ivar memory_extraction_enabled: Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
     :ivar conversations_v1_bridge: 
     :ivar created_at: Timestamp when this Configuration was created.
     :ivar updated_at: Timestamp when this Configuration was last updated.
     :ivar version: Version number used for optimistic locking.
+    :ivar status_url: URL to poll for operation status.
+    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
     """
 
     def __init__(
@@ -57,8 +59,6 @@ class ConfigurationInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.status_url: Optional[str] = payload.get("statusUrl")
-        self.related: Optional[Dict[str, str]] = payload.get("related")
         self.id: Optional[str] = payload.get("id")
         self.display_name: Optional[str] = payload.get("displayName")
         self.description: Optional[str] = payload.get("description")
@@ -75,6 +75,12 @@ class ConfigurationInstance(InstanceResource):
         self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
             "intelligenceConfigurationIds"
         )
+        self.trait_extraction_strategy_ids: Optional[List[str]] = payload.get(
+            "traitExtractionStrategyIds"
+        )
+        self.observation_extraction_strategy_ids: Optional[List[str]] = payload.get(
+            "observationExtractionStrategyIds"
+        )
         self.memory_extraction_enabled: Optional[bool] = payload.get(
             "memoryExtractionEnabled"
         )
@@ -88,6 +94,8 @@ class ConfigurationInstance(InstanceResource):
             payload.get("updatedAt")
         )
         self.version: Optional[int] = payload.get("version")
+        self.status_url: Optional[str] = payload.get("statusUrl")
+        self.related: Optional[Dict[str, str]] = payload.get("related")
 
         # Only set _solution if path params are provided (not None)
         if id is not None:

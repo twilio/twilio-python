@@ -15,6 +15,7 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
+from twilio.rest.routes.v3.iso_country_code import IsoCountryCodeList
 from twilio.rest.routes.v3.phone_number import PhoneNumberList
 
 
@@ -28,6 +29,22 @@ class V3(Version):
         """
         super().__init__(domain, "v3")
         self._phone_numbers: Optional[PhoneNumberList] = None
+
+    def iso_country_code(
+        self, iso_country_code: str, short_code: str, iso_country_code_id: str = None
+    ):
+        """
+        Access the IsoCountryCodeList resource
+
+        :param iso_country_code: The ISO country code of the short code
+
+        :param short_code: The short code
+
+        :param iso_country_code_id: Optional instance ID to directly access IsoCountryCodeContext
+        :returns: IsoCountryCodeList instance if iso_country_code_id is None, otherwise IsoCountryCodeContext
+        """
+        list_instance = IsoCountryCodeList(self)
+        return list_instance(iso_country_codeshort_code)
 
     @property
     def phone_numbers(self) -> PhoneNumberList:

@@ -22,6 +22,46 @@ from twilio.base.version import Version
 
 
 class VoiceVerificationInstance(InstanceResource):
+
+    class NumbersV1VoiceVerificationRequest(object):
+        """
+        :ivar phone_number: The phone number to verify in E.164 format.
+        :ivar friendly_name: A human-readable name for the caller ID.
+        :ivar custom_code: A custom verification code to use instead of a generated one.
+        :ivar call_delay: Number of seconds to delay the verification call (0-60).
+        :ivar status_callback: URL to receive status callback events.
+        :ivar status_callback_method: HTTP method for status callback requests.
+        :ivar extension: Phone extension to dial after connecting.
+        :ivar custom_success_message: Custom message to play after successful verification.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.phone_number: Optional[str] = payload.get("phone_number")
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
+            self.custom_code: Optional[str] = payload.get("custom_code")
+            self.call_delay: Optional[str] = payload.get("call_delay")
+            self.status_callback: Optional[str] = payload.get("status_callback")
+            self.status_callback_method: Optional[str] = payload.get(
+                "status_callback_method"
+            )
+            self.extension: Optional[str] = payload.get("extension")
+            self.custom_success_message: Optional[str] = payload.get(
+                "custom_success_message"
+            )
+
+        def to_dict(self):
+            return {
+                "phone_number": self.phone_number,
+                "friendly_name": self.friendly_name,
+                "custom_code": self.custom_code,
+                "call_delay": self.call_delay,
+                "status_callback": self.status_callback,
+                "status_callback_method": self.status_callback_method,
+                "extension": self.extension,
+                "custom_success_message": self.custom_success_message,
+            }
+
     """
     :ivar account_sid: The Account SID that owns this verification.
     :ivar phone_number: The phone number being verified in E.164 format.
@@ -51,6 +91,45 @@ class VoiceVerificationInstance(InstanceResource):
 
 class VoiceVerificationList(ListResource):
 
+    class NumbersV1VoiceVerificationRequest(object):
+        """
+        :ivar phone_number: The phone number to verify in E.164 format.
+        :ivar friendly_name: A human-readable name for the caller ID.
+        :ivar custom_code: A custom verification code to use instead of a generated one.
+        :ivar call_delay: Number of seconds to delay the verification call (0-60).
+        :ivar status_callback: URL to receive status callback events.
+        :ivar status_callback_method: HTTP method for status callback requests.
+        :ivar extension: Phone extension to dial after connecting.
+        :ivar custom_success_message: Custom message to play after successful verification.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.phone_number: Optional[str] = payload.get("phone_number")
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
+            self.custom_code: Optional[str] = payload.get("custom_code")
+            self.call_delay: Optional[str] = payload.get("call_delay")
+            self.status_callback: Optional[str] = payload.get("status_callback")
+            self.status_callback_method: Optional[str] = payload.get(
+                "status_callback_method"
+            )
+            self.extension: Optional[str] = payload.get("extension")
+            self.custom_success_message: Optional[str] = payload.get(
+                "custom_success_message"
+            )
+
+        def to_dict(self):
+            return {
+                "phone_number": self.phone_number,
+                "friendly_name": self.friendly_name,
+                "custom_code": self.custom_code,
+                "call_delay": self.call_delay,
+                "status_callback": self.status_callback,
+                "status_callback_method": self.status_callback_method,
+                "extension": self.extension,
+                "custom_success_message": self.custom_success_message,
+            }
+
     def __init__(self, version: Version):
         """
         Initialize the VoiceVerificationList
@@ -62,77 +141,107 @@ class VoiceVerificationList(ListResource):
 
         self._uri = "/CallerIds/VoiceVerifications"
 
-    def _create(self) -> tuple:
+    def _create(
+        self, numbers_v1_voice_verification_request: NumbersV1VoiceVerificationRequest
+    ) -> tuple:
         """
         Internal helper for create operation
 
         Returns:
             tuple: (payload, status_code, headers)
         """
+        data = numbers_v1_voice_verification_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
 
         headers["Accept"] = "application/json"
 
         return self._version.create_with_response_info(
-            method="POST", uri=self._uri, headers=headers
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
-    def create(self) -> VoiceVerificationInstance:
+    def create(
+        self, numbers_v1_voice_verification_request: NumbersV1VoiceVerificationRequest
+    ) -> VoiceVerificationInstance:
         """
         Create the VoiceVerificationInstance
 
+        :param numbers_v1_voice_verification_request:
 
         :returns: The created VoiceVerificationInstance
         """
-        payload, _, _ = self._create()
+        payload, _, _ = self._create(
+            numbers_v1_voice_verification_request=numbers_v1_voice_verification_request
+        )
         return VoiceVerificationInstance(self._version, payload)
 
-    def create_with_http_info(self) -> ApiResponse:
+    def create_with_http_info(
+        self, numbers_v1_voice_verification_request: NumbersV1VoiceVerificationRequest
+    ) -> ApiResponse:
         """
         Create the VoiceVerificationInstance and return response metadata
 
+        :param numbers_v1_voice_verification_request:
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = self._create()
+        payload, status_code, headers = self._create(
+            numbers_v1_voice_verification_request=numbers_v1_voice_verification_request
+        )
         instance = VoiceVerificationInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-    async def _create_async(self) -> tuple:
+    async def _create_async(
+        self, numbers_v1_voice_verification_request: NumbersV1VoiceVerificationRequest
+    ) -> tuple:
         """
         Internal async helper for create operation
 
         Returns:
             tuple: (payload, status_code, headers)
         """
+        data = numbers_v1_voice_verification_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
 
         headers["Accept"] = "application/json"
 
         return await self._version.create_with_response_info_async(
-            method="POST", uri=self._uri, headers=headers
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
-    async def create_async(self) -> VoiceVerificationInstance:
+    async def create_async(
+        self, numbers_v1_voice_verification_request: NumbersV1VoiceVerificationRequest
+    ) -> VoiceVerificationInstance:
         """
         Asynchronously create the VoiceVerificationInstance
 
+        :param numbers_v1_voice_verification_request:
 
         :returns: The created VoiceVerificationInstance
         """
-        payload, _, _ = await self._create_async()
+        payload, _, _ = await self._create_async(
+            numbers_v1_voice_verification_request=numbers_v1_voice_verification_request
+        )
         return VoiceVerificationInstance(self._version, payload)
 
-    async def create_with_http_info_async(self) -> ApiResponse:
+    async def create_with_http_info_async(
+        self, numbers_v1_voice_verification_request: NumbersV1VoiceVerificationRequest
+    ) -> ApiResponse:
         """
         Asynchronously create the VoiceVerificationInstance and return response metadata
 
+        :param numbers_v1_voice_verification_request:
 
         :returns: ApiResponse with instance, status code, and headers
         """
-        payload, status_code, headers = await self._create_async()
+        payload, status_code, headers = await self._create_async(
+            numbers_v1_voice_verification_request=numbers_v1_voice_verification_request
+        )
         instance = VoiceVerificationInstance(self._version, payload)
         return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
