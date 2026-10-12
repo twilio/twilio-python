@@ -49,8 +49,8 @@ class TranscriptionInstance(InstanceResource):
                 TranscriptionList.VoiceV2ConfigurationTranscriptionStatusCallback(
                     payload.get("transcriptionStatusCallback")
                 )
-                if payload.get("transcriptionStatusCallback") is not None
-                else None
+                if isinstance(payload.get("transcriptionStatusCallback"), dict)
+                else payload.get("transcriptionStatusCallback")
             )
             self.conversation_configuration_id: Optional[str] = payload.get(
                 "conversationConfigurationId"
@@ -130,8 +130,8 @@ class TranscriptionInstance(InstanceResource):
                 TranscriptionList.VoiceV2ConfigurationTranscriptionConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
 
         def to_dict(self):
@@ -398,8 +398,8 @@ class TranscriptionContext(InstanceContext):
                 TranscriptionList.VoiceV2ConfigurationTranscriptionStatusCallback(
                     payload.get("transcriptionStatusCallback")
                 )
-                if payload.get("transcriptionStatusCallback") is not None
-                else None
+                if isinstance(payload.get("transcriptionStatusCallback"), dict)
+                else payload.get("transcriptionStatusCallback")
             )
             self.conversation_configuration_id: Optional[str] = payload.get(
                 "conversationConfigurationId"
@@ -479,8 +479,8 @@ class TranscriptionContext(InstanceContext):
                 TranscriptionList.VoiceV2ConfigurationTranscriptionConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
 
         def to_dict(self):
@@ -865,8 +865,8 @@ class TranscriptionList(ListResource):
                 TranscriptionList.VoiceV2ConfigurationTranscriptionStatusCallback(
                     payload.get("transcriptionStatusCallback")
                 )
-                if payload.get("transcriptionStatusCallback") is not None
-                else None
+                if isinstance(payload.get("transcriptionStatusCallback"), dict)
+                else payload.get("transcriptionStatusCallback")
             )
             self.conversation_configuration_id: Optional[str] = payload.get(
                 "conversationConfigurationId"
@@ -946,8 +946,8 @@ class TranscriptionList(ListResource):
                 TranscriptionList.VoiceV2ConfigurationTranscriptionConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
 
         def to_dict(self):

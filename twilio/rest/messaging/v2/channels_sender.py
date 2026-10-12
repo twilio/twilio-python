@@ -12,8 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -54,7 +55,7 @@ class ChannelsSenderInstance(InstanceResource):
 
     class MessagingV2ChannelsSenderProfile(object):
         """
-        :ivar name: The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362).
+        :ivar name: The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362). On update, a WhatsApp sender's name is not changed synchronously: it is submitted to Meta for review, and `profile.name` continues to report the current active name until Meta approves the new one and the sender is automatically re-registered. Track progress with `pending_display_name_status` on Fetch Sender, and see `display_name_status` on the update response for the immediate outcome. Re-submitting the same name is how you retry applying a name Meta has already approved, for example after correcting the sender's two-step verification PIN. Meta permits a limited number of display name changes per 30-day period.
         :ivar about: The profile about text for the sender.
         :ivar address: The address of the sender.
         :ivar description: The description of the sender.
@@ -179,8 +180,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -188,8 +189,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -197,8 +198,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -231,8 +232,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -240,8 +241,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -249,8 +250,8 @@ class ChannelsSenderInstance(InstanceResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -307,8 +308,8 @@ class ChannelsSenderInstance(InstanceResource):
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[MessagingV2RcsCarrierStatus] = (
                 MessagingV2RcsCarrierStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
 
         def to_dict(self):
@@ -331,8 +332,8 @@ class ChannelsSenderInstance(InstanceResource):
             self.registration_sid: Optional[str] = payload.get("registration_sid")
             self.status: Optional[MessagingV2RcsCountryStatus] = (
                 MessagingV2RcsCountryStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
             self.carriers: Optional[List[MessagingV2RcsCarrier]] = (
                 [
@@ -388,10 +389,14 @@ class ChannelsSenderInstance(InstanceResource):
     :ivar configuration: 
     :ivar webhook: 
     :ivar profile: 
+    :ivar pending_display_name: WhatsApp only. The display name the most recent change applies to — awaiting Meta review, approved by Meta and awaiting re-registration, or, once `pending_display_name_status` is `COMPLETED`, the name now in effect (identical to `name`). Absent when no display name change has been made, and once a completed change stops being reported. 
+    :ivar pending_display_name_status: WhatsApp only. The status of the most recent display name change. `PENDING_REVIEW`, `APPROVED` and `DECLINED` are reported by Meta. `PIN_MISMATCH` and `REGISTRATION_FAILED` mean Meta approved the name but it could not be applied; `EXPIRED` means Meta's 14-day window to apply an approved name elapsed. In all three cases, re-submit the same `profile.name` to retry. `COMPLETED` means the name was approved and applied — `name` now returns it. A `COMPLETED` change is reported for 14 days after it completes and is absent afterwards, so treat its presence as \"recently completed\" rather than a permanent flag; use `pending_display_name_status_date` to tell how recent. Absent when no display name change has been made. 
+    :ivar pending_display_name_status_date: WhatsApp only. The date and time in UTC when `pending_display_name_status` last changed, specified in ISO 8601 format. Absent whenever `pending_display_name_status` is absent, so the three `pending_display_name*` fields are always present or absent together. 
     :ivar properties: 
     :ivar offline_reasons: The reasons why the sender is offline.
     :ivar compliance: 
     :ivar url: The URL of the resource.
+    :ivar display_name_status: WhatsApp only. The outcome of the display name operation in this request. Present only when the request included `profile.name`. `updating` — accepted; either submitted to Meta for review, or, when Meta had already approved this exact name, routed straight to re-registration. `no_change` — the name already matches the sender's active display name; nothing was submitted to Meta. `pending_review` — the same name is already under review at Meta; the existing request continues unchanged. `error` — the display name could not be processed, while other profile fields in the same request were still applied. Returned with a 202 and carries no error code or message. This covers every failure mode, including the case where Meta accepted the name but tracking could not be started — poll `pending_display_name_status` to establish the real state rather than assuming the name was rejected. When `profile.name` is the only field in the request, the failure is returned as an error response with a specific code instead of this status. 
     """
 
     def __init__(
@@ -406,10 +411,20 @@ class ChannelsSenderInstance(InstanceResource):
         self.configuration: Optional[str] = payload.get("configuration")
         self.webhook: Optional[str] = payload.get("webhook")
         self.profile: Optional[str] = payload.get("profile")
+        self.pending_display_name: Optional[str] = payload.get("pending_display_name")
+        self.pending_display_name_status: Optional[str] = payload.get(
+            "pending_display_name_status"
+        )
+        self.pending_display_name_status_date: Optional[datetime] = (
+            deserialize.iso8601_datetime(
+                payload.get("pending_display_name_status_date")
+            )
+        )
         self.properties: Optional[str] = payload.get("properties")
         self.offline_reasons: Optional[List[str]] = payload.get("offline_reasons")
         self.compliance: Optional[str] = payload.get("compliance")
         self.url: Optional[str] = payload.get("url")
+        self.display_name_status: Optional[str] = payload.get("display_name_status")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -614,7 +629,7 @@ class ChannelsSenderContext(InstanceContext):
 
     class MessagingV2ChannelsSenderProfile(object):
         """
-        :ivar name: The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362).
+        :ivar name: The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362). On update, a WhatsApp sender's name is not changed synchronously: it is submitted to Meta for review, and `profile.name` continues to report the current active name until Meta approves the new one and the sender is automatically re-registered. Track progress with `pending_display_name_status` on Fetch Sender, and see `display_name_status` on the update response for the immediate outcome. Re-submitting the same name is how you retry applying a name Meta has already approved, for example after correcting the sender's two-step verification PIN. Meta permits a limited number of display name changes per 30-day period.
         :ivar about: The profile about text for the sender.
         :ivar address: The address of the sender.
         :ivar description: The description of the sender.
@@ -739,8 +754,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -748,8 +763,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -757,8 +772,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -791,8 +806,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -800,8 +815,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -809,8 +824,8 @@ class ChannelsSenderContext(InstanceContext):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -867,8 +882,8 @@ class ChannelsSenderContext(InstanceContext):
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[MessagingV2RcsCarrierStatus] = (
                 MessagingV2RcsCarrierStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
 
         def to_dict(self):
@@ -891,8 +906,8 @@ class ChannelsSenderContext(InstanceContext):
             self.registration_sid: Optional[str] = payload.get("registration_sid")
             self.status: Optional[MessagingV2RcsCountryStatus] = (
                 MessagingV2RcsCountryStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
             self.carriers: Optional[List[MessagingV2RcsCarrier]] = (
                 [
@@ -1276,7 +1291,7 @@ class ChannelsSenderList(ListResource):
 
     class MessagingV2ChannelsSenderProfile(object):
         """
-        :ivar name: The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362).
+        :ivar name: The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362). On update, a WhatsApp sender's name is not changed synchronously: it is submitted to Meta for review, and `profile.name` continues to report the current active name until Meta approves the new one and the sender is automatically re-registered. Track progress with `pending_display_name_status` on Fetch Sender, and see `display_name_status` on the update response for the immediate outcome. Re-submitting the same name is how you retry applying a name Meta has already approved, for example after correcting the sender's two-step verification PIN. Meta permits a limited number of display name changes per 30-day period.
         :ivar about: The profile about text for the sender.
         :ivar address: The address of the sender.
         :ivar description: The description of the sender.
@@ -1401,8 +1416,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -1410,8 +1425,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -1419,8 +1434,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -1453,8 +1468,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderConfiguration(
                     payload.get("configuration")
                 )
-                if payload.get("configuration") is not None
-                else None
+                if isinstance(payload.get("configuration"), dict)
+                else payload.get("configuration")
             )
             self.webhook: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook
@@ -1462,8 +1477,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderWebhook(
                     payload.get("webhook")
                 )
-                if payload.get("webhook") is not None
-                else None
+                if isinstance(payload.get("webhook"), dict)
+                else payload.get("webhook")
             )
             self.profile: Optional[
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile
@@ -1471,8 +1486,8 @@ class ChannelsSenderList(ListResource):
                 ChannelsSenderList.MessagingV2ChannelsSenderProfile(
                     payload.get("profile")
                 )
-                if payload.get("profile") is not None
-                else None
+                if isinstance(payload.get("profile"), dict)
+                else payload.get("profile")
             )
 
         def to_dict(self):
@@ -1529,8 +1544,8 @@ class ChannelsSenderList(ListResource):
             self.name: Optional[str] = payload.get("name")
             self.status: Optional[MessagingV2RcsCarrierStatus] = (
                 MessagingV2RcsCarrierStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
 
         def to_dict(self):
@@ -1553,8 +1568,8 @@ class ChannelsSenderList(ListResource):
             self.registration_sid: Optional[str] = payload.get("registration_sid")
             self.status: Optional[MessagingV2RcsCountryStatus] = (
                 MessagingV2RcsCountryStatus(payload.get("status"))
-                if payload.get("status") is not None
-                else None
+                if isinstance(payload.get("status"), dict)
+                else payload.get("status")
             )
             self.carriers: Optional[List[MessagingV2RcsCarrier]] = (
                 [

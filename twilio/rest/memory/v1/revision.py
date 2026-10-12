@@ -29,7 +29,7 @@ class RevisionInstance(InstanceResource):
     """
     :ivar content: The main content of the observation.
     :ivar occurred_at: The timestamp when the observation originally occurred.
-    :ivar source: The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+    :ivar source: The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
     :ivar conversation_ids: Array of conversation IDs associated with this observation.
     :ivar id: A unique identifier for the observation using Twilio Type ID (TTID) format.
     :ivar created_at: The timestamp when the observation was created.

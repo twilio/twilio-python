@@ -100,8 +100,8 @@ class RecallList(ListResource):
             self.name: Optional[str] = payload.get("name")
             self.type: Optional[ParticipantType] = (
                 ParticipantType(payload.get("type"))
-                if payload.get("type") is not None
-                else None
+                if isinstance(payload.get("type"), dict)
+                else payload.get("type")
             )
             self.profile_id: Optional[str] = payload.get("profileId")
             self.address: Optional[str] = payload.get("address")
@@ -174,8 +174,8 @@ class RecallList(ListResource):
             self.name: Optional[str] = payload.get("name")
             self.type: Optional[ParticipantType] = (
                 ParticipantType(payload.get("type"))
-                if payload.get("type") is not None
-                else None
+                if isinstance(payload.get("type"), dict)
+                else payload.get("type")
             )
             self.profile_id: Optional[str] = payload.get("profileId")
             self.address: Optional[str] = payload.get("address")

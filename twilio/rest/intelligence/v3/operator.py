@@ -645,8 +645,8 @@ class OperatorList(ListResource):
             )
             self.context: Optional[OperatorList.OperatorContext] = (
                 OperatorList.OperatorContext(payload.get("context"))
-                if payload.get("context") is not None
-                else None
+                if isinstance(payload.get("context"), dict)
+                else payload.get("context")
             )
             self.parameters: Optional[Dict[str, OperatorList.OperatorParameter]] = (
                 {
@@ -693,13 +693,13 @@ class OperatorList(ListResource):
 
             self.memory: Optional[OperatorList.OperatorContextMemory] = (
                 OperatorList.OperatorContextMemory(payload.get("memory"))
-                if payload.get("memory") is not None
-                else None
+                if isinstance(payload.get("memory"), dict)
+                else payload.get("memory")
             )
             self.knowledge: Optional[OperatorList.OperatorContextKnowledge] = (
                 OperatorList.OperatorContextKnowledge(payload.get("knowledge"))
-                if payload.get("knowledge") is not None
-                else None
+                if isinstance(payload.get("knowledge"), dict)
+                else payload.get("knowledge")
             )
 
         def to_dict(self):

@@ -108,18 +108,18 @@ class QueryInstance(InstanceResource):
             self.country_code: Optional[str] = payload.get("country_code")
             self.identity_match: Optional[QueryList.IdentityMatchParameters] = (
                 QueryList.IdentityMatchParameters(payload.get("identity_match"))
-                if payload.get("identity_match") is not None
-                else None
+                if isinstance(payload.get("identity_match"), dict)
+                else payload.get("identity_match")
             )
             self.reassigned_number: Optional[QueryList.ReassignedNumberParameters] = (
                 QueryList.ReassignedNumberParameters(payload.get("reassigned_number"))
-                if payload.get("reassigned_number") is not None
-                else None
+                if isinstance(payload.get("reassigned_number"), dict)
+                else payload.get("reassigned_number")
             )
             self.sms_pumping_risk: Optional[QueryList.RiskParameters] = (
                 QueryList.RiskParameters(payload.get("sms_pumping_risk"))
-                if payload.get("sms_pumping_risk") is not None
-                else None
+                if isinstance(payload.get("sms_pumping_risk"), dict)
+                else payload.get("sms_pumping_risk")
             )
 
         def to_dict(self):
@@ -307,18 +307,18 @@ class QueryList(ListResource):
             self.country_code: Optional[str] = payload.get("country_code")
             self.identity_match: Optional[QueryList.IdentityMatchParameters] = (
                 QueryList.IdentityMatchParameters(payload.get("identity_match"))
-                if payload.get("identity_match") is not None
-                else None
+                if isinstance(payload.get("identity_match"), dict)
+                else payload.get("identity_match")
             )
             self.reassigned_number: Optional[QueryList.ReassignedNumberParameters] = (
                 QueryList.ReassignedNumberParameters(payload.get("reassigned_number"))
-                if payload.get("reassigned_number") is not None
-                else None
+                if isinstance(payload.get("reassigned_number"), dict)
+                else payload.get("reassigned_number")
             )
             self.sms_pumping_risk: Optional[QueryList.RiskParameters] = (
                 QueryList.RiskParameters(payload.get("sms_pumping_risk"))
-                if payload.get("sms_pumping_risk") is not None
-                else None
+                if isinstance(payload.get("sms_pumping_risk"), dict)
+                else payload.get("sms_pumping_risk")
             )
 
         def to_dict(self):

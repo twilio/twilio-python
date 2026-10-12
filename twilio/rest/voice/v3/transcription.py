@@ -388,8 +388,8 @@ class TranscriptionList(ListResource):
                 VoiceV3TranscriptionTranscriptionStatusCallback(
                     payload.get("transcriptionStatusCallback")
                 )
-                if payload.get("transcriptionStatusCallback") is not None
-                else None
+                if isinstance(payload.get("transcriptionStatusCallback"), dict)
+                else payload.get("transcriptionStatusCallback")
             )
             self.conversation_configuration_id: Optional[str] = payload.get(
                 "conversationConfigurationId"

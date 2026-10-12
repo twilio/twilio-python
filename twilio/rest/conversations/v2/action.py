@@ -41,13 +41,14 @@ class ActionInstance(InstanceResource):
 
     """
     :ivar id: Unique identifier for this Action.
-    :ivar type: The type of action. Accepted values: SEND_MESSAGE.
+    :ivar type: The type of action: action-send-message or action-start-flow.
     :ivar status: 
     :ivar conversation_id: The conversation this action belongs to.
-    :ivar related: Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED) 
+    :ivar related: Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED) For START_FLOW: - executionSid: The Studio Flow execution SID (present when COMPLETED) 
     :ivar created_at: Timestamp when the action was created.
     :ivar updated_at: Timestamp when the action was last updated.
     :ivar completed_at: Timestamp when the action reached a terminal status.
+    :ivar failure_reason: Human-readable failure reason. Null unless status is FAILED.
     """
 
     def __init__(
@@ -75,6 +76,7 @@ class ActionInstance(InstanceResource):
         self.completed_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("completedAt")
         )
+        self.failure_reason: Optional[str] = payload.get("failureReason")
 
         # Only set _solution if path params are provided (not None)
         if conversation_id is not None or action_id is not None:
@@ -331,8 +333,8 @@ class ActionList(ListResource):
 
             self._from: Optional[ActionList.ConversationsV2SendMessageParticipant] = (
                 ActionList.ConversationsV2SendMessageParticipant(payload.get("from"))
-                if payload.get("from") is not None
-                else None
+                if isinstance(payload.get("from"), dict)
+                else payload.get("from")
             )
             self.to: Optional[
                 List[ActionList.ConversationsV2SendMessageParticipant]
@@ -350,8 +352,8 @@ class ActionList(ListResource):
             )
             self.content: Optional[ActionList.ConversationsV2SendMessageContent] = (
                 ActionList.ConversationsV2SendMessageContent(payload.get("content"))
-                if payload.get("content") is not None
-                else None
+                if isinstance(payload.get("content"), dict)
+                else payload.get("content")
             )
             self.channel_settings: Optional[Dict[str, Dict[str, object]]] = payload.get(
                 "channelSettings"
@@ -376,8 +378,8 @@ class ActionList(ListResource):
             self.type: Optional[str] = payload.get("type")
             self.payload: Optional[ActionList.ConversationsV2SendMessagePayload] = (
                 ActionList.ConversationsV2SendMessagePayload(payload.get("payload"))
-                if payload.get("payload") is not None
-                else None
+                if isinstance(payload.get("payload"), dict)
+                else payload.get("payload")
             )
 
         def to_dict(self):

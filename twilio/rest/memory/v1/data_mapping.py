@@ -603,13 +603,13 @@ class DataMappingList(ListResource):
             self.is_enabled: Optional[bool] = payload.get("isEnabled")
             self.mapping_to: Optional[DataMappingList.DataMappingToTraits] = (
                 DataMappingList.DataMappingToTraits(payload.get("mappingTo"))
-                if payload.get("mappingTo") is not None
-                else None
+                if isinstance(payload.get("mappingTo"), dict)
+                else payload.get("mappingTo")
             )
             self.mapping_from: Optional[DataMappingList.DataMappingFromTypes] = (
                 DataMappingList.DataMappingFromTypes(payload.get("mappingFrom"))
-                if payload.get("mappingFrom") is not None
-                else None
+                if isinstance(payload.get("mappingFrom"), dict)
+                else payload.get("mappingFrom")
             )
 
         def to_dict(self):
@@ -642,8 +642,8 @@ class DataMappingList(ListResource):
             self.is_enabled: Optional[bool] = payload.get("isEnabled")
             self.mapping_to: Optional[DataMappingList.DataMappingToTraits] = (
                 DataMappingList.DataMappingToTraits(payload.get("mappingTo"))
-                if payload.get("mappingTo") is not None
-                else None
+                if isinstance(payload.get("mappingTo"), dict)
+                else payload.get("mappingTo")
             )
 
         def to_dict(self):

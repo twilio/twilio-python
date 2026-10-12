@@ -217,8 +217,8 @@ class ContentInstance(InstanceResource):
             self.language: Optional[str] = payload.get("language")
             self.types: Optional[ContentList.Types] = (
                 ContentList.Types(payload.get("types"))
-                if payload.get("types") is not None
-                else None
+                if isinstance(payload.get("types"), dict)
+                else payload.get("types")
             )
 
         def to_dict(self):
@@ -244,8 +244,8 @@ class ContentInstance(InstanceResource):
             self.language: Optional[str] = payload.get("language")
             self.types: Optional[ContentList.Types] = (
                 ContentList.Types(payload.get("types"))
-                if payload.get("types") is not None
-                else None
+                if isinstance(payload.get("types"), dict)
+                else payload.get("types")
             )
 
         def to_dict(self):
@@ -692,63 +692,63 @@ class ContentInstance(InstanceResource):
 
             self.twilio_text: Optional[ContentList.TwilioText] = (
                 ContentList.TwilioText(payload.get("twilio/text"))
-                if payload.get("twilio/text") is not None
-                else None
+                if isinstance(payload.get("twilio/text"), dict)
+                else payload.get("twilio/text")
             )
             self.twilio_media: Optional[ContentList.TwilioMedia] = (
                 ContentList.TwilioMedia(payload.get("twilio/media"))
-                if payload.get("twilio/media") is not None
-                else None
+                if isinstance(payload.get("twilio/media"), dict)
+                else payload.get("twilio/media")
             )
             self.twilio_location: Optional[ContentList.TwilioLocation] = (
                 ContentList.TwilioLocation(payload.get("twilio/location"))
-                if payload.get("twilio/location") is not None
-                else None
+                if isinstance(payload.get("twilio/location"), dict)
+                else payload.get("twilio/location")
             )
             self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
                 ContentList.TwilioListPicker(payload.get("twilio/list-picker"))
-                if payload.get("twilio/list-picker") is not None
-                else None
+                if isinstance(payload.get("twilio/list-picker"), dict)
+                else payload.get("twilio/list-picker")
             )
             self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
                 ContentList.TwilioCallToAction(payload.get("twilio/call-to-action"))
-                if payload.get("twilio/call-to-action") is not None
-                else None
+                if isinstance(payload.get("twilio/call-to-action"), dict)
+                else payload.get("twilio/call-to-action")
             )
             self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
                 ContentList.TwilioQuickReply(payload.get("twilio/quick-reply"))
-                if payload.get("twilio/quick-reply") is not None
-                else None
+                if isinstance(payload.get("twilio/quick-reply"), dict)
+                else payload.get("twilio/quick-reply")
             )
             self.twilio_card: Optional[ContentList.TwilioCard] = (
                 ContentList.TwilioCard(payload.get("twilio/card"))
-                if payload.get("twilio/card") is not None
-                else None
+                if isinstance(payload.get("twilio/card"), dict)
+                else payload.get("twilio/card")
             )
             self.twilio_catalog: Optional[ContentList.TwilioCatalog] = (
                 ContentList.TwilioCatalog(payload.get("twilio/catalog"))
-                if payload.get("twilio/catalog") is not None
-                else None
+                if isinstance(payload.get("twilio/catalog"), dict)
+                else payload.get("twilio/catalog")
             )
             self.twilio_carousel: Optional[ContentList.TwilioCarousel] = (
                 ContentList.TwilioCarousel(payload.get("twilio/carousel"))
-                if payload.get("twilio/carousel") is not None
-                else None
+                if isinstance(payload.get("twilio/carousel"), dict)
+                else payload.get("twilio/carousel")
             )
             self.twilio_flows: Optional[ContentList.TwilioFlows] = (
                 ContentList.TwilioFlows(payload.get("twilio/flows"))
-                if payload.get("twilio/flows") is not None
-                else None
+                if isinstance(payload.get("twilio/flows"), dict)
+                else payload.get("twilio/flows")
             )
             self.twilio_schedule: Optional[ContentList.TwilioSchedule] = (
                 ContentList.TwilioSchedule(payload.get("twilio/schedule"))
-                if payload.get("twilio/schedule") is not None
-                else None
+                if isinstance(payload.get("twilio/schedule"), dict)
+                else payload.get("twilio/schedule")
             )
             self.whatsapp_card: Optional[ContentList.WhatsappCard] = (
                 ContentList.WhatsappCard(payload.get("whatsapp/card"))
-                if payload.get("whatsapp/card") is not None
-                else None
+                if isinstance(payload.get("whatsapp/card"), dict)
+                else payload.get("whatsapp/card")
             )
             self.whatsapp_authentication: Optional[
                 ContentList.WhatsappAuthentication
@@ -756,13 +756,13 @@ class ContentInstance(InstanceResource):
                 ContentList.WhatsappAuthentication(
                     payload.get("whatsapp/authentication")
                 )
-                if payload.get("whatsapp/authentication") is not None
-                else None
+                if isinstance(payload.get("whatsapp/authentication"), dict)
+                else payload.get("whatsapp/authentication")
             )
             self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = (
                 ContentList.WhatsappFlows(payload.get("whatsapp/flows"))
-                if payload.get("whatsapp/flows") is not None
-                else None
+                if isinstance(payload.get("whatsapp/flows"), dict)
+                else payload.get("whatsapp/flows")
             )
 
         def to_dict(self):
@@ -1376,8 +1376,8 @@ class ContentContext(InstanceContext):
             self.language: Optional[str] = payload.get("language")
             self.types: Optional[ContentList.Types] = (
                 ContentList.Types(payload.get("types"))
-                if payload.get("types") is not None
-                else None
+                if isinstance(payload.get("types"), dict)
+                else payload.get("types")
             )
 
         def to_dict(self):
@@ -1403,8 +1403,8 @@ class ContentContext(InstanceContext):
             self.language: Optional[str] = payload.get("language")
             self.types: Optional[ContentList.Types] = (
                 ContentList.Types(payload.get("types"))
-                if payload.get("types") is not None
-                else None
+                if isinstance(payload.get("types"), dict)
+                else payload.get("types")
             )
 
         def to_dict(self):
@@ -1851,63 +1851,63 @@ class ContentContext(InstanceContext):
 
             self.twilio_text: Optional[ContentList.TwilioText] = (
                 ContentList.TwilioText(payload.get("twilio/text"))
-                if payload.get("twilio/text") is not None
-                else None
+                if isinstance(payload.get("twilio/text"), dict)
+                else payload.get("twilio/text")
             )
             self.twilio_media: Optional[ContentList.TwilioMedia] = (
                 ContentList.TwilioMedia(payload.get("twilio/media"))
-                if payload.get("twilio/media") is not None
-                else None
+                if isinstance(payload.get("twilio/media"), dict)
+                else payload.get("twilio/media")
             )
             self.twilio_location: Optional[ContentList.TwilioLocation] = (
                 ContentList.TwilioLocation(payload.get("twilio/location"))
-                if payload.get("twilio/location") is not None
-                else None
+                if isinstance(payload.get("twilio/location"), dict)
+                else payload.get("twilio/location")
             )
             self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
                 ContentList.TwilioListPicker(payload.get("twilio/list-picker"))
-                if payload.get("twilio/list-picker") is not None
-                else None
+                if isinstance(payload.get("twilio/list-picker"), dict)
+                else payload.get("twilio/list-picker")
             )
             self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
                 ContentList.TwilioCallToAction(payload.get("twilio/call-to-action"))
-                if payload.get("twilio/call-to-action") is not None
-                else None
+                if isinstance(payload.get("twilio/call-to-action"), dict)
+                else payload.get("twilio/call-to-action")
             )
             self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
                 ContentList.TwilioQuickReply(payload.get("twilio/quick-reply"))
-                if payload.get("twilio/quick-reply") is not None
-                else None
+                if isinstance(payload.get("twilio/quick-reply"), dict)
+                else payload.get("twilio/quick-reply")
             )
             self.twilio_card: Optional[ContentList.TwilioCard] = (
                 ContentList.TwilioCard(payload.get("twilio/card"))
-                if payload.get("twilio/card") is not None
-                else None
+                if isinstance(payload.get("twilio/card"), dict)
+                else payload.get("twilio/card")
             )
             self.twilio_catalog: Optional[ContentList.TwilioCatalog] = (
                 ContentList.TwilioCatalog(payload.get("twilio/catalog"))
-                if payload.get("twilio/catalog") is not None
-                else None
+                if isinstance(payload.get("twilio/catalog"), dict)
+                else payload.get("twilio/catalog")
             )
             self.twilio_carousel: Optional[ContentList.TwilioCarousel] = (
                 ContentList.TwilioCarousel(payload.get("twilio/carousel"))
-                if payload.get("twilio/carousel") is not None
-                else None
+                if isinstance(payload.get("twilio/carousel"), dict)
+                else payload.get("twilio/carousel")
             )
             self.twilio_flows: Optional[ContentList.TwilioFlows] = (
                 ContentList.TwilioFlows(payload.get("twilio/flows"))
-                if payload.get("twilio/flows") is not None
-                else None
+                if isinstance(payload.get("twilio/flows"), dict)
+                else payload.get("twilio/flows")
             )
             self.twilio_schedule: Optional[ContentList.TwilioSchedule] = (
                 ContentList.TwilioSchedule(payload.get("twilio/schedule"))
-                if payload.get("twilio/schedule") is not None
-                else None
+                if isinstance(payload.get("twilio/schedule"), dict)
+                else payload.get("twilio/schedule")
             )
             self.whatsapp_card: Optional[ContentList.WhatsappCard] = (
                 ContentList.WhatsappCard(payload.get("whatsapp/card"))
-                if payload.get("whatsapp/card") is not None
-                else None
+                if isinstance(payload.get("whatsapp/card"), dict)
+                else payload.get("whatsapp/card")
             )
             self.whatsapp_authentication: Optional[
                 ContentList.WhatsappAuthentication
@@ -1915,13 +1915,13 @@ class ContentContext(InstanceContext):
                 ContentList.WhatsappAuthentication(
                     payload.get("whatsapp/authentication")
                 )
-                if payload.get("whatsapp/authentication") is not None
-                else None
+                if isinstance(payload.get("whatsapp/authentication"), dict)
+                else payload.get("whatsapp/authentication")
             )
             self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = (
                 ContentList.WhatsappFlows(payload.get("whatsapp/flows"))
-                if payload.get("whatsapp/flows") is not None
-                else None
+                if isinstance(payload.get("whatsapp/flows"), dict)
+                else payload.get("whatsapp/flows")
             )
 
         def to_dict(self):
@@ -2627,8 +2627,8 @@ class ContentList(ListResource):
             self.language: Optional[str] = payload.get("language")
             self.types: Optional[ContentList.Types] = (
                 ContentList.Types(payload.get("types"))
-                if payload.get("types") is not None
-                else None
+                if isinstance(payload.get("types"), dict)
+                else payload.get("types")
             )
 
         def to_dict(self):
@@ -2654,8 +2654,8 @@ class ContentList(ListResource):
             self.language: Optional[str] = payload.get("language")
             self.types: Optional[ContentList.Types] = (
                 ContentList.Types(payload.get("types"))
-                if payload.get("types") is not None
-                else None
+                if isinstance(payload.get("types"), dict)
+                else payload.get("types")
             )
 
         def to_dict(self):
@@ -3102,63 +3102,63 @@ class ContentList(ListResource):
 
             self.twilio_text: Optional[ContentList.TwilioText] = (
                 ContentList.TwilioText(payload.get("twilio/text"))
-                if payload.get("twilio/text") is not None
-                else None
+                if isinstance(payload.get("twilio/text"), dict)
+                else payload.get("twilio/text")
             )
             self.twilio_media: Optional[ContentList.TwilioMedia] = (
                 ContentList.TwilioMedia(payload.get("twilio/media"))
-                if payload.get("twilio/media") is not None
-                else None
+                if isinstance(payload.get("twilio/media"), dict)
+                else payload.get("twilio/media")
             )
             self.twilio_location: Optional[ContentList.TwilioLocation] = (
                 ContentList.TwilioLocation(payload.get("twilio/location"))
-                if payload.get("twilio/location") is not None
-                else None
+                if isinstance(payload.get("twilio/location"), dict)
+                else payload.get("twilio/location")
             )
             self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
                 ContentList.TwilioListPicker(payload.get("twilio/list-picker"))
-                if payload.get("twilio/list-picker") is not None
-                else None
+                if isinstance(payload.get("twilio/list-picker"), dict)
+                else payload.get("twilio/list-picker")
             )
             self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
                 ContentList.TwilioCallToAction(payload.get("twilio/call-to-action"))
-                if payload.get("twilio/call-to-action") is not None
-                else None
+                if isinstance(payload.get("twilio/call-to-action"), dict)
+                else payload.get("twilio/call-to-action")
             )
             self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
                 ContentList.TwilioQuickReply(payload.get("twilio/quick-reply"))
-                if payload.get("twilio/quick-reply") is not None
-                else None
+                if isinstance(payload.get("twilio/quick-reply"), dict)
+                else payload.get("twilio/quick-reply")
             )
             self.twilio_card: Optional[ContentList.TwilioCard] = (
                 ContentList.TwilioCard(payload.get("twilio/card"))
-                if payload.get("twilio/card") is not None
-                else None
+                if isinstance(payload.get("twilio/card"), dict)
+                else payload.get("twilio/card")
             )
             self.twilio_catalog: Optional[ContentList.TwilioCatalog] = (
                 ContentList.TwilioCatalog(payload.get("twilio/catalog"))
-                if payload.get("twilio/catalog") is not None
-                else None
+                if isinstance(payload.get("twilio/catalog"), dict)
+                else payload.get("twilio/catalog")
             )
             self.twilio_carousel: Optional[ContentList.TwilioCarousel] = (
                 ContentList.TwilioCarousel(payload.get("twilio/carousel"))
-                if payload.get("twilio/carousel") is not None
-                else None
+                if isinstance(payload.get("twilio/carousel"), dict)
+                else payload.get("twilio/carousel")
             )
             self.twilio_flows: Optional[ContentList.TwilioFlows] = (
                 ContentList.TwilioFlows(payload.get("twilio/flows"))
-                if payload.get("twilio/flows") is not None
-                else None
+                if isinstance(payload.get("twilio/flows"), dict)
+                else payload.get("twilio/flows")
             )
             self.twilio_schedule: Optional[ContentList.TwilioSchedule] = (
                 ContentList.TwilioSchedule(payload.get("twilio/schedule"))
-                if payload.get("twilio/schedule") is not None
-                else None
+                if isinstance(payload.get("twilio/schedule"), dict)
+                else payload.get("twilio/schedule")
             )
             self.whatsapp_card: Optional[ContentList.WhatsappCard] = (
                 ContentList.WhatsappCard(payload.get("whatsapp/card"))
-                if payload.get("whatsapp/card") is not None
-                else None
+                if isinstance(payload.get("whatsapp/card"), dict)
+                else payload.get("whatsapp/card")
             )
             self.whatsapp_authentication: Optional[
                 ContentList.WhatsappAuthentication
@@ -3166,13 +3166,13 @@ class ContentList(ListResource):
                 ContentList.WhatsappAuthentication(
                     payload.get("whatsapp/authentication")
                 )
-                if payload.get("whatsapp/authentication") is not None
-                else None
+                if isinstance(payload.get("whatsapp/authentication"), dict)
+                else payload.get("whatsapp/authentication")
             )
             self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = (
                 ContentList.WhatsappFlows(payload.get("whatsapp/flows"))
-                if payload.get("whatsapp/flows") is not None
-                else None
+                if isinstance(payload.get("whatsapp/flows"), dict)
+                else payload.get("whatsapp/flows")
             )
 
         def to_dict(self):
