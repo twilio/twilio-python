@@ -58,6 +58,48 @@ class TestAsyncHttpClientRequest(aiounittest.AsyncTestCase):
         with self.assertRaises(ValueError):
             await self.client.request("doesnt matter", "doesnt matter", timeout=-1)
 
+    async def test_json_content_type_puts_dict_on_json_not_data(self):
+        payload = {"profile": {"logo_url": "https://example.com/x.jpg"}}
+        await self.client.request(
+            "POST",
+            "https://messaging.twilio.com/v2/Channels/Senders/XE123",
+            data=payload,
+            headers={"Content-Type": "application/json"},
+        )
+
+        self.session_mock.request.assert_called()
+        request_args = self.session_mock.request.call_args.kwargs
+        self.assertEqual(request_args["json"], payload)
+        self.assertNotIn("data", request_args)
+
+    async def test_scim_json_content_type_puts_dict_on_json_not_data(self):
+        payload = {"userName": "alice"}
+        await self.client.request(
+            "POST",
+            "https://preview.twilio.com/scim/Users",
+            data=payload,
+            headers={"Content-Type": "application/scim+json"},
+        )
+
+        self.session_mock.request.assert_called()
+        request_args = self.session_mock.request.call_args.kwargs
+        self.assertEqual(request_args["json"], payload)
+        self.assertNotIn("data", request_args)
+
+    async def test_form_content_type_puts_dict_on_data_not_json(self):
+        payload = {"To": "+15555555555", "Body": "hi"}
+        await self.client.request(
+            "POST",
+            "https://api.twilio.com/2010-04-01/Accounts/ACxxx/Messages.json",
+            data=payload,
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
+
+        self.session_mock.request.assert_called()
+        request_args = self.session_mock.request.call_args.kwargs
+        self.assertEqual(request_args["data"], payload)
+        self.assertNotIn("json", request_args)
+
 
 class TestAsyncHttpClientRetries(aiounittest.AsyncTestCase):
     def setUp(self):
