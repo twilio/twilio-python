@@ -76,7 +76,9 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
 
         :return: An http response
         """
-        if timeout is not None and timeout <= 0:
+        if timeout is None:
+            timeout = self.timeout
+        elif timeout <= 0:
             raise ValueError(timeout)
 
         basic_auth = None
