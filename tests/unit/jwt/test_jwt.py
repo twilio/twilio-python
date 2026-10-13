@@ -2,7 +2,7 @@ import time as real_time
 import unittest
 
 import jwt as jwt_lib
-from mock import patch
+from unittest.mock import patch
 
 from twilio.jwt import Jwt, JwtDecodeError
 
