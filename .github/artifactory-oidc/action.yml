@@ -1,0 +1,70 @@
+name: "Artifactory OIDC Auth"
+description: "Exchange GitHub OIDC token for Artifactory access and configure pip indexes"
+
+inputs:
+  artifactory-url:
+    description: "Base Artifactory platform URL. Falls back to ARTIFACTORY_URL env var if not provided."
+    required: false
+    default: ""
+  oidc-provider-name:
+    description: "OIDC provider name configured in Artifactory"
+    required: false
+    default: "github-actions"
+  pypi-repo:
+    description: "Artifactory virtual PyPI repository name"
+    required: false
+    default: "virtual-pypi-thirdparty"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Exchange GitHub OIDC token for Artifactory token
+      shell: bash
+      env:
+        INPUT_ARTIFACTORY_URL: ${{ inputs.artifactory-url }}
+        OIDC_PROVIDER_NAME: ${{ inputs.oidc-provider-name }}
+        PYPI_REPO: ${{ inputs.pypi-repo }}
+      run: |
+        set -euo pipefail
+        ARTIFACTORY_URL="${INPUT_ARTIFACTORY_URL:-${ARTIFACTORY_URL:-}}"
+        if [ -z "${ARTIFACTORY_URL}" ]; then
+          echo "::error::ARTIFACTORY_URL is not set (pass as input or set as env var)"; exit 1
+        fi
+
+        OIDC_JWT=$(curl -sS \
+          "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=${ARTIFACTORY_URL}" \
+          -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" | jq -r '.value')
+
+        if [ -z "$OIDC_JWT" ] || [ "$OIDC_JWT" = "null" ]; then
+          echo "::error::Failed to obtain GitHub OIDC token"; exit 1
+        fi
+
+        decode_seg() { local s="${1}"; local m=$(( ${#s} % 4 )); [ $m -ne 0 ] && s="${s}$(printf '=%.0s' $(seq 1 $((4-m))))"; echo "$s" | tr '_-' '/+' | base64 -d 2>/dev/null; }
+        PAYLOAD=$(decode_seg "$(echo "$OIDC_JWT" | cut -d. -f2)")
+        echo "OIDC token claims:"
+        echo "  sub = $(echo "$PAYLOAD" | jq -r '.sub')"
+        echo "  aud = $(echo "$PAYLOAD" | jq -r '.aud')"
+        echo "  iss = $(echo "$PAYLOAD" | jq -r '.iss')"
+
+        RESP=$(curl -sS "${ARTIFACTORY_URL}/access/api/v1/oidc/token" \
+          -H 'Content-Type: application/json' \
+          -d "{\"grant_type\":\"urn:ietf:params:oauth:grant-type:token-exchange\",
+               \"subject_token_type\":\"urn:ietf:params:oauth:token-type:id_token\",
+               \"subject_token\":\"${OIDC_JWT}\",
+               \"provider_name\":\"${OIDC_PROVIDER_NAME}\"}")
+
+        ART_TOKEN=$(echo "$RESP" | jq -r '.access_token // empty')
+
+        if [ -z "$ART_TOKEN" ]; then
+          echo "::error::OIDC token exchange failed. Raw response (token field redacted):"
+          echo "$RESP" | jq 'if .access_token then .access_token="<redacted>" else . end' 2>/dev/null || echo "$RESP"
+          exit 1
+        fi
+        echo "::add-mask::$ART_TOKEN"
+
+        HOST=$(echo "${ARTIFACTORY_URL}" | sed -E 's#^https?://##')
+        INDEX_URL="https://:${ART_TOKEN}@${HOST}/artifactory/api/pypi/${PYPI_REPO}/simple/"
+
+        echo "::add-mask::${INDEX_URL}"
+        echo "PIP_INDEX_URL=${INDEX_URL}" >> "$GITHUB_ENV"
+        echo "PIP_TRUSTED_HOST=${HOST}" >> "$GITHUB_ENV"
