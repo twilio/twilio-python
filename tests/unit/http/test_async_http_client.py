@@ -1,3 +1,5 @@
+import warnings
+
 import aiounittest
 
 from aiohttp import ClientSession
@@ -43,16 +45,137 @@ class TestAsyncHttpClientRequest(aiounittest.AsyncTestCase):
         self.assertEqual(request_args["method"], "GET")
         self.assertEqual(request_args["url"], "https://mock.twilio.com")
 
-    async def test_request_called_with_basic_auth(self):
-        await self.client.request(
-            "doesnt matter", "doesnt matter", auth=("account_sid", "auth_token")
-        )
+    async def test_request_called_with_basic_auth_header_without_deprecation(self):
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                "error",
+                message="BasicAuth is deprecated.*",
+                category=DeprecationWarning,
+            )
+            await self.client.request(
+                "doesnt matter",
+                "doesnt matter",
+                auth=("account_sid", "auth_token"),
+            )
 
         self.session_mock.request.assert_called()
-        auth = self.session_mock.request.call_args.kwargs["auth"]
-        self.assertIsNotNone(auth)
-        self.assertEqual(auth.login, "account_sid")
-        self.assertEqual(auth.password, "auth_token")
+        request_args = self.session_mock.request.call_args.kwargs
+        self.assertNotIn("auth", request_args)
+        self.assertEqual(
+            request_args["headers"]["Authorization"],
+            "Basic YWNjb3VudF9zaWQ6YXV0aF90b2tlbg==",
+        )
+
+    async def test_request_does_not_mutate_headers_when_adding_basic_auth(self):
+        headers = {"X-Test": "value"}
+
+        await self.client.request(
+            "doesnt matter",
+            "doesnt matter",
+            headers=headers,
+            auth=("account_sid", "auth_token"),
+        )
+
+        request_headers = self.session_mock.request.call_args.kwargs["headers"]
+        self.assertEqual(headers, {"X-Test": "value"})
+        self.assertIsNot(request_headers, headers)
+        self.assertEqual(request_headers["X-Test"], "value")
+        self.assertEqual(
+            request_headers["Authorization"],
+            "Basic YWNjb3VudF9zaWQ6YXV0aF90b2tlbg==",
+        )
+
+    async def test_request_preserves_latin1_basic_auth_encoding(self):
+        await self.client.request(
+            "doesnt matter", "doesnt matter", auth=("café", "päss")
+        )
+
+        request_headers = self.session_mock.request.call_args.kwargs["headers"]
+        self.assertEqual(request_headers["Authorization"], "Basic Y2Fm6Tpw5HNz")
+
+    async def test_request_accepts_empty_basic_auth_credentials(self):
+        await self.client.request("doesnt matter", "doesnt matter", auth=("", ""))
+
+        request_headers = self.session_mock.request.call_args.kwargs["headers"]
+        self.assertEqual(request_headers["Authorization"], "Basic Og==")
+
+    async def test_request_rejects_colon_in_basic_auth_username(self):
+        with self.assertRaises(ValueError):
+            await self.client.request(
+                "doesnt matter", "doesnt matter", auth=("account:sid", "auth_token")
+            )
+
+        self.session_mock.request.assert_not_called()
+
+    async def test_request_accepts_colon_in_basic_auth_password(self):
+        await self.client.request(
+            "doesnt matter", "doesnt matter", auth=("account_sid", "auth:token")
+        )
+
+        request_headers = self.session_mock.request.call_args.kwargs["headers"]
+        self.assertEqual(
+            request_headers["Authorization"],
+            "Basic YWNjb3VudF9zaWQ6YXV0aDp0b2tlbg==",
+        )
+
+    async def test_request_rejects_auth_with_authorization_header(self):
+        with self.assertRaisesRegex(
+            ValueError,
+            "Cannot combine AUTHORIZATION header with AUTH argument",
+        ):
+            await self.client.request(
+                "doesnt matter",
+                "doesnt matter",
+                headers={"authorization": "Bearer token"},
+                auth=("account_sid", "auth_token"),
+            )
+
+        self.session_mock.request.assert_not_called()
+
+    async def test_request_checks_auth_header_conflict_before_encoding(self):
+        with self.assertRaisesRegex(
+            ValueError,
+            "Cannot combine AUTHORIZATION header with AUTH argument",
+        ):
+            await self.client.request(
+                "doesnt matter",
+                "doesnt matter",
+                headers={"Authorization": "Bearer token"},
+                auth=("雪", "密"),
+            )
+
+        self.session_mock.request.assert_not_called()
+
+    async def test_request_preserves_authorization_header_without_auth(self):
+        headers = {"authorization": "Bearer token"}
+
+        await self.client.request("doesnt matter", "doesnt matter", headers=headers)
+
+        request_args = self.session_mock.request.call_args.kwargs
+        self.assertNotIn("auth", request_args)
+        self.assertEqual(request_args["headers"], headers)
+
+    async def test_request_preserves_basic_auth_none_validation(self):
+        with self.assertRaisesRegex(ValueError, "None is not allowed as login value"):
+            await self.client.request(
+                "doesnt matter", "doesnt matter", auth=(None, "auth_token")
+            )
+        with self.assertRaisesRegex(
+            ValueError, "None is not allowed as password value"
+        ):
+            await self.client.request(
+                "doesnt matter", "doesnt matter", auth=("account_sid", None)
+            )
+
+        self.session_mock.request.assert_not_called()
+
+    async def test_request_rejects_non_latin1_basic_auth_credentials(self):
+        with self.assertRaises(UnicodeEncodeError):
+            await self.client.request(
+                "doesnt matter", "doesnt matter", auth=("雪", "密")
+            )
+
+        self.session_mock.request.assert_not_called()
 
     async def test_invalid_request_timeout_raises_exception(self):
         with self.assertRaises(ValueError):
