@@ -110,7 +110,9 @@ class TokenPagination(Page):
 
         # Construct full URL with pageToken parameter
         self._params["pageToken"] = token
-        response = self._version.page(method="GET", uri=self._uri, params=self._params)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=self._params
+        )
         cls = type(self)
         return cls(self._version, response, self._uri, self._params, self._solution)
 
