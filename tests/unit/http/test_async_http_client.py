@@ -1,3 +1,5 @@
+import asyncio
+
 import aiounittest
 
 from aiohttp import ClientSession
@@ -129,5 +131,38 @@ class TestAsyncHttpClientSession(aiounittest.AsyncTestCase):
         response_2 = await client.request("GET", "https://api.twilio.com")
 
         # No session used, responses should be different (not cached)
+        self.assertEqual(response_1.content, "response_1")
+        self.assertEqual(response_2.content, "response_2")
+
+
+class TestAsyncHttpClientConcurrentRequests(aiounittest.AsyncTestCase):
+    def setUp(self):
+        self.session_mock = AsyncMock(wraps=ClientSession)
+        self.session_mock.request.side_effect = [
+            MockResponse("response_1", 200),
+            MockResponse("response_2", 200),
+        ]
+
+        async def close():
+            # A real session yields to the event loop while it closes.
+            await asyncio.sleep(0)
+
+        self.session_mock.close = close
+
+        self.session_patcher = patch("twilio.http.async_http_client.ClientSession")
+        session_constructor_mock = self.session_patcher.start()
+        session_constructor_mock.return_value = self.session_mock
+
+    def tearDown(self):
+        self.session_patcher.stop()
+
+    async def test_each_concurrent_request_gets_its_own_response(self):
+        client = AsyncTwilioHttpClient(pool_connections=False)
+
+        response_1, response_2 = await asyncio.gather(
+            client.request("GET", "https://api.twilio.com/1"),
+            client.request("GET", "https://api.twilio.com/2"),
+        )
+
         self.assertEqual(response_1.content, "response_1")
         self.assertEqual(response_2.content, "response_2")
