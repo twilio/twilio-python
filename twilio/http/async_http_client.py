@@ -105,14 +105,17 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
             session = ClientSession()
             temp = True
         self._test_only_last_request = TwilioRequest(**kwargs)
-        response = await session.request(**kwargs)
-        self.log_response(response.status, response)
-        self._test_only_last_response = Response(
-            response.status, await response.text(), response.headers
+        client_response = await session.request(**kwargs)
+        self.log_response(client_response.status, client_response)
+        response = Response(
+            client_response.status,
+            await client_response.text(),
+            client_response.headers,
         )
+        self._test_only_last_response = response
         if temp:
             await session.close()
-        return self._test_only_last_response
+        return response
 
     async def close(self):
         """
