@@ -5,6 +5,7 @@ from requests import Request, Session
 from twilio.base.exceptions import TwilioRestException
 from urllib.parse import urlparse
 from twilio.http import HttpClient
+from twilio.http.distrusted_intermediates import mount_distrusted_intermediates_check
 from twilio.http.response import Response
 from twilio.jwt.validation import ClientValidationJwt
 
@@ -39,7 +40,11 @@ class ValidationClient(HttpClient):
         self.credential_sid = credential_sid
         self.api_key_sid = api_key_sid
         self.private_key = private_key
-        self.session = Session() if pool_connections else None
+        self.session = (
+            mount_distrusted_intermediates_check(Session())
+            if pool_connections
+            else None
+        )
 
     def request(
         self,
@@ -68,7 +73,7 @@ class ValidationClient(HttpClient):
         :return: An http response
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
-        session = self.session or Session()
+        session = self.session or mount_distrusted_intermediates_check(Session())
         request = Request(
             method.upper(), url, params=params, data=data, headers=headers, auth=auth
         )
