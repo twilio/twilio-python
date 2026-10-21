@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.12
 
 ENV PYTHONUNBUFFERED 1
 
@@ -11,5 +11,5 @@ COPY README.md .
 COPY twilio ./twilio
 COPY tests ./tests
 
-RUN pip install .
+RUN pip install --upgrade pip && pip install .
 RUN pip install -r tests/requirements.txt
