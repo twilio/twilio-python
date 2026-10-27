@@ -251,3 +251,8 @@ class AccessTokenTest(unittest.TestCase):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, "secret")
         scat.add_grant(VideoGrant())
         self.assertRaises(ValueError, scat.add_grant, "GrantRootAccess")
+
+    def test_iat_claim(self):
+        token = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, "secret")
+        payload = token.payload
+        self.assertEqual(payload["iat"], payload["nbf"])

@@ -75,8 +75,10 @@ class Jwt(object):
             return self.__decoded_payload
 
         payload = self._generate_payload().copy()
+        now = int(time.time())
         payload["iss"] = self.issuer
-        payload["exp"] = int(time.time()) + self.ttl
+        payload["iat"] = now
+        payload["exp"] = now + self.ttl
         if self.nbf is not None:
             if self.nbf == self.GENERATE:
                 payload["nbf"] = int(time.time())
