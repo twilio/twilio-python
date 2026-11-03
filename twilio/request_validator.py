@@ -1,8 +1,20 @@
 import base64
 import hmac
+import logging
 from hashlib import sha1, sha256
 
 from urllib.parse import urlparse, parse_qs
+
+logger = logging.getLogger(__name__)
+
+SIGNATURE_HEADER = "X-Twilio-Signature"
+# Header Twilio adds to webhooks signed with a SharedKey:
+# key=<sharedKeyId>,algorithm=<algorithm>
+SIGNATURE_SETTINGS_HEADER = "X-Twilio-Webhooks-Signature-Settings"
+HMAC_SHA1 = "HMAC_SHA1"
+HMAC_SHA256 = "HMAC_SHA256"
+
+_HASH_FUNCTIONS = {HMAC_SHA1: sha1, HMAC_SHA256: sha256}
 
 
 def compare(string1, string2):
@@ -58,18 +70,47 @@ def add_port(uri):
     return new_uri.geturl()
 
 
+def get_signature_algorithm(signature_settings_header):
+    """Get the signing algorithm named in the X-Twilio-Webhooks-Signature-Settings header
+
+    A missing or empty header (or one without ``algorithm=``) means the legacy
+    Auth Token signature, HMAC_SHA1.
+
+    :param str signature_settings_header: header value, e.g.
+        ``key=webhooks_sharedkey_...,algorithm=HMAC_SHA256``
+
+    :returns: the algorithm name
+    :rtype: str
+    """
+    for part in (signature_settings_header or "").split(","):
+        name, separator, value = part.partition("=")
+        if separator and name.strip() == "algorithm" and value.strip():
+            return value.strip()
+    return HMAC_SHA1
+
+
 class RequestValidator(object):
     def __init__(self, token):
+        """
+        :param str token: the secret the webhook was signed with: the account Auth Token,
+            or the SharedKey secret when the request carries X-Twilio-Webhooks-Signature-Settings
+        """
         self.token = token.encode("utf-8")
 
-    def compute_signature(self, uri, params):
+    def compute_signature(self, uri, params, algorithm=None):
         """Compute the signature for a given request
 
         :param uri: full URI that Twilio requested on your server
         :param params: post vars that Twilio sent with the request
+        :param str algorithm: HMAC_SHA1 (default) or HMAC_SHA256
 
         :returns: The computed signature
+        :raises ValueError: if the algorithm is not supported
         """
+        hash_function = _HASH_FUNCTIONS.get((algorithm or HMAC_SHA1).upper())
+        if hash_function is None:
+            raise ValueError("Unsupported webhook signature algorithm: %s" % algorithm)
+
         s = uri
         if params:
             for param_name in sorted(set(params)):
@@ -79,7 +120,7 @@ class RequestValidator(object):
                     s += param_name + value
 
         # compute signature and compare signatures
-        mac = hmac.new(self.token, s.encode("utf-8"), sha1)
+        mac = hmac.new(self.token, s.encode("utf-8"), hash_function)
         computed = base64.b64encode(mac.digest())
         computed = computed.decode("utf-8")
 
@@ -102,15 +143,28 @@ class RequestValidator(object):
 
         return computed.strip()
 
-    def validate(self, uri, params, signature):
+    def validate(self, uri, params, signature, algorithm=None):
         """Validate a request from Twilio
 
         :param uri: full URI that Twilio requested on your server
         :param params: dictionary of POST variables or string of POST body for JSON requests
         :param signature: expected signature in HTTP X-Twilio-Signature header
+        :param str algorithm: HMAC_SHA1 (default) or HMAC_SHA256, see
+            :func:`get_signature_algorithm`. An unsupported algorithm fails validation
+            and logs a warning.
 
         :returns: True if the request passes validation, False if not
         """
+        if (algorithm or HMAC_SHA1).upper() not in _HASH_FUNCTIONS:
+            logger.warning(
+                "Unsupported webhook signature algorithm '%s'. Supported: %s, %s. "
+                "Upgrade twilio if Twilio added a new one.",
+                algorithm,
+                HMAC_SHA1,
+                HMAC_SHA256,
+            )
+            return False
+
         if params is None:
             params = {}
 
@@ -128,10 +182,10 @@ class RequestValidator(object):
         #  check signature of uri with and without port,
         #  since sig generation on back end is inconsistent
         valid_signature = compare(
-            self.compute_signature(uri_without_port, params), signature
+            self.compute_signature(uri_without_port, params, algorithm), signature
         )
         valid_signature_with_port = compare(
-            self.compute_signature(uri_with_port, params), signature
+            self.compute_signature(uri_with_port, params, algorithm), signature
         )
 
         return valid_body_hash and (valid_signature or valid_signature_with_port)
