@@ -5,7 +5,18 @@ from django.conf import settings
 from django.http import QueryDict
 from multidict import MultiDict
 
-from twilio.request_validator import RequestValidator
+import base64
+import hashlib
+import hmac
+
+from twilio.request_validator import (
+    HMAC_SHA1,
+    HMAC_SHA256,
+    SIGNATURE_HEADER,
+    SIGNATURE_SETTINGS_HEADER,
+    RequestValidator,
+    get_signature_algorithm,
+)
 
 
 class ValidationTest(unittest.TestCase):
@@ -93,3 +104,68 @@ class ValidationTest(unittest.TestCase):
             uri, self.body, "a9nBmqA0ju/hNViExpshrM61xv4="
         )
         assert is_valid
+
+    def _sha256_signature(self, data):
+        mac = hmac.new(b"12345", data.encode("utf-8"), hashlib.sha256)
+        return base64.b64encode(mac.digest()).decode("utf-8")
+
+    def test_compute_signature_sha256(self):
+        data = self.uri + "".join(k + v for k, v in sorted(self.params.items()))
+        signature = self.validator.compute_signature(self.uri, self.params, HMAC_SHA256)
+        assert signature == self._sha256_signature(data)
+
+    def test_validate_sha256(self):
+        signature = self.validator.compute_signature(self.uri, self.params, HMAC_SHA256)
+        assert self.validator.validate(self.uri, self.params, signature, HMAC_SHA256)
+        assert self.validator.validate(self.uri, self.params, signature, "hmac_sha256")
+
+    def test_sha256_and_sha1_are_not_interchangeable(self):
+        sha256_signature = self.validator.compute_signature(
+            self.uri, self.params, HMAC_SHA256
+        )
+        assert not self.validator.validate(self.uri, self.params, sha256_signature)
+        assert not self.validator.validate(
+            self.uri, self.params, self.expected, HMAC_SHA256
+        )
+
+    def test_validate_defaults_to_sha1(self):
+        assert self.validator.validate(self.uri, self.params, self.expected)
+        assert self.validator.validate(self.uri, self.params, self.expected, None)
+        assert self.validator.validate(self.uri, self.params, self.expected, "")
+        assert self.validator.validate(self.uri, self.params, self.expected, HMAC_SHA1)
+
+    def test_validate_unsupported_algorithm_returns_false_and_warns(self):
+        with self.assertLogs("twilio.request_validator", level="WARNING") as logs:
+            assert not self.validator.validate(
+                self.uri, self.params, self.expected, "HMAC_SHA512"
+            )
+        assert "HMAC_SHA512" in logs.output[0]
+
+    def test_compute_signature_unsupported_algorithm_raises(self):
+        with self.assertRaises(ValueError):
+            self.validator.compute_signature(self.uri, self.params, "MD5")
+
+    def test_validate_body_sha256(self):
+        uri = self.uriWithBody
+        signature = self.validator.compute_signature(uri, {}, HMAC_SHA256)
+        assert self.validator.validate(uri, self.body, signature, HMAC_SHA256)
+        assert not self.validator.validate(uri, "{}", signature, HMAC_SHA256)
+        assert not self.validator.validate(uri, self.body, signature)
+
+    def test_get_signature_algorithm(self):
+        assert (
+            get_signature_algorithm("key=webhooks_sharedkey_1,algorithm=HMAC_SHA256")
+            == HMAC_SHA256
+        )
+        assert get_signature_algorithm("algorithm=HMAC_SHA1,key=k") == HMAC_SHA1
+        assert (
+            get_signature_algorithm(" key=k , algorithm = HMAC_SHA256 ") == HMAC_SHA256
+        )
+
+    def test_get_signature_algorithm_defaults_to_sha1(self):
+        for header in (None, "", "key=k", "key=k,algorithm="):
+            assert get_signature_algorithm(header) == HMAC_SHA1
+
+    def test_header_constants(self):
+        assert SIGNATURE_HEADER == "X-Twilio-Signature"
+        assert SIGNATURE_SETTINGS_HEADER == "X-Twilio-Webhooks-Signature-Settings"
