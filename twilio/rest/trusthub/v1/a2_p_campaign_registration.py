@@ -25,17 +25,17 @@ class A2PCampaignRegistrationInstance(InstanceResource):
 
     class TrusthubV1A2pCampaignRegistrationRequest(object):
         """
-        :ivar a2p_brand_registration_sid: The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`.
-        :ivar messaging_service_sid: The SID of the Messaging Service.
+        :ivar a2p_brand_registration_sid: The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`. This field keeps the legacy Sid name because it carries a legacy Twilio SID (BN prefix) from messaging.twilio.com.
+        :ivar messaging_service_sid: The SID of the Messaging Service. This field keeps the legacy Sid name because it carries a legacy Twilio SID (MG prefix) from messaging.twilio.com.
         :ivar theme_set_id: Theme ID for styling the inquiry form.
-        :ivar use_case_categories: The categories of the messaging use case.
+        :ivar use_case_categories: The categories of the messaging use case. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar use_case_description: A description of the messaging use case.
         :ivar use_case_sample_message1: A sample message for the use case.
         :ivar use_case_sample_message2: A second sample message for the use case.
         :ivar use_case_sample_message3: A third sample message for the use case.
         :ivar use_case_sample_message4: A fourth sample message for the use case.
         :ivar use_case_sample_message5: A fifth sample message for the use case.
-        :ivar use_case_opt_in_types: The opt-in methods for the use case.
+        :ivar use_case_opt_in_types: The opt-in methods for the use case. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar use_case_opt_in_description: A description of the opt-in process.
         :ivar has_embedded_links: Whether messages will contain embedded links.
         :ivar has_embedded_phone: Whether messages will contain embedded phone numbers.
@@ -162,17 +162,17 @@ class A2PCampaignRegistrationList(ListResource):
 
     class TrusthubV1A2pCampaignRegistrationRequest(object):
         """
-        :ivar a2p_brand_registration_sid: The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`.
-        :ivar messaging_service_sid: The SID of the Messaging Service.
+        :ivar a2p_brand_registration_sid: The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`. This field keeps the legacy Sid name because it carries a legacy Twilio SID (BN prefix) from messaging.twilio.com.
+        :ivar messaging_service_sid: The SID of the Messaging Service. This field keeps the legacy Sid name because it carries a legacy Twilio SID (MG prefix) from messaging.twilio.com.
         :ivar theme_set_id: Theme ID for styling the inquiry form.
-        :ivar use_case_categories: The categories of the messaging use case.
+        :ivar use_case_categories: The categories of the messaging use case. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar use_case_description: A description of the messaging use case.
         :ivar use_case_sample_message1: A sample message for the use case.
         :ivar use_case_sample_message2: A second sample message for the use case.
         :ivar use_case_sample_message3: A third sample message for the use case.
         :ivar use_case_sample_message4: A fourth sample message for the use case.
         :ivar use_case_sample_message5: A fifth sample message for the use case.
-        :ivar use_case_opt_in_types: The opt-in methods for the use case.
+        :ivar use_case_opt_in_types: The opt-in methods for the use case. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar use_case_opt_in_description: A description of the opt-in process.
         :ivar has_embedded_links: Whether messages will contain embedded links.
         :ivar has_embedded_phone: Whether messages will contain embedded phone numbers.

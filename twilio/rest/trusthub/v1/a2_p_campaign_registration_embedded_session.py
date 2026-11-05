@@ -60,7 +60,7 @@ class A2PCampaignRegistrationEmbeddedSessionList(ListResource):
         Initialize the A2PCampaignRegistrationEmbeddedSessionList
 
         :param version: Version that contains the resource
-        :param id: The unique identifier for the A2P Campaign Registration. This can be either an A2P Campaign Registration ID (formatted `tri1.us1.account.AC.../registration.BU...`) returned from the Initialize Campaign endpoint, or a Messaging Service SID (`MG...`) for campaigns created outside the embeddable.
+        :param id: The unique identifier for the A2P Campaign Registration. This is the A2P Campaign Registration ID (formatted `tri1.us1.account.AC.../registration.BU...`) returned in the `id` field when the campaign registration was created. For a campaign in FAILED status, use the Messaging Service SID (`MG...`) of the campaign instead.
 
         """
         super().__init__(version)

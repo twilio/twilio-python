@@ -51,6 +51,7 @@ if TYPE_CHECKING:
     from twilio.rest.verify import Verify
     from twilio.rest.video import Video
     from twilio.rest.voice import Voice
+    from twilio.rest.webhooks import Webhooks
     from twilio.rest.wireless import Wireless
     from twilio.rest.api.v2010.account.address import AddressList
     from twilio.rest.api.v2010.account.application import ApplicationList
@@ -164,6 +165,7 @@ class Client(ClientBase):
         self._verify: Optional["Verify"] = None
         self._video: Optional["Video"] = None
         self._voice: Optional["Voice"] = None
+        self._webhooks: Optional["Webhooks"] = None
         self._wireless: Optional["Wireless"] = None
 
     @property
@@ -646,6 +648,19 @@ class Client(ClientBase):
 
             self._voice = Voice(self)
         return self._voice
+
+    @property
+    def webhooks(self) -> "Webhooks":
+        """
+        Access the Webhooks Twilio Domain
+
+        :returns: Webhooks Twilio Domain
+        """
+        if self._webhooks is None:
+            from twilio.rest.webhooks import Webhooks
+
+            self._webhooks = Webhooks(self)
+        return self._webhooks
 
     @property
     def wireless(self) -> "Wireless":

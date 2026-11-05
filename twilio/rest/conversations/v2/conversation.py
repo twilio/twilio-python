@@ -31,6 +31,7 @@ class ConversationInstance(InstanceResource):
         VOICE = "VOICE"
         SMS = "SMS"
         RCS = "RCS"
+        EMAIL = "EMAIL"
         WHATSAPP = "WHATSAPP"
         CHAT = "CHAT"
         VIDEO = "VIDEO"
@@ -55,9 +56,11 @@ class ConversationInstance(InstanceResource):
         UNKNOWN = "UNKNOWN"
 
     """
+    :ivar status_url: URL to poll for operation status.
+    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
     :ivar id: Conversation ID.
     :ivar account_id: Account ID.
-    :ivar configuration_id: Configuration ID.
+    :ivar configuration_id: Configuration ID. Null when the Conversation was created with an inline configuration.
     :ivar status: 
     :ivar name: Conversation name.
     :ivar created_at: Timestamp when this Conversation was created.
@@ -66,8 +69,6 @@ class ConversationInstance(InstanceResource):
     :ivar metadata: Customer-managed key-value pairs. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
     :ivar participants: Participants in this Conversation.
     :ivar action_id: The Action created for the request's `action`, present only on the create response that dispatched one. Poll `GET /v2/Conversations/{ConversationId}/Actions/{ActionId}` for its status. 
-    :ivar status_url: URL to poll for operation status.
-    :ivar related: Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
     """
 
     def __init__(
@@ -75,6 +76,8 @@ class ConversationInstance(InstanceResource):
     ):
         super().__init__(version)
 
+        self.status_url: Optional[str] = payload.get("statusUrl")
+        self.related: Optional[Dict[str, str]] = payload.get("related")
         self.id: Optional[str] = payload.get("id")
         self.account_id: Optional[str] = payload.get("accountId")
         self.configuration_id: Optional[str] = payload.get("configurationId")
@@ -92,8 +95,6 @@ class ConversationInstance(InstanceResource):
         self.metadata: Optional[Dict[str, str]] = payload.get("metadata")
         self.participants: Optional[List[str]] = payload.get("participants")
         self.action_id: Optional[str] = payload.get("actionId")
-        self.status_url: Optional[str] = payload.get("statusUrl")
-        self.related: Optional[Dict[str, str]] = payload.get("related")
 
         # Only set _solution if path params are provided (not None)
         if id is not None:
@@ -870,7 +871,7 @@ class ConversationList(ListResource):
 
     class CreateConversationWithConfigRequest(object):
         """
-        :ivar configuration_id: The ID of an existing configuration.
+        :ivar configuration_id: The ID of an existing configuration. Omit it to define the configuration inline in `configuration`.
         :ivar name: The name of the conversation.
         :ivar configuration:
         :ivar participants: Optional list of Participants to create with the Conversation.
@@ -927,14 +928,45 @@ class ConversationList(ListResource):
 
     class CreateConversationWithConfigRequestConfiguration(object):
         """
+        :ivar conversation_grouping_type: Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+        :ivar memory_store_id: The memory store ID that Conversation Orchestrator uses for profile resolution.
+        :ivar channel_settings: Status timeouts by channel type. Capture rules can only be set on a Configuration.
+        :ivar memory_extraction_enabled: Whether memory extraction is enabled for this Conversation. Without `configurationId`, defaults to false; with it, defaults to the Configuration's value.
         :ivar intelligence_configuration_ids: A list of Conversational Intelligence configuration IDs.
         :ivar trait_extraction_strategy_ids: A list of Trait Extraction Strategy IDs.
         :ivar observation_extraction_strategy_ids: A list of Observation Extraction Strategy IDs.
+        :ivar status_callbacks: The webhook configurations for this Conversation. Overrides the Configuration's own.
         :ivar workflows: The Workflows to associate with this Conversation. Overrides the Configuration's own.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
+            self.conversation_grouping_type: Optional[str] = payload.get(
+                "conversationGroupingType"
+            )
+            self.memory_store_id: Optional[str] = payload.get("memoryStoreId")
+            self.channel_settings: Optional[
+                Dict[
+                    str,
+                    ConversationList.CreateConversationWithConfigRequestConfigurationChannelSettingsValue,
+                ]
+            ] = (
+                {
+                    k: (
+                        ConversationList.CreateConversationWithConfigRequestConfigurationChannelSettingsValue(
+                            v
+                        )
+                        if isinstance(v, dict)
+                        else v
+                    )
+                    for k, v in payload.get("channelSettings").items()
+                }
+                if payload.get("channelSettings") is not None
+                else None
+            )
+            self.memory_extraction_enabled: Optional[bool] = payload.get(
+                "memoryExtractionEnabled"
+            )
             self.intelligence_configuration_ids: Optional[List[str]] = payload.get(
                 "intelligenceConfigurationIds"
             )
@@ -943,6 +975,24 @@ class ConversationList(ListResource):
             )
             self.observation_extraction_strategy_ids: Optional[List[str]] = payload.get(
                 "observationExtractionStrategyIds"
+            )
+            self.status_callbacks: Optional[
+                List[
+                    ConversationList.CreateConversationWithConfigRequestConfigurationStatusCallbacks
+                ]
+            ] = (
+                [
+                    (
+                        ConversationList.CreateConversationWithConfigRequestConfigurationStatusCallbacks(
+                            item
+                        )
+                        if isinstance(item, dict)
+                        else item
+                    )
+                    for item in payload.get("statusCallbacks")
+                ]
+                if payload.get("statusCallbacks") is not None
+                else None
             )
             self.workflows: Optional[List[ConversationList.ConversationWorkflow]] = (
                 [
@@ -959,14 +1009,92 @@ class ConversationList(ListResource):
 
         def to_dict(self):
             return {
+                "conversationGroupingType": self.conversation_grouping_type,
+                "memoryStoreId": self.memory_store_id,
+                "channelSettings": (
+                    {k: v.to_dict() for k, v in self.channel_settings.items()}
+                    if self.channel_settings is not None
+                    else None
+                ),
+                "memoryExtractionEnabled": self.memory_extraction_enabled,
                 "intelligenceConfigurationIds": self.intelligence_configuration_ids,
                 "traitExtractionStrategyIds": self.trait_extraction_strategy_ids,
                 "observationExtractionStrategyIds": self.observation_extraction_strategy_ids,
+                "statusCallbacks": (
+                    [
+                        status_callbacks.to_dict()
+                        for status_callbacks in self.status_callbacks
+                    ]
+                    if self.status_callbacks is not None
+                    else None
+                ),
                 "workflows": (
                     [workflows.to_dict() for workflows in self.workflows]
                     if self.workflows is not None
                     else None
                 ),
+            }
+
+    class CreateConversationWithConfigRequestConfigurationChannelSettingsValue(object):
+        """
+        :ivar status_timeouts:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.status_timeouts: Optional[
+                ConversationList.CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts
+            ] = (
+                ConversationList.CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts(
+                    payload.get("statusTimeouts")
+                )
+                if isinstance(payload.get("statusTimeouts"), dict)
+                else payload.get("statusTimeouts")
+            )
+
+        def to_dict(self):
+            return {
+                "statusTimeouts": (
+                    self.status_timeouts.to_dict()
+                    if self.status_timeouts is not None
+                    else None
+                ),
+            }
+
+    class CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts(
+        object
+    ):
+        """
+        :ivar inactive: Inactivity timeout in minutes.
+        :ivar closed: Close timeout in minutes.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.inactive: Optional[int] = payload.get("inactive")
+            self.closed: Optional[int] = payload.get("closed")
+
+        def to_dict(self):
+            return {
+                "inactive": self.inactive,
+                "closed": self.closed,
+            }
+
+    class CreateConversationWithConfigRequestConfigurationStatusCallbacks(object):
+        """
+        :ivar url: Destination URL for webhooks.
+        :ivar method: HTTP method used to invoke the webhook URL.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.url: Optional[str] = payload.get("url")
+            self.method: Optional[str] = payload.get("method")
+
+        def to_dict(self):
+            return {
+                "url": self.url,
+                "method": self.method,
             }
 
     class CreateConversationWithConfigRequestParticipants(object):

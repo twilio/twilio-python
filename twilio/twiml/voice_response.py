@@ -2965,6 +2965,17 @@ class Connect(TwiML):
         deepgramSmartFormat=None,
         ignoreBackchannel=None,
         events=None,
+        partial_prompt_on_hangup=None,
+        eager_eot_threshold=None,
+        asr_smart_format=None,
+        tts_text_normalization=None,
+        tts_language_text_normalization=None,
+        elevenlabs_language_text_normalization=None,
+        include_in_prompt=None,
+        customer_name=None,
+        application_reconnect=None,
+        echo_prompt_filtering=None,
+        turn_detection=None,
         **kwargs
     ):
         """
@@ -2996,6 +3007,17 @@ class Connect(TwiML):
         :param deepgramSmartFormat: This parameter enables Deepgram's smart formatting feature, which automatically applies punctuation, capitalization, and formatting (e.g. numbers, dates, currency) to transcripts
         :param ignoreBackchannel: This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh") are ignored and will not interrupt the agent while it is speaking.
         :param events: This parameter allows you to enable event subscriptions
+        :param partial_prompt_on_hangup: Whether the in-progress partial transcript should be reported as a prompt when the call hangs up
+        :param eager_eot_threshold: Eager end-of-turn confidence threshold, which fires before the end-of-turn threshold. The value can be between 0.3 and 0.9
+        :param asr_smart_format: Whether smart formatting should be applied to transcripts. Takes precedence over deepgramSmartFormat
+        :param tts_text_normalization: Text normalization for text-to-speech. The value can be auto, on, or off. Takes precedence over elevenlabsTextNormalization
+        :param tts_language_text_normalization: Whether language-specific text normalization should be applied for text-to-speech
+        :param elevenlabs_language_text_normalization: Legacy alias of ttsLanguageTextNormalization
+        :param include_in_prompt: Extra fields to be included in prompt messages. The value can be turn-state or prompt-segments
+        :param customer_name: Customer name sent to Conversations and Conversational Intelligence. Defaults to the caller ID
+        :param application_reconnect: Whether the WebSocket connection to the application should be reconnected if it drops during the call. Defaults to false
+        :param echo_prompt_filtering: Whether transcripts that echo the agent's own text-to-speech should be dropped. Defaults to false
+        :param turn_detection: Whether turn detection should be used to decide when the caller has finished speaking. Defaults to false
         :param kwargs: additional attributes
 
         :returns: <ConversationRelay> element
@@ -3028,6 +3050,17 @@ class Connect(TwiML):
                 deepgramSmartFormat=deepgramSmartFormat,
                 ignoreBackchannel=ignoreBackchannel,
                 events=events,
+                partial_prompt_on_hangup=partial_prompt_on_hangup,
+                eager_eot_threshold=eager_eot_threshold,
+                asr_smart_format=asr_smart_format,
+                tts_text_normalization=tts_text_normalization,
+                tts_language_text_normalization=tts_language_text_normalization,
+                elevenlabs_language_text_normalization=elevenlabs_language_text_normalization,
+                include_in_prompt=include_in_prompt,
+                customer_name=customer_name,
+                application_reconnect=application_reconnect,
+                echo_prompt_filtering=echo_prompt_filtering,
+                turn_detection=turn_detection,
                 **kwargs
             )
         )
@@ -3101,6 +3134,10 @@ class ConversationRelay(TwiML):
         voice=None,
         transcription_provider=None,
         speech_model=None,
+        hints=None,
+        asr_smart_format=None,
+        tts_text_normalization=None,
+        tts_language_text_normalization=None,
         **kwargs
     ):
         """
@@ -3111,6 +3148,10 @@ class ConversationRelay(TwiML):
         :param voice: Voice to be used for text-to-speech of this language
         :param transcription_provider: Provider to be used for transcription of this language
         :param speech_model: Speech model to be used for transcription of this language
+        :param hints: Phrases to help better accuracy in speech recognition of this language
+        :param asr_smart_format: Whether smart formatting should be applied to transcripts of this language
+        :param tts_text_normalization: Text normalization for text-to-speech of this language. The value can be auto, on, or off
+        :param tts_language_text_normalization: Whether language-specific text normalization should be applied for text-to-speech of this language
         :param kwargs: additional attributes
 
         :returns: <Language> element
@@ -3122,6 +3163,10 @@ class ConversationRelay(TwiML):
                 voice=voice,
                 transcription_provider=transcription_provider,
                 speech_model=speech_model,
+                hints=hints,
+                asr_smart_format=asr_smart_format,
+                tts_text_normalization=tts_text_normalization,
+                tts_language_text_normalization=tts_language_text_normalization,
                 **kwargs
             )
         )

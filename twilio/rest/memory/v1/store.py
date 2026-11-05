@@ -14,6 +14,7 @@ r"""
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
@@ -26,16 +27,17 @@ from twilio.base.token_pagination import TokenPagination
 
 class StoreInstance(InstanceResource):
     """
-    :ivar stores: List of Memory Store IDs associated with the Twilio account.
-    :ivar meta:
-    :ivar message:
-    :ivar status_url: URI to check operation status.
     :ivar display_name: Provides a unique and addressable name to be assigned to this Store. This name is assigned by the developer and can be used in addition to the ID. It is intended to be human-readable and unique within the account.
     :ivar description: A human readable description of this resource, up to 128 characters.
     :ivar id: The unique identifier for the Memory Store
     :ivar status: The current status of the Memory Store.  A store begins in the QUEUED state as it is scheduled for processing.  It then moves to PROVISIONING at the beginning of processing. It transitions to ACTIVE once all dependent resources are provisioned, including Conversational Intelligence capabilities.  If there is an issue provisioning resources, the store will move to the FAILED state.
     :ivar intelligence_service_id: The ID of the associated intelligence service that was provisioned for memory extraction.
     :ivar version: The current version number of the Memory Store. Incremented on each successful update.
+    :ivar data_as_of: The time up to which data sent to this Memory Store has been processed by downstream systems. Equals the time the Memory Store was created when no data has been processed yet. Omitted when no value is available. Represents a high water mark for ingested data.
+    :ivar stores: List of Memory Store IDs associated with the Twilio account.
+    :ivar meta:
+    :ivar message:
+    :ivar status_url: URI to check operation status.
     """
 
     def __init__(
@@ -43,10 +45,6 @@ class StoreInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.stores: Optional[List[str]] = payload.get("stores")
-        self.meta: Optional[Meta] = payload.get("meta")
-        self.message: Optional[str] = payload.get("message")
-        self.status_url: Optional[str] = payload.get("statusUrl")
         self.display_name: Optional[str] = payload.get("displayName")
         self.description: Optional[str] = payload.get("description")
         self.id: Optional[str] = payload.get("id")
@@ -55,6 +53,13 @@ class StoreInstance(InstanceResource):
             "intelligenceServiceId"
         )
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
+        self.data_as_of: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("dataAsOf")
+        )
+        self.stores: Optional[List[str]] = payload.get("stores")
+        self.meta: Optional[Meta] = payload.get("meta")
+        self.message: Optional[str] = payload.get("message")
+        self.status_url: Optional[str] = payload.get("statusUrl")
 
         # Only set _solution if path params are provided (not None)
         if store_id is not None:

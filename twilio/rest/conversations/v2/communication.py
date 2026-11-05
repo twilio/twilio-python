@@ -31,6 +31,7 @@ class CommunicationInstance(InstanceResource):
         VOICE = "VOICE"
         SMS = "SMS"
         RCS = "RCS"
+        EMAIL = "EMAIL"
         WHATSAPP = "WHATSAPP"
         CHAT = "CHAT"
         VIDEO = "VIDEO"

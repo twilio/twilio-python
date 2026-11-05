@@ -46,6 +46,7 @@ class ConfigurationInstance(InstanceResource):
     :ivar trait_extraction_strategy_ids: A list of Trait Extraction Strategy IDs.
     :ivar observation_extraction_strategy_ids: A list of Observation Extraction Strategy IDs.
     :ivar memory_extraction_enabled: Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
+    :ivar redaction_configuration_id: The ID of the redaction configuration applied to communications in this configuration's conversations.
     :ivar conversations_v1_bridge: 
     :ivar created_at: Timestamp when this Configuration was created.
     :ivar updated_at: Timestamp when this Configuration was last updated.
@@ -83,6 +84,9 @@ class ConfigurationInstance(InstanceResource):
         )
         self.memory_extraction_enabled: Optional[bool] = payload.get(
             "memoryExtractionEnabled"
+        )
+        self.redaction_configuration_id: Optional[str] = payload.get(
+            "redactionConfigurationId"
         )
         self.conversations_v1_bridge: Optional[ConversationsV2ConversationsV1Bridge] = (
             payload.get("conversationsV1Bridge")

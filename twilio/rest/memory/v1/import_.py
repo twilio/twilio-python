@@ -27,17 +27,19 @@ from twilio.base.token_pagination import TokenPagination
 
 class ImportInstance(InstanceResource):
     """
+    :ivar import_id: ID of the import task.
+    :ivar url: Pre-signed URL to upload the CSV via a single PUT request.
+    :ivar operation_id: The ID of an asynchronous profile domain operation.
+    :ivar created_at: ISO 8601 timestamp when the operation was created.
+    :ivar status_url: URL to query the operation status.
     :ivar status: Current processing status of the import task
     :ivar filename: Original filename of the uploaded CSV
-    :ivar created_at: Timestamp when the import was created
     :ivar updated_at: Timestamp when the import was last updated
     :ivar file_size: Size of the uploaded file in bytes (1 byte to 100 MiB)
     :ivar column_mappings: Mappings of CSV header columns to traits' fields
     :ivar summary:
     :ivar imports:
     :ivar meta:
-    :ivar import_id: ID of the import task.
-    :ivar url: Pre-signed URL to upload the CSV via a single PUT request.
     """
 
     def __init__(
@@ -49,11 +51,15 @@ class ImportInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.status: Optional[str] = payload.get("status")
-        self.filename: Optional[str] = payload.get("filename")
+        self.import_id: Optional[str] = payload.get("importId")
+        self.url: Optional[str] = payload.get("url")
+        self.operation_id: Optional[str] = payload.get("operationId")
         self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("createdAt")
         )
+        self.status_url: Optional[str] = payload.get("statusUrl")
+        self.status: Optional[str] = payload.get("status")
+        self.filename: Optional[str] = payload.get("filename")
         self.updated_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("updatedAt")
         )
@@ -66,8 +72,6 @@ class ImportInstance(InstanceResource):
         )
         self.imports: Optional[List[str]] = payload.get("imports")
         self.meta: Optional[ListProfileImportsV2200ResponseMeta] = payload.get("meta")
-        self.import_id: Optional[str] = payload.get("importId")
-        self.url: Optional[str] = payload.get("url")
 
         # Only set _solution if path params are provided (not None)
         if store_id is not None or import_id is not None:

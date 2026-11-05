@@ -86,6 +86,7 @@ class ContentInstance(InstanceResource):
         :ivar id:
         :ivar code:
         :ivar webview_size:
+        :ivar digitable_line:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -99,6 +100,7 @@ class ContentInstance(InstanceResource):
             self.webview_size: Optional["ContentInstance.WebviewSizeType"] = (
                 payload.get("webview_size")
             )
+            self.digitable_line: Optional[str] = payload.get("digitable_line")
 
         def to_dict(self):
             return {
@@ -109,6 +111,7 @@ class ContentInstance(InstanceResource):
                 "id": self.id,
                 "code": self.code,
                 "webview_size": self.webview_size,
+                "digitable_line": self.digitable_line,
             }
 
     class CarouselAction(object):
@@ -965,6 +968,9 @@ class ContentInstance(InstanceResource):
         QUICK_REPLY = "QUICK_REPLY"
         COPY_CODE = "COPY_CODE"
         VOICE_CALL = "VOICE_CALL"
+        PIX = "PIX"
+        BOLETO = "BOLETO"
+        PAYMENT_LINK = "PAYMENT_LINK"
 
     class CarouselActionType(object):
         URL = "URL"
@@ -1245,6 +1251,7 @@ class ContentContext(InstanceContext):
         :ivar id:
         :ivar code:
         :ivar webview_size:
+        :ivar digitable_line:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1258,6 +1265,7 @@ class ContentContext(InstanceContext):
             self.webview_size: Optional["ContentInstance.WebviewSizeType"] = (
                 payload.get("webview_size")
             )
+            self.digitable_line: Optional[str] = payload.get("digitable_line")
 
         def to_dict(self):
             return {
@@ -1268,6 +1276,7 @@ class ContentContext(InstanceContext):
                 "id": self.id,
                 "code": self.code,
                 "webview_size": self.webview_size,
+                "digitable_line": self.digitable_line,
             }
 
     class CarouselAction(object):
@@ -2496,6 +2505,7 @@ class ContentList(ListResource):
         :ivar id:
         :ivar code:
         :ivar webview_size:
+        :ivar digitable_line:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -2509,6 +2519,7 @@ class ContentList(ListResource):
             self.webview_size: Optional["ContentInstance.WebviewSizeType"] = (
                 payload.get("webview_size")
             )
+            self.digitable_line: Optional[str] = payload.get("digitable_line")
 
         def to_dict(self):
             return {
@@ -2519,6 +2530,7 @@ class ContentList(ListResource):
                 "id": self.id,
                 "code": self.code,
                 "webview_size": self.webview_size,
+                "digitable_line": self.digitable_line,
             }
 
     class CarouselAction(object):
