@@ -15,7 +15,10 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
+from twilio.rest.preview_iam.versionless.account import AccountList
 from twilio.rest.preview_iam.versionless.organization import OrganizationList
+from twilio.rest.preview_iam.versionless.role_assignment import RoleAssignmentList
+from twilio.rest.preview_iam.versionless.user import UserList
 
 
 class Versionless(Version):
@@ -29,11 +32,53 @@ class Versionless(Version):
         super().__init__(domain, "Organizations")
         self._organization: Optional[OrganizationList] = None
 
+    def accounts(self, organization_sid: str, account_id: str = None):
+        """
+        Access the AccountList resource
+
+        :param organization_sid:
+
+        :param account_id: Optional instance ID to directly access AccountContext
+        :returns: AccountList instance if account_id is None, otherwise AccountContext
+        """
+        list_instance = AccountList(self, organization_sid)
+        if account_id is not None:
+            return list_instance(account_id)
+        return list_instance
+
     @property
     def organization(self) -> OrganizationList:
         if self._organization is None:
             self._organization = OrganizationList(self)
         return self._organization
+
+    def role_assignments(self, organization_sid: str, role_assignment_id: str = None):
+        """
+        Access the RoleAssignmentList resource
+
+        :param organization_sid:
+
+        :param role_assignment_id: Optional instance ID to directly access RoleAssignmentContext
+        :returns: RoleAssignmentList instance if role_assignment_id is None, otherwise RoleAssignmentContext
+        """
+        list_instance = RoleAssignmentList(self, organization_sid)
+        if role_assignment_id is not None:
+            return list_instance(role_assignment_id)
+        return list_instance
+
+    def users(self, organization_sid: str, user_id: str = None):
+        """
+        Access the UserList resource
+
+        :param organization_sid:
+
+        :param user_id: Optional instance ID to directly access UserContext
+        :returns: UserList instance if user_id is None, otherwise UserContext
+        """
+        list_instance = UserList(self, organization_sid)
+        if user_id is not None:
+            return list_instance(user_id)
+        return list_instance
 
     def __repr__(self) -> str:
         """

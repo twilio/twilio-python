@@ -30,14 +30,14 @@ class A2PBrandRegistrationInstance(InstanceResource):
         :ivar friendly_name: A human-readable name for the brand registration.
         :ivar notification_email: The email address to receive notifications about the registration.
         :ivar business_name: The legal name of the business.
-        :ivar business_registration_authority: The authority with which the business is registered.
+        :ivar business_registration_authority: The authority with which the business is registered. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar business_registration_number: The business registration number (e.g., EIN, CBN, ACN). Maximum 21 characters.
-        :ivar business_industry: The industry of the business.
+        :ivar business_industry: The industry of the business. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar business_website: The business website URL (must use https://).
-        :ivar business_type: The type of business entity.
+        :ivar business_type: The type of business entity. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar business_stock_symbol: The stock symbol for publicly traded companies.
-        :ivar business_stock_exchange: The stock exchange where the business is listed.
-        :ivar business_tax_exempt_status: Nonprofit/political organization tax-exempt status per the U.S. tax code (e.g. 501c3, 501c1, 527). A value of 527 (political organization) requires a Campaign Verify token in brandExternalVettingToken.
+        :ivar business_stock_exchange: The stock exchange where the business is listed. The value is validated by the service; see the Twilio docs for accepted values.
+        :ivar business_tax_exempt_status: Nonprofit/political organization tax-exempt status per the U.S. tax code (e.g. 501c3, 501c1, 527). A value of 527 (political organization) requires a Campaign Verify token in brandExternalVettingToken. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar brand_external_vetting_token: Campaign Verify token for externally vetted brands.
         :ivar business_street_address: The street address of the business.
         :ivar business_street_address2: Additional street address information.
@@ -182,14 +182,14 @@ class A2PBrandRegistrationList(ListResource):
         :ivar friendly_name: A human-readable name for the brand registration.
         :ivar notification_email: The email address to receive notifications about the registration.
         :ivar business_name: The legal name of the business.
-        :ivar business_registration_authority: The authority with which the business is registered.
+        :ivar business_registration_authority: The authority with which the business is registered. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar business_registration_number: The business registration number (e.g., EIN, CBN, ACN). Maximum 21 characters.
-        :ivar business_industry: The industry of the business.
+        :ivar business_industry: The industry of the business. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar business_website: The business website URL (must use https://).
-        :ivar business_type: The type of business entity.
+        :ivar business_type: The type of business entity. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar business_stock_symbol: The stock symbol for publicly traded companies.
-        :ivar business_stock_exchange: The stock exchange where the business is listed.
-        :ivar business_tax_exempt_status: Nonprofit/political organization tax-exempt status per the U.S. tax code (e.g. 501c3, 501c1, 527). A value of 527 (political organization) requires a Campaign Verify token in brandExternalVettingToken.
+        :ivar business_stock_exchange: The stock exchange where the business is listed. The value is validated by the service; see the Twilio docs for accepted values.
+        :ivar business_tax_exempt_status: Nonprofit/political organization tax-exempt status per the U.S. tax code (e.g. 501c3, 501c1, 527). A value of 527 (political organization) requires a Campaign Verify token in brandExternalVettingToken. The value is validated by the service; see the Twilio docs for accepted values.
         :ivar brand_external_vetting_token: Campaign Verify token for externally vetted brands.
         :ivar business_street_address: The street address of the business.
         :ivar business_street_address2: Additional street address information.

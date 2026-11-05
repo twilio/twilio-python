@@ -13,14 +13,13 @@ r"""
 """
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-from twilio.base.page import Page
 
 
 class UserInstance(InstanceResource):
@@ -150,11 +149,6 @@ class UserInstance(InstanceResource):
         :ivar timezone: User's time zone
         :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
         :ivar meta:
-        :ivar detail: A human-readable description of the error
-        :ivar scim_type: A scimType error code as defined in RFC7644
-        :ivar status: Http status code
-        :ivar code: Twilio-specific error code
-        :ivar more_info: Link to Error Code References
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -185,11 +179,6 @@ class UserInstance(InstanceResource):
                 if isinstance(payload.get("meta"), dict)
                 else payload.get("meta")
             )
-            self.detail: Optional[str] = payload.get("detail")
-            self.scim_type: Optional[str] = payload.get("scimType")
-            self.status: Optional[str] = payload.get("status")
-            self.code: Optional[int] = payload.get("code")
-            self.more_info: Optional[str] = payload.get("moreInfo")
 
         def to_dict(self):
             return {
@@ -208,14 +197,15 @@ class UserInstance(InstanceResource):
                 "timezone": self.timezone,
                 "schemas": self.schemas,
                 "meta": self.meta.to_dict() if self.meta is not None else None,
-                "detail": self.detail,
-                "scimType": self.scim_type,
-                "status": self.status,
-                "code": self.code,
-                "moreInfo": self.more_info,
             }
 
     """
+    :ivar schemas: Schema URIs that define the contents of the error structure
+    :ivar detail: A human-readable description of the error
+    :ivar scim_type: A scimType error code as defined in RFC7644
+    :ivar status: Http status code
+    :ivar code: Twilio-specific error code
+    :ivar more_info: Link to Error Code References
     :ivar id: Unique Twilio user sid
     :ivar external_id: External unique resource id defined by provisioning client
     :ivar user_name: Unique username, MUST be same as primary email address
@@ -225,13 +215,7 @@ class UserInstance(InstanceResource):
     :ivar active: Indicates whether the user is active
     :ivar locale: User's locale
     :ivar timezone: User's time zone
-    :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
     :ivar meta: 
-    :ivar detail: A human-readable description of the error
-    :ivar scim_type: A scimType error code as defined in RFC7644
-    :ivar status: Http status code
-    :ivar code: Twilio-specific error code
-    :ivar more_info: Link to Error Code References
     """
 
     def __init__(
@@ -243,6 +227,12 @@ class UserInstance(InstanceResource):
     ):
         super().__init__(version)
 
+        self.schemas: Optional[List[str]] = payload.get("schemas")
+        self.detail: Optional[str] = payload.get("detail")
+        self.scim_type: Optional[str] = payload.get("scimType")
+        self.status: Optional[str] = payload.get("status")
+        self.code: Optional[int] = payload.get("code")
+        self.more_info: Optional[str] = payload.get("moreInfo")
         self.id: Optional[str] = payload.get("id")
         self.external_id: Optional[str] = payload.get("externalId")
         self.user_name: Optional[str] = payload.get("userName")
@@ -252,13 +242,7 @@ class UserInstance(InstanceResource):
         self.active: Optional[bool] = payload.get("active")
         self.locale: Optional[str] = payload.get("locale")
         self.timezone: Optional[str] = payload.get("timezone")
-        self.schemas: Optional[List[str]] = payload.get("schemas")
         self.meta: Optional[UserList.ScimMeta] = payload.get("meta")
-        self.detail: Optional[str] = payload.get("detail")
-        self.scim_type: Optional[str] = payload.get("scimType")
-        self.status: Optional[str] = payload.get("status")
-        self.code: Optional[int] = payload.get("code")
-        self.more_info: Optional[str] = payload.get("moreInfo")
 
         self._solution = {
             "organization_sid": organization_sid,
@@ -592,11 +576,6 @@ class UserContext(InstanceContext):
         :ivar timezone: User's time zone
         :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
         :ivar meta:
-        :ivar detail: A human-readable description of the error
-        :ivar scim_type: A scimType error code as defined in RFC7644
-        :ivar status: Http status code
-        :ivar code: Twilio-specific error code
-        :ivar more_info: Link to Error Code References
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -627,11 +606,6 @@ class UserContext(InstanceContext):
                 if isinstance(payload.get("meta"), dict)
                 else payload.get("meta")
             )
-            self.detail: Optional[str] = payload.get("detail")
-            self.scim_type: Optional[str] = payload.get("scimType")
-            self.status: Optional[str] = payload.get("status")
-            self.code: Optional[int] = payload.get("code")
-            self.more_info: Optional[str] = payload.get("moreInfo")
 
         def to_dict(self):
             return {
@@ -650,11 +624,6 @@ class UserContext(InstanceContext):
                 "timezone": self.timezone,
                 "schemas": self.schemas,
                 "meta": self.meta.to_dict() if self.meta is not None else None,
-                "detail": self.detail,
-                "scimType": self.scim_type,
-                "status": self.status,
-                "code": self.code,
-                "moreInfo": self.more_info,
             }
 
     def __init__(self, version: Version, organization_sid: str, id: str):
@@ -1142,28 +1111,6 @@ class UserContext(InstanceContext):
         return "<Twilio.PreviewIam.Versionless.UserContext {}>".format(context)
 
 
-class UserPage(Page):
-
-    def get_instance(self, payload: Dict[str, Any]) -> UserInstance:
-        """
-        Build an instance of UserInstance
-
-        :param payload: Payload response from the API
-        """
-
-        return UserInstance(
-            self._version, payload, organization_sid=self._solution["organization_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.PreviewIam.Versionless.UserPage>"
-
-
 class UserList(ListResource):
 
     class ScimEmailAddress(object):
@@ -1291,11 +1238,6 @@ class UserList(ListResource):
         :ivar timezone: User's time zone
         :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
         :ivar meta:
-        :ivar detail: A human-readable description of the error
-        :ivar scim_type: A scimType error code as defined in RFC7644
-        :ivar status: Http status code
-        :ivar code: Twilio-specific error code
-        :ivar more_info: Link to Error Code References
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1326,11 +1268,6 @@ class UserList(ListResource):
                 if isinstance(payload.get("meta"), dict)
                 else payload.get("meta")
             )
-            self.detail: Optional[str] = payload.get("detail")
-            self.scim_type: Optional[str] = payload.get("scimType")
-            self.status: Optional[str] = payload.get("status")
-            self.code: Optional[int] = payload.get("code")
-            self.more_info: Optional[str] = payload.get("moreInfo")
 
         def to_dict(self):
             return {
@@ -1349,11 +1286,6 @@ class UserList(ListResource):
                 "timezone": self.timezone,
                 "schemas": self.schemas,
                 "meta": self.meta.to_dict() if self.meta is not None else None,
-                "detail": self.detail,
-                "scimType": self.scim_type,
-                "status": self.status,
-                "code": self.code,
-                "moreInfo": self.more_info,
             }
 
     def __init__(self, version: Version, organization_sid: str):
@@ -1370,502 +1302,6 @@ class UserList(ListResource):
         self._solution = {
             "organization_sid": organization_sid,
         }
-        self._uri = "/{organization_sid}/scim/Users".format(**self._solution)
-
-    def _create(self, scim_user: ScimUser) -> tuple:
-        """
-        Internal helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-        data = scim_user.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Content-Type"] = "application/scim+json"
-
-        headers["Accept"] = "application/scim+json"
-
-        return self._version.create_with_response_info(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    def create(self, scim_user: ScimUser) -> UserInstance:
-        """
-        Create the UserInstance
-
-        :param scim_user:
-
-        :returns: The created UserInstance
-        """
-        payload, _, _ = self._create(scim_user=scim_user)
-        return UserInstance(
-            self._version, payload, organization_sid=self._solution["organization_sid"]
-        )
-
-    def create_with_http_info(self, scim_user: ScimUser) -> ApiResponse:
-        """
-        Create the UserInstance and return response metadata
-
-        :param scim_user:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = self._create(scim_user=scim_user)
-        instance = UserInstance(
-            self._version, payload, organization_sid=self._solution["organization_sid"]
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    async def _create_async(self, scim_user: ScimUser) -> tuple:
-        """
-        Internal async helper for create operation
-
-        Returns:
-            tuple: (payload, status_code, headers)
-        """
-        data = scim_user.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Content-Type"] = "application/scim+json"
-
-        headers["Accept"] = "application/scim+json"
-
-        return await self._version.create_with_response_info_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-    async def create_async(self, scim_user: ScimUser) -> UserInstance:
-        """
-        Asynchronously create the UserInstance
-
-        :param scim_user:
-
-        :returns: The created UserInstance
-        """
-        payload, _, _ = await self._create_async(scim_user=scim_user)
-        return UserInstance(
-            self._version, payload, organization_sid=self._solution["organization_sid"]
-        )
-
-    async def create_with_http_info_async(self, scim_user: ScimUser) -> ApiResponse:
-        """
-        Asynchronously create the UserInstance and return response metadata
-
-        :param scim_user:
-
-        :returns: ApiResponse with instance, status code, and headers
-        """
-        payload, status_code, headers = await self._create_async(scim_user=scim_user)
-        instance = UserInstance(
-            self._version, payload, organization_sid=self._solution["organization_sid"]
-        )
-        return ApiResponse(data=instance, status_code=status_code, headers=headers)
-
-    def stream(
-        self,
-        filter: Union[str, object] = values.unset,
-        limit: Optional[int] = None,
-        page_size: Optional[int] = None,
-    ) -> Iterator[UserInstance]:
-        """
-        Streams UserInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str filter:
-        :param limit: Upper limit for the number of records to return. stream()
-                      guarantees to never return more than limit.  Default is no limit
-        :param page_size: Number of records to fetch per request, when not set will use
-                          the default value of 50 records.  If no page_size is defined
-                          but a limit is defined, stream() will attempt to read the
-                          limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(filter=filter, page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        filter: Union[str, object] = values.unset,
-        limit: Optional[int] = None,
-        page_size: Optional[int] = None,
-    ) -> AsyncIterator[UserInstance]:
-        """
-        Asynchronously streams UserInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str filter:
-        :param limit: Upper limit for the number of records to return. stream()
-                      guarantees to never return more than limit.  Default is no limit
-        :param page_size: Number of records to fetch per request, when not set will use
-                          the default value of 50 records.  If no page_size is defined
-                          but a limit is defined, stream() will attempt to read the
-                          limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(filter=filter, page_size=limits["page_size"])
-
-        return self._version.stream_async(page, limits["limit"])
-
-    def stream_with_http_info(
-        self,
-        filter: Union[str, object] = values.unset,
-        limit: Optional[int] = None,
-        page_size: Optional[int] = None,
-    ) -> tuple:
-        """
-        Streams UserInstance and returns headers from first page
-
-
-        :param str filter:
-        :param limit: Upper limit for the number of records to return. stream()
-                      guarantees to never return more than limit.  Default is no limit
-        :param page_size: Number of records to fetch per request, when not set will use
-                          the default value of 50 records.  If no page_size is defined
-                          but a limit is defined, stream() will attempt to read the
-                          limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: tuple of (generator, status_code, headers) where generator yields instances
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page_response = self.page_with_http_info(
-            filter=filter, page_size=limits["page_size"]
-        )
-
-        generator = self._version.stream(page_response.data, limits["limit"])
-        return (generator, page_response.status_code, page_response.headers)
-
-    async def stream_with_http_info_async(
-        self,
-        filter: Union[str, object] = values.unset,
-        limit: Optional[int] = None,
-        page_size: Optional[int] = None,
-    ) -> tuple:
-        """
-        Asynchronously streams UserInstance and returns headers from first page
-
-
-        :param str filter:
-        :param limit: Upper limit for the number of records to return. stream()
-                      guarantees to never return more than limit.  Default is no limit
-        :param page_size: Number of records to fetch per request, when not set will use
-                          the default value of 50 records.  If no page_size is defined
-                          but a limit is defined, stream() will attempt to read the
-                          limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: tuple of (generator, status_code, headers) where generator yields instances
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page_response = await self.page_with_http_info_async(
-            filter=filter, page_size=limits["page_size"]
-        )
-
-        generator = self._version.stream_async(page_response.data, limits["limit"])
-        return (generator, page_response.status_code, page_response.headers)
-
-    def list(
-        self,
-        filter: Union[str, object] = values.unset,
-        limit: Optional[int] = None,
-        page_size: Optional[int] = None,
-    ) -> List[UserInstance]:
-        """
-        Lists UserInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str filter:
-        :param limit: Upper limit for the number of records to return. list() guarantees
-                      never to return more than limit.  Default is no limit
-        :param page_size: Number of records to fetch per request, when not set will use
-                          the default value of 50 records.  If no page_size is defined
-                          but a limit is defined, list() will attempt to read the limit
-                          with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: list that will contain up to limit results
-        """
-
-        return list(
-            self.stream(
-                filter=filter,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        filter: Union[str, object] = values.unset,
-        limit: Optional[int] = None,
-        page_size: Optional[int] = None,
-    ) -> List[UserInstance]:
-        """
-        Asynchronously lists UserInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str filter:
-        :param limit: Upper limit for the number of records to return. list() guarantees
-                      never to return more than limit.  Default is no limit
-        :param page_size: Number of records to fetch per request, when not set will use
-                          the default value of 50 records.  If no page_size is defined
-                          but a limit is defined, list() will attempt to read the limit
-                          with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: list that will contain up to limit results
-        """
-
-        return [
-            record
-            async for record in await self.stream_async(
-                filter=filter,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
-
-    def list_with_http_info(
-        self,
-        filter: Union[str, object] = values.unset,
-        limit: Optional[int] = None,
-        page_size: Optional[int] = None,
-    ) -> ApiResponse:
-        """
-        Lists UserInstance and returns headers from first page
-
-
-        :param str filter:
-        :param limit: Upper limit for the number of records to return. list() guarantees
-                      never to return more than limit.  Default is no limit
-        :param page_size: Number of records to fetch per request, when not set will use
-                          the default value of 50 records.  If no page_size is defined
-                          but a limit is defined, list() will attempt to read the limit
-                          with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: ApiResponse with list of instances, status code, and headers
-        """
-        generator, status_code, headers = self.stream_with_http_info(
-            filter=filter,
-            limit=limit,
-            page_size=page_size,
-        )
-        items = list(generator)
-        return ApiResponse(data=items, status_code=status_code, headers=headers)
-
-    async def list_with_http_info_async(
-        self,
-        filter: Union[str, object] = values.unset,
-        limit: Optional[int] = None,
-        page_size: Optional[int] = None,
-    ) -> ApiResponse:
-        """
-        Asynchronously lists UserInstance and returns headers from first page
-
-
-        :param str filter:
-        :param limit: Upper limit for the number of records to return. list() guarantees
-                      never to return more than limit.  Default is no limit
-        :param page_size: Number of records to fetch per request, when not set will use
-                          the default value of 50 records.  If no page_size is defined
-                          but a limit is defined, list() will attempt to read the limit
-                          with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: ApiResponse with list of instances, status code, and headers
-        """
-        generator, status_code, headers = await self.stream_with_http_info_async(
-            filter=filter,
-            limit=limit,
-            page_size=page_size,
-        )
-        items = [record async for record in generator]
-        return ApiResponse(data=items, status_code=status_code, headers=headers)
-
-    def page(
-        self,
-        filter: Union[str, object] = values.unset,
-        page_token: Union[str, object] = values.unset,
-        page_number: Union[int, object] = values.unset,
-        page_size: Union[int, object] = values.unset,
-    ) -> UserPage:
-        """
-        Retrieve a single page of UserInstance records from the API.
-        Request is executed immediately
-
-        :param filter:
-        :param page_token: PageToken provided by the API
-        :param page_number: Page Number, this value is simply for client state
-        :param page_size: Number of records to return, defaults to 50
-
-        :returns: Page of UserInstance
-        """
-        data = values.of(
-            {
-                "filter": filter,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/scim+json"
-
-        response = self._version.page(
-            method="GET", uri=self._uri, params=data, headers=headers
-        )
-        return UserPage(self._version, response, solution=self._solution)
-
-    async def page_async(
-        self,
-        filter: Union[str, object] = values.unset,
-        page_token: Union[str, object] = values.unset,
-        page_number: Union[int, object] = values.unset,
-        page_size: Union[int, object] = values.unset,
-    ) -> UserPage:
-        """
-        Asynchronously retrieve a single page of UserInstance records from the API.
-        Request is executed immediately
-
-        :param filter:
-        :param page_token: PageToken provided by the API
-        :param page_number: Page Number, this value is simply for client state
-        :param page_size: Number of records to return, defaults to 50
-
-        :returns: Page of UserInstance
-        """
-        data = values.of(
-            {
-                "filter": filter,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/scim+json"
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data, headers=headers
-        )
-        return UserPage(self._version, response, solution=self._solution)
-
-    def page_with_http_info(
-        self,
-        filter: Union[str, object] = values.unset,
-        page_token: Union[str, object] = values.unset,
-        page_number: Union[int, object] = values.unset,
-        page_size: Union[int, object] = values.unset,
-    ) -> ApiResponse:
-        """
-        Retrieve a single page with response metadata
-
-
-        :param filter:
-        :param page_token: PageToken provided by the API
-        :param page_number: Page Number, this value is simply for client state
-        :param page_size: Number of records to return, defaults to 50
-
-        :returns: ApiResponse with UserPage, status code, and headers
-        """
-        data = values.of(
-            {
-                "filter": filter,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/scim+json"
-
-        response, status_code, response_headers = self._version.page_with_response_info(
-            method="GET", uri=self._uri, params=data, headers=headers
-        )
-        page = UserPage(self._version, response, solution=self._solution)
-        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
-
-    async def page_with_http_info_async(
-        self,
-        filter: Union[str, object] = values.unset,
-        page_token: Union[str, object] = values.unset,
-        page_number: Union[int, object] = values.unset,
-        page_size: Union[int, object] = values.unset,
-    ) -> ApiResponse:
-        """
-        Asynchronously retrieve a single page with response metadata
-
-
-        :param filter:
-        :param page_token: PageToken provided by the API
-        :param page_number: Page Number, this value is simply for client state
-        :param page_size: Number of records to return, defaults to 50
-
-        :returns: ApiResponse with UserPage, status code, and headers
-        """
-        data = values.of(
-            {
-                "filter": filter,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/scim+json"
-
-        response, status_code, response_headers = (
-            await self._version.page_with_response_info_async(
-                method="GET", uri=self._uri, params=data, headers=headers
-            )
-        )
-        page = UserPage(self._version, response, solution=self._solution)
-        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
-
-    def get_page(self, target_url: str) -> UserPage:
-        """
-        Retrieve a specific page of UserInstance records from the API.
-        Request is executed immediately
-
-        :param target_url: API-generated URL for the requested results page
-
-        :returns: Page of UserInstance
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return UserPage(self._version, response, solution=self._solution)
-
-    async def get_page_async(self, target_url: str) -> UserPage:
-        """
-        Asynchronously retrieve a specific page of UserInstance records from the API.
-        Request is executed immediately
-
-        :param target_url: API-generated URL for the requested results page
-
-        :returns: Page of UserInstance
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return UserPage(self._version, response, solution=self._solution)
 
     def get(self, id: str) -> UserContext:
         """

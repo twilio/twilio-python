@@ -14,8 +14,9 @@ r"""
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any, Dict, List, Optional
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,13 +26,21 @@ from twilio.base.version import Version
 
 class BulkInstance(InstanceResource):
     """
-    :ivar message:
+    :ivar message: Confirmation message for the operation.
+    :ivar operation_id: The ID of an asynchronous profile domain operation.
+    :ivar created_at: ISO 8601 timestamp when the operation was created.
+    :ivar status_url: URL to query the operation status.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], store_id: str):
         super().__init__(version)
 
         self.message: Optional[str] = payload.get("message")
+        self.operation_id: Optional[str] = payload.get("operationId")
+        self.created_at: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("createdAt")
+        )
+        self.status_url: Optional[str] = payload.get("statusUrl")
 
         # Only set _solution if path params are provided (not None)
         if store_id is not None:

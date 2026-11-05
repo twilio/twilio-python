@@ -60,7 +60,7 @@ class A2PBrandRegistrationEmbeddedSessionList(ListResource):
         Initialize the A2PBrandRegistrationEmbeddedSessionList
 
         :param version: Version that contains the resource
-        :param id: The unique identifier for the A2P Brand Registration.
+        :param id: The unique identifier for the A2P Brand Registration, as returned in the `id` field when the brand registration was created.
 
         """
         super().__init__(version)

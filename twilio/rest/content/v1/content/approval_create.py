@@ -28,6 +28,7 @@ class ApprovalCreateInstance(InstanceResource):
         :ivar name: Name of the template.
         :ivar category: A WhatsApp recognized template category.
         :ivar send_ttl_seconds: Time-to-live in seconds for attempting to send a message with this Content
+        :ivar bid_amount: Maximum price per 1,000 message deliveries, expressed in the WABA currency's smallest unit (cents for USD). Only valid for MARKETING templates onboarded to Max Pricing.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -35,12 +36,28 @@ class ApprovalCreateInstance(InstanceResource):
             self.name: Optional[str] = payload.get("name")
             self.category: Optional[str] = payload.get("category")
             self.send_ttl_seconds: Optional[int] = payload.get("send_ttl_seconds")
+            self.bid_amount: Optional[int] = payload.get("bid_amount")
 
         def to_dict(self):
             return {
                 "name": self.name,
                 "category": self.category,
                 "send_ttl_seconds": self.send_ttl_seconds,
+                "bid_amount": self.bid_amount,
+            }
+
+    class ContentApprovalUpdateRequest(object):
+        """
+        :ivar bid_amount: Maximum price per 1,000 message deliveries, expressed in the WABA currency's smallest unit (cents for USD). Only valid for MARKETING templates onboarded to Max Pricing.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.bid_amount: Optional[int] = payload.get("bid_amount")
+
+        def to_dict(self):
+            return {
+                "bid_amount": self.bid_amount,
             }
 
     """
@@ -51,6 +68,7 @@ class ApprovalCreateInstance(InstanceResource):
     :ivar rejection_reason: 
     :ivar allow_category_change: 
     :ivar send_ttl_seconds: Time-to-live in seconds for attempting to send a message with this Content
+    :ivar bid_amount: Maximum price per 1,000 message deliveries, expressed in the WABA currency's smallest unit (cents for USD). Only set for MARKETING templates onboarded to Max Pricing.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], content_sid: str):
@@ -65,6 +83,7 @@ class ApprovalCreateInstance(InstanceResource):
             "allow_category_change"
         )
         self.send_ttl_seconds: Optional[int] = payload.get("send_ttl_seconds")
+        self.bid_amount: Optional[int] = payload.get("bid_amount")
 
         self._solution = {
             "content_sid": content_sid,
@@ -87,6 +106,7 @@ class ApprovalCreateList(ListResource):
         :ivar name: Name of the template.
         :ivar category: A WhatsApp recognized template category.
         :ivar send_ttl_seconds: Time-to-live in seconds for attempting to send a message with this Content
+        :ivar bid_amount: Maximum price per 1,000 message deliveries, expressed in the WABA currency's smallest unit (cents for USD). Only valid for MARKETING templates onboarded to Max Pricing.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -94,12 +114,28 @@ class ApprovalCreateList(ListResource):
             self.name: Optional[str] = payload.get("name")
             self.category: Optional[str] = payload.get("category")
             self.send_ttl_seconds: Optional[int] = payload.get("send_ttl_seconds")
+            self.bid_amount: Optional[int] = payload.get("bid_amount")
 
         def to_dict(self):
             return {
                 "name": self.name,
                 "category": self.category,
                 "send_ttl_seconds": self.send_ttl_seconds,
+                "bid_amount": self.bid_amount,
+            }
+
+    class ContentApprovalUpdateRequest(object):
+        """
+        :ivar bid_amount: Maximum price per 1,000 message deliveries, expressed in the WABA currency's smallest unit (cents for USD). Only valid for MARKETING templates onboarded to Max Pricing.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.bid_amount: Optional[int] = payload.get("bid_amount")
+
+        def to_dict(self):
+            return {
+                "bid_amount": self.bid_amount,
             }
 
     def __init__(self, version: Version, content_sid: str):
@@ -222,6 +258,118 @@ class ApprovalCreateList(ListResource):
         """
         payload, status_code, headers = await self._create_async(
             content_approval_request=content_approval_request
+        )
+        instance = ApprovalCreateInstance(
+            self._version, payload, content_sid=self._solution["content_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self, content_approval_update_request: ContentApprovalUpdateRequest
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = content_approval_update_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="PATCH", uri=self._uri, data=data, headers=headers
+        )
+
+    def update(
+        self, content_approval_update_request: ContentApprovalUpdateRequest
+    ) -> ApprovalCreateInstance:
+        """
+        Update the ApprovalCreateInstance
+
+        :param content_approval_update_request:
+
+        :returns: The updated ApprovalCreateInstance
+        """
+        payload, _, _ = self._update(
+            content_approval_update_request=content_approval_update_request
+        )
+        return ApprovalCreateInstance(
+            self._version, payload, content_sid=self._solution["content_sid"]
+        )
+
+    def update_with_http_info(
+        self, content_approval_update_request: ContentApprovalUpdateRequest
+    ) -> ApiResponse:
+        """
+        Update the ApprovalCreateInstance and return response metadata
+
+        :param content_approval_update_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            content_approval_update_request=content_approval_update_request
+        )
+        instance = ApprovalCreateInstance(
+            self._version, payload, content_sid=self._solution["content_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, content_approval_update_request: ContentApprovalUpdateRequest
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = content_approval_update_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="PATCH", uri=self._uri, data=data, headers=headers
+        )
+
+    async def update_async(
+        self, content_approval_update_request: ContentApprovalUpdateRequest
+    ) -> ApprovalCreateInstance:
+        """
+        Asynchronously update the ApprovalCreateInstance
+
+        :param content_approval_update_request:
+
+        :returns: The updated ApprovalCreateInstance
+        """
+        payload, _, _ = await self._update_async(
+            content_approval_update_request=content_approval_update_request
+        )
+        return ApprovalCreateInstance(
+            self._version, payload, content_sid=self._solution["content_sid"]
+        )
+
+    async def update_with_http_info_async(
+        self, content_approval_update_request: ContentApprovalUpdateRequest
+    ) -> ApiResponse:
+        """
+        Asynchronously update the ApprovalCreateInstance and return response metadata
+
+        :param content_approval_update_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            content_approval_update_request=content_approval_update_request
         )
         instance = ApprovalCreateInstance(
             self._version, payload, content_sid=self._solution["content_sid"]

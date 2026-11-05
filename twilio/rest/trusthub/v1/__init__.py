@@ -91,7 +91,7 @@ class V1(Version):
         """
         Access the A2PBrandRegistrationEmbeddedSessionList resource
 
-        :param id: The unique identifier for the A2P Brand Registration.
+        :param id: The unique identifier for the A2P Brand Registration, as returned in the &#x60;id&#x60; field when the brand registration was created.
 
         :param a2p_brand_registration_embedded_session_id: Optional instance ID to directly access A2PBrandRegistrationEmbeddedSessionContext
         :returns: A2PBrandRegistrationEmbeddedSessionList instance if a2p_brand_registration_embedded_session_id is None, otherwise A2PBrandRegistrationEmbeddedSessionContext
@@ -113,7 +113,7 @@ class V1(Version):
         """
         Access the A2PCampaignRegistrationEmbeddedSessionList resource
 
-        :param id: The unique identifier for the A2P Campaign Registration. This can be either an A2P Campaign Registration ID (formatted &#x60;tri1.us1.account.AC.../registration.BU...&#x60;) returned from the Initialize Campaign endpoint, or a Messaging Service SID (&#x60;MG...&#x60;) for campaigns created outside the embeddable.
+        :param id: The unique identifier for the A2P Campaign Registration. This is the A2P Campaign Registration ID (formatted &#x60;tri1.us1.account.AC.../registration.BU...&#x60;) returned in the &#x60;id&#x60; field when the campaign registration was created. For a campaign in FAILED status, use the Messaging Service SID (&#x60;MG...&#x60;) of the campaign instead.
 
         :param a2p_campaign_registration_embedded_session_id: Optional instance ID to directly access A2PCampaignRegistrationEmbeddedSessionContext
         :returns: A2PCampaignRegistrationEmbeddedSessionList instance if a2p_campaign_registration_embedded_session_id is None, otherwise A2PCampaignRegistrationEmbeddedSessionContext

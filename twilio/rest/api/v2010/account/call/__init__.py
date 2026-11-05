@@ -76,6 +76,7 @@ class CallInstance(InstanceResource):
     :ivar group_sid: The Group SID associated with this call. If no Group is associated with the call, the field is empty.
     :ivar caller_name: The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty.
     :ivar queue_time: The wait time in milliseconds before the call is placed.
+    :ivar stir_verstat: The STIR/SHAKEN verification status of the call, for example `TN-Validation-Passed-A`. Empty if the incoming call had no STIR/SHAKEN information.
     :ivar trunk_sid: The unique identifier of the trunk resource that was used for this call. The field is empty if the call was not made using a SIP trunk or if the call is not terminated.
     :ivar uri: The URI of this resource, relative to `https://api.twilio.com`.
     :ivar subresource_uris: A list of subresources available to this call, identified by their URIs relative to `https://api.twilio.com`.
@@ -121,6 +122,7 @@ class CallInstance(InstanceResource):
         self.group_sid: Optional[str] = payload.get("group_sid")
         self.caller_name: Optional[str] = payload.get("caller_name")
         self.queue_time: Optional[str] = payload.get("queue_time")
+        self.stir_verstat: Optional[str] = payload.get("stir_verstat")
         self.trunk_sid: Optional[str] = payload.get("trunk_sid")
         self.uri: Optional[str] = payload.get("uri")
         self.subresource_uris: Optional[Dict[str, object]] = payload.get(
