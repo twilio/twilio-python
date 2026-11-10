@@ -49,10 +49,23 @@ class TestAsyncHttpClientRequest(aiounittest.AsyncTestCase):
         )
 
         self.session_mock.request.assert_called()
-        auth = self.session_mock.request.call_args.kwargs["auth"]
-        self.assertIsNotNone(auth)
-        self.assertEqual(auth.login, "account_sid")
-        self.assertEqual(auth.password, "auth_token")
+        kwargs = self.session_mock.request.call_args.kwargs
+        try:
+            from aiohttp import encode_basic_auth
+        except ImportError:
+            encode_basic_auth = None
+
+        if encode_basic_auth is not None:
+            self.assertEqual(
+                kwargs["headers"]["Authorization"],
+                encode_basic_auth("account_sid", "auth_token"),
+            )
+            self.assertIsNone(kwargs["auth"])
+        else:
+            auth = kwargs["auth"]
+            self.assertIsNotNone(auth)
+            self.assertEqual(auth.login, "account_sid")
+            self.assertEqual(auth.password, "auth_token")
 
     async def test_invalid_request_timeout_raises_exception(self):
         with self.assertRaises(ValueError):
