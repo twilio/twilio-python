@@ -4,6 +4,7 @@ from typing import Dict, List, MutableMapping, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
 from twilio import __version__
+from twilio.base.exceptions import TwilioException
 from twilio.http import HttpClient
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
@@ -53,6 +54,17 @@ class ClientBase(object):
         """ :type : list[str] """
         self.credential_provider = credential_provider or None
         """ :type : CredentialProvider """
+
+        if (
+            not account_sid
+            and not self.credential_provider
+            and self.username
+            and self.username.startswith("SK")
+        ):
+            raise TwilioException(
+                "The given username indicates an API Key SID, which requires "
+                "your Account SID to be passed via account_sid"
+            )
 
         self.account_sid = account_sid or self.username
         """ :type : str """
