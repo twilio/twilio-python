@@ -266,11 +266,14 @@ client.http_client.logger.setLevel(logging.INFO)
 
 ### Handling Exceptions
 
-Version 8.x of `twilio-python` exports an exception class to help you handle exceptions that are specific to Twilio methods. To use it, import `TwilioRestException` and catch exceptions as follows:
+`TwilioRestException` represents error responses from the Twilio API. Transport
+failures, such as a connection failure or timeout, propagate from the default
+HTTP client as `requests` exceptions instead. Catch them separately:
 
 ```python
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
+from requests.exceptions import RequestException, Timeout
 
 account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 auth_token  = "your_auth_token"
@@ -281,7 +284,41 @@ try:
                                    body="Hello there!")
 except TwilioRestException as e:
   print(e)
+except Timeout as e:
+  print("The request timed out; its outcome may be unknown:", e)
+except RequestException as e:
+  print("The HTTP request failed:", e)
 ```
+
+`requests.exceptions.ConnectionError` and `requests.exceptions.Timeout` are both
+subclasses of `requests.exceptions.RequestException`; neither is a
+`TwilioRestException`. A timeout does not confirm whether the API processed the
+request, so retry only when the operation can safely be repeated.
+
+When using `AsyncTwilioHttpClient` as shown in
+[Asynchronous API Requests](#asynchronous-api-requests), catch `aiohttp.ClientError`
+for client/connection failures and `asyncio.TimeoutError` for timeouts separately
+from `TwilioRestException`:
+
+```python
+import asyncio
+from aiohttp import ClientError
+from twilio.base.exceptions import TwilioRestException
+
+async def send_message(client):
+  try:
+    return await client.messages.create_async(to="+12316851234", from_="+15555555555",
+                                               body="Hello there!")
+  except TwilioRestException as e:
+    print(e)
+  except asyncio.TimeoutError as e:
+    print("The request timed out; its outcome may be unknown:", e)
+  except ClientError as e:
+    print("The asynchronous HTTP request failed:", e)
+```
+
+These exception types describe the default HTTP clients; a custom HTTP client
+may expose different transport exceptions.
 
 ### Generating TwiML
 
