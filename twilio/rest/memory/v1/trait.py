@@ -31,6 +31,7 @@ class TraitInstance(InstanceResource):
     :ivar value: The value of a trait. Can be a string, integer, boolean, or an array of these types (arrays cannot contain nested arrays).
     :ivar trait_group: The trait group name to which this trait belongs.
     :ivar timestamp: The time the trait was created or last updated.
+    :ivar source: Caller-set, descriptive, untrusted provenance metadata. Must follow the {company}/{product}/{version}/* convention. \"twilio\" is a reserved company name, only usable by authenticated internal callers.
     """
 
     def __init__(
@@ -44,6 +45,7 @@ class TraitInstance(InstanceResource):
         self.timestamp: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("timestamp")
         )
+        self.source: Optional[str] = payload.get("source")
 
         # Only set _solution if path params are provided (not None)
         if store_id is not None or profile_id is not None:

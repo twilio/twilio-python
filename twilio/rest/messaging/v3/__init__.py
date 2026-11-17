@@ -15,6 +15,7 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
+from twilio.rest.messaging.v3.message_cost_estimate import MessageCostEstimateList
 from twilio.rest.messaging.v3.typing_indicator import TypingIndicatorList
 
 
@@ -27,7 +28,14 @@ class V3(Version):
         :param domain: The Twilio.messaging domain
         """
         super().__init__(domain, "v3")
+        self._message_cost_estimate: Optional[MessageCostEstimateList] = None
         self._typing_indicator: Optional[TypingIndicatorList] = None
+
+    @property
+    def message_cost_estimate(self) -> MessageCostEstimateList:
+        if self._message_cost_estimate is None:
+            self._message_cost_estimate = MessageCostEstimateList(self)
+        return self._message_cost_estimate
 
     @property
     def typing_indicator(self) -> TypingIndicatorList:

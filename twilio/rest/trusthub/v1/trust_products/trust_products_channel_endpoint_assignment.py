@@ -32,6 +32,10 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
     :ivar channel_endpoint_sid: The SID of an channel endpoint
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar url: The absolute URL of the Identity resource.
+    :ivar code: Twilio-specific error code
+    :ivar message: Error message
+    :ivar more_info: Link to Error Code References
+    :ivar status: HTTP response status code
     """
 
     def __init__(
@@ -52,6 +56,10 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
             payload.get("date_created")
         )
         self.url: Optional[str] = payload.get("url")
+        self.code: Optional[int] = payload.get("code")
+        self.message: Optional[str] = payload.get("message")
+        self.more_info: Optional[str] = payload.get("more_info")
+        self.status: Optional[int] = payload.get("status")
 
         self._solution = {
             "trust_product_sid": trust_product_sid,
@@ -191,6 +199,8 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
 
         headers = values.of({})
 
+        headers["Accept"] = "application/json"
+
         return self._version.delete_with_response_info(
             method="DELETE", uri=self._uri, headers=headers
         )
@@ -224,6 +234,8 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
         """
 
         headers = values.of({})
+
+        headers["Accept"] = "application/json"
 
         return await self._version.delete_with_response_info_async(
             method="DELETE", uri=self._uri, headers=headers

@@ -18,6 +18,7 @@ from twilio.base.domain import Domain
 from twilio.rest.accounts.v1.auth_token_promotion import AuthTokenPromotionList
 from twilio.rest.accounts.v1.bulk_consents import BulkConsentsList
 from twilio.rest.accounts.v1.bulk_contacts import BulkContactsList
+from twilio.rest.accounts.v1.compliance_signals_check import ComplianceSignalsCheckList
 from twilio.rest.accounts.v1.credential import CredentialList
 from twilio.rest.accounts.v1.messaging_geopermissions import MessagingGeopermissionsList
 from twilio.rest.accounts.v1.safelist import SafelistList
@@ -36,6 +37,7 @@ class V1(Version):
         self._auth_token_promotion: Optional[AuthTokenPromotionList] = None
         self._bulk_consents: Optional[BulkConsentsList] = None
         self._bulk_contacts: Optional[BulkContactsList] = None
+        self._compliance_signals_check: Optional[ComplianceSignalsCheckList] = None
         self._credentials: Optional[CredentialList] = None
         self._messaging_geopermissions: Optional[MessagingGeopermissionsList] = None
         self._safelist: Optional[SafelistList] = None
@@ -58,6 +60,12 @@ class V1(Version):
         if self._bulk_contacts is None:
             self._bulk_contacts = BulkContactsList(self)
         return self._bulk_contacts
+
+    @property
+    def compliance_signals_check(self) -> ComplianceSignalsCheckList:
+        if self._compliance_signals_check is None:
+            self._compliance_signals_check = ComplianceSignalsCheckList(self)
+        return self._compliance_signals_check
 
     @property
     def credentials(self) -> CredentialList:

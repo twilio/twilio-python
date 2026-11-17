@@ -697,6 +697,8 @@ class Stop(TwiML):
         hints=None,
         enable_automatic_punctuation=None,
         intelligence_service=None,
+        conversation_id=None,
+        conversation_configuration=None,
         **kwargs
     ):
         """
@@ -716,6 +718,8 @@ class Stop(TwiML):
         :param hints: Hints to be provided to the transcription engine
         :param enable_automatic_punctuation: Enable Automatic Punctuation
         :param intelligence_service: The SID or the unique name of the Intelligence Service to be used
+        :param conversation_id: The ID of the Conversation
+        :param conversation_configuration: The ID or the unique name of the Conversation configuration to be used
         :param kwargs: additional attributes
 
         :returns: <Transcription> element
@@ -736,9 +740,59 @@ class Stop(TwiML):
                 hints=hints,
                 enable_automatic_punctuation=enable_automatic_punctuation,
                 intelligence_service=intelligence_service,
+                conversation_id=conversation_id,
+                conversation_configuration=conversation_configuration,
                 **kwargs
             )
         )
+
+    def media_filter(
+        self, name=None, filter_type=None, model=None, track=None, **kwargs
+    ):
+        """
+        Create a <MediaFilter> element
+
+        :param name: Friendly name given to the Media Filter
+        :param filter_type: Type of filter to be applied to the media
+        :param model: Model used by the media filter
+        :param track: Track to be filtered
+        :param kwargs: additional attributes
+
+        :returns: <MediaFilter> element
+        """
+        return self.nest(
+            MediaFilter(
+                name=name, filter_type=filter_type, model=model, track=track, **kwargs
+            )
+        )
+
+
+class MediaFilter(TwiML):
+    """<MediaFilter> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(MediaFilter, self).__init__(**kwargs)
+        self.name = "MediaFilter"
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
+
+
+class Parameter(TwiML):
+    """<Parameter> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(Parameter, self).__init__(**kwargs)
+        self.name = "Parameter"
 
 
 class Transcription(TwiML):
@@ -771,14 +825,6 @@ class Transcription(TwiML):
         :returns: <Parameter> element
         """
         return self.nest(Parameter(name=name, value=value, **kwargs))
-
-
-class Parameter(TwiML):
-    """<Parameter> TwiML Noun"""
-
-    def __init__(self, **kwargs):
-        super(Parameter, self).__init__(**kwargs)
-        self.name = "Parameter"
 
 
 class Config(TwiML):
@@ -925,6 +971,8 @@ class Start(TwiML):
         hints=None,
         enable_automatic_punctuation=None,
         intelligence_service=None,
+        conversation_id=None,
+        conversation_configuration=None,
         **kwargs
     ):
         """
@@ -944,6 +992,8 @@ class Start(TwiML):
         :param hints: Hints to be provided to the transcription engine
         :param enable_automatic_punctuation: Enable Automatic Punctuation
         :param intelligence_service: The SID or the unique name of the Intelligence Service to be used
+        :param conversation_id: The ID of the Conversation
+        :param conversation_configuration: The ID or the unique name of the Conversation configuration to be used
         :param kwargs: additional attributes
 
         :returns: <Transcription> element
@@ -964,7 +1014,29 @@ class Start(TwiML):
                 hints=hints,
                 enable_automatic_punctuation=enable_automatic_punctuation,
                 intelligence_service=intelligence_service,
+                conversation_id=conversation_id,
+                conversation_configuration=conversation_configuration,
                 **kwargs
+            )
+        )
+
+    def media_filter(
+        self, name=None, filter_type=None, model=None, track=None, **kwargs
+    ):
+        """
+        Create a <MediaFilter> element
+
+        :param name: Friendly name given to the Media Filter
+        :param filter_type: Type of filter to be applied to the media
+        :param model: Model used by the media filter
+        :param track: Track to be filtered
+        :param kwargs: additional attributes
+
+        :returns: <MediaFilter> element
+        """
+        return self.nest(
+            MediaFilter(
+                name=name, filter_type=filter_type, model=model, track=track, **kwargs
             )
         )
 
@@ -2976,6 +3048,8 @@ class Connect(TwiML):
         application_reconnect=None,
         echo_prompt_filtering=None,
         turn_detection=None,
+        conversation_id=None,
+        conversation_configuration=None,
         **kwargs
     ):
         """
@@ -3018,6 +3092,8 @@ class Connect(TwiML):
         :param application_reconnect: Whether the WebSocket connection to the application should be reconnected if it drops during the call. Defaults to false
         :param echo_prompt_filtering: Whether transcripts that echo the agent's own text-to-speech should be dropped. Defaults to false
         :param turn_detection: Whether turn detection should be used to decide when the caller has finished speaking. Defaults to false
+        :param conversation_id: The ID of the Conversation
+        :param conversation_configuration: The ID or the unique name of the Conversation configuration to be used
         :param kwargs: additional attributes
 
         :returns: <ConversationRelay> element
@@ -3061,6 +3137,8 @@ class Connect(TwiML):
                 application_reconnect=application_reconnect,
                 echo_prompt_filtering=echo_prompt_filtering,
                 turn_detection=turn_detection,
+                conversation_id=conversation_id,
+                conversation_configuration=conversation_configuration,
                 **kwargs
             )
         )
