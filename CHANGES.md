@@ -3,6 +3,124 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2026-11-17] Version 9.13.1
+---------------------------
+**Twiml**
+- Add `conversation_id` and `conversation_configuration` attributes to `<ConversationRelay>` and `<Transcription>` nouns
+- Add support for `<MediaFilter>` noun under `<Start>` and `<Stop>` verbs
+
+**Accounts**
+- Enable the Compliance Signals Check API in prod.
+- Add Compliance Signals Check API
+
+**Audiences**
+- ## 2026-11-04
+- **Content updates**:
+- Updated description for `AdminListOperations`
+- Updated description for `AdminListCohorts`
+- Updated description for `AdminListCohortSnapshots`
+- Updated description for `AdminFetchCohortOperation`
+- Updated description for `AdminListSnapshotOperations`
+- Updated description for `AdminListCohortOperations`
+- Updated schema description for `OperationStatus`
+- Added properties to `Cohort`: cohortId
+- Updated schema description for `CohortOperationResult`
+- Updated schema description for `CohortOperation`
+- ## 2026-11-04
+- **Content updates**:
+- Updated description for `ListCohorts`
+- Updated description for `UpdateCohort`
+- Updated description for `DeleteCohort`
+- Updated description for `ListCohortSnapshots`
+- Updated description for `CreateCohortSnapshot`
+- Updated description for `DeleteCohortSnapshot`
+- Updated description for `FetchCohortOperation`
+- Updated schema description for `OperationStatus`
+- Added properties to `Cohort`: cohortId
+- Updated schema description for `CohortOperationResult`
+- ...and 1 more changes
+
+**Destinations**
+- ## 2026-11-10
+- **Content updates**:
+- Updated description for `TriggerReplay`
+- Updated description for `FetchReplayStatus`
+- ## 2026-11-10
+- Minor updates (formatting, metadata)
+
+**Iam**
+- Added the optional clientSid query parameter to GET /v1/Account/AuthorizedApps/list: keeps only the items of one application or agent by the item's client_sid (for an MCP or CLI connection, the agent's registration_sid), an exact match like the one GET /v1/Organization/AuthorizedApps already has. A value that is not an OAuth app SID is a bad request
+- Added the optional app_permissions and allowed_permissions to the response of GET /v1/Organization/AuthorizedApps/{consentSid}, for an OAuth application: what the application is configured for and what the organization allowed it, as the account detail already has. The response is the new iam.v1.organization-consent-detail, iam.v1.consent plus those two fields, so the lists are unchanged. Both are empty arrays for an MCP or CLI connection, whose grant is in sections. Added offered to each of the sections of an MCP or CLI connection: what consent would offer the context now (the pool narrowed by the organization's agent permissions and by what the user who consented holds), worked out when the detail is fetched, so the detail page can show the full set and tick what the mode, read and write grant. It is nullable: empty on a list and when the detail could not read it, null when the service that answered does not return it yet, so the spec can be deployed before the services. GET /v1/Account/AuthorizedApps/{consentSid} returns it too, on the sections of an MCP or CLI connection (iam.v1.account-consent-detail), so any admin of the account sees it, including permissions the consenting user held but did not select
+- Added the CIMD category type (MCP or CLI) to the POST /v1/Organization/AgentsRegistration request, where the Twilio CLI's URL may be registered as CLI only and any other URL as MCP only, and a type left out is taken from the URL and cimd_category to its response, a type query parameter to GET and a type to the PUT /v1/Organization/AgentsRegistration/Permissions request, whose organization and user parts are null for CLI, and CLI to the GET /v1/Account/AuthorizedApps type
+
+**Instrumentation**
+- ## 2026-11-10
+- Synced with the instrumentation Control Plane spec (dev-us1, stage-us1):
+- Replaced `/v1/ControlPlane/EventProducers/{producerId}/EventSchemas` (AdminListEventProducerSchemaAttachments) with `/v1/ControlPlane/EventProducers/{producerId}/EventSchemaAttachments` (AdminListEventSchemaAttachments); items carry `attachmentId` and `eventName`, the list key is `eventSchemaAttachments`
+- Event schemas: `definition { type, eventName, eventProperties }` and typed `eventIdentifiers` replace `name`, `type`, `identifiers` and `properties`; no `deletedAt`
+- Event producers: removed Memory Store `storeIds` and `NO_STORE` readiness
+- `EventSchemaProperty.key` has `minLength: 1`
+- Updated descriptions and transaction tests
+- ## 2026-11-10
+- **Control Plane synced with the events-domain spec after the API review** (`dev-us1`):
+- Schema attachments are their own sub-resource with an `attachmentId`:
+- Replaced `/v1/ControlPlane/EventProducers/{producerId}/EventSchemas` (AttachEventProducerSchemaVersion, ListEventProducerSchemaAttachments) with `/v1/ControlPlane/EventProducers/{producerId}/EventSchemaAttachments` (CreateEventSchemaAttachment, ListEventSchemaAttachments); the list key is `eventSchemaAttachments`
+- Replaced `DELETE /v1/ControlPlane/EventProducers/{producerId}/EventSchemas/{schemaId}/Versions/{version}` (DetachEventProducerSchemaVersion) with `DELETE /v1/ControlPlane/EventProducers/{producerId}/EventSchemaAttachments/{attachmentId}` (DeleteEventSchemaAttachment); an unknown or already-detached id is `404` `550118`
+- Event schemas: the type and its fields move into `definition { type, eventName, eventProperties }` in create and in responses; PatchEventSchema sends any of `description`, `eventIdentifiers` and `definition { eventProperties }`
+- Removed DeleteEventSchema and `deletedAt`; schemas and versions aren't deleted
+- `550106` is returned only by DeleteEventProducer
+- PatchEventSchema: `definition` needs `eventProperties` (`minProperties: 1`); new `400` examples. CreateEventSchema: `eventProperties` on an auto capture schema returns the same `400` message as PatchEventSchema
+- `EventSchemaProperty.key` has `minLength: 1`
+- Replaced the `CustomEventSchemaCreate`, `AutoCaptureEventSchemaCreate`, `CustomEventSchemaUpdate`, `AutoCaptureEventSchemaUpdate` and `EventProducerSchemaAttach*` components with `EventSchemaDefinition`, `CustomEventSchemaDefinition`, `AutoCaptureEventSchemaDefinition`, `EventSchemaUpdateDefinition`, `EventSchemaDefinitionView` and `EventSchemaAttachment*`
+- Updated descriptions, examples and transaction tests
+- ## 2026-11-06
+- **Event ingestion moves to the BehavioralEvents request shape** (`dev-us1`), matching the deployed events-api:
+- Replaced `POST /v1/EventSources/{sourceId}/Batch` (IngestEventBatch) with `POST /v1/EventProducers/{producerId}/BehavioralEvents` (CreateBehavioralEvents); the old path is no longer served
+- The body is `events` (1 to 8 `BehavioralEvent`s, each with `eventId`, `sessionId`, `anonymousId`, `index`, `occurredAt`, `schemaName`, optional `schemaVersion`, `identifiers` and `properties`) instead of `batch`
+- Added the optional `Content-Encoding: gzip` header, the `403` disabled-producer response (`550052`) and the write-key `401` codes (`20401`, `550050`)
+- Removed the now-unused `Event`, `DeviceContext`, `SessionContext`, `InstrumentationContext`, `EventBatchRequest`, `EventBatchResponse` and `EventBatchSuccess` components
+- **Control Plane synced with the events-domain spec** (`dev-us1`):
+- Removed `/v1/ControlPlane/Operations/{operationId}` (FetchControlPlaneOperationStatus, with its `Retry-After` header) and DeleteEventSchemaVersion; every Control Plane operation is synchronous
+- Removed Memory Store: `storeIds` on event producers and `NO_STORE` readiness; readiness is `NO_SCHEMA` or `READY`
+- Event schemas: `name`, `identifiers` and `properties` renamed to `eventName`, `eventIdentifiers` and `eventProperties`; identifiers are `{ key, dataType }` (`STRING` or `NUMBER`), 1 to 5, and are not repeated in `eventProperties`
+- Schema attachments: `schemaName` renamed to `eventName`
+- DeleteEventProducer `409` is `550106` (schema version attached), replacing `550107` (Memory Store attached); DeleteEventSchema no longer returns `550103`; PatchEventSchema `409` adds `550111` for the version limit
+- Updated descriptions, examples and transaction tests
+
+**Knowledge**
+- ## 2026-11-05
+- **Added 3 new path(s)**:
+- `/v2/ControlPlane/KnowledgeMigrations/{accountSid}/FailedRecords` (AdminListKnowledgeMigrationFailedRecords)
+- `/v2/ControlPlane/KnowledgeMigrations/{accountSid}/Retries` (AdminCreateKnowledgeMigrationRetry)
+- `/v2/ControlPlane/KnowledgeMigrations/{accountSid}/Retries/{retryId}` (AdminFetchKnowledgeMigrationRetry)
+
+**Memory**
+- ## 2026-11-09
+- Added `PatchProfileTraits` (`PATCH /v1/Stores/{storeId}/Profiles/{profileId}/Traits`) to create or
+- update up to 100 traits on a profile in one request, optionally recording where each value came from
+- (`source`) and when it was observed (`occurredAt`). Setting a value to `null` removes the trait. The
+- endpoint is hidden from the helper libraries and gated behind the `api.memory.2026Q3` beta feature.
+- `ListProfileTraits` now returns `source` on each trait (behind the `api.memory.2026Q3` beta feature), when one was set.
+- Additive and backwards compatible: existing request and response fields are unchanged.
+- ## 2026-11-06
+- Documented the `409` response on `CreateProfile`, returned when an identifier belongs to a profile
+- that is pending deletion. The `Conflict` response now includes a `Retry-After` header with the
+- number of seconds to wait before retrying.
+
+**Routes**
+- Add `GET`/`POST` `/v3/RcsAgents/{agentId}` to assign and fetch the Inbound Processing Region for RCS agents
+- Set SDK and docs visibility of `GET`/`POST` `/v3/RcsAgents/{agentId}` to `private`, maturity to `preview`
+
+**Segment**
+- ## 2026-11-17
+- Add Warehouse Tool routes under `/v1/Segment/WarehouseTool` (read, run/replay/backfill, feature and schema updates, stop task, SQL sessions)
+- ## 2026-11-11
+- Add Cob routes: `DELETE /v1/Segment/Cob/Records/{Family}/{Name}`, `POST /v1/Segment/Cob/Records`, `POST /v1/Segment/Cob/Records/{Family}/{Name}/Clone`
+
+**Trusthub**
+- Document the 409 (error code 60736) returned by DELETE /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid} and DELETE /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid} when a Branded Calling trust product still depends on the phone number.
+
+
 [2026-11-05] Version 9.13.0
 ---------------------------
 **Library - Chore**
