@@ -2,6 +2,32 @@ import datetime
 import json
 
 from twilio.base import values
+from twilio.base.exceptions import TwilioException
+
+_INVALID_PATH_PARAM_MESSAGE = (
+    "Invalid path parameter: must not be empty, '.', '..' "
+    "or contain '/', '?', '#': {!r}"
+)
+
+
+def validate_path_param(value):
+    """
+    Validate a value that will be interpolated into a URL path segment.
+
+    Rejects values that could change the target endpoint: None, empty,
+    '.', '..', or anything containing '/', '?' or '#'. Non-string values
+    are converted with str().
+
+    :param value: the path parameter value
+    :return: the value as a str, unchanged
+    :raises TwilioException: if the value is not a safe path segment
+    """
+    if value is None:
+        raise TwilioException(_INVALID_PATH_PARAM_MESSAGE.format(value))
+    value = str(value)
+    if value in ("", ".", "..") or "/" in value or "?" in value or "#" in value:
+        raise TwilioException(_INVALID_PATH_PARAM_MESSAGE.format(value))
+    return value
 
 
 def iso8601_date(d):
