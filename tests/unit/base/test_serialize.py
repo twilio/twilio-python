@@ -2,6 +2,7 @@ import datetime
 import unittest
 
 from twilio.base import serialize, values
+from twilio.base.exceptions import TwilioException
 
 
 class Iso8601DateTestCase(unittest.TestCase):
@@ -140,3 +141,23 @@ class MapTestCase(unittest.TestCase):
 
         actual = serialize.map({"some": "val"}, lambda e: e * 2)
         self.assertEqual({"some": "val"}, actual)
+
+
+class ValidatePathParamTestCase(unittest.TestCase):
+    def test_valid_values_returned_unchanged(self):
+        for value in [
+            "FW00000000000000000000000000000000",
+            "+15551234567",
+            "my name.txt",
+            "a..b",
+            ".hidden",
+        ]:
+            self.assertEqual(value, serialize.validate_path_param(value))
+
+    def test_non_string_converted(self):
+        self.assertEqual("123", serialize.validate_path_param(123))
+
+    def test_invalid_values_rejected(self):
+        for value in [None, "", ".", "..", "a/b", "a?b", "a#b", "../x"]:
+            with self.assertRaises(TwilioException, msg=repr(value)):
+                serialize.validate_path_param(value)

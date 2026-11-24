@@ -169,3 +169,35 @@ class ValidationTest(unittest.TestCase):
     def test_header_constants(self):
         assert SIGNATURE_HEADER == "X-Twilio-Signature"
         assert SIGNATURE_SETTINGS_HEADER == "X-Twilio-Webhooks-Signature-Settings"
+
+
+class DuplicateParamTest(unittest.TestCase):
+    def setUp(self):
+        if not settings.configured:
+            settings.configure()
+        self.validator = RequestValidator("12345")
+        self.uri = "https://mycompany.com/myapp.php?foo=1&bar=2"
+        self.signature = self.validator.compute_signature(self.uri, {"Body": "hello"})
+
+    def test_single_value_still_validates(self):
+        assert self.validator.validate(self.uri, {"Body": "hello"}, self.signature)
+        assert self.validator.validate(
+            self.uri, MultiDict([("Body", "hello")]), self.signature
+        )
+
+    def test_duplicate_multidict_is_rejected(self):
+        params = MultiDict([("Body", "hello"), ("Body", "hello")])
+        assert not self.validator.validate(self.uri, params, self.signature)
+
+    def test_duplicate_querydict_is_rejected(self):
+        params = QueryDict("Body=hello&Body=hello")
+        assert not self.validator.validate(self.uri, params, self.signature)
+
+    def test_list_value_is_rejected(self):
+        assert not self.validator.validate(
+            self.uri, {"Body": ["hello", "hello"]}, self.signature
+        )
+        assert not self.validator.validate(
+            self.uri, {"Body": ["hello"]}, self.signature
+        )
+

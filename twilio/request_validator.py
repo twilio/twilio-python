@@ -138,6 +138,29 @@ class RequestValidator(object):
                 # Fallback to a standard dict.
                 return [param_dict[param_name]]
 
+    def has_multi_valued_params(self, params):
+        """Whether any parameter name carries more than one value (duplicates or a list)
+
+        Twilio signs each parameter name once. Duplicate or array-valued parameters can
+        collapse to the same signed string as a single value, so they must not validate.
+        """
+        if not params or isinstance(params, (str, bytes)):
+            return False
+        try:
+            names = list(params)
+        except TypeError:
+            return False
+        for name in names:
+            try:
+                values = self.get_values(params, name)
+            except (KeyError, TypeError):
+                continue
+            if len(values) > 1 or any(
+                isinstance(v, (list, tuple, set, dict)) for v in values
+            ):
+                return True
+        return False
+
     def compute_hash(self, body):
         computed = sha256(body.encode("utf-8")).hexdigest()
 
@@ -178,6 +201,13 @@ class RequestValidator(object):
         if "bodySHA256" in query and isinstance(params, str):
             valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
             params = {}
+
+        if self.has_multi_valued_params(params):
+            logger.warning(
+                "Rejecting webhook with duplicate or array-valued parameters: "
+                "Twilio signs each parameter once."
+            )
+            return False
 
         #  check signature of uri with and without port,
         #  since sig generation on back end is inconsistent
