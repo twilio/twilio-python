@@ -1,3 +1,5 @@
+import asyncio
+
 import aiounittest
 
 from aiohttp import ClientSession
@@ -131,3 +133,59 @@ class TestAsyncHttpClientSession(aiounittest.AsyncTestCase):
         # No session used, responses should be different (not cached)
         self.assertEqual(response_1.content, "response_1")
         self.assertEqual(response_2.content, "response_2")
+
+    async def test_temporary_session_closed_after_request_error(self):
+        self._setup_session_response("unused")
+        session = self.session_constructor_mock.return_value
+        session.request.side_effect = OSError("connection failed")
+        client = AsyncTwilioHttpClient(pool_connections=False)
+
+        with self.assertRaisesRegex(OSError, "connection failed"):
+            await client.request("GET", "https://api.twilio.com")
+
+        session.close.assert_awaited_once()
+
+    async def test_temporary_session_closed_after_body_error(self):
+        self._setup_session_response("unused")
+        session = self.session_constructor_mock.return_value
+        session.request.return_value.text = AsyncMock(
+            side_effect=UnicodeDecodeError("utf-8", b"\xff", 0, 1, "invalid byte")
+        )
+        client = AsyncTwilioHttpClient(pool_connections=False)
+
+        with self.assertRaises(UnicodeDecodeError):
+            await client.request("GET", "https://api.twilio.com")
+
+        session.close.assert_awaited_once()
+
+    async def test_temporary_session_closed_after_cancellation(self):
+        self._setup_session_response("unused")
+        session = self.session_constructor_mock.return_value
+        session.request.side_effect = asyncio.CancelledError()
+        client = AsyncTwilioHttpClient(pool_connections=False)
+
+        with self.assertRaises(asyncio.CancelledError):
+            await client.request("GET", "https://api.twilio.com")
+
+        session.close.assert_awaited_once()
+
+    async def test_pooled_session_preserved_after_request_error(self):
+        self._setup_session_response("unused")
+        session = self.session_constructor_mock.return_value
+        session.request.side_effect = OSError("connection failed")
+        client = AsyncTwilioHttpClient()
+
+        with self.assertRaisesRegex(OSError, "connection failed"):
+            await client.request("GET", "https://api.twilio.com")
+
+        session.close.assert_not_awaited()
+
+    async def test_temporary_session_closed_after_success(self):
+        self._setup_session_response("response")
+        session = self.session_constructor_mock.return_value
+        client = AsyncTwilioHttpClient(pool_connections=False)
+
+        response = await client.request("GET", "https://api.twilio.com")
+
+        self.assertEqual(response.content, "response")
+        session.close.assert_awaited_once()
