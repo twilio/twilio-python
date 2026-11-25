@@ -302,6 +302,10 @@ print(str(r))
 <Response><Say>Welcome to twilio!</Say></Response>
 ```
 
+### Distrusted intermediate certificates
+
+The default HTTP clients refuse TLS connections whose certificate chain contains one of eight intermediate certificates with compromised keys (CVE-2026-111943, the same list Go distrusts as of Go 1.27.3 and 1.26.10). A `requests` session you build yourself doesn't get this check unless you call `mount_distrusted_intermediates_check(session)` from `twilio.http.distrusted_intermediates`. The async client doesn't have the check yet.
+
 ### Other advanced examples
 
 - [Learn how to create your own custom HTTP client](./advanced-examples/custom-http-client.md)

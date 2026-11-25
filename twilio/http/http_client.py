@@ -3,9 +3,12 @@ import logging
 from typing import Dict, Optional, Tuple
 
 from requests import Request, Session, hooks
-from requests.adapters import HTTPAdapter
 
 from twilio.http import HttpClient
+from twilio.http.distrusted_intermediates import (
+    DistrustedIntermediatesAdapter,
+    mount_distrusted_intermediates_check,
+)
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response
 
@@ -39,10 +42,15 @@ class TwilioHttpClient(HttpClient):
         super().__init__(logger, False, timeout)
         self.session = Session() if pool_connections else None
         if self.session and max_retries is not None:
-            self.session.mount("https://", HTTPAdapter(max_retries=max_retries))
+            self.session.mount(
+                "https://", DistrustedIntermediatesAdapter(max_retries=max_retries)
+            )
         elif self.session is not None:
             self.session.mount(
-                "https://", HTTPAdapter(pool_maxsize=min(32, os.cpu_count() + 4))
+                "https://",
+                DistrustedIntermediatesAdapter(
+                    pool_maxsize=min(32, os.cpu_count() + 4)
+                ),
             )
         self.request_hooks = request_hooks or hooks.default_hooks()
         self.proxy = proxy if proxy else {}
@@ -94,7 +102,7 @@ class TwilioHttpClient(HttpClient):
             kwargs["data"] = data
         self.log_request(kwargs)
         self._test_only_last_response = None
-        session = self.session or Session()
+        session = self.session or mount_distrusted_intermediates_check(Session())
         request = Request(**kwargs)
         self._test_only_last_request = TwilioRequest(**kwargs)
 

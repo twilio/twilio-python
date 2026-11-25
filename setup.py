@@ -21,10 +21,14 @@ setup(
     keywords=["twilio", "twiml"],
     python_requires=">=3.7.0",
     install_requires=[
-        "requests >= 2.0.0",
+        "requests >= 2.31.0",
+        # Imported directly by twilio.http.distrusted_intermediates; keeps pip off the old requests that vendored it.
+        "urllib3 >= 1.26",
         "PyJWT >= 2.0.0, < 3.0.0",
         "aiohttp>=3.8.4",
         "aiohttp-retry>=2.8.3",
+        # Python before 3.10 can't read a TLS connection's certificate chain without it.
+        'pyOpenSSL>=23.2.0; python_version < "3.10"',
     ],
     packages=find_packages(exclude=["tests", "tests.*"]),
     include_package_data=True,
