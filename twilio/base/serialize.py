@@ -22,11 +22,15 @@ def iso8601_date(d):
 def iso8601_datetime(d):
     """
     Return a string representation of a date that the Twilio API understands
-    Format is YYYY-MM-DD. Returns None if d is not a string, datetime, or date
+    Format is YYYY-MM-DDTHH:MM:SSZ. Aware datetimes are converted to UTC;
+    naive datetimes retain their existing UTC interpretation. Returns None if d
+    is not a string, datetime, or date.
     """
     if d == values.unset:
         return d
     elif isinstance(d, datetime.datetime) or isinstance(d, datetime.date):
+        if isinstance(d, datetime.datetime) and d.utcoffset() is not None:
+            d = d.astimezone(datetime.timezone.utc)
         return d.strftime("%Y-%m-%dT%H:%M:%SZ")
     elif isinstance(d, str):
         return d
