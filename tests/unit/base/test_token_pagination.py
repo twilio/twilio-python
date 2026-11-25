@@ -1,10 +1,11 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import AsyncMock, Mock
 from tests import IntegrationTestCase
-from tests.holodeck import Request
+from tests.holodeck import AsyncHolodeck, Request
 from twilio.base.exceptions import TwilioException
 from twilio.base.token_pagination import TokenPagination
 from twilio.http.response import Response
+from twilio.rest import Client
 
 
 class MockTokenPaginationPage(TokenPagination):
@@ -635,13 +636,13 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_get_page_async_with_valid_token(self):
         """Test _get_page_async() with a valid token"""
-        self.version.page = Mock(return_value=self.next_response)
+        self.version.page_async = AsyncMock(return_value=self.next_response)
 
         result = await self.page._get_page_async("token_page2")
 
         self.assertIsNotNone(result)
         self.assertIsInstance(result, MockTokenPaginationPage)
-        self.version.page.assert_called_once_with(
+        self.version.page_async.assert_awaited_once_with(
             method="GET",
             uri="/Accounts/ACxxxx/Resources.json",
             params={"pageToken": "token_page2"},
@@ -665,7 +666,7 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_next_page_async(self):
         """Test next_page_async() navigates to next page"""
-        self.version.page = Mock(return_value=self.next_response)
+        self.version.page_async = AsyncMock(return_value=self.next_response)
 
         next_page = await self.page.next_page_async()
 
@@ -704,7 +705,7 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_previous_page_async(self):
         """Test previous_page_async() navigates to previous page"""
-        self.version.page = Mock(return_value=self.prev_response)
+        self.version.page_async = AsyncMock(return_value=self.prev_response)
 
         prev_page = await self.page_with_prev.previous_page_async()
 
@@ -731,18 +732,68 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
             self.solution,
         )
 
-        self.version.page = Mock(return_value=self.next_response)
+        self.version.page_async = AsyncMock(return_value=self.next_response)
 
         # Fetch the next page
         result = await page_with_params._get_page_async("token_page2")
 
         # Verify that the initial params are preserved and pageToken is added
         self.assertIsNotNone(result)
-        self.version.page.assert_called_once_with(
+        self.version.page_async.assert_awaited_once_with(
             method="GET",
             uri="/Accounts/ACxxxx/Resources.json",
             params={"status": "active", "limit": 50, "pageToken": "token_page2"},
         )
+
+
+class TokenPaginationAsyncStreamTest(unittest.IsolatedAsyncioTestCase):
+    """Test async streaming with TokenPagination over an async http client"""
+
+    def setUp(self):
+        self.holodeck = AsyncHolodeck()
+        self.client = Client(
+            username="AC" + "a" * 32,
+            password="AUTHTOKEN",
+            http_client=self.holodeck,
+        )
+        self.holodeck.mock(
+            Response(
+                200,
+                """
+            {
+                "meta": {"key": "records", "pageSize": 2, "nextToken": null},
+                "records": [{"id": 3}]
+            }
+            """,
+            ),
+            Request(
+                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Records.json",
+                params={"pageToken": "token_2"},
+            ),
+        )
+        first_response = Response(
+            200,
+            """
+            {
+                "meta": {"key": "records", "pageSize": 2, "nextToken": "token_2"},
+                "records": [{"id": 1}, {"id": 2}]
+            }
+            """,
+        )
+        self.version = self.client.api.v2010
+        self.page = MockTokenPaginationPage(
+            self.version, first_response, "/Accounts/ACaaaa/Records.json", {}, {}
+        )
+
+    async def test_next_page_async_uses_async_request(self):
+        next_page = await self.page.next_page_async()
+
+        self.assertEqual([r["id"] for r in next_page], [3])
+
+    async def test_stream_async_all_records(self):
+        records = [r async for r in self.version.stream_async(self.page)]
+
+        self.assertEqual([r["id"] for r in records], [1, 2, 3])
 
 
 if __name__ == "__main__":
