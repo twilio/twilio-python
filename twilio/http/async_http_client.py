@@ -1,8 +1,16 @@
 import logging
 from typing import Dict, Optional, Tuple
 
-from aiohttp import BasicAuth, ClientSession
+from aiohttp import ClientSession
 from aiohttp_retry import ExponentialRetry, RetryClient
+
+try:
+    from aiohttp import encode_basic_auth
+except ImportError:
+    encode_basic_auth = None  # type: ignore[misc, assignment]
+
+if encode_basic_auth is None:
+    from aiohttp import BasicAuth
 
 from twilio.http import AsyncHttpClient
 from twilio.http.request import Request as TwilioRequest
@@ -79,16 +87,24 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         if timeout is not None and timeout <= 0:
             raise ValueError(timeout)
 
+        request_headers = dict(headers) if headers is not None else None
         basic_auth = None
         if auth is not None:
-            basic_auth = BasicAuth(login=auth[0], password=auth[1])
+            if encode_basic_auth is not None:
+                if request_headers is None:
+                    request_headers = {}
+                request_headers["Authorization"] = encode_basic_auth(
+                    auth[0], auth[1]
+                )
+            else:
+                basic_auth = BasicAuth(login=auth[0], password=auth[1])
 
         kwargs = {
             "method": method.upper(),
             "url": url,
             "params": params,
             "data": data,
-            "headers": headers,
+            "headers": request_headers,
             "auth": basic_auth,
             "timeout": timeout,
             "allow_redirects": allow_redirects,
