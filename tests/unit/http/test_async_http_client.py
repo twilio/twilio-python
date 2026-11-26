@@ -54,6 +54,34 @@ class TestAsyncHttpClientRequest(aiounittest.AsyncTestCase):
         self.assertEqual(auth.login, "account_sid")
         self.assertEqual(auth.password, "auth_token")
 
+    async def test_request_sends_json_body_for_json_content_type(self):
+        for content_type in ("application/json", "application/scim+json"):
+            with self.subTest(content_type=content_type):
+                await self.client.request(
+                    "POST",
+                    "https://mock.twilio.com",
+                    data={"query": "where is my order", "limit": 5},
+                    headers={"Content-Type": content_type},
+                )
+
+                request_args = self.session_mock.request.call_args.kwargs
+                self.assertEqual(
+                    request_args["json"], {"query": "where is my order", "limit": 5}
+                )
+                self.assertNotIn("data", request_args)
+
+    async def test_request_sends_form_body_by_default(self):
+        await self.client.request(
+            "POST",
+            "https://mock.twilio.com",
+            data={"Body": "hello"},
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
+
+        request_args = self.session_mock.request.call_args.kwargs
+        self.assertEqual(request_args["data"], {"Body": "hello"})
+        self.assertNotIn("json", request_args)
+
     async def test_invalid_request_timeout_raises_exception(self):
         with self.assertRaises(ValueError):
             await self.client.request("doesnt matter", "doesnt matter", timeout=-1)
