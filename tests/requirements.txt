@@ -6,7 +6,7 @@ aiounittest
 flake8
 wheel>=0.22.0
 cryptography
-recommonmark
+myst-parser
 django
 multidict
 pyngrok
