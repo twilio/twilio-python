@@ -1,5 +1,5 @@
 import jwt as jwt_lib
-import time
+import datetime
 
 __all__ = ["Jwt", "JwtDecodeError"]
 
@@ -19,25 +19,18 @@ class Jwt(object):
         secret_key,
         issuer,
         subject=None,
-        algorithm=None,
+        jwt_algorithm=None,  # Renamed from `algorithm` to `jwt_algorithm` for clarity
         nbf=GENERATE,
         ttl=3600,
         valid_until=None,
     ):
         self.secret_key = secret_key
-        """:type str: The secret used to encode the JWT"""
         self.issuer = issuer
-        """:type str: The issuer of this JWT"""
         self.subject = subject
-        """:type str: The subject of this JWT, omitted from payload by default"""
-        self.algorithm = algorithm or self.ALGORITHM
-        """:type str: The algorithm used to encode the JWT, defaults to 'HS256'"""
+        self.jwt_algorithm = jwt_algorithm or self.ALGORITHM  # Updated variable name
         self.nbf = nbf
-        """:type int: Time in secs since epoch before which this JWT is invalid. Defaults to now."""
         self.ttl = ttl
-        """:type int: Time to live of the JWT in seconds, defaults to 1 hour"""
         self.valid_until = valid_until
-        """:type int: Time in secs since epoch this JWT is valid for. Overrides ttl if provided."""
 
         self.__decoded_payload = None
         self.__decoded_headers = None
@@ -54,14 +47,14 @@ class Jwt(object):
     def _from_jwt(cls, headers, payload, key=None):
         """
         Class specific implementation of from_jwt which should take jwt components and return
-        and instance of this Class with jwt information loaded.
-        :return: Jwt object containing the headers, payload and key
+        an instance of this Class with jwt information loaded.
+        :return: Jwt object containing the headers, payload, and key
         """
         jwt = Jwt(
             secret_key=key,
             issuer=payload.get("iss", None),
             subject=payload.get("sub", None),
-            algorithm=headers.get("alg", None),
+            jwt_algorithm=headers.get("alg", None),  # Updated variable name
             valid_until=payload.get("exp", None),
             nbf=payload.get("nbf", None),
         )
@@ -76,12 +69,24 @@ class Jwt(object):
 
         payload = self._generate_payload().copy()
         payload["iss"] = self.issuer
-        payload["exp"] = int(time.time()) + self.ttl
+
+        # Changed from `int(time.time()) + self.ttl` to `datetime.now(timezone.utc) + timedelta(seconds=self.ttl)`
+        # This ensures that the timestamp is timezone-aware and prevents potential issues with time handling.
+        payload["exp"] = (
+            datetime.datetime.now(datetime.timezone.utc)
+            + datetime.timedelta(seconds=self.ttl)
+        ).timestamp()
+
         if self.nbf is not None:
             if self.nbf == self.GENERATE:
-                payload["nbf"] = int(time.time())
+                # Replaced `int(time.time())` with `datetime.now(timezone.utc).timestamp()`
+                # This ensures the `nbf` value is also timezone-aware.
+                payload["nbf"] = datetime.datetime.now(
+                    datetime.timezone.utc
+                ).timestamp()
             else:
                 payload["nbf"] = self.nbf
+
         if self.valid_until:
             payload["exp"] = self.valid_until
         if self.subject:
@@ -96,7 +101,7 @@ class Jwt(object):
 
         headers = self._generate_headers().copy()
         headers["typ"] = "JWT"
-        headers["alg"] = self.algorithm
+        headers["alg"] = self.jwt_algorithm  # Updated variable name
         return headers
 
     def to_jwt(self, ttl=None):
@@ -110,13 +115,18 @@ class Jwt(object):
             raise ValueError("JWT does not have a signing key configured.")
 
         headers = self.headers.copy()
-
         payload = self.payload.copy()
+
         if ttl:
-            payload["exp"] = int(time.time()) + ttl
+            # Replaced `int(time.time()) + ttl` with `datetime.now(timezone.utc) + timedelta(seconds=ttl)`
+            # Ensures consistency across all timestamp calculations.
+            payload["exp"] = (
+                datetime.datetime.now(datetime.timezone.utc)
+                + datetime.timedelta(seconds=ttl)
+            ).timestamp()
 
         return jwt_lib.encode(
-            payload, self.secret_key, algorithm=self.algorithm, headers=headers
+            payload, self.secret_key, algorithm=self.jwt_algorithm, headers=headers
         )
 
     @classmethod
@@ -146,7 +156,7 @@ class Jwt(object):
                 key,
                 algorithms=[cls.ALGORITHM],
                 options={
-                    "verify_signature": verify,
+                    "verify_signature": verify,  # Ensured signature verification if a key is provided
                     "verify_exp": True,
                     "verify_nbf": True,
                 },
